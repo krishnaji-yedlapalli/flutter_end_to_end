@@ -1,0 +1,6 @@
+targets:
+  $default:
+    sources:
+      exclude:
+        - lib/test_driver/runner.dart
+        - lib/tools/**.dart
