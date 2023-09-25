@@ -11,6 +11,7 @@ import 'package:sample_latest/screens/child_routing_school/schools.dart';
 import 'package:sample_latest/screens/child_routing_school/students.dart';
 import 'package:sample_latest/screens/home_screen.dart';
 import 'package:sample_latest/screens/localization.dart';
+import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
 
 GoRouter buildRoute(BuildContext context) {
   return GoRouter(
@@ -35,6 +36,12 @@ GoRouter buildRoute(BuildContext context) {
                 name: 'Localization',
                 builder: (context, state) {
                   return const LocalizationDatePicker();
+                }),
+            GoRoute(
+                path: 'upipayments',
+                name: 'Upi Payments',
+                builder: (context, state) {
+                  return const EasyUpiPayments();
                 }),
           ]),
       GoRoute(

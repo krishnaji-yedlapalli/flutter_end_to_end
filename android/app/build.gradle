@@ -69,4 +69,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "dev.shreyaspatil.EasyUpiPayment:EasyUpiPayment:3.0.3"
+
 }

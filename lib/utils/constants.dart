@@ -1,3 +1,3 @@
 
 
-enum ScreenType {dashboard, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar }
+enum ScreenType {dashboard, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar, upiPayments }

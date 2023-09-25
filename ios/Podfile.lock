@@ -1,20 +1,26 @@
 PODS:
   - Flutter (1.0.0)
+  - upi_pay (1.0.0):
+    - Flutter
   - workmanager (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - upi_pay (from `.symlinks/plugins/upi_pay/ios`)
   - workmanager (from `.symlinks/plugins/workmanager/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  upi_pay:
+    :path: ".symlinks/plugins/upi_pay/ios"
   workmanager:
     :path: ".symlinks/plugins/workmanager/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  upi_pay: 16008b0cbb4d248b895e587661eab2446926c51e
   workmanager: 0afdcf5628bbde6924c21af7836fed07b42e30e6
 
 PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189

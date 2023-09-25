@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/utils/constants.dart';
@@ -11,6 +13,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  late final AppLifecycleListener _lifeCycleListener;
+
+  @override
+  void initState() {
+    _lifeCycleListener = AppLifecycleListener(
+        onStateChange: _onLifeCycleChanged,
+        onDetach: _onDetach,
+        onPause: _onPause,
+        onExitRequested: _onExit
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<(String, ScreenType, {String? des})> screenTypes = [
@@ -18,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ('Schools child routing', ScreenType.fullscreenChildRouting, des : 'This describes the routing'),
       ('Automatci Keep alive', ScreenType.automaticKeepAlive, des : 'This makes the screen alive if we navigated to another tab as well'),
       ('Localization', ScreenType.localizationWithCalendar, des : 'Localization and Internalization was implemented in this'),
+      ('Upi payments', ScreenType.upiPayments, des : 'Make the upi payments'),
     ];
 
     var userName = 'Krishna';
@@ -29,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 6),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2 ),
           itemBuilder: (_, index) => Card(
                 child: InkWell(
                   onTap: () => navigateToDashboard(screenTypes.elementAt(index).$2),
@@ -37,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                        padding: const EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
                       decoration: const BoxDecoration(
-                        gradient:
+                        // gradient:
                         // LinearGradient(colors: [
                         //   Color(0xFF4B72EF),
                         //   Color(0xFF00CCFF),
@@ -49,14 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         // // tileMode: TileMode.clamp
                         // )
 
-                       RadialGradient(colors: [
-                           Color(0xFF4B72EF),
-                           Color(0xFF00CCFF),
-                       ],
-                       radius: 0.7,
-                       focal: Alignment(0.7, 0.7),
-                       stops: [0.2, .7]
-                       )
+                       // RadialGradient(colors: [
+                       //     Color(0xFF4B72EF),
+                       //     Color(0xFF00CCFF),
+                       // ],
+                       // radius: 0.7,
+                       // focal: Alignment(0.7, 0.7),
+                       // stops: [0.2, .7]
+                       // )
                       ),
                       child: Wrap(
                         children: [
@@ -89,6 +106,55 @@ class _HomeScreenState extends State<HomeScreen> {
       case ScreenType.localizationWithCalendar:
         context.go('/home/localization');
         break;
+      case ScreenType.upiPayments:
+        context.go('/home/upipayments');
+        break;
     }
+  }
+
+  _onDetach() => print('on Detach');
+
+  _onPause() => print('on Pause');
+
+  void _onLifeCycleChanged(AppLifecycleState state) {
+    switch(state){
+      case AppLifecycleState.detached:
+      // TODO: Handle this case.
+      case AppLifecycleState.resumed:
+      // TODO: Handle this case.
+      case AppLifecycleState.inactive:
+      // TODO: Handle this case.
+      case AppLifecycleState.hidden:
+      // TODO: Handle this case.
+      case AppLifecycleState.paused:
+      // TODO: Handle this case.
+    }
+  }
+
+  Future<AppExitResponse> _onExit() async {
+    final response = await showDialog<AppExitResponse>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure you want to close app?'),
+        content: const Text('All unsaved date will be lost.'),
+        actions: [
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop(AppExitResponse.cancel);
+            },
+          ),
+          TextButton(
+            child: const Text('Exist the App'),
+            onPressed: () {
+              Navigator.of(context).pop(AppExitResponse.exit);
+            },
+          ),
+        ],
+      ),
+    );
+
+    return response ?? AppExitResponse.exit;
   }
 }
