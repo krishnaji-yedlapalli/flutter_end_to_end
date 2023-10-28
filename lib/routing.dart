@@ -10,11 +10,13 @@ import 'package:sample_latest/screens/child_routing_school/school_details.dart';
 import 'package:sample_latest/screens/child_routing_school/schools.dart';
 import 'package:sample_latest/screens/child_routing_school/students.dart';
 import 'package:sample_latest/screens/home_screen.dart';
+import 'package:sample_latest/screens/isolates/isolate_home.dart';
+import 'package:sample_latest/screens/isolates/isolate_with_compute.dart';
 import 'package:sample_latest/screens/localization.dart';
 import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
+import 'package:sample_latest/widgets/stepper_ui.dart';
 
-GoRouter buildRoute(BuildContext context) {
-  return GoRouter(
+ final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: '/home',
     routes: <RouteBase>[
@@ -43,6 +45,27 @@ GoRouter buildRoute(BuildContext context) {
                 builder: (context, state) {
                   return const EasyUpiPayments();
                 }),
+            GoRoute(
+                path: 'isolates',
+                name: 'Isolates',
+                builder: (context, state) {
+                  return const IsolateHome();
+                },
+            routes: [
+              GoRoute(
+                  path: 'isolateWithWithOutLag',
+                  name: 'Isolates With without Lag',
+                  builder: (context, state) {
+                    return IsolateWithCompute();
+                  }),
+              GoRoute(
+                  path: 'isolateWithSpawn',
+                  name: 'Isolateds With Spwan',
+                  builder: (context, state) {
+                    return const EasyUpiPayments();
+                  }),
+            ]
+            )
           ]),
       GoRoute(
           path: '/schools',
@@ -89,37 +112,16 @@ GoRouter buildRoute(BuildContext context) {
                   return const CallBackShortCutsView();
                 },
               ),
+            ]),
+            StatefulShellBranch(routes: [
+              GoRoute(
+                path: '/dashboard/stepper',
+                name: 'Stepper',
+                builder: (BuildContext context, GoRouterState state) {
+                  return const StepperExampleApp();
+                },
+              ),
             ])
           ])
-      // GoRoute(
-      //   path : '/dashboard',
-      //     builder: ,
-      //     routes: [
-      //       StatefulShellRoute.indexedStack(
-      //           // navigatorKey: shellRouteKey,
-      //           parentNavigatorKey: navigatorKey,
-      //           builder: (context, state, child){
-      //             return DashboardScreen(child);
-      //           },
-      //           branches: [
-      //             GoRoute(
-      //               path: '/cardLayouts',
-      //               name: 'Card Layouts',
-      //               parentNavigatorKey: shellRouteKey,
-      //               builder: (BuildContext context, GoRouterState state) {
-      //                 return const CardsLayout();
-      //               },
-      //             ),
-      //             GoRoute(
-      //               path: '/actionShortcuts',
-      //               name: 'Actio shortcuts',
-      //               parentNavigatorKey: shellRouteKey,
-      //               builder: (BuildContext context, GoRouterState state) {
-      //                 return const CardsLayout();
-      //               },
-      //             ),
-      //           ])
-      //     ])
     ],
   );
-}

@@ -28,6 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _lifeCycleListener.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<(String, ScreenType, {String? des})> screenTypes = [
       ('Dashboard', ScreenType.dashboard, des : 'It contains NestedRouting along with Max widgets convered'),
@@ -35,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ('Automatci Keep alive', ScreenType.automaticKeepAlive, des : 'This makes the screen alive if we navigated to another tab as well'),
       ('Localization', ScreenType.localizationWithCalendar, des : 'Localization and Internalization was implemented in this'),
       ('Upi payments', ScreenType.upiPayments, des : 'Make the upi payments'),
+      ('Isolates', ScreenType.isolates, des : 'To make the app light weight'),
     ];
 
     var userName = 'Krishna';
@@ -46,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2 ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).size.width > 600 ? 6 : 2),
           itemBuilder: (_, index) => Card(
                 child: InkWell(
                   onTap: () => navigateToDashboard(screenTypes.elementAt(index).$2),
@@ -109,7 +116,9 @@ class _HomeScreenState extends State<HomeScreen> {
       case ScreenType.upiPayments:
         context.go('/home/upipayments');
         break;
-    }
+      case ScreenType.isolates:
+        context.go('/home/isolates');
+        break;    }
   }
 
   _onDetach() => print('on Detach');
@@ -137,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: const Text('Are you sure you want to close app?'),
-        content: const Text('All unsaved date will be lost.'),
+        content: const Text('All unsaved data will be lost.'),
         actions: [
           TextButton(
             child: const Text('Cancel'),

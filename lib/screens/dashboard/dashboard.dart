@@ -9,6 +9,7 @@ class DashboardScreen extends StatelessWidget {
   List<(IconData, String)> navigationRails = [
     (Icons.layers_outlined, 'Cards Layout'),
     (Icons.shortcut, 'Call Back Shortcuts'),
+    (Icons.send_time_extension, 'Stepper '),
     (Icons.model_training, 'Physical Model'),
     (Icons.layers_outlined, 'Cards Layout'),
     (Icons.layers_outlined, 'Cards Layout'),
@@ -29,7 +30,6 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildNavigationRail() {
     return NavigationRail(
         elevation: 5,
-
         backgroundColor: Colors.green.withOpacity(0.5),
         // extended: true,
         labelType: NavigationRailLabelType.all,
@@ -38,8 +38,13 @@ class DashboardScreen extends StatelessWidget {
           selectedIndex = index;
           navigationShell.goBranch(index);
         },
-        destinations: navigationRails.map((e) => NavigationRailDestination(icon: Icon(e.$1, ),
-            label: Text(e.$2))).toList(),
+        destinations: navigationRails
+            .map((e) => NavigationRailDestination(
+                icon: Icon(
+                  e.$1,
+                ),
+                label: Text(e.$2)))
+            .toList(),
         selectedIndex: navigationShell.currentIndex);
   }
 }

@@ -40,7 +40,7 @@ dependencies:
   go_router: ^9.0.0
   workmanager: ^0.5.1
   easy_upi_payment:
-  upi_pay: 
+  http:
 #  intl : any
 
 dev_dependencies:
