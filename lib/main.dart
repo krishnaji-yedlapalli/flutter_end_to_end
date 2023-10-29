@@ -44,47 +44,10 @@ class MyApp extends StatelessWidget {
         ),
             child: child ?? Container());
       },
-      theme: ThemeData(
-        brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        appBarTheme: const AppBarTheme(color: Colors.green, shadowColor: Colors.red, elevation: 5, foregroundColor: Colors.white),
-        hoverColor: Colors.orangeAccent,
-
-        /// Icon theme
-        iconTheme: const IconThemeData(
-            color: Colors.orange,
-            fill: 0.0,
-
-            /// fills the space
-            opacity: 1.0,
-            size: 40,
-            weight: 100,
-
-            /// varies from 100 to 700
-            opticalSize: 20,
-
-            /// Optical sizes range from 20dp to 48dp. we can maintain
-            /// the stroke width common while resizing or on increase of the icon size
-            grade: 0 // (For light and dart themes) To make strokes heavier and more emphasized, use positive value grade, such as when representing an active icon state.
-            ),
-
-        /// Card Theme
-        cardTheme: const CardTheme(color: Colors.lightBlueAccent, margin: EdgeInsets.all(16), shadowColor: Colors.green, elevation: 5, surfaceTintColor: Colors.red),
-
-        /// Text Theme data
-        textTheme: TextTheme(
-
-        ),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Color(0X5E1BC2),
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.light,
-      routerConfig: buildRoute(context),
+      theme: CustomTheme.lightThemeData(context),
+      darkTheme: CustomTheme.darkThemeData(),
+      themeMode: ThemeMode.dark,
+      routerConfig: router,
     );
   }
 }

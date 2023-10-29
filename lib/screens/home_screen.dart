@@ -35,13 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<(String, ScreenType, {String? des})> screenTypes = [
-      ('Dashboard', ScreenType.dashboard, des : 'It contains NestedRouting along with Max widgets convered'),
-      ('Schools child routing', ScreenType.fullscreenChildRouting, des : 'This describes the routing'),
-      ('Automatci Keep alive', ScreenType.automaticKeepAlive, des : 'This makes the screen alive if we navigated to another tab as well'),
-      ('Localization', ScreenType.localizationWithCalendar, des : 'Localization and Internalization was implemented in this'),
-      ('Upi payments', ScreenType.upiPayments, des : 'Make the upi payments'),
-      ('Isolates', ScreenType.isolates, des : 'To make the app light weight'),
+    List<(String, ScreenType, IconData, {String? des})> screenTypes = [
+      ('Dashboard', ScreenType.dashboard, Icons.dashboard, des : 'It contains NestedRouting along with Max widgets convered'),
+      ('Schools child routing', ScreenType.fullscreenChildRouting, Icons.school, des : 'This describes the routing'),
+      ('Automatci Keep alive', ScreenType.automaticKeepAlive, Icons.tab, des : 'This makes the screen alive if we navigated to another tab as well'),
+      ('Localization', ScreenType.localizationWithCalendar, Icons.language, des : 'Localization and Internalization was implemented in this'),
+      ('Upi payments', ScreenType.upiPayments, Icons.payment, des : 'Make the upi payments'),
+      ('Isolates', ScreenType.isolates, Icons.memory, des : 'To make the app light weight'),
     ];
 
     var userName = 'Krishna';
@@ -54,13 +54,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: GridView.builder(
           itemCount: screenTypes.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).size.width > 600 ? 6 : 2),
-          itemBuilder: (_, index) => Card(
+          itemBuilder: (_, index) {
+            var screenDetails = screenTypes.elementAt(index);
+            return Card(
                 child: InkWell(
                   onTap: () => navigateToDashboard(screenTypes.elementAt(index).$2),
+                  radius: 15,
                   child: Container(
                        padding: const EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
-                      decoration: const BoxDecoration(
+                      // decoration: const BoxDecoration(
+                      //   borderRadius: BorderRadius.all(Radius.circular(4))
                         // gradient:
                         // LinearGradient(colors: [
                         //   Color(0xFF4B72EF),
@@ -81,21 +85,29 @@ class _HomeScreenState extends State<HomeScreen> {
                        // focal: Alignment(0.7, 0.7),
                        // stops: [0.2, .7]
                        // )
-                      ),
+                      // ),
                       child: Wrap(
+                        runSpacing: 3,
                         children: [
+                          Row(
+                            children: [
+                              Icon(screenDetails.$3),
+                            ],
+                          ),
                           RichText(
                             text: TextSpan(text: 'Title : ',
-                                style:  Theme.of(context).textTheme.labelLarge?.apply(color: Colors.white, fontWeightDelta: 100),
-                                children: [TextSpan(text: screenTypes.elementAt(index).$1, style: Theme.of(context).textTheme.bodyLarge?.apply(color: Colors.cyanAccent))]),
+                                style:  Theme.of(context).textTheme.titleSmall,
+                                children: [TextSpan(text: screenDetails.$1, style: Theme.of(context).textTheme.bodyMedium)]),
                           ),
-                         RichText(    text: TextSpan(text: 'Des : ',
-                             style:  Theme.of(context).textTheme.labelLarge?.apply(color: Colors.white, fontWeightDelta: 100),
-                             children: [TextSpan(text: screenTypes.elementAt(index).des ?? '', style: Theme.of(context).textTheme.bodyLarge?.apply(color: Colors.black))]),)
+                         RichText(softWrap: true, text: TextSpan(text: 'Des : ',
+                             style:  Theme.of(context).textTheme.titleSmall,
+                             children: [TextSpan(text: screenDetails.des ?? '', style: Theme.of(context).textTheme.bodyMedium)]),)
                         ],
                       )),
                 ),
-              )),
+              );
+  }
+          ),
     );
   }
 

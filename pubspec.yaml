@@ -40,6 +40,7 @@ dependencies:
   go_router: ^9.0.0
   workmanager: ^0.5.1
   easy_upi_payment:
+  google_fonts: ^6.1.0
   http:
 #  intl : any
 
