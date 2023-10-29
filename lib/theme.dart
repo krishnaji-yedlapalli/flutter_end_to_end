@@ -70,12 +70,13 @@ class CustomTheme {
                 }
               }),
               shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-              textStyle: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+              textStyle: MaterialStateProperty.all(GoogleFonts.prompt(fontWeight: FontWeight.w600)),
+              foregroundColor : MaterialStateProperty.resolveWith((Set<MaterialState> states) {
                 var style = GoogleFonts.prompt(fontWeight: FontWeight.w600, color: Colors.white);
                 if (states.contains(MaterialState.hovered)) {
-                  return style.apply(color: Colors.green);
+                  return Colors.green;
                 } else {
-                  return style.apply(color: Colors.red);
+                  return Colors.white;
                 }
               }))),
 
