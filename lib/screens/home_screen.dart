@@ -59,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
             return Card(
                 child: InkWell(
                   onTap: () => navigateToDashboard(screenTypes.elementAt(index).$2),
-                  radius: 15,
+                  customBorder: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                  ),
                   child: Container(
                        padding: const EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
