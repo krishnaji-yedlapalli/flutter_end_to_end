@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Flutter End to End',
       locale: Locale('en'),
       // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
       // backButtonDispatcher: () => ,
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       theme: CustomTheme.lightThemeData(context),
       darkTheme: CustomTheme.darkThemeData(),
       themeMode: ThemeMode.light,
-      routerConfig: router,
+      routerConfig: Routing.router,
     );
   }
 }

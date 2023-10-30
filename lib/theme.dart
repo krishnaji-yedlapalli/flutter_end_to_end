@@ -71,7 +71,7 @@ class CustomTheme {
               }),
               shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
               textStyle: MaterialStateProperty.all(GoogleFonts.prompt(fontWeight: FontWeight.w600)),
-              foregroundColor : MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+              foregroundColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
                 var style = GoogleFonts.prompt(fontWeight: FontWeight.w600, color: Colors.white);
                 if (states.contains(MaterialState.hovered)) {
                   return Colors.green;
@@ -79,6 +79,20 @@ class CustomTheme {
                   return Colors.white;
                 }
               }))),
+
+      navigationRailTheme: NavigationRailThemeData(
+        elevation: 5,
+        useIndicator: true,
+        indicatorColor: Colors.orange.shade100,
+        indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        // labelType: NavigationRailLabelType.selected,
+        selectedIconTheme: IconThemeData(
+          color: Colors.orange,
+          weight: 100,
+        ),
+        selectedLabelTextStyle: GoogleFonts.robotoSlab(color: Colors.orange.shade500, fontWeight: FontWeight.bold),
+        unselectedLabelTextStyle: GoogleFonts.robotoSlab(color: Colors.green.shade500),
+      ),
 
       useMaterial3: true,
     );
