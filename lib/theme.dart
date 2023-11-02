@@ -94,6 +94,10 @@ class CustomTheme {
         unselectedLabelTextStyle: GoogleFonts.robotoSlab(color: Colors.green.shade500),
       ),
 
+      dialogTheme: DialogTheme(
+        iconColor: Colors.orange
+      ),
+
       useMaterial3: true,
     );
   }
