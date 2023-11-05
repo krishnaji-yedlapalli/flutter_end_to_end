@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:sample_latest/latest_3.0.dart';
+import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/routing.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,34 +22,43 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter End to End',
-      locale: Locale('en'),
-      // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-      // backButtonDispatcher: () => ,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
+    return MultiProvider(
+      providers : [
+        ChangeNotifierProvider(create: (context) => CommonProvider())
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('es')
-      ],
-      /// text scale factor
-      builder: (BuildContext context, Widget? child){
-        var data = MediaQuery.of(context);
-        return MediaQuery(data:data.copyWith(
-            textScaleFactor : data.textScaleFactor,
-        ),
-            child: child ?? Container());
-      },
-      theme: CustomTheme.lightThemeData(context),
-      darkTheme: CustomTheme.darkThemeData(),
-      themeMode: ThemeMode.light,
-      routerConfig: Routing.router,
+      child: Builder(
+        builder: (context) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter End to End',
+            locale: Locale('en'),
+            // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+            // backButtonDispatcher: () => ,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('es')
+            ],
+            /// text scale factor
+            builder: (BuildContext context, Widget? child){
+              var data = MediaQuery.of(context);
+              return MediaQuery(data:data.copyWith(
+                  textScaleFactor : data.textScaleFactor,
+              ),
+                  child: child ?? Container());
+            },
+            theme: CustomTheme.lightThemeData(context),
+            darkTheme: CustomTheme.darkThemeData(),
+            themeMode: context.watch<CommonProvider>().themeModeType,
+            routerConfig: Routing.router,
+          );
+        }
+      ),
     );
   }
 }

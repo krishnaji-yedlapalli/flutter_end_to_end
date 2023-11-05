@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,8 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var lastName = 'yedlapalli';
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         title: Text(AppLocalizations.of(context)!.helloWorld(lastName, userName)),
+        appBar: AppBar(),
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,

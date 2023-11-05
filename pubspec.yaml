@@ -42,6 +42,8 @@ dependencies:
   easy_upi_payment:
   google_fonts: ^6.1.0
   http:
+  sqflite: ^2.3.0
+  provider:
 #  intl : any
 
 dev_dependencies:

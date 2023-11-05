@@ -5,6 +5,7 @@ class CustomTheme {
   static ThemeData lightThemeData(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
+      fontFamily: GoogleFonts.openSans().fontFamily,
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, background: Colors.white ?? Colors.green.shade50) ?? ColorScheme(brightness: Brightness.light, primary: Colors.green, primaryContainer: Colors.green, secondary: Colors.white, secondaryContainer: Colors.white, background: Colors.white, surface: Colors.green, onBackground: Colors.white, onSurface: Colors.white, onError: Colors.white, onPrimary: Colors.white, onSecondary: Colors.white, error: Colors.red.shade400),
 
       hoverColor: Colors.green.shade200,
@@ -72,13 +73,19 @@ class CustomTheme {
               shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
               textStyle: MaterialStateProperty.all(GoogleFonts.prompt(fontWeight: FontWeight.w600)),
               foregroundColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-                var style = GoogleFonts.prompt(fontWeight: FontWeight.w600, color: Colors.white);
                 if (states.contains(MaterialState.hovered)) {
                   return Colors.green;
                 } else {
                   return Colors.white;
                 }
               }))),
+
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
+            foregroundColor: MaterialStateProperty.all(Colors.white)
+        )
+      ),
 
       navigationRailTheme: NavigationRailThemeData(
         elevation: 5,
