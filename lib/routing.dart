@@ -25,6 +25,7 @@ class Routing {
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: home,
+    errorBuilder: _errorBuilder,
     routes: <RouteBase>[
       GoRoute(
           path: home,
@@ -144,5 +145,9 @@ class Routing {
             ),
           ]),
         ]);
+  }
+
+  static Widget _errorBuilder(BuildContext context, GoRouterState state) {
+    return Container();
   }
 }
