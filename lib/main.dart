@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -6,12 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/latest_3.0.dart';
 import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/routing.dart';
+import 'package:sample_latest/theme.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   runApp(const MyApp());
@@ -70,35 +73,35 @@ class MyApp extends StatelessWidget {
 }
 
 
-@pragma(
-    'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    switch (task) {
-      case 'be.tramckrijte.workmanagerExample.simpleTask':
-        WidgetsFlutterBinding.ensureInitialized();
-        DartPluginRegistrant.ensureInitialized();
-        int i = 0;
-        // while (i < 120) {
-        //   await Future.delayed(Duration(seconds: 2));
-        //   AudioCache audioPlayer = AudioCache(fixedPlayer: AudioPlayer(mode: PlayerMode.MEDIA_PLAYER));
-        //   audioPlayer.play('announcement.mp3');
-        //   i ++;
-        // }
-        // SharedPreferences prefs = await SharedPreferences.getInstance();
-        // await prefs.setInt('getTimeBackground', i+200);
-        // var a = prefs.getInt('getTimeBackground');
-        // print(a);
-        break;
-      case Workmanager.iOSBackgroundTask:
-        print("The iOS background fetch was triggered");
-        // Directory tempDir = await getTemporaryDirectory();
-        // String tempPath = tempDir.path;
-        print(
-            "You can access other plugins in the background, for example Directory.getTemporaryDirectory(): ");
-        break;
-    }
-
-    return Future.value(true);
-  });
-}
+// @pragma(
+//     'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
+// void callbackDispatcher() {
+//   Workmanager().executeTask((task, inputData) async {
+//     switch (task) {
+//       case 'be.tramckrijte.workmanagerExample.simpleTask':
+//         WidgetsFlutterBinding.ensureInitialized();
+//         DartPluginRegistrant.ensureInitialized();
+//         int i = 0;
+//         // while (i < 120) {
+//         //   await Future.delayed(Duration(seconds: 2));
+//         //   AudioCache audioPlayer = AudioCache(fixedPlayer: AudioPlayer(mode: PlayerMode.MEDIA_PLAYER));
+//         //   audioPlayer.play('announcement.mp3');
+//         //   i ++;
+//         // }
+//         // SharedPreferences prefs = await SharedPreferences.getInstance();
+//         // await prefs.setInt('getTimeBackground', i+200);
+//         // var a = prefs.getInt('getTimeBackground');
+//         // print(a);
+//         break;
+//       case Workmanager.iOSBackgroundTask:
+//         print("The iOS background fetch was triggered");
+//         // Directory tempDir = await getTemporaryDirectory();
+//         // String tempPath = tempDir.path;
+//         print(
+//             "You can access other plugins in the background, for example Directory.getTemporaryDirectory(): ");
+//         break;
+//     }
+//
+//     return Future.value(true);
+//   });
+// }
