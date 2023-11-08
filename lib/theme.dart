@@ -112,7 +112,9 @@ class CustomTheme {
   static ThemeData darkThemeData() {
     return ThemeData(
       brightness: Brightness.dark,
-      primaryColor: Color(0X5E1BC2),
+      cardTheme: CardTheme(margin: EdgeInsets.all(16), elevation: 5),
+      appBarTheme: AppBarTheme(elevation: 5),
+
       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       useMaterial3: true,
     );

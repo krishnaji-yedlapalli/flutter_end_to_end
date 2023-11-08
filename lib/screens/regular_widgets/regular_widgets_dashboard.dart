@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -19,12 +22,57 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Commonly Used Widgets'),
+      appBar: CustomAppBar(
+        title:  Text('Commonly Used Widgets'),
+        appBar: AppBar(),
       ),
       body: Row(
         children: [_buildNavigationRail(context), Expanded(child: navigationShell)],
       ),
+    );
+  }
+
+  Widget _buildView() {
+   switch(DeviceConfiguration.resolutionType) {
+     case DeviceResolutionType.mobile:
+
+     case DeviceResolutionType.tab:
+
+     case DeviceResolutionType.desktop:
+
+   }
+
+   return switch(DeviceConfiguration.resolutionType) {
+   DeviceResolutionType.mobile => _buildPortraitListView(),
+   DeviceResolutionType.tab when DeviceConfiguration.isPortrait => _buildLandScapeListView(),
+   DeviceResolutionType.tab when !DeviceConfiguration.isPortrait => _buildLandScapeListView(),
+    _ => Container()
+  };
+
+   return Container();
+  }
+
+
+  Widget _buildPortraitListView() {
+    return ListView.builder(
+        itemCount: navigationRails.length,
+        itemBuilder: (context, index) => ListTile());
+  }
+
+  Widget _buildWebView(BuildContext context) {
+    return Row(
+      children: [_buildNavigationRail(context), Expanded(child: navigationShell)],
+    );
+  }
+
+  Widget _buildLandScapeListView() {
+    return Row(
+      children: [
+        ListView.builder(
+          itemCount: navigationRails.length,
+          itemBuilder: (context, index) => ListTile()),
+        Expanded(child: SizedBox())
+    ]
     );
   }
 

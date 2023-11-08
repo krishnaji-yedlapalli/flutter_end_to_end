@@ -74,30 +74,7 @@ class Routing {
                 ]
             )
           ]),
-      GoRoute(
-          path: '/schools',
-          name: 'schools',
-          builder: (BuildContext context, GoRouterState state) {
-            return const Schools();
-          },
-          routes: [
-            GoRoute(
-                path: 'schoolDetails',
-                name: 'schoolDetails',
-                builder: (BuildContext context, GoRouterState state) {
-                  return SchoolDetails((state.queryParameters['name'], state.queryParameters['address'], int.parse(state.queryParameters['pincode'] ?? '0'))
-                  as(String, String, int)
-                  );
-                },
-                routes: [
-                  GoRoute(
-                      path: 'students',
-                      name: 'students',
-                      builder: (context, state) {
-                        return Students();
-                      })
-                ]),
-          ]),
+      schollRoute(),
       dashboardRoute()
     ],
   );
@@ -144,6 +121,33 @@ class Routing {
               },
             ),
           ]),
+        ]);
+  }
+
+  static GoRoute schollRoute() {
+    return  GoRoute(
+        path: '/schools',
+        name: 'schools',
+        builder: (BuildContext context, GoRouterState state) {
+          return const Schools();
+        },
+        routes: [
+          GoRoute(
+              path: 'schoolDetails',
+              name: 'schoolDetails',
+              builder: (BuildContext context, GoRouterState state) {
+                return SchoolDetails((state.queryParameters['name'], state.queryParameters['address'], int.parse(state.queryParameters['pincode'] ?? '0'))
+                as(String, String, int)
+                );
+              },
+              routes: [
+                GoRoute(
+                    path: 'students',
+                    name: 'students',
+                    builder: (context, state) {
+                      return Students();
+                    })
+              ]),
         ]);
   }
 

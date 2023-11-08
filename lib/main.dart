@@ -13,6 +13,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   Dart3Features('krishna', 'yedlapalli');
+  DeviceConfiguration.initiate();
   runApp(const MyApp());
 }
 
@@ -28,34 +29,39 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter End to End',
-            locale: Locale('en'),
-            // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-            // backButtonDispatcher: () => ,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('es')
-            ],
-            /// text scale factor
-            builder: (BuildContext context, Widget? child){
-              var data = MediaQuery.of(context);
-              return MediaQuery(data:data.copyWith(
-                  textScaleFactor : data.textScaleFactor,
-              ),
-                  child: child ?? Container());
-            },
-            theme: CustomTheme.lightThemeData(context),
-            darkTheme: CustomTheme.darkThemeData(),
-            themeMode: context.watch<CommonProvider>().themeModeType,
-            routerConfig: Routing.router,
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              DeviceConfiguration.updateDeviceResolutionAndOrientation(context, orientation);
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter End to End',
+                locale: Locale('en'),
+                // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                // backButtonDispatcher: () => ,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('es')
+                ],
+                /// text scale factor
+                builder: (BuildContext context, Widget? child){
+                  var data = MediaQuery.of(context);
+                  return MediaQuery(data:data.copyWith(
+                      textScaleFactor : data.textScaleFactor,
+                  ),
+                      child: child ?? Container());
+                },
+                theme: CustomTheme.lightThemeData(context),
+                darkTheme: CustomTheme.darkThemeData(),
+                themeMode: context.watch<CommonProvider>().themeModeType,
+                routerConfig: Routing.router,
+              );
+            }
           );
         }
       ),
