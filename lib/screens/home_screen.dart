@@ -52,12 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text(AppLocalizations.of(context)!.helloWorld(lastName, userName)),
+        title: Text(AppLocalizations.of(context)!.helloWorld('', '')),
         appBar: AppBar(),
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: DeviceConfiguration.isMobileResolution == DeviceResolutionType.mobile  ? 2 : 6),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: DeviceConfiguration.isMobileResolution  ? 2 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
             return Card(
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
   navigateToDashboard(ScreenType type) {
     switch (type) {
       case ScreenType.dashboard:
-        context.go('/dashboard/cardLayouts');
+        context.go('/dashboard/materialComponents');
         break;
       case ScreenType.fullscreenChildRouting:
         context.go('/schools');

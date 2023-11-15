@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
+import 'package:sample_latest/screens/regular_widgets/material_components.dart';
 import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
 import 'package:sample_latest/screens/regular_widgets/regular_widgets_dashboard.dart';
 import 'package:sample_latest/global_variables.dart';
@@ -85,6 +87,24 @@ class Routing {
           return RegularlyUsedWidgetsDashboard(navigationShell);
         },
         branches: [
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/dashboard/materialComponents',
+              name: 'Material Components',
+              builder: (BuildContext context, GoRouterState state) {
+                return const MaterialComponents();
+              },
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/dashboard/cupertinoComponents',
+              name: 'Cupertino Components',
+              builder: (BuildContext context, GoRouterState state) {
+                return const CupertinoComponents();
+              },
+            ),
+          ]),
           StatefulShellBranch(routes: [
             GoRoute(
               path: '/dashboard/dialogs',
