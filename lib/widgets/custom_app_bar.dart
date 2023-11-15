@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/provider/common_provider.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-
   final AppBar appBar;
   final Widget? title;
 
@@ -14,9 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: title,
-      actions: [
-        TextButton.icon(onPressed: context.read<CommonProvider>().onChangeOfTheme, icon:  Icon(context.watch<CommonProvider>().isLightTheme ? Icons.dark_mode : Icons.light_mode), label: Text(context.watch<CommonProvider>().isLightTheme ? 'Dark Theme' : 'Light Theme', style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)))
-      ],
+      actions: [TextButton.icon(onPressed: context.read<CommonProvider>().onChangeOfTheme, icon: Icon(context.watch<CommonProvider>().isLightTheme ? Icons.dark_mode : Icons.light_mode), label: DeviceConfiguration.isMobileResolution ? const Text('') : Text(context.watch<CommonProvider>().isLightTheme ? 'Dark Theme' : 'Light Theme', style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)))],
     );
   }
   

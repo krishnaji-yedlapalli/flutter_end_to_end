@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/utils/enums.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -50,12 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text(AppLocalizations.of(context)!.helloWorld(lastName, userName)),
+        title: Text(AppLocalizations.of(context)!.helloWorld('', '')),
         appBar: AppBar(),
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).size.width > 600 ? 6 : 2),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: DeviceConfiguration.isMobileResolution  ? 2 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
             return Card(
@@ -118,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
   navigateToDashboard(ScreenType type) {
     switch (type) {
       case ScreenType.dashboard:
-        context.go('/dashboard/cardLayouts');
+        context.go('/dashboard/materialComponents');
         break;
       case ScreenType.fullscreenChildRouting:
         context.go('/schools');

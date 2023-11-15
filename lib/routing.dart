@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
+import 'package:sample_latest/screens/regular_widgets/material_components.dart';
 import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
 import 'package:sample_latest/screens/regular_widgets/regular_widgets_dashboard.dart';
 import 'package:sample_latest/global_variables.dart';
@@ -74,30 +76,7 @@ class Routing {
                 ]
             )
           ]),
-      GoRoute(
-          path: '/schools',
-          name: 'schools',
-          builder: (BuildContext context, GoRouterState state) {
-            return const Schools();
-          },
-          routes: [
-            GoRoute(
-                path: 'schoolDetails',
-                name: 'schoolDetails',
-                builder: (BuildContext context, GoRouterState state) {
-                  return SchoolDetails((state.queryParameters['name'], state.queryParameters['address'], int.parse(state.queryParameters['pincode'] ?? '0'))
-                  as(String, String, int)
-                  );
-                },
-                routes: [
-                  GoRoute(
-                      path: 'students',
-                      name: 'students',
-                      builder: (context, state) {
-                        return Students();
-                      })
-                ]),
-          ]),
+      schollRoute(),
       dashboardRoute()
     ],
   );
@@ -108,6 +87,24 @@ class Routing {
           return RegularlyUsedWidgetsDashboard(navigationShell);
         },
         branches: [
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/dashboard/materialComponents',
+              name: 'Material Components',
+              builder: (BuildContext context, GoRouterState state) {
+                return const MaterialComponents();
+              },
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/dashboard/cupertinoComponents',
+              name: 'Cupertino Components',
+              builder: (BuildContext context, GoRouterState state) {
+                return const CupertinoComponents();
+              },
+            ),
+          ]),
           StatefulShellBranch(routes: [
             GoRoute(
               path: '/dashboard/dialogs',
@@ -144,6 +141,33 @@ class Routing {
               },
             ),
           ]),
+        ]);
+  }
+
+  static GoRoute schollRoute() {
+    return  GoRoute(
+        path: '/schools',
+        name: 'schools',
+        builder: (BuildContext context, GoRouterState state) {
+          return const Schools();
+        },
+        routes: [
+          GoRoute(
+              path: 'schoolDetails',
+              name: 'schoolDetails',
+              builder: (BuildContext context, GoRouterState state) {
+                return SchoolDetails((state.queryParameters['name'], state.queryParameters['address'], int.parse(state.queryParameters['pincode'] ?? '0'))
+                as(String, String, int)
+                );
+              },
+              routes: [
+                GoRoute(
+                    path: 'students',
+                    name: 'students',
+                    builder: (context, state) {
+                      return Students();
+                    })
+              ]),
         ]);
   }
 

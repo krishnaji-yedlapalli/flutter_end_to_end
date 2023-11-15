@@ -112,7 +112,22 @@ class CustomTheme {
   static ThemeData darkThemeData() {
     return ThemeData(
       brightness: Brightness.dark,
-      primaryColor: Color(0X5E1BC2),
+      cardTheme: CardTheme(margin: EdgeInsets.all(16), elevation: 5),
+      appBarTheme: AppBarTheme(elevation: 5),
+
+      /// Icon theme
+      iconTheme: const IconThemeData(
+          color: Colors.orange,
+          fill: 0.0,
+          opacity: 1.0,
+          // size: 40,
+          weight: 100,
+          opticalSize: 20,
+
+          /// Optical sizes range from 20dp to 48dp. we can maintain
+          /// the stroke width common while resizing or on increase of the icon size
+          grade: 0 // (For light and dart themes) To make strokes heavier and more emphasized, use positive value grade, such as when representing an active icon state.
+      ),
       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       useMaterial3: true,
     );
