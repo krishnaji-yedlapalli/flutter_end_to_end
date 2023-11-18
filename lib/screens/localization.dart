@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class LocalizationDatePicker extends StatefulWidget {
   const LocalizationDatePicker({Key? key}) : super(key: key);
@@ -13,8 +14,9 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Calendar'),
+      appBar: CustomAppBar(
+        appBar: AppBar(),
+        title: const Text('Localization'),
       ),
       body: Center(
         child: Column(

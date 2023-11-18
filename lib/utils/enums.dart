@@ -1,5 +1,5 @@
 
-enum ScreenType {dashboard, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates }
+enum ScreenType {dashboard, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins }
 
 enum IsolateType {isolateWithWithOutLag, isolateWithSpawn}
 

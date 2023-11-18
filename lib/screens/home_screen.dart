@@ -39,12 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<(String, ScreenType, IconData, {String? des})> screenTypes = [
-      ('Dashboard', ScreenType.dashboard, Icons.dashboard, des : 'It contains NestedRouting along with Max widgets convered'),
+      ('Dashboard', ScreenType.dashboard, Icons.dashboard, des : 'It contains Shell Routing along with Material and Cupertino components'),
       ('Schools child routing', ScreenType.fullscreenChildRouting, Icons.school, des : 'This describes the routing'),
       ('Automatci Keep alive', ScreenType.automaticKeepAlive, Icons.tab, des : 'This makes the screen alive if we navigated to another tab as well'),
       ('Localization', ScreenType.localizationWithCalendar, Icons.language, des : 'Localization and Internalization was implemented in this'),
       ('Upi payments', ScreenType.upiPayments, Icons.payment, des : 'Make the upi payments'),
       ('Isolates', ScreenType.isolates, Icons.memory, des : 'To make the app light weight'),
+      ('Call Back Shortcuts', ScreenType.shortcuts, Icons.app_shortcut, des : 'Using keyboard shortcuts we can manipulate the options in the screen'),
+      ('Plugins', ScreenType.plugins, Icons.power, des : 'Here we can access different types of plugins'),
     ];
 
     var userName = 'Krishna';
@@ -136,7 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case ScreenType.isolates:
         context.go('/home/isolates');
-        break;    }
+        break;
+      case ScreenType.shortcuts:
+        context.go('/home/actionShortcuts');
+        break;
+      case ScreenType.plugins:
+        context.go('/home/plugins');
+        break;
+    }
   }
 
   _onDetach() => print('on Detach');
