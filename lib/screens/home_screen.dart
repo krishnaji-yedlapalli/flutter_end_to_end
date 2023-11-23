@@ -43,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ('Schools child routing', ScreenType.fullscreenChildRouting, Icons.school, des : 'This describes the routing'),
       ('Automatci Keep alive', ScreenType.automaticKeepAlive, Icons.tab, des : 'This makes the screen alive if we navigated to another tab as well'),
       ('Localization', ScreenType.localizationWithCalendar, Icons.language, des : 'Localization and Internalization was implemented in this'),
-      ('Upi payments', ScreenType.upiPayments, Icons.payment, des : 'Make the upi payments'),
-      ('Isolates', ScreenType.isolates, Icons.memory, des : 'To make the app light weight'),
+      ('Upi payments', ScreenType.upiPayments, Icons.payment, des : 'Make the upi payments, Supports Android only'),
+      ('Isolates', ScreenType.isolates, Icons.memory, des : 'Currently works in Mobile application only'),
       ('Call Back Shortcuts', ScreenType.shortcuts, Icons.app_shortcut, des : 'Using keyboard shortcuts we can manipulate the options in the screen'),
       ('Plugins', ScreenType.plugins, Icons.power, des : 'Here we can access different types of plugins'),
     ];
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text(AppLocalizations.of(context)!.helloWorld('', '')),
+        title: Text(AppLocalizations.of(context)!.helloWorld(userName, lastName)),
         appBar: AppBar(),
       ),
       body: GridView.builder(
