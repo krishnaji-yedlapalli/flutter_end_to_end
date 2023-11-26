@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ('Isolates', ScreenType.isolates, Icons.memory, des : 'Currently works in Mobile application only'),
       ('Call Back Shortcuts', ScreenType.shortcuts, Icons.app_shortcut, des : 'Using keyboard shortcuts we can manipulate the options in the screen'),
       ('Plugins', ScreenType.plugins, Icons.power, des : 'Here we can access different types of plugins'),
+      ('Push Notifications', ScreenType.pushNotifications, Icons.notifications, des : 'Firebase push notifications'),
     ];
 
     var userName = 'Krishna';
@@ -144,6 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case ScreenType.plugins:
         context.go('/home/plugins');
+        break;
+      case ScreenType.pushNotifications:
+        context.go('/home/pushNotifications');
         break;
     }
   }

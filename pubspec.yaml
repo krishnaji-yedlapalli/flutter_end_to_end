@@ -44,6 +44,9 @@ dependencies:
   http:
   sqflite: ^2.3.0
   provider:
+  firebase_core: ^2.23.0
+  firebase_messaging: ^14.7.5
+  rxdart: ^0.27.7
 #  intl : any
 
 dev_dependencies:

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/screens/firebase_push_notifications/firebase_push_notifications.dart';
 import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
 import 'package:sample_latest/screens/regular_widgets/material_components.dart';
@@ -90,6 +91,13 @@ class Routing {
               name: 'Plugins',
               builder: (BuildContext context, GoRouterState state) {
                 return const PluginsDashboard();
+              },
+            ),
+            GoRoute(
+              path: 'pushNotifications',
+              name: 'Push Notifcations',
+              builder: (BuildContext context, GoRouterState state) {
+                return const FirebasePushNotifications();
               },
             )
           ]),
