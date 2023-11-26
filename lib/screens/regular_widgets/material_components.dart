@@ -28,7 +28,7 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
         child: Wrap(
           spacing: 50,
           runSpacing: 50,
-          children: [_buildBadges(), vDivider, _buildCheckBox(),  vDivider, _progressIndicators(),  vDivider, _buildChips(), vDivider, _buildRadioButtons(), vDivider, _buildSegmentedButtons(), vDivider, _buildMultiSegmentedButtons(), vDivider, _buildFABButtons(), vDivider, _buildSliders(), vDivider, _buildSwitches(), vDivider, _buildToolTips(), vDivider, _buildMenuItems()],
+          children: [_buildBadges(), vDivider, _buildCheckBox(),  vDivider, _progressIndicators(),  vDivider, _buildChips(), vDivider, _buildRadioButtons(), vDivider, _buildSegmentedButtons(), vDivider, _buildMultiSegmentedButtons(), vDivider, _buildFABButtons(), vDivider, _buildSliders(), vDivider, _buildSwitches(), vDivider, _buildToolTips(), vDivider, _buildMenuItems(), vDivider, _buildPopupMenuItems()],
         ),
       ),
     );
@@ -221,6 +221,45 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
           Tooltip( message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam turpis mauris, scelerisque ac diam ac, tincidunt finibus felis. Phasellus blandit efficitur ligula a varius. Nam faucibus aliquam velit a bibendum. Nunc imperdiet augue quis imperdiet hendrerit. Vestibulum feugiat ipsum id elementum hendrerit. Integer eu leo at justo egestas convallis. Cras vitae euismod massa. Nunc pellentesque dictum auctor. Maecenas eget cursus velit, eget efficitur ipsum.', child: Text('Tool tip 2', style: Theme.of(context).textTheme.titleSmall)),
         ]));
   }
+
+
+  Widget _buildPopupMenuItems() {
+    return buildTitleWithContent(title: 'Popup Menu Items', content:
+    PopupMenuButton(
+        tooltip: 'Pop Menu items',
+        onOpened: () {
+          debugPrint('on Opened');
+        },
+        onCanceled:  () {
+          debugPrint('on cancelled');
+        },
+        onSelected: (val) {
+          debugPrint('value : $val');
+        },
+        enableFeedback: true,
+        // icon: Icon(Icons.dialpad_outlined),
+        itemBuilder: (context) {
+      return <PopupMenuEntry<int>>[
+        const PopupMenuItem<int>(child: Text('Pop up 1'),
+        value: 0,
+        ),
+        const PopupMenuDivider(height: 0.5),
+        const PopupMenuItem(child: Text('Pop up 2'), value: 1,),
+        const PopupMenuDivider(height: 0.5),
+        const PopupMenuItem(child: Text('Disabled Item'), value: 2, enabled: false,),
+      ];
+    },
+        child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.all(Radius.circular(2))
+            ),
+            child: const Text('Pop up Items')))
+    );
+  }
+
+
 
 
   Widget _buildMenuItems() {

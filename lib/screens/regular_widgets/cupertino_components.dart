@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 
 class CupertinoComponents extends StatefulWidget {
@@ -11,7 +12,20 @@ class CupertinoComponents extends StatefulWidget {
 }
 
 class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWidget  {
-  @override
+
+   List<String> _fruitNames = <String>[
+    'Apple',
+    'Mango',
+    'Banana',
+    'Orange',
+    'Pineapple',
+    'Strawberry',
+  ];
+   double _kItemExtent = 32.0;
+   int _selectedFruit = 0;
+
+
+   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -22,7 +36,11 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
           children: [
             _buildActivityIndicator(),
             vDivider,
-            _buildCupertinoAlertDialog()
+            _buildCupertinoAlertDialog(),
+            vDivider,
+            _cupertinoContextMenu(),
+            vDivider,
+            _cupertinoPicker()
           ],
         ),
       ),
@@ -51,8 +69,6 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
         content: const Text('Proceed with destructive action?'),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
-            /// This parameter indicates this action is the default,
-            /// and turns the action's text to bold text.
             isDefaultAction: true,
             onPressed: () {
               Navigator.pop(context);
@@ -60,9 +76,6 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
             child: const Text('No'),
           ),
           CupertinoDialogAction(
-            /// This parameter indicates the action would perform
-            /// a destructive action such as deletion, and turns
-            /// the action's text color to red.
             isDestructiveAction: true,
             onPressed: () {
               Navigator.pop(context);
@@ -73,4 +86,61 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
       ),
     );
   }
+
+
+  Widget _cupertinoContextMenu() {
+    return  buildTitleWithContent(
+      title: 'Cupertino Text Menu action',
+      content:  CupertinoContextMenu(actions: [
+        CupertinoContextMenuAction(child: const Text('Copy'), onPressed: () => GoRouter.of(context).pop()),
+        CupertinoContextMenuAction(child: const Text('Paste'), onPressed: () => GoRouter.of(context).pop()),
+      ],
+       enableHapticFeedback: true,
+          child: RichText(text: TextSpan(text: 'Menu Item')))
+    );
+  }
+
+  Widget _cupertinoPicker() {
+    return  buildTitleWithContent(
+        title: 'Cupertino Picker',
+        content: Wrap(
+          spacing: 10,
+          direction: Axis.vertical,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            CupertinoButton(onPressed: _showCupertinoPicker, child: const Text('Open cupertino Picker')),
+            Text(_fruitNames.elementAt(_selectedFruit), style: Theme.of(context).textTheme.titleSmall)
+          ],
+        )
+    );
+  }
+
+  void _showCupertinoPicker() {
+    showCupertinoModalPopup(context: context, builder: (context) {
+      return SizedBox(
+        height: 216,
+        child: CupertinoPicker(
+          magnification: 1.22,
+          squeeze: 1.2,
+          useMagnifier: true,
+          itemExtent: _kItemExtent,
+          // This sets the initial item.
+          scrollController: FixedExtentScrollController(
+            initialItem: _selectedFruit,
+          ),
+          // This is called when selected item is changed.
+          onSelectedItemChanged: (int selectedItem) {
+            setState(() {
+              _selectedFruit = selectedItem;
+            });
+          },
+          children:
+          List<Widget>.generate(_fruitNames.length, (int index) {
+            return Center(child: Text(_fruitNames[index]));
+          }),
+        ),
+      );
+    });
+  }
+
 }
