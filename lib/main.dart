@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter End to End',
-                locale: Locale('en'),
+                locale: context.watch<CommonProvider>().selectedLocale,
                 // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                 // backButtonDispatcher: () => ,
                 localizationsDelegates: const [
@@ -49,13 +49,14 @@ class MyApp extends StatelessWidget {
                 ],
                 supportedLocales: const [
                   Locale('en'),
-                  Locale('es')
+                  Locale('es'),
+                  Locale('hi')
                 ],
                 /// text scale factor
                 builder: (BuildContext context, Widget? child){
                   var data = MediaQuery.of(context);
                   return MediaQuery(data:data.copyWith(
-                      textScaleFactor : data.textScaleFactor,
+                      textScaler : data.textScaler,
                   ),
                       child: child ?? Container());
                 },

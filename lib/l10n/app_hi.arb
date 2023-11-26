@@ -1,0 +1,24 @@
+{
+  "hiThere" : "Hi there !!!",
+  "@hiThere" : {
+  "description" : "Just invoking some once"
+  },
+  "helloWorld": "Hello World {userName} {lastName}",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "pluralSample" : "{count, plural, =0{0 persons} =1{person} =2{2 people} other{{count} peoples}}",
+  "pluralSampleOne" : "{count, plural, =0{ramesh} =1{raza} =2{krishna} few{few persons} many{many persons} other{{count} students}}",
+ "countDetails" : "{count, plural, =0{0 persons} =1{1 persons} other{{count} peoples}}",
+ "@countDetails" : {
+     "placeholders": {
+       "count": {
+         "type": "num",
+         "format": "compact"
+       }
+     }
+ },
+ "selectSample" : "{gender, select, male{person is male} female{person is female} other{person has other gender}}",
+  "selectSampleOne" : "{status, select, incomplete{incomplete} inprogress{in progress} completed{completed} other{no status}}",
+  "escapingTheInterpolation" : "Hello this is krishna '{is n''t}'"
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
 import 'package:sample_latest/screens/regular_widgets/material_components.dart';
 import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
@@ -7,7 +8,7 @@ import 'package:sample_latest/screens/regular_widgets/regular_widgets_dashboard.
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/screens/automatic_keep_alive.dart';
-import 'package:sample_latest/screens/regular_widgets/call_back_shortcuts.dart';
+import 'package:sample_latest/screens/shortcuts/call_back_shortcuts.dart';
 import 'package:sample_latest/screens/regular_widgets/cards_list_view_grid.dart';
 import 'package:sample_latest/screens/child_routing_school/school_details.dart';
 import 'package:sample_latest/screens/child_routing_school/schools.dart';
@@ -16,6 +17,7 @@ import 'package:sample_latest/screens/home_screen.dart';
 import 'package:sample_latest/screens/isolates/isolate_home.dart';
 import 'package:sample_latest/screens/isolates/isolate_with_compute.dart';
 import 'package:sample_latest/screens/localization.dart';
+import 'package:sample_latest/screens/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
 import 'package:sample_latest/widgets/stepper_ui.dart';
 
@@ -73,7 +75,22 @@ class Routing {
                       builder: (context, state) {
                         return const EasyUpiPayments();
                       }),
+
                 ]
+            ),
+            GoRoute(
+              path: 'actionShortcuts',
+              name: 'Action shortcuts',
+              builder: (BuildContext context, GoRouterState state) {
+                return const ShortcutsTabView();
+              },
+            ),
+            GoRoute(
+              path: 'plugins',
+              name: 'Plugins',
+              builder: (BuildContext context, GoRouterState state) {
+                return const PluginsDashboard();
+              },
             )
           ]),
       schollRoute(),
@@ -120,15 +137,6 @@ class Routing {
               name: 'Card Layouts',
               builder: (BuildContext context, GoRouterState state) {
                 return const CardsLayout();
-              },
-            ),
-          ]),
-          StatefulShellBranch(navigatorKey: shellRouteShortcutsKey, routes: [
-            GoRoute(
-              path: '/dashboard/actionShortcuts',
-              name: 'Actio shortcuts',
-              builder: (BuildContext context, GoRouterState state) {
-                return const CallBackShortCutsView();
               },
             ),
           ]),
