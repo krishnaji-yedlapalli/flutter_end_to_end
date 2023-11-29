@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
@@ -19,17 +20,24 @@ import 'package:sample_latest/screens/isolates/isolate_with_compute.dart';
 import 'package:sample_latest/screens/localization.dart';
 import 'package:sample_latest/screens/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/stepper_ui.dart';
 
-
 class Routing {
+  static const String home = '/home';
+  static const String dashboard = '/dashboard';
 
-  static const home = '/home';
+  /// Dashboard routes
+  static const String materialComponents = 'materialComponents';
+  static const String cupertinoComponents = 'cupertinoComponents';
+  static const String dialogs = 'dialogs';
+  static const String cardLayouts = 'cardLayouts';
+  static const String stepper = 'stepper';
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: home,
-    errorBuilder: _errorBuilder,
+    // errorBuilder: _errorBuilder,
     routes: <RouteBase>[
       GoRoute(
           path: home,
@@ -75,9 +83,7 @@ class Routing {
                       builder: (context, state) {
                         return const EasyUpiPayments();
                       }),
-
-                ]
-            ),
+                ]),
             GoRoute(
               path: 'actionShortcuts',
               name: 'Action shortcuts',
@@ -98,62 +104,74 @@ class Routing {
     ],
   );
 
-  static StatefulShellRoute dashboardRoute() {
-    return   StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return RegularlyUsedWidgetsDashboard(navigationShell);
+  static RouteBase dashboardRoute() {
+    List<
+        ({
+          String path,
+          String name,
+          Widget Function(BuildContext context, GoRouterState state) builder
+        })> dashboardChildRouteList = [
+      (
+        path: materialComponents,
+        name: 'Material Components',
+        builder: (BuildContext context, GoRouterState state) {
+          return const MaterialComponents();
         },
-        branches: [
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/dashboard/materialComponents',
-              name: 'Material Components',
-              builder: (BuildContext context, GoRouterState state) {
-                return const MaterialComponents();
-              },
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/dashboard/cupertinoComponents',
-              name: 'Cupertino Components',
-              builder: (BuildContext context, GoRouterState state) {
-                return const CupertinoComponents();
-              },
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/dashboard/dialogs',
-              name: 'Dialogs',
-              builder: (BuildContext context, GoRouterState state) {
-                return const Dialogs();
-              },
-            ),
-          ]),
-          StatefulShellBranch(navigatorKey: shellRouteCardsKey, routes: [
-            GoRoute(
-              path: '/dashboard/cardLayouts',
-              name: 'Card Layouts',
-              builder: (BuildContext context, GoRouterState state) {
-                return const CardsLayout();
-              },
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/dashboard/stepper',
-              name: 'Stepper',
-              builder: (BuildContext context, GoRouterState state) {
-                return const StepperExampleApp();
-              },
-            ),
-          ]),
-        ]);
+      ),
+      (
+        path: cupertinoComponents,
+        name: 'Cupertino Components',
+        builder: (BuildContext context, GoRouterState state) {
+          return const CupertinoComponents();
+        },
+      ),
+      (
+        path: dialogs,
+        name: 'Dialogs',
+        builder: (BuildContext context, GoRouterState state) {
+          return const Dialogs();
+        },
+      ),
+      (
+        path: cardLayouts,
+        name: 'Card Layouts',
+        builder: (BuildContext context, GoRouterState state) {
+          return const CardsLayout();
+        },
+      ),
+      (
+        path: stepper,
+        name: 'Stepper',
+        builder: (BuildContext context, GoRouterState state) {
+          return const StepperExampleApp();
+        },
+      ),
+    ];
+
+    if (DeviceConfiguration.isMobileResolution) {
+      return GoRoute(
+          path: dashboard,
+          name: 'Regularly used widgets',
+          builder: (BuildContext context, GoRouterState state) {
+            return RegularlyUsedWidgetsDashboard();
+          },
+          routes: dashboardChildRouteList.map((e) => GoRoute(path: e.path, name :e.name, builder : (context, state) => Scaffold(
+              appBar: AppBar(title: Text(e.name)),
+              body : e.builder(context, state)))).toList());
+    } else {
+      return StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) {
+            return RegularlyUsedWidgetsDashboard(
+                navigationShell: navigationShell);
+          },
+          branches: dashboardChildRouteList
+              .map((e) => StatefulShellBranch(routes: [GoRoute(path: '$dashboard/${e.path}', name :e.name, builder : e.builder)]))
+              .toList());
+    }
   }
 
   static GoRoute schollRoute() {
-    return  GoRoute(
+    return GoRoute(
         path: '/schools',
         name: 'schools',
         builder: (BuildContext context, GoRouterState state) {
@@ -164,9 +182,11 @@ class Routing {
               path: 'schoolDetails',
               name: 'schoolDetails',
               builder: (BuildContext context, GoRouterState state) {
-                return SchoolDetails((state.queryParameters['name'], state.queryParameters['address'], int.parse(state.queryParameters['pincode'] ?? '0'))
-                as(String, String, int)
-                );
+                return SchoolDetails((
+                  state.queryParameters['name'],
+                  state.queryParameters['address'],
+                  int.parse(state.queryParameters['pincode'] ?? '0')
+                ) as (String, String, int));
               },
               routes: [
                 GoRoute(
@@ -180,6 +200,6 @@ class Routing {
   }
 
   static Widget _errorBuilder(BuildContext context, GoRouterState state) {
-    return Container();
+    return Container(child: Text('error'));
   }
 }

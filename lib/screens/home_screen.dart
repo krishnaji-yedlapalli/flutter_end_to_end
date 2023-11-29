@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
   navigateToDashboard(ScreenType type) {
     switch (type) {
       case ScreenType.dashboard:
-        context.go('/dashboard/materialComponents');
+        DeviceConfiguration.isMobileResolution ? context.go('/dashboard') : context.go('/dashboard/materialComponents');
         break;
       case ScreenType.fullscreenChildRouting:
         context.go('/schools');
