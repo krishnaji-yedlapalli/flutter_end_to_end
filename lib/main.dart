@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
 import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/routing.dart';
@@ -20,15 +21,37 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    var brightness = View.of(context).platformDispatcher.platformBrightness;
+    navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
+    super.didChangePlatformBrightness();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    ThemeMode mode = brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
     return MultiProvider(
       providers : [
-        ChangeNotifierProvider(create: (context) => CommonProvider())
+        ChangeNotifierProvider(create: (context) => CommonProvider(mode))
       ],
       child: Builder(
         builder: (context) {
@@ -56,7 +79,7 @@ class MyApp extends StatelessWidget {
                 builder: (BuildContext context, Widget? child){
                   var data = MediaQuery.of(context);
                   return MediaQuery(data:data.copyWith(
-                      textScaler : data.textScaler,
+                    textScaleFactor : data.textScaleFactor,
                   ),
                       child: child ?? Container());
                 },

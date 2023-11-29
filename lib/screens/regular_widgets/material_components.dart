@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 
 class MaterialComponents extends StatefulWidget {
   const MaterialComponents({Key? key}) : super(key: key);
@@ -22,16 +23,27 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(20),
+    var materialWidgets = [
+      _buildBadges(), _buildCheckBox(), _progressIndicators(), _buildChips(), _buildRadioButtons(), _buildSegmentedButtons(), _buildMultiSegmentedButtons(),  _buildFABButtons(), _buildSliders(), _buildSwitches(), _buildToolTips(), _buildMenuItems(), _buildPopupMenuItems()
+    ];
+    var count = 0;
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: !DeviceConfiguration.isMobileResolution ? SingleChildScrollView(
         child: Wrap(
           spacing: 50,
           runSpacing: 50,
-          children: [_buildBadges(), vDivider, _buildCheckBox(),  vDivider, _progressIndicators(),  vDivider, _buildChips(), vDivider, _buildRadioButtons(), vDivider, _buildSegmentedButtons(), vDivider, _buildMultiSegmentedButtons(), vDivider, _buildFABButtons(), vDivider, _buildSliders(), vDivider, _buildSwitches(), vDivider, _buildToolTips(), vDivider, _buildMenuItems(), vDivider, _buildPopupMenuItems()],
-        ),
-      ),
-    );
+          direction: Axis.vertical,
+          children: List.generate(materialWidgets.length * 2  - 1, (index){
+            if(index%2 == 0){
+              return materialWidgets.elementAt(count++);
+            }else{
+             return vDivider;
+            }
+          })),
+      ) :
+        ListView.separated(itemBuilder: (context ,index) => materialWidgets.elementAt(index), separatorBuilder: (context ,index) => hDivider, itemCount: materialWidgets.length, shrinkWrap: true,)
+      );
   }
 
   Widget _buildBadges() {
