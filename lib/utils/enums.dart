@@ -8,3 +8,5 @@ enum OperatingSystemType {ios, android, androidFolded, windows, linux, macos, we
 enum DeviceResolutionType {mobile, tab, desktop}
 
 enum ApplicationType {mobile, web, desktop}
+
+enum PluginType {youtube}

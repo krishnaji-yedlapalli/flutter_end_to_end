@@ -55,7 +55,7 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
         itemBuilder: (context, index) => ListTile(
               leading: Icon(navigationRails.elementAt(index).$1),
               title: Text(navigationRails.elementAt(index).$2),
-              onTap: () => context.push('${Routing.dashboard}/materialComponents'),
+              onTap: () => context.push('${Routing.dashboard}/${navigationRails.elementAt(index).$3}'),
             ));
   }
 

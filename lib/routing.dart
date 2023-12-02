@@ -95,7 +95,7 @@ class Routing {
               path: 'plugins',
               name: 'Plugins',
               builder: (BuildContext context, GoRouterState state) {
-                return const PluginsDashboard();
+                return PluginsDashboard();
               },
             )
           ]),
@@ -155,9 +155,14 @@ class Routing {
           builder: (BuildContext context, GoRouterState state) {
             return RegularlyUsedWidgetsDashboard();
           },
-          routes: dashboardChildRouteList.map((e) => GoRoute(path: e.path, name :e.name, builder : (context, state) => Scaffold(
-              appBar: AppBar(title: Text(e.name)),
-              body : e.builder(context, state)))).toList());
+          routes: dashboardChildRouteList
+              .map((e) => GoRoute(
+                  path: e.path,
+                  name: e.name,
+                  builder: (context, state) => Scaffold(
+                      appBar: AppBar(title: Text(e.name)),
+                      body: e.builder(context, state))))
+              .toList());
     } else {
       return StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
@@ -165,7 +170,12 @@ class Routing {
                 navigationShell: navigationShell);
           },
           branches: dashboardChildRouteList
-              .map((e) => StatefulShellBranch(routes: [GoRoute(path: '$dashboard/${e.path}', name :e.name, builder : e.builder)]))
+              .map((e) => StatefulShellBranch(routes: [
+                    GoRoute(
+                        path: '$dashboard/${e.path}',
+                        name: e.name,
+                        builder: e.builder)
+                  ]))
               .toList());
     }
   }

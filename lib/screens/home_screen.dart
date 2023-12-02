@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/mixins/cards_mixin.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
@@ -15,8 +16,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
+class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   late final AppLifecycleListener _lifeCycleListener;
 
   @override
@@ -25,8 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onStateChange: _onLifeCycleChanged,
         onDetach: _onDetach,
         onPause: _onPause,
-        onExitRequested: _onExit
-    );
+        onExitRequested: _onExit);
     super.initState();
   }
 
@@ -39,14 +38,57 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<(String, ScreenType, IconData, {String? des})> screenTypes = [
-      ('Dashboard', ScreenType.dashboard, Icons.dashboard, des : 'It contains Shell Routing along with Material and Cupertino components'),
-      ('Schools child routing', ScreenType.fullscreenChildRouting, Icons.school, des : 'This describes the routing'),
-      ('Automatci Keep alive', ScreenType.automaticKeepAlive, Icons.tab, des : 'This makes the screen alive if we navigated to another tab as well'),
-      ('Localization', ScreenType.localizationWithCalendar, Icons.language, des : 'Localization and Internalization was implemented in this'),
-      ('Upi payments', ScreenType.upiPayments, Icons.payment, des : 'Make the upi payments, Supports Android only'),
-      ('Isolates', ScreenType.isolates, Icons.memory, des : 'Currently works in Mobile application only'),
-      ('Call Back Shortcuts', ScreenType.shortcuts, Icons.app_shortcut, des : 'Using keyboard shortcuts we can manipulate the options in the screen'),
-      ('Plugins', ScreenType.plugins, Icons.power, des : 'Here we can access different types of plugins'),
+      (
+        'Dashboard',
+        ScreenType.dashboard,
+        Icons.dashboard,
+        des:
+            'It contains Shell Routing along with Material and Cupertino components'
+      ),
+      (
+        'Schools child routing',
+        ScreenType.fullscreenChildRouting,
+        Icons.school,
+        des: 'This describes the routing'
+      ),
+      (
+        'Automatci Keep alive',
+        ScreenType.automaticKeepAlive,
+        Icons.tab,
+        des:
+            'This makes the screen alive if we navigated to another tab as well'
+      ),
+      (
+        'Localization',
+        ScreenType.localizationWithCalendar,
+        Icons.language,
+        des: 'Localization and Internalization was implemented in this'
+      ),
+      (
+        'Upi payments',
+        ScreenType.upiPayments,
+        Icons.payment,
+        des: 'Make the upi payments, Supports Android only'
+      ),
+      (
+        'Isolates',
+        ScreenType.isolates,
+        Icons.memory,
+        des: 'Currently works in Mobile application only'
+      ),
+      (
+        'Call Back Shortcuts',
+        ScreenType.shortcuts,
+        Icons.app_shortcut,
+        des:
+            'Using keyboard shortcuts we can manipulate the options in the screen'
+      ),
+      (
+        'Plugins',
+        ScreenType.plugins,
+        Icons.power,
+        des: 'Here we can access different types of plugins'
+      ),
     ];
 
     var userName = 'Krishna';
@@ -54,98 +96,39 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text(AppLocalizations.of(context)!.helloWorld(userName, lastName)),
+        title:
+            Text(AppLocalizations.of(context)!.helloWorld(userName, lastName)),
         appBar: AppBar(),
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: DeviceConfiguration.isMobileResolution  ? 2 : 6),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
-            return Card(
-                child: InkWell(
-                  onTap: () => navigateToDashboard(screenTypes.elementAt(index).$2),
-                  customBorder: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
-                  child: Container(
-                       padding: const EdgeInsets.all(10),
-                      alignment: Alignment.topLeft,
-                      // decoration: const BoxDecoration(
-                      //   borderRadius: BorderRadius.all(Radius.circular(4))
-                        // gradient:
-                        // LinearGradient(colors: [
-                        //   Color(0xFF4B72EF),
-                        //   Color(0xFF00CCFF),
-                        // ],
-                        // begin: Alignment.bottomLeft ?? FractionalOffset(-1, 1.0),
-                        // end: Alignment.topRight ?? FractionalOffset(1, -1),
-                        // stops: [0.4, 0.7],
-                        // tileMode: TileMode.repeated,
-                        // // tileMode: TileMode.clamp
-                        // )
-
-                       // RadialGradient(colors: [
-                       //     Color(0xFF4B72EF),
-                       //     Color(0xFF00CCFF),
-                       // ],
-                       // radius: 0.7,
-                       // focal: Alignment(0.7, 0.7),
-                       // stops: [0.2, .7]
-                       // )
-                      // ),
-                      child: Wrap(
-                        runSpacing: 3,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(screenDetails.$3),
-                            ],
-                          ),
-                          RichText(
-                            text: TextSpan(text: 'Title : ',
-                                style:  Theme.of(context).textTheme.titleSmall,
-                                children: [TextSpan(text: screenDetails.$1, style: Theme.of(context).textTheme.bodyMedium)]),
-                          ),
-                         RichText(softWrap: true, text: TextSpan(text: 'Des : ',
-                             style:  Theme.of(context).textTheme.titleSmall,
-                             children: [TextSpan(text: screenDetails.des ?? '', style: Theme.of(context).textTheme.bodyMedium)]),)
-                        ],
-                      )),
-                ),
-              );
-  }
-          ),
+            return buildHomeCardView(
+                title: screenDetails.$1,
+                des: screenDetails.des ?? '',
+                icon: screenDetails.$3,
+                callback: () =>
+                    navigateToDashboard(screenTypes.elementAt(index).$2));
+          }),
     );
   }
 
   navigateToDashboard(ScreenType type) {
-    switch (type) {
-      case ScreenType.dashboard:
-        DeviceConfiguration.isMobileResolution ? context.go('/dashboard') : context.go('/dashboard/materialComponents');
-        break;
-      case ScreenType.fullscreenChildRouting:
-        context.go('/schools');
-        break;
-      case ScreenType.automaticKeepAlive:
-        context.go('/home/keepalive');
-        break;
-      case ScreenType.localizationWithCalendar:
-        context.go('/home/localization');
-        break;
-      case ScreenType.upiPayments:
-        context.go('/home/upipayments');
-        break;
-      case ScreenType.isolates:
-        context.go('/home/isolates');
-        break;
-      case ScreenType.shortcuts:
-        context.go('/home/actionShortcuts');
-        break;
-      case ScreenType.plugins:
-        context.go('/home/plugins');
-        break;
-    }
+    String path = switch(type) {
+       ScreenType.dashboard =>  DeviceConfiguration.isMobileResolution ? '/dashboard' : '/dashboard/materialComponents',
+       ScreenType.fullscreenChildRouting => '/schools',
+       ScreenType.automaticKeepAlive => '/home/keepalive',
+       ScreenType.localizationWithCalendar => '/home/localization',
+       ScreenType.upiPayments => '/home/upipayments',
+       ScreenType.isolates => '/home/isolates',
+       ScreenType.shortcuts => '/home/actionShortcuts',
+       ScreenType.plugins => '/home/plugins',
+    };
+
+    context.go(path);
   }
 
   _onDetach() => print('on Detach');
@@ -153,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   _onPause() => print('on Pause');
 
   void _onLifeCycleChanged(AppLifecycleState state) {
-    switch(state){
+    switch (state) {
       case AppLifecycleState.detached:
       // TODO: Handle this case.
       case AppLifecycleState.resumed:
