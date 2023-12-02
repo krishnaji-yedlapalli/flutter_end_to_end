@@ -33,7 +33,7 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
         child: Wrap(
           spacing: 50,
           runSpacing: 50,
-          direction: Axis.vertical,
+          direction: Axis.horizontal,
           children: List.generate(materialWidgets.length * 2  - 1, (index){
             if(index%2 == 0){
               return materialWidgets.elementAt(count++);

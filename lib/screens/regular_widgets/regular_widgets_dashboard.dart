@@ -23,7 +23,7 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('Commonly Used Widgets'),
+        title: const Text('Commonly Used Widgets'),
         appBar: AppBar(),
       ),
       body: _buildView(context)
