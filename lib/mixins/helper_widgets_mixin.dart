@@ -72,9 +72,7 @@ mixin HelperWidget {
                 children: [
                   TextSpan(
                     text: des,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100
-                    )
+                    style: Theme.of(context).textTheme.bodySmall
                   )
                 ]
                )),

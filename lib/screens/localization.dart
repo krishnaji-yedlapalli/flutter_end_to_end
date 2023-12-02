@@ -23,37 +23,55 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
         appBar: AppBar(),
         title: const Text('Localization'),
       ),
-      body: Column(
-        crossAxisAlignment : CrossAxisAlignment.start,
-        children: <Widget>[
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 5,
-            children: [
-              Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
-              DropdownButton(
-                  value:  context.read<CommonProvider>().selectedLocale,
-                  items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text('Simplified the below strings using Intl package : ', style: Theme.of(context).textTheme.bodyMedium?.apply(fontWeightDelta: 900, fontSizeDelta: 1, color: Colors.purpleAccent)),
-          ),
-          Expanded(child: _buildSimplifiedStrings()),
-          Builder(
-            builder: (context) {
-              // A toy example for an internationalized Material widget.
-              return CalendarDatePicker(
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1900),
-                lastDate: DateTime(2100),
-                onDateChanged: (value) {},
-              );
-            },
-          ),
-        ],
-      ).screenPadding(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment : CrossAxisAlignment.start,
+          children: <Widget>[
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 5,
+              children: [
+                Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
+                DropdownButton(
+                    value:  context.read<CommonProvider>().selectedLocale,
+                    items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
+              ],
+            ),
+            buildLabel('Simplified the below strings using Intl package : '),
+            _buildSimplifiedStrings(),
+            // Expanded(child: _buildLanguageOverride())
+          ],
+        ).screenPadding(),
+      ),
+    );
+  }
+
+  Widget _buildLanguageOverride() {
+    return Column(
+      children: [
+        buildLabel('Overriding the Language in a specific widget : '),
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 5,
+          children: [
+            Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
+            DropdownButton(
+                value:  context.read<CommonProvider>().selectedLocale,
+                items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
+          ],
+        ),
+        Builder(
+          builder: (context) {
+            // A toy example for an internationalized Material widget.
+            return CalendarDatePicker(
+              initialDate: DateTime.now(),
+              firstDate: DateTime(1900),
+              lastDate: DateTime(2100),
+              onDateChanged: (value) {},
+            );
+          },
+        ),
+      ]
     );
   }
 
@@ -61,33 +79,35 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
   Widget _buildSimplifiedStrings() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Expanded(
-        child: Wrap(
-          direction: Axis.vertical,
-          spacing: 16,
-          runSpacing: DeviceConfiguration.isMobileResolution ? 0 : 50,
-          children: [
-            buildLabelWithValue(
-                'Passing dynamic value to a String',
-                AppLocalizations.of(context)!.helloWorld('yedlapalli', 'krishnaji'),
-              des: 'Here we are passing yedlapalli and krishnaji as dynamic value to localized string, below was the output'
-            ),
-            buildLabelWithValue(
-             'Passing dynamic value to a String',
-            AppLocalizations.of(context)!.helloWorld('yedlapalli', 'krishnaji')
-            ),
-            buildLabelWithValue(
-                'Showing the type based on the count',
-                AppLocalizations.of(context)!.countDetails(7)
-            ),
-        
-            Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
-        
-            Text(AppLocalizations.of(context)!.selectSample('other')),
-        
-            Text(AppLocalizations.of(context)!.selectSampleOne('completed')),
-          ],
-        ),
+      child: Wrap(
+        direction: Axis.horizontal,
+        spacing: 16,
+        runSpacing: DeviceConfiguration.isMobileResolution ? 0 : 50,
+        children: [
+          buildLabelWithValue(
+              'Passing dynamic value to a String',
+              AppLocalizations.of(context)!.helloWorld('Hello', 'Brother'),
+            des: 'Here we are passing Hello and Brother as dynamic value to localized string, below was the output'
+          ),
+          buildLabelWithValue(
+              'Showing the type based on the count',
+              AppLocalizations.of(context)!.countDetails(7),
+            des: ''
+          ),
+          buildLabelWithValue(
+              'Showing the type based on the count',
+              AppLocalizations.of(context)!.countDetails(7)
+          ),
+          buildLabelWithValue(
+              'Showing the type based on the count',
+              AppLocalizations.of(context)!.countDetails(7)
+          ),
+          Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
+
+          Text(AppLocalizations.of(context)!.selectSample('other')),
+
+          Text(AppLocalizations.of(context)!.selectSampleOne('completed')),
+        ],
       ),
     );
   }
@@ -103,5 +123,12 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
       default :
         return locale.languageCode;
     }
+  }
+
+  Widget buildLabel(String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(label, style: Theme.of(context).textTheme.bodyMedium?.apply(fontWeightDelta: 900, fontSizeDelta: 1, color: Colors.purpleAccent)),
+    );
   }
 }
