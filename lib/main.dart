@@ -62,14 +62,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter End to End',
                 localeResolutionCallback: (locale, locales) {
-                  print(locale);
+                  debugPrint(locale.toString());
+                  context.read<CommonProvider>().onChangeOfLanguage(locale, ignoreNotify: true);
                   return locale;
                 },
-                localeListResolutionCallback: (locale, locales) {
-                 print(locale);
-                 // return locales;
-                },
-                // locale: context.watch<CommonProvider>().selectedLocale,
+                // localeListResolutionCallback: (locale, locales) {
+                //  print(locale);
+                //  // return locales;
+                // },
+                locale: context.watch<CommonProvider>().locale,
                 // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                 // backButtonDispatcher: () => ,
                 localizationsDelegates: const [
@@ -81,7 +82,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 supportedLocales: const [
                   Locale('en'),
                   Locale('es'),
-                  Locale('hi')
+                  Locale('hi'),
+                  Locale('he'),
                 ],
                 /// text scale factor
                 builder: (BuildContext context, Widget? child){

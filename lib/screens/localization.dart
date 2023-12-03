@@ -32,8 +32,8 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
               spacing: 5,
               children: [
                 Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
-                DropdownButton(
-                    value:  context.read<CommonProvider>().selectedLocale,
+                DropdownButton<Locale>(
+                    value:  context.read<CommonProvider>().locale,
                     items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
               ],
             ),
@@ -57,7 +57,7 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
           children: [
             Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
             DropdownButton(
-                value:  context.read<CommonProvider>().selectedLocale,
+                value:  context.read<CommonProvider>().locale,
                 items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
           ],
         ),

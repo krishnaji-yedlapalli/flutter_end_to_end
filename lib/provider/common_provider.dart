@@ -7,7 +7,7 @@ class CommonProvider with ChangeNotifier {
   CommonProvider(this.themeModeType) ;
 
   ThemeMode themeModeType = ThemeMode.system;
-  Locale? selectedLocale = AppLocalizations.supportedLocales.firstOrNull;
+  Locale? _selectedLocale;
 
   void onChangeOfTheme() {
     themeModeType = isLightTheme ?  ThemeMode.dark : ThemeMode.light;
@@ -19,12 +19,15 @@ class CommonProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void onChangeOfLanguage(Locale? locale) {
-    if(locale != null) {
-      selectedLocale = locale;
-      notifyListeners();
+  void onChangeOfLanguage(Locale? locale, {bool ignoreNotify = false}) {
+    if(locale != null && locale.languageCode != _selectedLocale?.languageCode) {
+      Locale filteredLocale = AppLocalizations.supportedLocales.firstWhere((existingLocale) => locale.languageCode == existingLocale.languageCode, orElse: () => AppLocalizations.supportedLocales.first);
+      _selectedLocale = filteredLocale;
+     if(!ignoreNotify) notifyListeners();
     }
   }
+
+  Locale? get locale => _selectedLocale;
 
   bool get isLightTheme => themeModeType == ThemeMode.light || themeModeType == ThemeMode.system;
 
