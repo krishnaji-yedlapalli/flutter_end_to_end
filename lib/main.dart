@@ -38,6 +38,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeLocales(List<Locale>? locales) {
+    final currentLocale = locales?.first;
+    navigatorKey.currentContext?.read<CommonProvider>().onChangeOfLanguage(currentLocale);
+    super.didChangeLocales(locales);
+  }
+
+  @override
   void didChangePlatformBrightness() {
     var brightness = View.of(context).platformDispatcher.platformBrightness;
     navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);

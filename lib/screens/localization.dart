@@ -16,6 +16,9 @@ class LocalizationDatePicker extends StatefulWidget {
 }
 
 class _LocalizationDatePickerState extends State<LocalizationDatePicker> with HelperWidget {
+
+  Locale? locale;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,16 +53,20 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
   Widget _buildLanguageOverride() {
     return Column(
       children: [
-        buildLabel('Overriding the Language in a specific widget : '),
+        buildLabel('Overriding the Language in a specific place/widget : '),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 5,
           children: [
-            Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
+            Text('Select Override Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
             DropdownButton(
                 value:  context.read<CommonProvider>().locale,
                 items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Text(AppLocalizations.of(context)!.sampleText),
         ),
         LayoutBuilder(
           builder: (context, constraints) {
