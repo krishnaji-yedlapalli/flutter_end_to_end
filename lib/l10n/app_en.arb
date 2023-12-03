@@ -1,13 +1,28 @@
-{
-  "hiThere" : "Hi there !!!",
-  "@hiThere" : {
-  "description" : "Just invoking some once"
+ {
+ "localization" :  "Localization",
+ "greetings": "Hello World {firstName} {lastName}",
+  "@greetings": {
+    "description": "Greetings to the user",
+    "placeholders" : {
+    "firstName" : {
+       "type" : "String",
+       "example" : "Robbin"
+    },
+    "lastName" : {
+      "type" : "String",
+      "example" : "Hood"
+    }
+    }
   },
-  "helloWorld": "Hello World {userName} {lastName}",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
+  "pluralMessage" : "There are total {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} in den",
+  "@pluralMessage" : {
+   "description" : "Showing the peoples based on the count",
+    "placeholders" : {
+     "peoplesCount" : {
+       "type" : "num"
+     }
+  }
   },
-  "pluralSample" : "{count, plural, =0{0 persons} =1{person} =2{2 people} other{{count} peoples}}",
   "pluralSampleOne" : "{count, plural, =0{ramesh} =1{raza} =2{krishna} few{few persons} many{many persons} other{{count} students}}",
  "countDetails" : "{count, plural, =0{0 persons} =1{1 persons} other{{count} peoples}}",
  "@countDetails" : {
@@ -18,7 +33,88 @@
        }
      }
  },
- "selectSample" : "{gender, select, male{person is male} female{person is female} other{person has other gender}}",
-  "selectSampleOne" : "{status, select, incomplete{incomplete} inprogress{in progress} completed{completed} other{no status}}",
-  "escapingTheInterpolation" : "Hello this is krishna '{is n''t}'"
+ "selectSample" : "Person is{gender, select, he{Male} she{Female} other{He/She not info}}",
+ "@selectSample" : {
+  "description" : "Shows the personal nouns based on the input",
+  "placeholders" : {
+  "gender" : {
+     "type" : "String"
+  }
+ }
+ },
+  "escapingTheInterpolation" : "Hello this is John carter '{is n''t}'",
+    "amountWithCompact" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compact"
+       }
+    }
+    },
+  "amountWithCompactCurrency" : "Current Budget of application : {amount}",
+  "@amount" : {
+   "description" : "Amount with compact currency",
+   "placeholders" : {
+     "amount" : {
+      "type" : "int",
+      "format" : "compactCurrency",
+      "optionalParameters": {
+              "decimalDigits": 2
+            }
+     }
+  }
+  },
+   "amountWithCompactSimpleCurrency" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact currency",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactSimpleCurrency"
+       }
+    }
+    },
+ "amountWithCompactLong" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact long",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactLong"
+       }
+    }
+    },
+   "amountWithCurrency" : "Current Budget of application : {amount}",
+        "@amount" : {
+         "description" : "Amount with currency",
+         "placeholders" : {
+           "amount" : {
+            "type" : "int",
+            "format" : "currency"
+           }
+        }
+        },
+    "amountWithDecimalPercentPattern" : "Current Budget of application : {amount}",
+                "@amount" : {
+                 "description" : "Amount with decimal percent currency pattern",
+                 "placeholders" : {
+                   "amount" : {
+                    "type" : "int",
+                    "format" : "decimalPercentPattern"
+                   }
+                }
+                },
+ "currentDate" : "Today Date : {date}",
+ "@currentDate" : {
+   "description" : "Showing current date by formatting",
+  "placeholders" : {
+       "date" : {
+         "type" : "DateTime",
+         "format" : "yMd"
+       }
+  }
+ }
+
 }

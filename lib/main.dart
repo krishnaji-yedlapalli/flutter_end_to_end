@@ -61,7 +61,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter End to End',
-                locale: context.watch<CommonProvider>().selectedLocale,
+                localeResolutionCallback: (locale, locales) {
+                  print(locale);
+                  return locale;
+                },
+                localeListResolutionCallback: (locale, locales) {
+                 print(locale);
+                 // return locales;
+                },
+                // locale: context.watch<CommonProvider>().selectedLocale,
                 // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                 // backButtonDispatcher: () => ,
                 localizationsDelegates: const [

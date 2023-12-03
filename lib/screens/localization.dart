@@ -21,7 +21,7 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
     return Scaffold(
       appBar: CustomAppBar(
         appBar: AppBar(),
-        title: const Text('Localization'),
+        title: Text(AppLocalizations.of(context)!.localization),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -39,7 +39,8 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
             ),
             buildLabel('Simplified the below strings using Intl package : '),
             _buildSimplifiedStrings(),
-            // Expanded(child: _buildLanguageOverride())
+            Divider(),
+            _buildLanguageOverride()
           ],
         ).screenPadding(),
       ),
@@ -60,16 +61,18 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
                 items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
           ],
         ),
-        Builder(
-          builder: (context) {
-            // A toy example for an internationalized Material widget.
-            return CalendarDatePicker(
-              initialDate: DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime(2100),
-              onDateChanged: (value) {},
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return SizedBox(
+              width: DeviceConfiguration.isMobileResolution ? null : constraints.maxWidth/2,
+              child: CalendarDatePicker(
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1900),
+                lastDate: DateTime(2100),
+                onDateChanged: (value) {},
+              ),
             );
-          },
+          }
         ),
       ]
     );
@@ -77,6 +80,7 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
 
 
   Widget _buildSimplifiedStrings() {
+    const amount = 800000;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Wrap(
@@ -86,27 +90,51 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
         children: [
           buildLabelWithValue(
               'Passing dynamic value to a String',
-              AppLocalizations.of(context)!.helloWorld('Hello', 'Brother'),
-            des: 'Here we are passing Hello and Brother as dynamic value to localized string, below was the output'
+              AppLocalizations.of(context)!.greetings('John', "Carter"),
+            des: 'Passing Hello and Brother as dynamic value to localized string, below was the output'
           ),
           buildLabelWithValue(
-              'Showing the type based on the count',
+              'Showing the plural or singular based on the count',
               AppLocalizations.of(context)!.countDetails(7),
-            des: ''
+            des: 'Showing the pluralizing the word, here based on the count pluralize will be displayed people/peoples.. '
+          ),
+          buildLabelWithValue(
+              'Show the message based on the passed string using select',
+              AppLocalizations.of(context)!.selectSample('he'),
+            des: "Similar to Plural we can shown the message based on the passed value, below based on the noun gender will be shown"
           ),
           buildLabelWithValue(
               'Showing the type based on the count',
               AppLocalizations.of(context)!.countDetails(7)
           ),
           buildLabelWithValue(
-              'Showing the type based on the count',
-              AppLocalizations.of(context)!.countDetails(7)
+              'Escaping the Interpolation in a string',
+              AppLocalizations.of(context)!.escapingTheInterpolation,
+            des: 'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'
           ),
-          Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
-
-          Text(AppLocalizations.of(context)!.selectSample('other')),
-
-          Text(AppLocalizations.of(context)!.selectSampleOne('completed')),
+          buildLabelWithValue(
+              'Representing the Currencies with currency symbol based on the locale',
+                  'Compact : ${AppLocalizations.of(context)!.amountWithCompact(amount)} \n'
+                  'Compact currency : ${AppLocalizations.of(context)!.amountWithCompactCurrency(amount)} \n'
+                  'Compact Simple currency : ${AppLocalizations.of(context)!.amountWithCompactSimpleCurrency(amount)} \n'
+                  'Compact Long : ${AppLocalizations.of(context)!.amountWithCompactLong(amount)} \n'
+                  'Currency : ${AppLocalizations.of(context)!.amountWithCurrency(amount)} \n'
+                  'Decimal Percent : ${AppLocalizations.of(context)!.amountWithDecimalPercentPattern(amount)}',
+              des: ''
+          ),
+          buildLabelWithValue(
+              'Escaping the Intepolation',
+              AppLocalizations.of(context)!.escapingTheInterpolation,
+              des: 'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'
+          ),
+          buildLabelWithValue(
+              'Date Format',
+              AppLocalizations.of(context)!.currentDate(DateTime.now()),
+              des: 'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'
+          ),
+          // Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
+          //
+          // Text(AppLocalizations.of(context)!.selectSample('other')),
         ],
       ),
     );
