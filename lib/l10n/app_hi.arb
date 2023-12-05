@@ -1,6 +1,6 @@
  {
  "localization" :  "स्थानीयकरण",
- "greetings": "Hello World {firstName} {lastName}",
+ "greetings": "हैलो वर्ल्ड {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",
     "placeholders" : {
@@ -14,7 +14,7 @@
     }
     }
   },
-  "pluralMessage" : "There are total {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} in den",
+  "pluralMessage" : "कुल हैं {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} मांद में",
   "@pluralMessage" : {
    "description" : "Showing the peoples based on the count",
     "placeholders" : {
@@ -33,7 +33,7 @@
        }
      }
  },
- "selectSample" : "Person is{gender, select, he{Male} she{Female} other{He/She not info}}",
+ "selectSample" : "व्यक्ति है {gender, select, he{पुरुष} she{महिला} other{उसे कोई जानकारी नहीं है}}",
  "@selectSample" : {
   "description" : "Shows the personal nouns based on the input",
   "placeholders" : {
@@ -42,7 +42,7 @@
   }
  }
  },
-  "escapingTheInterpolation" : "Hello this is John carter '{is n''t}'",
+  "escapingTheInterpolation" : "नमस्ते, मैं जॉन कार्टर हूं '{is n''t}'",
     "amountWithCompact" : "Current Budget of application : {amount}",
     "@amount" : {
      "description" : "Amount with compact",
@@ -53,7 +53,7 @@
        }
     }
     },
-  "amountWithCompactCurrency" : "Current Budget of application : {amount}",
+  "amountWithCompactCurrency" : "आवेदन का वर्तमान बजट: {amount}",
   "@amount" : {
    "description" : "Amount with compact currency",
    "placeholders" : {
@@ -66,7 +66,7 @@
      }
   }
   },
-   "amountWithCompactSimpleCurrency" : "Current Budget of application : {amount}",
+   "amountWithCompactSimpleCurrency" : "आवेदन का वर्तमान बजट: {amount}",
     "@amount" : {
      "description" : "Amount with compact currency",
      "placeholders" : {
@@ -76,7 +76,7 @@
        }
     }
     },
- "amountWithCompactLong" : "Current Budget of application : {amount}",
+ "amountWithCompactLong" : "आवेदन का वर्तमान बजट: {amount}",
     "@amount" : {
      "description" : "Amount with compact long",
      "placeholders" : {
@@ -86,7 +86,7 @@
        }
     }
     },
-   "amountWithCurrency" : "Current Budget of application : {amount}",
+   "amountWithCurrency" : "आवेदन का वर्तमान बजट: {amount}",
         "@amount" : {
          "description" : "Amount with currency",
          "placeholders" : {
@@ -96,7 +96,7 @@
            }
         }
         },
-    "amountWithDecimalPercentPattern" : "Current Budget of application : {amount}",
+    "amountWithDecimalPercentPattern" : "आवेदन का वर्तमान बजट: {amount}",
                 "@amount" : {
                  "description" : "Amount with decimal percent currency pattern",
                  "placeholders" : {
@@ -106,7 +106,7 @@
                    }
                 }
                 },
- "currentDate" : "Today Date : {date}",
+ "currentDate" : "आज की तारीख़ : {date}",
  "@currentDate" : {
    "description" : "Showing current date by formatting",
   "placeholders" : {

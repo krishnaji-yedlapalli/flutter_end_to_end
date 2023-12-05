@@ -1,6 +1,6 @@
  {
- "localization" :  "Localization",
- "greetings": "Hello World {firstName} {lastName}",
+ "localization" :  "לוקליזציה",
+ "greetings": "שלום עולם {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",
     "placeholders" : {

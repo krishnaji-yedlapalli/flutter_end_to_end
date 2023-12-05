@@ -45,18 +45,17 @@ mixin HelperWidget {
 
   Widget get hDivider => const SizedBox(width: 100, child: Divider());
 
- Widget buildLabelWithValue(String label, String value, {String? des}) {
+ Widget buildLabelWithValue(String label, String value, {String? des, bool isBorderRequired = false}) {
    return LayoutBuilder(
      builder: (context, constraints) {
-       double maxWidth = DeviceConfiguration.isMobileResolution ? constraints.maxWidth : 400;
+       double maxWidth = DeviceConfiguration.isMobileResolution ? constraints.maxWidth : constraints.maxWidth;
        return Container(
            constraints: BoxConstraints(
              maxWidth: maxWidth
            ),
-           padding: EdgeInsets.only(bottom: 16),
-           decoration: const BoxDecoration(
+           decoration: isBorderRequired ? const BoxDecoration(
              border :Border(bottom: BorderSide(color: Colors.grey))
-           ),
+           ) : null,
            child: Wrap(
              direction: Axis.vertical,
              spacing: 10,
