@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
        ScreenType.plugins => '/home/plugins',
     };
 
-    context.go(path);
+   DeviceConfiguration.isWeb ?  context.go(path) : context.push(path);
   }
 
   _onDetach() => print('on Detach');

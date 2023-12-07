@@ -69,10 +69,13 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
           children: [
             Checkbox(value: value, onChanged: onChange),
             SizedBox(width: 300, child: CheckboxListTile(title: Text('CheckBox List Tile'), value: value, onChanged: onChange)),
-            CheckboxMenuButton(
-              child: Text('Heloo'),
-              onChanged: onChangeCheckBoxMenuItem,
-              value: checkBoxMenuItem,
+            SizedBox(
+             width: 300,
+              child: CheckboxMenuButton(
+                child: Text('Heloo'),
+                onChanged: onChangeCheckBoxMenuItem,
+                value: checkBoxMenuItem,
+              ),
             ),
           ],
         ));

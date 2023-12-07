@@ -1,6 +1,6 @@
  {
  "localization" :  "स्थानीयकरण",
- "greetings": "हैलो वर्ल्ड {firstName} {lastName}",
+ "greetings": "हैलो {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",
     "placeholders" : {
