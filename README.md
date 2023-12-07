@@ -3,7 +3,7 @@
 A Flutter project to learn how to build the app on a Multi-platform using a single code base.
 
 
-# Current Primarily focused Features :
+# Currently Primarily focused Features :
 1. Theme
 2. Routing
 3. Localization
