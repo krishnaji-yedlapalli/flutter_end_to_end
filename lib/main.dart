@@ -38,6 +38,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeLocales(List<Locale>? locales) {
+    final currentLocale = locales?.first;
+    navigatorKey.currentContext?.read<CommonProvider>().onChangeOfLanguage(currentLocale);
+    super.didChangeLocales(locales);
+  }
+
+  @override
   void didChangePlatformBrightness() {
     var brightness = View.of(context).platformDispatcher.platformBrightness;
     navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
@@ -61,7 +68,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter End to End',
-                locale: context.watch<CommonProvider>().selectedLocale,
+                localeResolutionCallback: (locale, locales) {
+                  debugPrint(locale.toString());
+                  context.read<CommonProvider>().onChangeOfLanguage(locale, ignoreNotify: true);
+                  return locale;
+                },
+                // localeListResolutionCallback: (locale, locales) {
+                //  print(locale);
+                //  // return locales;
+                // },
+                locale: context.watch<CommonProvider>().locale,
                 // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                 // backButtonDispatcher: () => ,
                 localizationsDelegates: const [
@@ -73,7 +89,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 supportedLocales: const [
                   Locale('en'),
                   Locale('es'),
-                  Locale('hi')
+                  Locale('hi'),
+                  Locale('he'),
                 ],
                 /// text scale factor
                 builder: (BuildContext context, Widget? child){

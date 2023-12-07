@@ -1,6 +1,6 @@
  {
- "localization" :  "स्थानीयकरण",
- "greetings": "हैलो {firstName} {lastName}",
+ "localization" :  "לוקליזציה",
+ "greetings": "שלום {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",
     "placeholders" : {
@@ -14,7 +14,7 @@
     }
     }
   },
-  "pluralMessage" : "कुल हैं {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} मांद में",
+  "pluralMessage" : "There are total {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} in den",
   "@pluralMessage" : {
    "description" : "Showing the peoples based on the count",
     "placeholders" : {
@@ -33,7 +33,7 @@
        }
      }
  },
- "selectSample" : "व्यक्ति है {gender, select, he{पुरुष} she{महिला} other{उसे कोई जानकारी नहीं है}}",
+ "selectSample" : "Person is{gender, select, he{Male} she{Female} other{He/She not info}}",
  "@selectSample" : {
   "description" : "Shows the personal nouns based on the input",
   "placeholders" : {
@@ -42,7 +42,7 @@
   }
  }
  },
-  "escapingTheInterpolation" : "नमस्ते, मैं जॉन कार्टर हूं '{is n''t}'",
+  "escapingTheInterpolation" : "Hello this is John carter '{is n''t}'",
     "amountWithCompact" : "Current Budget of application : {amount}",
     "@amount" : {
      "description" : "Amount with compact",
@@ -53,7 +53,7 @@
        }
     }
     },
-  "amountWithCompactCurrency" : "आवेदन का वर्तमान बजट: {amount}",
+  "amountWithCompactCurrency" : "Current Budget of application : {amount}",
   "@amount" : {
    "description" : "Amount with compact currency",
    "placeholders" : {
@@ -66,7 +66,7 @@
      }
   }
   },
-   "amountWithCompactSimpleCurrency" : "आवेदन का वर्तमान बजट: {amount}",
+   "amountWithCompactSimpleCurrency" : "Current Budget of application : {amount}",
     "@amount" : {
      "description" : "Amount with compact currency",
      "placeholders" : {
@@ -76,7 +76,7 @@
        }
     }
     },
- "amountWithCompactLong" : "आवेदन का वर्तमान बजट: {amount}",
+ "amountWithCompactLong" : "Current Budget of application : {amount}",
     "@amount" : {
      "description" : "Amount with compact long",
      "placeholders" : {
@@ -86,7 +86,7 @@
        }
     }
     },
-   "amountWithCurrency" : "आवेदन का वर्तमान बजट: {amount}",
+   "amountWithCurrency" : "Current Budget of application : {amount}",
         "@amount" : {
          "description" : "Amount with currency",
          "placeholders" : {
@@ -96,7 +96,7 @@
            }
         }
         },
-    "amountWithDecimalPercentPattern" : "आवेदन का वर्तमान बजट: {amount}",
+    "amountWithDecimalPercentPattern" : "Current Budget of application : {amount}",
                 "@amount" : {
                  "description" : "Amount with decimal percent currency pattern",
                  "placeholders" : {
@@ -106,7 +106,7 @@
                    }
                 }
                 },
- "currentDate" : "आज की तारीख़ : {date}",
+ "currentDate" : "Today Date : {date}",
  "@currentDate" : {
    "description" : "Showing current date by formatting",
   "placeholders" : {
@@ -116,7 +116,7 @@
        }
   }
  },
- "sampleText" : "लोरेम इप्सम केवल मुद्रण और टाइपसेटिंग उद्योग का नकली पाठ है। लोरेम इप्सम 1500 के दशक से ही उद्योग का मानक डमी पाठ रहा है, जब एक अज्ञात प्रिंटर ने एक प्रकार की गैली ली और उसे एक प्रकार की नमूना पुस्तक बनाने के लिए तैयार किया।",
+ "sampleText" : "Lorem Ipsum הוא פשוט טקסט דמה של תעשיית הדפוס והקביעה. Lorem Ipsum היה טקסט הדמה הסטנדרטי של התעשייה מאז שנות ה-1500, כאשר מדפסת לא ידועה לקחה גלריה של סוג וערבכה אותה כדי ליצור ספר דגימות סוג.",
 "@sampleText" : {
   "description" : "Sample text"
 }

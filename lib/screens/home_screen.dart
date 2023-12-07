@@ -91,13 +91,10 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       ),
     ];
 
-    var userName = 'Krishna';
-    var lastName = 'yedlapalli';
-
     return Scaffold(
       appBar: CustomAppBar(
         title:
-            Text(AppLocalizations.of(context)!.helloWorld(userName, lastName)),
+            Text(AppLocalizations.of(context)!.greetings('John', "Carter")),
         appBar: AppBar(),
       ),
       body: GridView.builder(
@@ -128,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
        ScreenType.plugins => '/home/plugins',
     };
 
-    context.go(path);
+   DeviceConfiguration.isWeb ?  context.go(path) : context.push(path);
   }
 
   _onDetach() => print('on Detach');
