@@ -44,6 +44,14 @@ dependencies:
   http:
   sqflite: ^2.3.0
   provider:
+
+  # Plugins
+  youtube_player_flutter:
+  local_auth:
+  share_plus:
+  video_player:
+  network_info_plus:
+  just_audio:
 #  intl : any
 
 dev_dependencies:
