@@ -32,7 +32,7 @@ import 'screens/plugins/local_authentication.dart';
 
 class Routing {
   static const String home = '/home';
-  static const String dashboard = '/dashboard';
+  static const String dashboard = 'dashboard';
 
   /// Dashboard routes
   static const String materialComponents = 'materialComponents';
@@ -48,7 +48,7 @@ class Routing {
     navigatorKey: navigatorKey,
     initialLocation: home,
     // errorBuilder: _errorBuilder,
-    routes: <RouteBase>[homeRoute(), schollRoute(), dashboardRoute()],
+    routes: <RouteBase>[homeRoute(), schollRoute()],
   );
 
   /// Home items
@@ -60,6 +60,7 @@ class Routing {
           return const HomeScreen();
         },
         routes: [
+          dashboardRoute(),
           GoRoute(
               path: 'keepalive',
               name: 'KeepAlive screen',

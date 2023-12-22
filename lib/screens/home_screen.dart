@@ -66,9 +66,8 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   }
 
   navigateToDashboard(ScreenType type) {
-    // ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     String path = switch (type) {
-      ScreenType.dashboard => DeviceConfiguration.isMobileResolution ? '/dashboard' : '/dashboard/materialComponents',
+      ScreenType.dashboard => DeviceConfiguration.isMobileResolution ? '/home/dashboard/' : '/home/dashboard/materialComponents',
       ScreenType.fullscreenChildRouting => '/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
@@ -78,8 +77,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       ScreenType.plugins => '/home/plugins',
       ScreenType.scrollTypes => '/home/scrollTypes',
     };
-
-    DeviceConfiguration.isWeb ? context.go(path) : context.push(path);
+    context.go(path);
   }
 
   _onDetach() => print('on Detach');
