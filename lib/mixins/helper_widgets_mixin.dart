@@ -6,17 +6,18 @@ import 'package:sample_latest/utils/device_configurations.dart';
 
 mixin HelperWidget {
 
- Widget buildTitleWithContent({required String title,required Widget content}) {
+ Widget buildTitleWithContent({required String title,required Widget content, bool hideBorder = false}) {
     return Builder(
       builder: (context) {
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(title, style: Theme.of(context).textTheme.titleMedium),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: content,
             ),
-           if(!DeviceConfiguration.isMobileResolution) SizedBox(width : 150, child: Divider())
+           if(!DeviceConfiguration.isMobileResolution && !hideBorder) SizedBox(width : 150, child: Divider())
           ],
         );
       }
@@ -82,4 +83,28 @@ mixin HelperWidget {
      }
    );
  }
+
+ Widget buildNote(String note) {
+   return Builder(
+     builder: (context) {
+       return Padding(
+         padding: const EdgeInsets.symmetric(vertical: 12),
+         child: RichText(text: TextSpan(
+           text: 'Note : ',
+           style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+           children: [
+             TextSpan(text: note, style: Theme.of(context).textTheme.bodyMedium)
+           ]
+         )),
+       );
+     }
+   );
+ }
+
+ Widget get buildUnderDevelopmentMessage => Builder(
+   builder: (context) {
+     return Align(alignment: Alignment.center, child: Text('Currently under development', style: Theme.of(context).textTheme.displaySmall?.apply(color: Colors.orange)));
+   }
+ );
+
 }

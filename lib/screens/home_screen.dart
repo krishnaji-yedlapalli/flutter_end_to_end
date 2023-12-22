@@ -21,11 +21,12 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
 
   @override
   void initState() {
-    _lifeCycleListener = AppLifecycleListener(
-        onStateChange: _onLifeCycleChanged,
-        onDetach: _onDetach,
-        onPause: _onPause,
-        onExitRequested: _onExit);
+    _lifeCycleListener = AppLifecycleListener(onStateChange: _onLifeCycleChanged, onDetach: _onDetach, onPause: _onPause, onExitRequested: _onExit);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Some features are currently on development')));
+      _buildMaterialBanner();
+    });
     super.initState();
   }
 
@@ -38,94 +39,47 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   @override
   Widget build(BuildContext context) {
     List<(String, ScreenType, IconData, {String? des})> screenTypes = [
-      (
-        'Dashboard',
-        ScreenType.dashboard,
-        Icons.dashboard,
-        des:
-            'It contains Shell Routing along with Material and Cupertino components'
-      ),
-      (
-        'Schools child routing',
-        ScreenType.fullscreenChildRouting,
-        Icons.school,
-        des: 'This describes the routing'
-      ),
-      (
-        'Automatci Keep alive',
-        ScreenType.automaticKeepAlive,
-        Icons.tab,
-        des:
-            'This makes the screen alive if we navigated to another tab as well'
-      ),
-      (
-        'Localization',
-        ScreenType.localizationWithCalendar,
-        Icons.language,
-        des: 'Localization and Internalization was implemented in this'
-      ),
-      (
-        'Upi payments',
-        ScreenType.upiPayments,
-        Icons.payment,
-        des: 'Make the upi payments, Supports Android only'
-      ),
-      (
-        'Isolates',
-        ScreenType.isolates,
-        Icons.memory,
-        des: 'Currently works in Mobile application only'
-      ),
-      (
-        'Call Back Shortcuts',
-        ScreenType.shortcuts,
-        Icons.app_shortcut,
-        des:
-            'Using keyboard shortcuts we can manipulate the options in the screen'
-      ),
-      (
-        'Plugins',
-        ScreenType.plugins,
-        Icons.power,
-        des: 'Here we can access different types of plugins'
-      ),
+      ('Dashboard', ScreenType.dashboard, Icons.dashboard, des: 'It contains Shell Routing along with Material and Cupertino components'),
+      ('Schools child routing', ScreenType.fullscreenChildRouting, Icons.school, des: 'This describes the routing'),
+      ('Automatci Keep alive', ScreenType.automaticKeepAlive, Icons.tab, des: 'This makes the screen alive if we navigated to another tab as well'),
+      ('Localization', ScreenType.localizationWithCalendar, Icons.language, des: 'Localization and Internalization was implemented in this'),
+      ('Upi payments', ScreenType.upiPayments, Icons.payment, des: 'Make the upi payments, Supports Android only'),
+      ('Isolates', ScreenType.isolates, Icons.memory, des: 'Currently works in Mobile application only'),
+      ('Call Back Shortcuts', ScreenType.shortcuts, Icons.app_shortcut, des: 'Using keyboard shortcuts we can manipulate the options in the screen'),
+      ('Plugins', ScreenType.plugins, Icons.power, des: 'Here we can access different types of plugins'),
+      ('scrollTypes', ScreenType.scrollTypes, Icons.poll, des: 'Here we can access different types of plugins'),
     ];
 
     return Scaffold(
       appBar: CustomAppBar(
-        title:
-            Text(AppLocalizations.of(context)!.greetings('John', "Carter")),
+        title: Text(AppLocalizations.of(context)!.greetings('John', "Carter")),
         appBar: AppBar(),
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
-            return buildHomeCardView(
-                title: screenDetails.$1,
-                des: screenDetails.des ?? '',
-                icon: screenDetails.$3,
-                callback: () =>
-                    navigateToDashboard(screenTypes.elementAt(index).$2));
+            return buildHomeCardView(title: screenDetails.$1, des: screenDetails.des ?? '', icon: screenDetails.$3, callback: () => navigateToDashboard(screenTypes.elementAt(index).$2));
           }),
     );
   }
 
   navigateToDashboard(ScreenType type) {
-    String path = switch(type) {
-       ScreenType.dashboard =>  DeviceConfiguration.isMobileResolution ? '/dashboard' : '/dashboard/materialComponents',
-       ScreenType.fullscreenChildRouting => '/schools',
-       ScreenType.automaticKeepAlive => '/home/keepalive',
-       ScreenType.localizationWithCalendar => '/home/localization',
-       ScreenType.upiPayments => '/home/upipayments',
-       ScreenType.isolates => '/home/isolates',
-       ScreenType.shortcuts => '/home/actionShortcuts',
-       ScreenType.plugins => '/home/plugins',
+    // ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+    String path = switch (type) {
+      ScreenType.dashboard => DeviceConfiguration.isMobileResolution ? '/dashboard' : '/dashboard/materialComponents',
+      ScreenType.fullscreenChildRouting => '/schools',
+      ScreenType.automaticKeepAlive => '/home/keepalive',
+      ScreenType.localizationWithCalendar => '/home/localization',
+      ScreenType.upiPayments => '/home/upipayments',
+      ScreenType.isolates => '/home/isolates',
+      ScreenType.shortcuts => '/home/actionShortcuts',
+      ScreenType.plugins => '/home/plugins',
+      ScreenType.scrollTypes => '/home/scrollTypes',
     };
 
-   DeviceConfiguration.isWeb ?  context.go(path) : context.push(path);
+    DeviceConfiguration.isWeb ? context.go(path) : context.push(path);
   }
 
   _onDetach() => print('on Detach');
@@ -172,5 +126,10 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
     );
 
     return response ?? AppExitResponse.exit;
+  }
+
+  void _buildMaterialBanner() {
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: const Text('Some features are currently under development'),
+        actions: [IconButton(onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(), icon: Icon(Icons.close, color: Colors.white))]));
   }
 }

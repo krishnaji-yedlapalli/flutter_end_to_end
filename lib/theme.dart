@@ -105,6 +105,18 @@ class CustomTheme {
         iconColor: Colors.orange
       ),
 
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: Colors.red,
+        contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)
+      ),
+
+      bannerTheme: MaterialBannerThemeData(
+        backgroundColor: Colors.red,
+        contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white),
+        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        leadingPadding: EdgeInsets.all(0),elevation: 5
+      ),
+
       useMaterial3: true,
     );
   }
