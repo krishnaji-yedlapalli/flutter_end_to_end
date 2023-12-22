@@ -5,6 +5,7 @@ import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/screens/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/screens/regular_widgets/animations/explicit_animation_widgets.dart';
 import 'package:sample_latest/screens/regular_widgets/animations/implicit_animations_widgets.dart';
+import 'package:sample_latest/screens/plugins/youtube.dart';
 import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
 import 'package:sample_latest/screens/regular_widgets/material_components.dart';
 import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
@@ -26,6 +27,8 @@ import 'package:sample_latest/screens/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/stepper_ui.dart';
+
+import 'screens/plugins/local_authentication.dart';
 
 class Routing {
   static const String home = '/home';
@@ -108,7 +111,23 @@ class Routing {
             builder: (BuildContext context, GoRouterState state) {
               return PluginsDashboard();
             },
-          ),
+          routes: [
+                GoRoute(
+                  path: 'youtube',
+                  name: 'Youtube',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return Youtube();
+                  },
+                ),
+                GoRoute(
+                  path: 'localAuthentication',
+                  name: 'Local Authentication',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const LocalAuthentication();
+                  },
+                ),
+              ]
+            ),
           GoRoute(
             path: 'scrollTypes',
             name: 'Scroll Types',

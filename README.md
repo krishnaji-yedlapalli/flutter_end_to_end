@@ -1,16 +1,14 @@
-# sample_latest
+# Flutter End to End
 
-A new Flutter project.
+A Flutter project to learn how to build the app on a Multi-platform using a single code base.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Currently Primarily focused Features :
+1. Theme
+2. Routing
+3. Localization
+4. Offline support using Sqflite plugin
+   
+# Reference link to access the project on Web
+ https://flutter-end-to-end.web.app
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
