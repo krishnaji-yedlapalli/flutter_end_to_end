@@ -1,5 +1,20 @@
  {
  "localization" :  "Localization",
+ "lightTheme" :  "Light Theme",
+ "darkTheme" :  "Dark Theme",
+ "selectLanguage" : "Select Language : "
+ "simplifiedStrings" :  "Simplified the below strings using Intl package : ",
+ "passingDynamicValue" :  "Passing dynamic value to a String",
+ "pluralOrSingular" :  "Showing the plural or singular based on the count",
+ "selectMessageBasedOnString" :  "Show the message based on the passed string using select",
+ "typeBasedOnCount" :  "Showing the type based on the count",
+ "escapeInterpolation" :  "Escaping the Interpolation in a string",
+ "passingDynamicValueDes" : "Passing Hello and Brother as dynamic value to localized string, below was the output",
+ "" : "",
+ "" : "",
+ "" : "",
+ "" : "",
+ "" : "",
  "greetings": "Hello {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",

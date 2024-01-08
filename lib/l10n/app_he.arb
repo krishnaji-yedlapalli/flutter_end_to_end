@@ -1,5 +1,9 @@
  {
  "localization" :  "לוקליזציה",
+  "lightTheme" :  "נושא קליל",
+  "darkTheme" :  "ערכת נושא כהה",
+  "simplifiedStrings" : "פשט את המיתרים באמצעות החבילה",
+  "selectLanguage" : "Select Language : "
  "greetings": "שלום {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",

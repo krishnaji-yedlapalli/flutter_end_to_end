@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Some features are currently on development')));
       _buildMaterialBanner();
+      Future.delayed(Duration(seconds: 3), () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner());
     });
     super.initState();
   }

@@ -21,31 +21,35 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        appBar: AppBar(),
-        title: Text(AppLocalizations.of(context)!.localization),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment : CrossAxisAlignment.start,
-          children: <Widget>[
-            Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 5,
-              children: [
-                Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
-                DropdownButton<Locale>(
-                    value:  context.read<CommonProvider>().locale,
-                    items: AppLocalizations.supportedLocales.map((e) => DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(), onChanged: context.read<CommonProvider>().onChangeOfLanguage)
-              ],
-            ),
-            buildLabel('Simplified the below strings using Intl package : '),
-            _buildSimplifiedStrings(),
-            Divider(),
-            _buildLanguageOverride()
-          ],
-        ).screenPadding(),
+    return SelectionArea(
+      child: Scaffold(
+        appBar: CustomAppBar(
+          appBar: AppBar(),
+          title: Text(AppLocalizations.of(context)!.localization),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment : CrossAxisAlignment.start,
+            children: <Widget>[
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 5,
+                children: [
+                  Text('Select Language : ', style: Theme.of(context).textTheme.titleSmall?.apply(color: Colors.blue)),
+                  DropdownButton<Locale>(
+                      value:  context.read<CommonProvider>().locale,
+                      items: AppLocalizations.supportedLocales.map((e) =>
+                          DropdownMenuItem(value: e, child: Text(getLanguageBasedOnLocaleCode(e)))).toList(),
+                      onChanged: context.read<CommonProvider>().onChangeOfLanguage)
+                ],
+              ),
+              buildLabel(AppLocalizations.of(context)!.simplifiedStrings),
+              _buildSimplifiedStrings(),
+              Divider(),
+              _buildLanguageOverride()
+            ],
+          ).screenPadding(),
+        ),
       ),
     );
   }
@@ -106,26 +110,26 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
     const amount = 800000;
     return  [
       buildLabelWithValue(
-          'Passing dynamic value to a String',
+          AppLocalizations.of(context)!.passingDynamicValue,
           AppLocalizations.of(context)!.greetings('John', "Carter"),
-          des: 'Passing Hello and Brother as dynamic value to localized string, below was the output'
+          des: ''
       ),
       buildLabelWithValue(
-          'Showing the plural or singular based on the count',
+          AppLocalizations.of(context)!.pluralOrSingular,
           AppLocalizations.of(context)!.countDetails(7),
           des: 'Showing the pluralizing the word, here based on the count pluralize will be displayed people/peoples.. '
       ),
       buildLabelWithValue(
-          'Show the message based on the passed string using select',
+          AppLocalizations.of(context)!.selectMessageBasedOnString,
           AppLocalizations.of(context)!.selectSample('he'),
           des: "Similar to Plural we can shown the message based on the passed value, below based on the noun gender will be shown"
       ),
       buildLabelWithValue(
-          'Showing the type based on the count',
+          AppLocalizations.of(context)!.typeBasedOnCount,
           AppLocalizations.of(context)!.countDetails(7)
       ),
       buildLabelWithValue(
-          'Escaping the Interpolation in a string',
+          AppLocalizations.of(context)!.escapeInterpolation,
           AppLocalizations.of(context)!.escapingTheInterpolation,
           des: 'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'
       ),
@@ -138,11 +142,6 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker> with He
               'Currency : ${AppLocalizations.of(context)!.amountWithCurrency(amount)} \n'
               'Decimal Percent : ${AppLocalizations.of(context)!.amountWithDecimalPercentPattern(amount)}',
           des: ''
-      ),
-      buildLabelWithValue(
-          'Escaping the Intepolation',
-          AppLocalizations.of(context)!.escapingTheInterpolation,
-          des: 'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'
       ),
       buildLabelWithValue(
           'Date Format',

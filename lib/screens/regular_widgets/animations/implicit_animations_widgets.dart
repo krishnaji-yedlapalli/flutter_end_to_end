@@ -31,13 +31,40 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
   (name: 'AnimatedSwitcher', link : 'https://api.flutter.dev/flutter/widgets/AnimatedSwitcher-class.html'),
   ];
 
-  double targetValue = 24.0;
+  double targetValue = 48;
+  bool flag = false;
+  double scale = .0;
+  Offset offset = Offset(0, 0);
+  double opacity = .0 ;
+  double turns = 0.0;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      rebuildAnimations();
+    });
+    super.initState();
+  }
+
+  void rebuildAnimations() {
+    setState(() {
+      flag = !flag;
+      scale = scale == 0.0 ? 1 : 0.0;
+      offset = offset.dx == 0 ? const Offset(0.5, 0.2) : const Offset(0, 0);
+      opacity = opacity == 0 ? 1 : 0;
+      turns += 1.0 / 8.0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         buildNote('No need to use stateful widget we can also use Stream builder or Future builder as well'),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(onPressed: rebuildAnimations, child: const Text('Toggle Animations')),
+        ),
         Expanded(child: _buildAnimationList())
       ],
     ).screenPadding();
@@ -45,7 +72,7 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
 
   Widget _buildAnimationList() {
     return GridView.builder(gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: DeviceConfiguration.isMobileResolution ? 1 : 3,
+        crossAxisCount: DeviceConfiguration.isMobileResolution ? 1 : 4,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20
     ),
@@ -56,12 +83,19 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
               border: Border.all(color: Colors.grey, width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(10))
             ),
-            child: buildTitleWithContent(title: animationList.elementAt(index).name, content: _buildAnimationView(index), hideBorder: true)));
+            child: buildTitleWithExpandedContent(title: animationList.elementAt(index).name, content: _buildAnimationView(index), hideBorder: true)));
   }
 
   Widget _buildAnimationView(int index){
     return switch(index){
     0 => _buildTweenAnimationBuilder,
+    1 => _animatedAlignBuilder,
+    2 => _animatedContainerBuilder,
+    3 => _animatedDefaultTextStyle,
+    4 => _animatedScale,
+    5 => _buildAnimatedRotation,
+    6 => _buildAnimatedSlide,
+    7 => _buildAnimatedOpacity,
     _ => SizedBox()
   };
   }
@@ -71,18 +105,54 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
       tween: Tween<double>(begin: 0, end: targetValue),
       duration: const Duration(seconds: 1),
       builder: (BuildContext context, double size, Widget? child) {
-        return IconButton(
-          iconSize: size,
-          color: Colors.blue,
-          icon: child!,
-          onPressed: () {
-            setState(() {
-              targetValue = targetValue == 24.0 ? 48.0 : 24.0;
-            });
-          },
-        );
+        return FlutterLogo(size: 80);
       },
       child: const Icon(Icons.aspect_ratio),
     );
   }
+  
+  
+  Widget get _animatedAlignBuilder {
+    return AnimatedAlign(
+        alignment: flag ? Alignment.topRight : Alignment.bottomLeft, duration: Duration(seconds: 1),
+        child: const FlutterLogo(size: 80),
+    );
+  }
+
+  Widget get _animatedContainerBuilder {
+    return AnimatedContainer(
+      width: flag ? 100 : 0,
+      height: flag ? 50 : 0,
+      duration: const Duration(seconds: 1),
+      color: Colors.black26,
+      child: FlutterLogo(),
+    );
+  }
+
+  Widget get _animatedDefaultTextStyle {
+    return Align(
+        alignment: Alignment.center,
+        child: AnimatedDefaultTextStyle(textAlign: TextAlign.center, style: flag ? TextStyle(fontWeight: FontWeight.bold, color: Colors.purpleAccent,) : TextStyle(fontWeight: FontWeight.w300, color: Colors.cyan), duration: Duration(seconds: 1), child: const Text('Heloo World, Lets practice implicit animations')));
+  }
+
+  Widget get _animatedScale {
+    return AnimatedScale(
+      scale: scale,
+      duration: const Duration(seconds: 1),
+      child: const FlutterLogo(size: 100)
+    );
+  }
+
+  Widget get _buildAnimatedRotation {
+    return AnimatedRotation(turns: turns, duration: const Duration(seconds: 1), child: const FlutterLogo(size: 100));
+  }
+  
+  Widget get _buildAnimatedSlide {
+    return AnimatedSlide(offset: offset, duration: const Duration(seconds: 1), child: const FlutterLogo(size: 80));
+  }
+
+  Widget get _buildAnimatedOpacity {
+    return AnimatedOpacity(opacity: opacity, duration: const Duration(seconds: 1), child: const FlutterLogo(size: 80));
+  }
+
 }

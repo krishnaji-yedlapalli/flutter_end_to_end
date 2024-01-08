@@ -13,6 +13,8 @@ import 'package:sample_latest/screens/regular_widgets/regular_widgets_dashboard.
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/screens/automatic_keep_alive.dart';
+import 'package:sample_latest/screens/regular_widgets/selectable_text.dart';
+import 'package:sample_latest/screens/regular_widgets/tables.dart';
 import 'package:sample_latest/screens/scrolling/scroll_types.dart';
 import 'package:sample_latest/screens/shortcuts/call_back_shortcuts.dart';
 import 'package:sample_latest/screens/regular_widgets/cards_list_view_grid.dart';
@@ -41,6 +43,8 @@ class Routing {
   static const String implicitAnimations = 'implicitAnimations';
   static const String customImplicitAnimations = 'customImplicitAnimations';
   static const String explicitAnimations = 'explicitAnimations';
+  static const String selectableText = 'selectableText';
+  static const String tables = 'tables';
   static const String cardLayouts = 'cardLayouts';
   static const String stepper = 'stepper';
 
@@ -107,12 +111,12 @@ class Routing {
             },
           ),
           GoRoute(
-            path: 'plugins',
-            name: 'Plugins',
-            builder: (BuildContext context, GoRouterState state) {
-              return PluginsDashboard();
-            },
-          routes: [
+              path: 'plugins',
+              name: 'Plugins',
+              builder: (BuildContext context, GoRouterState state) {
+                return PluginsDashboard();
+              },
+              routes: [
                 GoRoute(
                   path: 'youtube',
                   name: 'Youtube',
@@ -127,8 +131,7 @@ class Routing {
                     return const LocalAuthentication();
                   },
                 ),
-              ]
-            ),
+              ]),
           GoRoute(
             path: 'scrollTypes',
             name: 'Scroll Types',
@@ -182,6 +185,20 @@ class Routing {
         name: 'Explicit Animations',
         builder: (BuildContext context, GoRouterState state) {
           return const ExplicitAnimationsWidgets();
+        },
+      ),
+      (
+        path: tables,
+        name: 'Tables',
+        builder: (BuildContext context, GoRouterState state) {
+          return Tables();
+        },
+      ),
+      (
+        path: selectableText,
+        name: 'Selectable Text',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SelectableTextSample();
         },
       ),
       (

@@ -24,6 +24,30 @@ mixin HelperWidget {
     );
   }
 
+ Widget buildTitleWithExpandedContent({required String title,required Widget content, bool hideBorder = false}) {
+   return Builder(
+       builder: (context) {
+         return Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: Column(
+             mainAxisSize: MainAxisSize.min,
+             mainAxisAlignment: MainAxisAlignment.start,
+             children: [
+               Text(title, style: Theme.of(context).textTheme.titleMedium),
+               Expanded(
+                 child: Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 16.0),
+                   child: content,
+                 ),
+               ),
+               if(!DeviceConfiguration.isMobileResolution && !hideBorder) SizedBox(width : 150, child: Divider())
+             ],
+           ),
+         );
+       }
+   );
+ }
+
  Widget iconWithText(String label, IconData icon, String des) {
    return Builder(
      builder: (context) {

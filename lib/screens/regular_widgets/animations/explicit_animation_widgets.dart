@@ -57,6 +57,7 @@ class _ExplicitAnimationsWidgetsState extends State<ExplicitAnimationsWidgets> w
   Widget _buildAnimationView(int index){
     return switch(index){
     0 => SizedBox(),
+    1 => SizedBox(),
     _ => SizedBox()
   };
   }

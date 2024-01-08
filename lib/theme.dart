@@ -80,12 +80,7 @@ class CustomTheme {
                 }
               }))),
 
-      textButtonTheme: TextButtonThemeData(
-        style: ButtonStyle(
-            shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-            foregroundColor: MaterialStateProperty.all(Colors.white)
-        )
-      ),
+      textButtonTheme: TextButtonThemeData(style: ButtonStyle(shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent), foregroundColor: MaterialStateProperty.all(Colors.white))),
 
       navigationRailTheme: NavigationRailThemeData(
         elevation: 5,
@@ -101,20 +96,41 @@ class CustomTheme {
         unselectedLabelTextStyle: GoogleFonts.robotoSlab(color: Colors.green.shade500),
       ),
 
-      dialogTheme: DialogTheme(
-        iconColor: Colors.orange
-      ),
+      dialogTheme: DialogTheme(iconColor: Colors.orange),
 
-      snackBarTheme: SnackBarThemeData(
-        backgroundColor: Colors.red,
-        contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)
-      ),
+      snackBarTheme: SnackBarThemeData(backgroundColor: Colors.red, contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)),
 
-      bannerTheme: MaterialBannerThemeData(
-        backgroundColor: Colors.red,
-        contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white),
-        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-        leadingPadding: EdgeInsets.all(0),elevation: 5
+      bannerTheme: MaterialBannerThemeData(backgroundColor: Colors.red, contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white), padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8), leadingPadding: EdgeInsets.all(0), elevation: 5),
+
+      dataTableTheme: DataTableThemeData(
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          dataRowColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.hovered)) {
+                return Colors.green;
+              } else {
+                return Colors.white;
+              }
+            },
+          ),
+          headingTextStyle: GoogleFonts.aBeeZee(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+          dataTextStyle: GoogleFonts.abhayaLibre(
+            color: Colors.black,
+          ),
+          headingRowColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.hovered)) {
+              return Colors.green;
+            } else {
+              return Colors.blueAccent.withOpacity(0.5);
+            }
+          },
+          ),
       ),
 
       useMaterial3: true,
@@ -139,7 +155,7 @@ class CustomTheme {
           /// Optical sizes range from 20dp to 48dp. we can maintain
           /// the stroke width common while resizing or on increase of the icon size
           grade: 0 // (For light and dart themes) To make strokes heavier and more emphasized, use positive value grade, such as when representing an active icon state.
-      ),
+          ),
       // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       useMaterial3: true,
     );
