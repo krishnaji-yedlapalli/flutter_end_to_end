@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin HelperWidget {
 
@@ -90,7 +91,7 @@ mixin HelperWidget {
                  child: RichText(
                      softWrap: true,
                      text: TextSpan(
-                   text: 'Des : ',
+                   text: '${AppLocalizations.of(context)!.description} :',
                   style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.black),
                   children: [
                     TextSpan(

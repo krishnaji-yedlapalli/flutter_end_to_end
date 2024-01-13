@@ -1,5 +1,25 @@
  {
  "localization" :  "Localization",
+  "lightTheme" :  "Light Theme",
+  "darkTheme" :  "Dark Theme",
+  "selectLanguage" : "Select Language : ",
+  "simplifiedStrings" :  "Simplified the below strings using Intl package : ",
+  "passingDynamicValue" :  "Passing dynamic value to a String",
+  "pluralOrSingular" :  "Showing the plural or singular based on the count",
+  "selectMessageBasedOnString" :  "Show the message based on the passed string using select",
+  "typeBasedOnCount" :  "Showing the type based on the count",
+  "escapeInterpolation" :  "Escaping the Interpolation in a string",
+  "passingDynamicValueDes" : "Passing Hello and Brother as dynamic value to localized string, below was the output",
+  "pluralOrSingularDes" : "Showing the pluralizing the word, here based on the count pluralize will be displayed people/peoples.. ",
+  "selectMessageBasedOnStringDes" : "Similar to Plural we can shown the message based on the passed value, below based on the noun gender will be shown",
+  "escapeInterpolationDes" : "By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation",
+  "representingCurrencies" : "Representing the Currencies with currency symbol based on the locale",
+  "compact" : "Compact :",
+  "compactCurrency" : "Compact currency :",
+  "compactSimpleCurrency" : "Compact Simple currency :",
+  "compactLong" : "Compact Long :",
+  "currency" : "Currency :",
+  "decimalPercent" : "Decimal Percent :",
  "greetings": "Hello {firstName} {lastName}",
   "@greetings": {
     "description": "Greetings to the user",
@@ -106,7 +126,7 @@
                    }
                 }
                 },
- "currentDate" : "Today Date : {date}",
+ "currentDate" : "Fecha de hoy : {date}",
  "@currentDate" : {
    "description" : "Showing current date by formatting",
   "placeholders" : {
