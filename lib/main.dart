@@ -55,10 +55,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
+    var systemLocale = View.of(context).platformDispatcher.locale;
+
     ThemeMode mode = brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
+
+    systemLocale = AppLocalizations.supportedLocales.firstWhere(
+            (existingLocale) =>
+            systemLocale.languageCode == existingLocale.languageCode,
+        orElse: () => AppLocalizations.supportedLocales.first);
+
     return MultiProvider(
       providers : [
-        ChangeNotifierProvider(create: (context) => CommonProvider(mode))
+        ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale))
       ],
       child: Builder(
         builder: (context) {
@@ -69,14 +77,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter End to End',
                 localeResolutionCallback: (locale, locales) {
-                  debugPrint(locale.toString());
-                  context.read<CommonProvider>().onChangeOfLanguage(locale, ignoreNotify: true);
+                  // if(locale?.languageCode == 'es') {
+                  //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                  //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                  //   return englishLocale;
+                  // }
                   return locale;
                 },
-                // localeListResolutionCallback: (locale, locales) {
-                //  print(locale);
-                //  // return locales;
-                // },
                 locale: context.watch<CommonProvider>().locale,
                 // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                 // backButtonDispatcher: () => ,

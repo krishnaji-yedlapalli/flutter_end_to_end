@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin HelperWidget {
 
@@ -23,6 +24,30 @@ mixin HelperWidget {
       }
     );
   }
+
+ Widget buildTitleWithExpandedContent({required String title,required Widget content, bool hideBorder = false}) {
+   return Builder(
+       builder: (context) {
+         return Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: Column(
+             mainAxisSize: MainAxisSize.min,
+             mainAxisAlignment: MainAxisAlignment.start,
+             children: [
+               Text(title, style: Theme.of(context).textTheme.titleMedium),
+               Expanded(
+                 child: Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 16.0),
+                   child: content,
+                 ),
+               ),
+               if(!DeviceConfiguration.isMobileResolution && !hideBorder) SizedBox(width : 150, child: Divider())
+             ],
+           ),
+         );
+       }
+   );
+ }
 
  Widget iconWithText(String label, IconData icon, String des) {
    return Builder(
@@ -66,7 +91,7 @@ mixin HelperWidget {
                  child: RichText(
                      softWrap: true,
                      text: TextSpan(
-                   text: 'Des : ',
+                   text: '${AppLocalizations.of(context)!.description} :',
                   style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.black),
                   children: [
                     TextSpan(

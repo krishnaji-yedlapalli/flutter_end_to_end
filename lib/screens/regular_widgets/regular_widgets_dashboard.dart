@@ -17,6 +17,8 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
     (Icons.animation, 'Implicit Animations', Routing.implicitAnimations, 'Built in Animations'),
     (Icons.animation, 'Custom Implicit Animations', Routing.customImplicitAnimations, 'Customize the animations using tween builder'),
     (Icons.animation, 'Explicit Animations', Routing.explicitAnimations, 'Explicit Animations'),
+    (Icons.select_all, 'Tables', Routing.tables, 'Tables'),
+    (Icons.select_all, 'Text Selection', Routing.selectableText, 'User can select the Text'),
     (Icons.layers_outlined, 'Cards Layout', Routing.cardLayouts, null),
     (Icons.send_time_extension, 'Stepper ', Routing.stepper, 'Stepper View'),
     (Icons.model_training, 'Physical Model', Routing.cupertinoComponents, null),
@@ -49,7 +51,7 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
         itemBuilder: (context, index) => ListTile(
               leading: Icon(navigationRails.elementAt(index).$1),
               title: Text(navigationRails.elementAt(index).$2),
-              onTap: () => context.push('${Routing.dashboard}/${navigationRails.elementAt(index).$3}'),
+              onTap: () => context.push('/home/${Routing.dashboard}/${navigationRails.elementAt(index).$3}'),
             ));
   }
 
