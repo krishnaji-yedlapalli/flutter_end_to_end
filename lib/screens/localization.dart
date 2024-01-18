@@ -52,7 +52,7 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker>
               ),
               buildLabel(AppLocalizations.of(context)!.simplifiedStrings),
               _buildSimplifiedStrings(),
-              // _buildMaterialOrCupertinoComponents(),
+              _buildMaterialOrCupertinoComponents(),
               Divider(),
               _buildLanguageOverride()
             ],
@@ -165,22 +165,22 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker>
       buildLabelWithValue(AppLocalizations.of(context)!.escapeInterpolation,
           AppLocalizations.of(context)!.escapingTheInterpolation,
           des: AppLocalizations.of(context)!.escapeInterpolationDes),
-      // buildLabelWithValue(
-      //     AppLocalizations.of(context)!.representingCurrencies,
-      //     '${AppLocalizations.of(context)!.compact} ${AppLocalizations.of(context)!.amountWithCompact(amount)} \n\n'
-      //     '${AppLocalizations.of(context)!.compactCurrency} ${AppLocalizations.of(context)!.amountWithCompactCurrency(amount)} \n\n'
-      //     '${AppLocalizations.of(context)!.compactSimpleCurrency} ${AppLocalizations.of(context)!.amountWithCompactSimpleCurrency(amount)} \n'
-      //     '${AppLocalizations.of(context)!.compactLong} ${AppLocalizations.of(context)!.amountWithCompactLong(amount)} \n'
-      //     '${AppLocalizations.of(context)!.currency} ${AppLocalizations.of(context)!.amountWithCurrency(amount)} \n'
-      //     '${AppLocalizations.of(context)!.decimalPercent} ${AppLocalizations.of(context)!.amountWithDecimalPercentPattern(amount)}',
-      //     des: ''),
-      // buildLabelWithValue(AppLocalizations.of(context)!.dateFormat,
-      //     AppLocalizations.of(context)!.currentDate(DateTime.now()),
-      //     des:
-      //         'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'),
-      // Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
-      //
-      // Text(AppLocalizations.of(context)!.selectSample('other')),
+      buildLabelWithValue(
+          AppLocalizations.of(context)!.representingCurrencies,
+          '${AppLocalizations.of(context)!.compact} ${AppLocalizations.of(context)!.amountWithCompact(amount)} \n\n'
+          '${AppLocalizations.of(context)!.compactCurrency} ${AppLocalizations.of(context)!.amountWithCompactCurrency(amount)} \n\n'
+          '${AppLocalizations.of(context)!.compactSimpleCurrency} ${AppLocalizations.of(context)!.amountWithCompactSimpleCurrency(amount)} \n'
+          '${AppLocalizations.of(context)!.compactLong} ${AppLocalizations.of(context)!.amountWithCompactLong(amount)} \n'
+          '${AppLocalizations.of(context)!.currency} ${AppLocalizations.of(context)!.amountWithCurrency(amount)} \n'
+          '${AppLocalizations.of(context)!.decimalPercent} ${AppLocalizations.of(context)!.amountWithDecimalPercentPattern(amount)}',
+          des: ''),
+      buildLabelWithValue(AppLocalizations.of(context)!.dateFormat,
+          AppLocalizations.of(context)!.currentDate(DateTime.now()),
+          des:
+              'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'),
+      Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
+
+      Text(AppLocalizations.of(context)!.selectSample('other')),
     ];
   }
 
