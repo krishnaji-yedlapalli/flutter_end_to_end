@@ -128,7 +128,14 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   }
 
   void _buildMaterialBanner() {
-    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: const Text('Some features are currently under development'),
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content:  RichText(
+        text : const TextSpan(
+          children: [
+            TextSpan(text: 'Some features are currently under development', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            TextSpan(text: ' - Used MaterialBanner to construct this', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+          ]
+        )
+        ),
         actions: [IconButton(onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(), icon: Icon(Icons.close, color: Colors.white))]));
   }
 }

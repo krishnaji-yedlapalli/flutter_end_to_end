@@ -8,19 +8,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   final Widget? title;
   final List<Widget>? actions;
+  final PreferredSizeWidget? bottom;
 
-    CustomAppBar({required this.appBar, Key? key, this.title, this.actions}) : super(key: key);
+    CustomAppBar({required this.appBar, Key? key, this.title, this.actions, this.bottom}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: title,
+      bottom: bottom,
       actions: [
         ...actions ?? [],
         TextButton.icon(onPressed: context.read<CommonProvider>().onChangeOfTheme, icon: Icon(context.watch<CommonProvider>().isLightTheme ? Icons.dark_mode : Icons.light_mode), label: DeviceConfiguration.isMobileResolution ? const Text('') : Text(context.watch<CommonProvider>().isLightTheme ? AppLocalizations.of(context)!.darkTheme : AppLocalizations.of(context)!.lightTheme, style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)))],
     );
   }
-  
+
   @override
-  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height + (bottom != null ? appBar.preferredSize.height : 0));
 }
