@@ -15,7 +15,15 @@ class _TablesState extends State<Tables> {
         int,
         String,
         String,
-      )> dataTableRows = [('Ramesh', 29, '420', 'ZPH High School'), ('Ramesh', 29, '420', 'ZPH High School'), ('Ramesh', 29, '420', 'ZPH High School'), ('Ramesh', 29, '420', 'ZPH High School'), ('Ramesh', 29, '420', 'ZPH High School'), ('Ramesh', 29, '420', 'ZPH High School'), ('Ramesh', 29, '420', 'ZPH High School')];
+      )> dataTableRows = [
+    ('Ramesh', 29, '420', 'ZPH High School'),
+    ('Ramesh', 29, '420', 'ZPH High School'),
+    ('Ramesh', 29, '420', 'ZPH High School'),
+    ('Ramesh', 29, '420', 'ZPH High School'),
+    ('Ramesh', 29, '420', 'ZPH High School'),
+    ('Ramesh', 29, '420', 'ZPH High School'),
+    ('Ramesh', 29, '420', 'ZPH High School')
+  ];
 
   late List<bool> rowsStatuss;
 
@@ -40,18 +48,33 @@ class _TablesState extends State<Tables> {
           columns: buildColumns,
           rows: buildRows,
         ),
-        // Text('Data Table', style: Theme.of(context).textTheme.titleMedium),
-        // Pag(columns: buildColumns, rows: buildRows),
+        // Text('Paginated Table', style: Theme.of(context).textTheme.titleMedium),
+        // PaginatedDataTable(columns: buildColumns, source: TableData(), ),
       ],
     ).screenPadding();
   }
 
+
   List<DataColumn> get buildColumns {
-    List<({String label, String toolTipDes, bool isNumeric})> columns = [(label: 'Name', toolTipDes: 'Name of the student', isNumeric: false), (label: 'Age', toolTipDes: 'Age of the student', isNumeric: true), (label: 'Id No', toolTipDes: 'Student ID number', isNumeric: true), (label: 'School Name', toolTipDes: 'Student School name', isNumeric: false), (label: 'Edit', toolTipDes: 'Edit the student details', isNumeric: false)];
+    List<({String label, String toolTipDes, bool isNumeric})> columns = [
+      (label: 'Name', toolTipDes: 'Name of the student', isNumeric: false),
+      (label: 'Age', toolTipDes: 'Age of the student', isNumeric: true),
+      (label: 'Id No', toolTipDes: 'Student ID number', isNumeric: true),
+      (
+        label: 'School Name',
+        toolTipDes: 'Student School name',
+        isNumeric: false
+      ),
+      (label: 'Edit', toolTipDes: 'Edit the student details', isNumeric: false)
+    ];
 
     return columns
         .map(
-          (e) => DataColumn(label: Text(e.label), numeric: e.isNumeric, tooltip: e.toolTipDes, onSort: (val, status) {}),
+          (e) => DataColumn(
+              label: Text(e.label),
+              numeric: e.isNumeric,
+              tooltip: e.toolTipDes,
+              onSort: (val, status) {}),
         )
         .toList();
   }
@@ -67,7 +90,58 @@ class _TablesState extends State<Tables> {
             //   if (val != null) status = val;
             // });
           },
-          cells: [DataCell(Text(e.$1)), DataCell(Text('${e.$2}')), DataCell(Text(e.$3)), DataCell(Text(e.$4)), DataCell(Text('Edit '), showEditIcon: true)]);
+          cells: [
+            DataCell(Text(e.$1)),
+            DataCell(Text('${e.$2}')),
+            DataCell(Text(e.$3)),
+            DataCell(Text(e.$4)),
+            DataCell(Text('Edit '), showEditIcon: true)
+          ]);
     }).toList();
   }
 }
+
+class TableData extends DataTableSource {
+
+  @override
+  int get rowCount => 3;
+
+  @override
+  DataRow? getRow(int index) {
+    switch (index) {
+      case 0:
+        return const DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Sarah')),
+            DataCell(Text('19')),
+            DataCell(Text('Student')),
+          ],
+        );
+      case 1:
+        return const DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Janine')),
+            DataCell(Text('43')),
+            DataCell(Text('Professor')),
+          ],
+        );
+      case 2:
+        return const DataRow(
+          cells: <DataCell>[
+            DataCell(Text('William')),
+            DataCell(Text('27')),
+            DataCell(Text('Associate Professor')),
+          ],
+        );
+      default:
+        return null;
+    }
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => 0;
+}
+

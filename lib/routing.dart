@@ -28,7 +28,7 @@ import 'package:sample_latest/screens/localization.dart';
 import 'package:sample_latest/screens/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/widgets/stepper_ui.dart';
+import 'package:sample_latest/screens/regular_widgets/stepper_ui.dart';
 
 import 'screens/plugins/local_authentication.dart';
 
