@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "334267766183",
+    "project_id": "flutter-end-to-end",
+    "storage_bucket": "flutter-end-to-end.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334267766183:android:986bb1f13deca8c4a35282",
+        "android_client_info": {
+          "package_name": "com.example.flutter_end_to_end"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYUkLiGg_EsknSReddn1ZVijODPdEwqGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
