@@ -2,8 +2,11 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
 import 'package:sample_latest/provider/common_provider.dart';
@@ -30,6 +33,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
+  final SchoolBloc _schoolBloc = SchoolBloc(SchoolRepository());
 
   @override
   void initState() {
@@ -68,53 +72,56 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       providers : [
         ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale))
       ],
-      child: Builder(
-        builder: (context) {
-          return OrientationBuilder(
-            builder: (context, orientation) {
-              DeviceConfiguration.updateDeviceResolutionAndOrientation(context, orientation);
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: 'Flutter End to End',
-                localeResolutionCallback: (locale, locales) {
-                  // if(locale?.languageCode == 'es') {
-                  //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                  //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                  //   return englishLocale;
-                  // }
-                  return locale;
-                },
-                locale: context.watch<CommonProvider>().locale,
-                // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                // backButtonDispatcher: () => ,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'),
-                  Locale('es'),
-                  Locale('hi'),
-                  Locale('he'),
-                ],
-                /// text scale factor
-                builder: (BuildContext context, Widget? child){
-                  var data = MediaQuery.of(context);
-                  return MediaQuery(data:data.copyWith(
-                    textScaleFactor : data.textScaleFactor,
-                  ),
-                      child: child ?? Container());
-                },
-                theme: CustomTheme.lightThemeData(context),
-                darkTheme: CustomTheme.darkThemeData(),
-                themeMode: context.watch<CommonProvider>().themeModeType,
-                routerConfig: Routing.router,
-              );
-            }
-          );
-        }
+      child: BlocProvider<SchoolBloc>.value(
+        value: _schoolBloc,
+        child: Builder(
+          builder: (context) {
+            return OrientationBuilder(
+              builder: (context, orientation) {
+                DeviceConfiguration.updateDeviceResolutionAndOrientation(context, orientation);
+                return MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter End to End',
+                  localeResolutionCallback: (locale, locales) {
+                    // if(locale?.languageCode == 'es') {
+                    //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                    //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                    //   return englishLocale;
+                    // }
+                    return locale;
+                  },
+                  locale: context.watch<CommonProvider>().locale,
+                  // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                  // backButtonDispatcher: () => ,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('es'),
+                    Locale('hi'),
+                    Locale('he'),
+                  ],
+                  /// text scale factor
+                  builder: (BuildContext context, Widget? child){
+                    var data = MediaQuery.of(context);
+                    return MediaQuery(data:data.copyWith(
+                      textScaleFactor : data.textScaleFactor,
+                    ),
+                        child: child ?? Container());
+                  },
+                  theme: CustomTheme.lightThemeData(context),
+                  darkTheme: CustomTheme.darkThemeData(),
+                  themeMode: context.watch<CommonProvider>().themeModeType,
+                  routerConfig: Routing.router,
+                );
+              }
+            );
+          }
+        ),
       ),
     );
   }

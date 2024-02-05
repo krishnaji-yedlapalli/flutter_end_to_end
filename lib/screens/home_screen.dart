@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   navigateToDashboard(ScreenType type) {
     String path = switch (type) {
       ScreenType.dashboard => DeviceConfiguration.isMobileResolution ? '/home/dashboard/' : '/home/dashboard/materialComponents',
-      ScreenType.fullscreenChildRouting => '/schools',
+      ScreenType.fullscreenChildRouting => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
       ScreenType.upiPayments => '/home/upipayments',
