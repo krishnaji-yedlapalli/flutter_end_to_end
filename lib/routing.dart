@@ -249,14 +249,14 @@ class Routing {
               path: 'schoolDetails',
               name: 'schoolDetails',
               builder: (BuildContext context, GoRouterState state) {
-                return SchoolDetails(SchoolModel.fromJson (state.queryParameters));
+                return SchoolDetails(int.parse(state.queryParameters['schoolId'].toString()));
               },
               routes: [
                 GoRoute(
-                    path: 'students',
-                    name: 'students',
+                    path: 'student',
+                    name: 'student',
                     builder: (context, state) {
-                      return Student();
+                      return Student(studentId : int.parse(state.queryParameters['studentId'].toString()), schoolId : int.parse(state.queryParameters['schoolId'].toString()));
                     })
               ]),
         ]);

@@ -11,10 +11,17 @@ class SchoolsDataEvent extends SchoolEvent {
 }
 
 class SchoolDataEvent extends SchoolEvent {
-  SchoolDataEvent();
+  final int id;
+  SchoolDataEvent(this.id);
+}
+
+class StudentsDataEvent extends SchoolEvent {
+  final int schoolId;
+  StudentsDataEvent(this.schoolId);
 }
 
 class StudentDataEvent extends SchoolEvent {
-  StudentDataEvent();
-
+  final int studentId;
+  final int schoolId;
+  StudentDataEvent(this.studentId, this.schoolId);
 }

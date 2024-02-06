@@ -1,6 +1,6 @@
 part of 'school_bloc.dart';
 
-enum SchoolDataLoadedType {schools, school, students}
+enum SchoolDataLoadedType {schools, school, students, student}
 
 abstract class SchoolState extends Equatable{
 
@@ -40,7 +40,7 @@ class SchoolsInfoLoaded extends SchoolState {
 
 class SchoolInfoLoaded extends SchoolState {
 
-  final SchoolModel school;
+  final SchoolDetailsModel school;
 
   SchoolInfoLoaded(super.schoolStateType, this.school);
 
@@ -53,13 +53,26 @@ class StudentInfoLoaded extends SchoolState {
 
   final StudentModel student;
 
-  final SchoolModel school;
+  final SchoolDetailsModel school;
 
   StudentInfoLoaded(super.schoolStateType, this.student, this.school);
 
   @override
   // TODO: implement props
   List<Object?> get props => [super.schoolStateType, student, school];
+}
+
+class StudentsInfoLoaded extends SchoolState {
+
+  final List<StudentModel> students;
+
+  final SchoolDetailsModel school;
+
+  StudentsInfoLoaded(super.schoolStateType, this.students, this.school);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [super.schoolStateType, students, school];
 }
 
 class DataError extends SchoolState {
