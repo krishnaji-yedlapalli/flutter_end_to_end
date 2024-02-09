@@ -132,4 +132,14 @@ mixin HelperWidget {
    }
  );
 
+ Widget emptyMessage(String message) => Builder(
+   builder: (context) {
+     return Container(
+       padding: const EdgeInsets.all(8.0),
+         alignment: Alignment.center,
+         child: Text(message, style: Theme.of(context).textTheme.labelLarge),
+     );
+   }
+ );
+
 }

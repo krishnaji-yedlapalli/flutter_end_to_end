@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/data/models/school/school_model.dart';
+import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/screens/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/screens/regular_widgets/animations/explicit_animation_widgets.dart';
@@ -20,7 +22,7 @@ import 'package:sample_latest/screens/shortcuts/call_back_shortcuts.dart';
 import 'package:sample_latest/screens/regular_widgets/cards_list_view_grid.dart';
 import 'package:sample_latest/screens/child_routing_school/school_details.dart';
 import 'package:sample_latest/screens/child_routing_school/schools.dart';
-import 'package:sample_latest/screens/child_routing_school/students.dart';
+import 'package:sample_latest/screens/child_routing_school/student.dart';
 import 'package:sample_latest/screens/home_screen.dart';
 import 'package:sample_latest/screens/isolates/isolate_home.dart';
 import 'package:sample_latest/screens/isolates/isolate_with_compute.dart';
@@ -52,7 +54,7 @@ class Routing {
     navigatorKey: navigatorKey,
     initialLocation: home,
     // errorBuilder: _errorBuilder,
-    routes: <RouteBase>[homeRoute(), schollRoute()],
+    routes: <RouteBase>[homeRoute()],
   );
 
   /// Home items
@@ -65,6 +67,7 @@ class Routing {
         },
         routes: [
           dashboardRoute(),
+          schoolRoute(),
           GoRoute(
               path: 'keepalive',
               name: 'KeepAlive screen',
@@ -234,9 +237,9 @@ class Routing {
     }
   }
 
-  static GoRoute schollRoute() {
+  static GoRoute schoolRoute() {
     return GoRoute(
-        path: '/schools',
+        path: 'schools',
         name: 'schools',
         builder: (BuildContext context, GoRouterState state) {
           return const Schools();
@@ -246,14 +249,14 @@ class Routing {
               path: 'schoolDetails',
               name: 'schoolDetails',
               builder: (BuildContext context, GoRouterState state) {
-                return SchoolDetails((state.queryParameters['name'], state.queryParameters['address'], int.parse(state.queryParameters['pincode'] ?? '0')) as (String, String, int));
+                return SchoolDetails(int.parse(state.queryParameters['schoolId'].toString()), state.queryParameters['schoolName'] ?? '');
               },
               routes: [
                 GoRoute(
-                    path: 'students',
-                    name: 'students',
+                    path: 'student',
+                    name: 'student',
                     builder: (context, state) {
-                      return Students();
+                      return Student(studentId : int.parse(state.queryParameters['studentId'].toString()), schoolId : int.parse(state.queryParameters['schoolId'].toString()));
                     })
               ]),
         ]);

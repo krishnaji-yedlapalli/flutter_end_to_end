@@ -52,7 +52,6 @@ class _SelectableTextSampleState extends State<SelectableTextSample> {
             BrowserContextMenu.disableContextMenu();
           }
         }
-        print('${val} ${selection}');
         },
         enableInteractiveSelection: true,
         contextMenuBuilder: (context, editableTextState) {
@@ -100,7 +99,6 @@ class _SelectableTextSampleState extends State<SelectableTextSample> {
           BrowserContextMenu.disableContextMenu();
         }
       }
-      print('${selection?.plainText}');
     },
       child: Column(
         children: [
