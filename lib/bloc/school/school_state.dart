@@ -32,10 +32,10 @@ class SchoolsInfoLoaded extends SchoolState {
 
    final List<SchoolModel> schools;
 
-   SchoolsInfoLoaded(SchoolDataLoadedType schoolStateType, this.schools) : super(schoolStateType);
+   const SchoolsInfoLoaded(SchoolDataLoadedType schoolStateType, this.schools) : super(schoolStateType);
 
   @override
-  List<Object?> get props => [super.schoolStateType];
+  List<Object?> get props => [super.schoolStateType, schools];
 }
 
 class SchoolInfoLoaded extends SchoolState {
@@ -53,26 +53,37 @@ class StudentInfoLoaded extends SchoolState {
 
   final StudentModel student;
 
-  final SchoolDetailsModel school;
+  final int schoolId;
 
-  StudentInfoLoaded(super.schoolStateType, this.student, this.school);
+  StudentInfoLoaded(super.schoolStateType, this.student, this.schoolId);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [super.schoolStateType, student, school];
+  List<Object?> get props => [super.schoolStateType, student, schoolId];
 }
 
 class StudentsInfoLoaded extends SchoolState {
 
   final List<StudentModel> students;
 
-  final SchoolDetailsModel school;
+  final int schoolId;
 
-  StudentsInfoLoaded(super.schoolStateType, this.students, this.school);
+  // final SchoolDetailsModel? school;
+
+  StudentsInfoLoaded(super.schoolStateType, this.students, this.schoolId);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [super.schoolStateType, students, school];
+  List<Object?> get props => [super.schoolStateType, students, schoolId];
+}
+
+class SchoolDataNotFound extends SchoolState {
+
+  const SchoolDataNotFound(super.schoolStateType);
+
+  @override
+  List<Object?> get props => [super.schoolStateType];
+
 }
 
 class DataError extends SchoolState {

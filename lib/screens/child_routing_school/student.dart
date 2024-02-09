@@ -33,11 +33,9 @@ class _ChildListState extends State<Student> {
       // listenWhen: (context, state) {
       //   return state is DataLoaded && state.data is StudentModel;
       // },
-      // buildWhen: (DataState pageState, state) {
-      //   return state is DataLoaded && state.data is List<StudentModel>;
-      // },
-      buildWhen: (context, state) =>
-          state.schoolStateType == SchoolDataLoadedType.student,
+      buildWhen: (context, state) {
+        return state.schoolStateType == SchoolDataLoadedType.student;
+      },
       builder: (context, state) {
         if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
           return const CircularProgressIndicator();

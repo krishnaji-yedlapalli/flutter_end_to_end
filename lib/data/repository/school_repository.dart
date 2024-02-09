@@ -4,12 +4,17 @@ import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/data/urls.dart';
+import 'package:sample_latest/utils/enums.dart';
 
 abstract class SchoolRepo {
-Future<SchoolDetailsModel> fetchSchoolDetails(int id);
+Future<SchoolDetailsModel?> fetchSchoolDetails(int id);
 Future<List<SchoolModel>> fetchSchools();
 Future<List<StudentModel>> fetchStudents(int schoolId);
 Future<StudentModel> fetchStudent(int studentId, int schoolId);
+Future<SchoolModel> createSchool(Map<String, dynamic> body);
+Future<bool> addSchoolDetails(Map<String, dynamic> body);
+Future<StudentModel?> createStudent(int schoolId, Map<String, dynamic> body);
+Future<bool> deleteSchool(String id);
 }
 
 class SchoolRepository extends BaseService implements SchoolRepo{
@@ -37,13 +42,11 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<SchoolDetailsModel> fetchSchoolDetails(int id) async {
-    SchoolDetailsModel schoolDetails;
+  Future<SchoolDetailsModel?> fetchSchoolDetails(int id) async {
+    SchoolDetailsModel? schoolDetails;
     var response = await makeRequest(url: '${Urls.schoolDetails}/$id.json');
     if(response != null) {
       schoolDetails = SchoolDetailsModel.fromJson(response);
-    }else{
-      throw UnimplementedError();
     }
     return schoolDetails;
   }
@@ -58,6 +61,42 @@ class SchoolRepository extends BaseService implements SchoolRepo{
       throw Exception();
     }
     return students;
+  }
+
+  @override
+  Future<bool> addSchoolDetails(Map<String, dynamic> body) {
+    // TODO: implement addSchoolDetails
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SchoolModel> createSchool(Map<String, dynamic> body) async {
+    SchoolModel schoolDetails;
+
+    var response = await makeRequest(url: Urls.schools, body: body, method: RequestType.patch);
+    if(response != null && response is Map && response.keys.isNotEmpty) {
+      schoolDetails = SchoolModel.fromJson(response[response.keys.first]);
+    }else{
+      throw UnimplementedError();
+    }
+    return schoolDetails;
+  }
+
+  @override
+  Future<StudentModel?> createStudent(int schoolId, Map<String, dynamic> body) async {
+    StudentModel? studentModel;
+
+    var response = await makeRequest(url: '${Urls.students}/$schoolId.json', body: body, method: RequestType.patch);
+    if(response != null && response is Map && response.keys.isNotEmpty) {
+      studentModel = StudentModel.fromJson(response[response.keys.first]);
+    }
+    return studentModel;
+  }
+
+  @override
+  Future<bool> deleteSchool(String id) {
+    // TODO: implement deleteSchool
+    throw UnimplementedError();
   }
 
 }

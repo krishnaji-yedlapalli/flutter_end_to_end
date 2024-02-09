@@ -4,6 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
+import 'package:sample_latest/mixins/dialogs.dart';
+import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/screens/child_routing_school/create_school.dart';
+import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
@@ -14,10 +19,11 @@ class Schools extends StatefulWidget {
   State<Schools> createState() => _SchoolsState();
 }
 
-class _SchoolsState extends State<Schools> {
+class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWidget{
   @override
   void initState() {
       BlocProvider.of<SchoolBloc>(context).add(SchoolsDataEvent());
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => ScaffoldMessenger.of(context).showSnackBar(snackbar));
     super.initState();
   }
 
@@ -28,8 +34,9 @@ class _SchoolsState extends State<Schools> {
         title: const Text('Schools'),
         appBar: AppBar(),
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){}, label: Text('Create School'), icon: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: Text('Create School'), icon: Icon(Icons.add)),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,14 +53,15 @@ class _SchoolsState extends State<Schools> {
         listener: (context, state) {
         },
         // listenWhen: (context, state) {
-        //   return state is DataLoaded && state is List<SchoolModel>;
+        //   return state is SchoolsInfoLoaded && state is List<SchoolModel>;
         // },
+
         buildWhen: (context, state) {
           return state.schoolStateType == SchoolDataLoadedType.schools;
         },
         builder: (context, state) {
           if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
-            return const CircularProgressIndicator();
+            return circularLoader();
           } else if (state is SchoolsInfoLoaded) {
             return _buildRegisteredSchools(state.schools);
           } else {
@@ -63,39 +71,43 @@ class _SchoolsState extends State<Schools> {
   }
 
   Widget _buildRegisteredSchools(List<SchoolModel> schools) {
-    return DeviceConfiguration.isMobileResolution ? ListView.builder(
-        itemCount: schools.length,
-        itemBuilder: (context, index) {
-          var school = schools.elementAt(index);
-          return ListTile(
-            leading: const Icon(Icons.school),
-            title: Text(school.schoolName),
-            subtitle: RichText(
-                text: TextSpan(
-                  style: TextStyle(color: Colors.black),
-                  children:[
-                    const TextSpan(text: 'Country :', style: TextStyle(color: Colors.orange)),
-                    TextSpan(text:  school.country),
-                  ]
-                )),
-            onTap: () => onTapOfSchool(school),
-          );
-        }) :
-      GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-      shrinkWrap: true,
-      children: List.generate(
-          schools.length,
-          (index) => InkWell(
-                onTap: () => onTapOfSchool(schools.elementAt(index)),
-                child: Card(
-                  child: Text(schools.elementAt(index).schoolName),
-                ),
-              )),
+
+    if(schools.isEmpty) return emptyMessage('No Schools Found, Create a new School');
+
+    return  SizedBox(
+      width: DeviceConfiguration.isMobileResolution ? null : MediaQuery.of(context).size.width/3,
+      child: ListView.separated(
+          itemCount: schools.length,
+          itemBuilder: (context, index) {
+            var school = schools.elementAt(index);
+            return ListTile(
+              leading: const Icon(Icons.school),
+              title: Text(school.schoolName),
+              subtitle: RichText(
+                  text: TextSpan(
+                    style: const TextStyle(color: Colors.black),
+                    children:[
+                      const TextSpan(text: 'Country :', style: TextStyle(color: Colors.orange)),
+                      TextSpan(text:  school.country),
+                    ]
+                  )),
+              trailing: IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: onTapOfSchoolDelete),
+              onTap: () => onTapOfSchool(school),
+            );
+          }, separatorBuilder: (BuildContext context, int index) => Divider()),
     );
   }
 
+  SnackBar get snackbar => const SnackBar(content: Text("Integrated the API's using Firebase Realtime Data base !!!"));
+
   onTapOfSchool(SchoolModel school) {
-    context.go(Uri(path: '/home/schools/schoolDetails', queryParameters: {"schoolId" : school.id.toString()}).toString(), extra: (school, null));
+    context.go(Uri(path: '/home/schools/schoolDetails', queryParameters: {"schoolId" : school.id.toString(), "schoolName" : school.schoolName}).toString(), extra: (school, null));
   }
+
+  onTapOfCreateSchool() {
+    adaptiveDialog(context, const CreateSchool());
+  }
+
+  onTapOfSchoolDelete() {}
+
 }

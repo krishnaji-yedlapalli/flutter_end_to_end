@@ -11,7 +11,7 @@ class BaseService {
   Future<dynamic> makeRequest<T>(
       {required String url,
       String? baseUrl,
-      dynamic body,
+      Map<String, dynamic>? body,
       String? contentType,
       Map<String, dynamic>? queryParameters,
       Map<String, String>? headers,
@@ -23,12 +23,11 @@ class BaseService {
     // dio.options.extra.addAll(extras);
     // dio.options.extra['storeResponse'] = storeResponseInDb;
     // if(headers != null) dio.options.headers.addAll(headers);
-
+    var uriUrl = Uri.https(Urls.baseUrl, url);
     http.Response response;
       switch (method) {
         case RequestType.get:
           if (queryParameters != null && queryParameters.isNotEmpty) {
-            var uriUrl = Uri.https(Urls.baseUrl, url);
 
             response = await http.get(
               uriUrl,
@@ -36,13 +35,14 @@ class BaseService {
             return response;
           }
 
-          var uriUrl = Uri.https(Urls.baseUrl, url);
           response = await http.get(uriUrl);
           return jsonDecode(response.body);
         case RequestType.put:
-          // response = await http.put(url,
-          //     queryParameters: queryParameters, data: body);
-          // return response.data;
+          response = await http.put(uriUrl, body: jsonEncode(body));
+          return jsonDecode(response.body);
+        case RequestType.patch:
+          response = await http.patch(uriUrl, body: jsonEncode(body));
+          return jsonDecode(response.body);
         case RequestType.post:
           // response = await http.post(
           //   url,
