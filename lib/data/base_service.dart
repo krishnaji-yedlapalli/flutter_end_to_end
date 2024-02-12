@@ -51,9 +51,8 @@ class BaseService {
           // );
           // return response.data;
         case RequestType.delete:
-          // response = await http.delete(url,
-          //     queryParameters: queryParameters, data: body);
-          // return response.data;
+          response = await http.delete(uriUrl);
+          return jsonDecode(response.body);
       }
     }
   }

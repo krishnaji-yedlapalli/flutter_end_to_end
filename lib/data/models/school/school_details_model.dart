@@ -6,9 +6,9 @@ part 'school_details_model.g.dart';
 @JsonSerializable()
 class SchoolDetailsModel {
 
-  SchoolDetailsModel(this.id, this.image, this.studentCount, this.employeeCount, this.hostelAvailability, this.schoolName, this.country, this.location);
+  SchoolDetailsModel(this.schoolId, this.schoolName, this.country, this.location, this.image, this.studentCount, this.employeeCount, this.hostelAvailability);
 
-  final int id;
+  final int schoolId;
 
   @JsonKey(required: true)
   final String schoolName;
@@ -23,7 +23,7 @@ class SchoolDetailsModel {
 
   final int employeeCount;
 
-  final String hostelAvailability;
+  final bool hostelAvailability;
 
 
   factory SchoolDetailsModel.fromJson(Map<String, dynamic> json) => _$SchoolDetailsModelFromJson(json);

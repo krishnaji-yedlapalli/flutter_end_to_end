@@ -23,6 +23,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
       emit(SchoolInfoLoading(schoolState));
       try {
+        schools.clear();
         schools = await repository.fetchSchools();
         emit(SchoolsInfoLoaded(schoolState, schools));
       } catch (e, s) {
@@ -49,9 +50,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
     on<StudentsDataEvent>((event, emit) async {
       const schoolState = SchoolDataLoadedType.students;
-      var state = this.state;
-      // if(state is SchoolInfoLoaded){
-      //   var selectedSchool = state.school;
+
       emit(SchoolInfoLoading(schoolState));
 
       try {
@@ -86,34 +85,113 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
       try {
         var newSchool = SchoolModel(event.schoolName, event.country,
-            event.location, schools.isNotEmpty ? schools.last.id + 1 : 0);
+            event.location, event.id != null ? event.id! : schools.isNotEmpty ? schools.last.schoolId + 1 : 0);
         Map<String, dynamic> body = {
-          newSchool.id.toString(): newSchool.toJson()
+          newSchool.schoolId.toString(): newSchool.toJson()
         };
-        var createdSchool = await repository.createSchool(body);
-        schools = [...schools, createdSchool];
+        var createdSchool = await repository.createOrEditSchool(body);
+        if(event.id != null){
+          var filteredSchools = [...schools];
+          var index = filteredSchools.indexWhere((school) => school.schoolId == event.id);
+          if(index != - 1){
+            filteredSchools[index] = createdSchool;
+          }
+          schools = [...filteredSchools];
+        }else {
+          schools = [...schools, createdSchool];
+        }
         emit(SchoolsInfoLoaded(schoolState, schools));
       } catch (e, s) {
         emit(DataError(schoolState));
       }
     });
 
-    on<CreateStudentEvent>((event, emit) async {
+    on<CreateOrEditSchoolDetailsEvent>((event, emit) async {
+      const schoolState = SchoolDataLoadedType.school;
+
+      try {
+
+        Map<String, dynamic> body = {
+          event.schoolDetails.schoolId.toString(): event.schoolDetails.toJson()
+        };
+
+        var createdOrEditSchoolDetails = await repository.addOrEditSchoolDetails(body);
+
+        emit(SchoolInfoLoaded(schoolState, createdOrEditSchoolDetails));
+      } catch (e, s) {
+        emit(DataError(schoolState));
+      }
+    });
+
+    on<CreateOrEditStudentEvent>((event, emit) async {
       const schoolState = SchoolDataLoadedType.students;
 
       try {
+        var isCreateStudent = event.student.id == -1;
+        var studentId=  !isCreateStudent ? event.student.id : students.isEmpty ? 0 : students.last.id + 1;
+        event.student.id = studentId;
         Map<String, dynamic> body = {
-            event.student.id.toString(): event.student.toJson()
+          studentId.toString() : event.student.toJson()
         };
+
         var createdStudent =
-            await repository.createStudent(event.schoolId, body);
+            await repository.createOrEditStudent(event.schoolId, body);
         if (createdStudent != null) {
-        } else {}
-        students = [...students, event.student];
+
+        } else {
+
+        }
+
+        viewAllStudents = true;
+
+        if(!isCreateStudent){
+          var filteredStudents = [...students];
+          var index = students.indexWhere((element) => element.id == event.student.id);
+          if(index != -1){
+            filteredStudents[index] = event.student;
+            students = filteredStudents;
+          }
+        }else{
+          students = [...students, event.student];
+        }
+
         emit(StudentsInfoLoaded(schoolState, students, event.schoolId));
       } catch (e, s) {
         emit(DataError(schoolState));
       }
     });
+
+    on<DeleteSchoolEvent>((event, emit) async {
+      const schoolState = SchoolDataLoadedType.schools;
+
+      try {
+        var status = await repository.deleteSchool(event.schoolId);
+        var filteredSchools = [...schools, ...<SchoolModel>[]];
+        filteredSchools.removeWhere((school) => school.schoolId == event.schoolId);
+        emit(SchoolsInfoLoaded(schoolState, filteredSchools));
+      } catch (e, s) {
+        emit(DataError(schoolState));
+      }
+    });
+
+    on<DeleteStudentEvent>((event, emit) async {
+      const schoolState = SchoolDataLoadedType.students;
+
+      emit(SchoolInfoLoading(schoolState));
+      try {
+        var status = await repository.deleteStudent(event.studentId, event.schoolId);
+        if(status) {
+          var filteredStudents = [...students, ...<StudentModel>[]];
+          filteredStudents.removeWhere((student) =>
+          student.id == event.studentId);
+          emit(StudentsInfoLoaded(
+              schoolState, filteredStudents, event.schoolId));
+        }
+      } catch (e, s) {
+        emit(DataError(schoolState));
+      }
+    });
   }
+
+
 }

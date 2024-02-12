@@ -91,7 +91,12 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
                       TextSpan(text:  school.country),
                     ]
                   )),
-              trailing: IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: onTapOfSchoolDelete),
+              trailing:Wrap(
+                children: [
+                  IconButton(icon : const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfEditSchool(school)),
+                  IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: () => onTapOfSchoolDelete(school.schoolId))
+                ],
+              ),
               onTap: () => onTapOfSchool(school),
             );
           }, separatorBuilder: (BuildContext context, int index) => Divider()),
@@ -101,13 +106,21 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   SnackBar get snackbar => const SnackBar(content: Text("Integrated the API's using Firebase Realtime Data base !!!"));
 
   onTapOfSchool(SchoolModel school) {
-    context.go(Uri(path: '/home/schools/schoolDetails', queryParameters: {"schoolId" : school.id.toString(), "schoolName" : school.schoolName}).toString(), extra: (school, null));
+    var query = school.toJson();
+    query['schoolId'] = query['schoolId'].toString();
+    context.go(Uri(path: '/home/schools/schoolDetails', queryParameters: query).toString(), extra: (school, null));
   }
 
   onTapOfCreateSchool() {
     adaptiveDialog(context, const CreateSchool());
   }
 
-  onTapOfSchoolDelete() {}
+  onTapOfEditSchool(SchoolModel school) {
+    adaptiveDialog(context, CreateSchool(school: school));
+  }
+
+  onTapOfSchoolDelete(int schoolId) {
+    BlocProvider.of<SchoolBloc>(context).add(DeleteSchoolEvent(schoolId));
+  }
 
 }

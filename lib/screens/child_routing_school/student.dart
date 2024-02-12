@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
+import 'package:sample_latest/extensions/widget_extension.dart';
+import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class Student extends StatefulWidget {
   final int studentId;
   final int schoolId;
-  const Student({Key? key, required this.studentId, required this.schoolId})
+  final String schoolName;
+  const Student({Key? key, required this.studentId, required this.schoolId, required this.schoolName})
       : super(key: key);
 
   @override
   State<Student> createState() => _ChildListState();
 }
 
-class _ChildListState extends State<Student> {
+class _ChildListState extends State<Student> with HelperWidget, Loaders{
   @override
   void initState() {
     BlocProvider.of<SchoolBloc>(context)
@@ -38,9 +43,9 @@ class _ChildListState extends State<Student> {
       },
       builder: (context, state) {
         if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
-          return const CircularProgressIndicator();
+          return circularLoader();
         } else if (state is StudentInfoLoaded) {
-          return _buildStudents(state.student);
+          return _buildStudentDetails(state.student);
         } else {
           return Container();
         }
@@ -49,7 +54,33 @@ class _ChildListState extends State<Student> {
     );
   }
 
-  Widget _buildStudents(StudentModel student) {
-    return Container(child: Text('studnet'));
+  Widget _buildStudentDetails(StudentModel student) {
+    return Column(
+      children: [
+      Text('Student Details :', style: Theme.of(context).textTheme.headlineSmall?.apply(color: Colors.orange)),
+        _buildStudent(student),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton.icon(onPressed: deleteStudent, icon: Icon(Icons.delete), label : Text('Delete Student'), style: ElevatedButton.styleFrom(backgroundColor: Colors.red)),
+        )
+      ],
+    ).screenPadding();
+  }
+
+  Widget _buildStudent(StudentModel student) {
+    return Wrap(
+      direction: Axis.vertical,
+      spacing: 20,
+      children: [
+        buildLabelWithValue('Student Name', student.studentName),
+        buildLabelWithValue('Location ', student.studentLocation),
+        buildLabelWithValue('Standard ', student.standard),
+      ],
+    );
+  }
+
+  void deleteStudent() {
+    GoRouter.of(context).pop();
+    BlocProvider.of<SchoolBloc>(context).add(DeleteStudentEvent(widget.studentId, widget.schoolId));
   }
 }

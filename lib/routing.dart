@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
@@ -249,14 +250,17 @@ class Routing {
               path: 'schoolDetails',
               name: 'schoolDetails',
               builder: (BuildContext context, GoRouterState state) {
-                return SchoolDetails(int.parse(state.queryParameters['schoolId'].toString()), state.queryParameters['schoolName'] ?? '');
+                Map<String, dynamic> query = {};
+                query.addAll(state.queryParameters);
+                query['schoolId'] = int.parse(query['schoolId']);
+                return SchoolDetails(SchoolModel.fromJson(query));
               },
               routes: [
                 GoRoute(
                     path: 'student',
                     name: 'student',
                     builder: (context, state) {
-                      return Student(studentId : int.parse(state.queryParameters['studentId'].toString()), schoolId : int.parse(state.queryParameters['schoolId'].toString()));
+                      return Student(studentId : int.parse(state.queryParameters['studentId'].toString()), schoolId : int.parse(state.queryParameters['schoolId'].toString()), schoolName: state.queryParameters['schoolName'].toString());
                     })
               ]),
         ]);

@@ -16,9 +16,10 @@ import 'package:sample_latest/widgets/custom_app_bar.dart';
 import '../../bloc/school/school_bloc.dart';
 
 class SchoolDetails extends StatefulWidget {
-  final int id;
-  final String schoolName;
-  const SchoolDetails(this.id, this.schoolName, {Key? key}) : super(key: key);
+
+  final SchoolModel school;
+
+  const SchoolDetails(this.school, {Key? key}) : super(key: key);
 
   @override
   State<SchoolDetails> createState() => _SchoolDetailsState();
@@ -29,7 +30,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   @override
   void initState() {
     BlocProvider.of<SchoolBloc>(context)
-      ..add(SchoolDataEvent(widget.id))
+      ..add(SchoolDataEvent(widget.school.schoolId))
       ..viewAllStudents = true;
     super.initState();
   }
@@ -50,7 +51,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
       },
       builder: (context, state) {
         if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
-          return const CircularProgressIndicator();
+          return circularLoader();
         } else if (state is SchoolInfoLoaded) {
           return _buildSchoolDetails(state.school);
         }else if(state is SchoolDataNotFound){
@@ -71,7 +72,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-                widget.schoolName,
+                widget.school.schoolName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             background: Image.network('https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill),
@@ -84,9 +85,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: SizedBox(
                   width: 200,
-                  child: ElevatedButton(onPressed: (){}, child: const Text('Add More details'))),
+                  child: ElevatedButton(onPressed: onTapOfAddMoreDetails, child: const Text('Add More details'))),
             ),
-            if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(widget.id),
+            if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(widget.school.schoolId),
           ],
         )
         ),
@@ -149,7 +150,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
             //     buildLabelWithValue('Country:' , schoolDetails.country)
             //   ],
             // ),
-           if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(schoolDetails.id)
+           if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(schoolDetails.schoolId),
+           if(!context.watch<SchoolBloc>().viewAllStudents) Text('Students :', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.orange))
           ],
         ).screenPadding()
         ),
@@ -165,7 +167,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
         onPressed: () => context
             .read<SchoolBloc>()
             .add(StudentsDataEvent(id)),
-        child: const Text('View All Students'));
+        child: const Text('View Students'));
   }
 
   Widget _buildValue(String value) {
@@ -204,36 +206,41 @@ class _SchoolDetailsState extends State<SchoolDetails>
       child: ListView.separated(
           itemCount: students.length,
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             var student = students.elementAt(index);
           return ListTile(
-            leading: Icon(Icons.person),
+            leading: const Icon(Icons.person),
             title: Text(student.studentName),
-            subtitle: Text(student.className),
+            subtitle: Text(student.standard),
+            trailing: IconButton(icon: const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfCreateUpdate(student)),
             onTap:  () => onTapOfViewStudents(
-                student.id, widget.id),
+                student.id, widget.school.schoolId),
           );
       },
-      separatorBuilder: (context, index) => Divider(),
+      separatorBuilder: (context, index) => const Divider(),
       ),
     );
   }
 
   onTapOfAddMoreDetails() {
-    adaptiveDialog(context, const AddSchoolDetails());
+    adaptiveDialog(context, AddSchoolDetails(school: widget.school));
   }
 
   onTapOfCreateStudent() {
-    adaptiveDialog(context, CreateStudent(widget.id));
+    adaptiveDialog(context, CreateStudent(widget.school.schoolId));
+  }
+
+  onTapOfCreateUpdate(StudentModel student) {
+    adaptiveDialog(context, CreateStudent(widget.school.schoolId, student: student));
   }
 
   onTapOfViewStudents(int id, int schoolId) {
+    var query = widget.school.toJson();
+    query['studentId'] = id.toString();
+    query['schoolId'] = widget.school.schoolId.toString();
     context.go(Uri(
         path: '/home/schools/schoolDetails/student',
-        queryParameters: {
-          'studentId': id.toString(),
-          'schoolId': schoolId.toString()
-        }).toString());
+        queryParameters: query).toString());
   }
 }
