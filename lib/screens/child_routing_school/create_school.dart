@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
@@ -9,7 +10,8 @@ import 'package:sample_latest/widgets/custom_dropdown.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
 class CreateSchool extends StatefulWidget {
-  const CreateSchool({Key? key}) : super(key: key);
+  final SchoolModel? school;
+  const CreateSchool({Key? key, this.school}) : super(key: key);
 
   @override
   State<CreateSchool> createState() => _CreateSchoolState();
@@ -36,10 +38,20 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
   String? selectedCountry;
 
   @override
+  void initState() {
+    if(widget.school != null) {
+      schoolNameCtrl.text = widget.school?.schoolName ?? '';
+      locationCtrl.text = widget.school?.location ?? '';
+      selectedCountry = widget.school?.country;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return dialogWithButtons(
       title: 'Create School',
-      content: _buildFrom(), actions: ['Cancel', 'Create'], callBack: onTapOfAction
+      content: _buildFrom(), actions: ['Cancel', widget.school != null ? 'Update' : 'Create'], callBack: onTapOfAction
     );
   }
 
@@ -89,7 +101,9 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
         if(formKey.currentState?.validate() ?? false) {
           context.read<SchoolBloc>().add(CreateSchoolEvent(
               schoolNameCtrl.text.trim(), selectedCountry!,
-              locationCtrl.text.trim()));
+              locationCtrl.text.trim(),
+          id: widget.school?.schoolId
+          ));
           GoRouter.of(context).pop();
         }
         break;

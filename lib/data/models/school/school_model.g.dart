@@ -15,7 +15,7 @@ SchoolModel _$SchoolModelFromJson(Map<String, dynamic> json) {
     json['schoolName'] as String,
     json['country'] as String,
     json['location'] as String,
-    json['id'] as int,
+    json['schoolId'] as int,
   );
 }
 
@@ -24,5 +24,5 @@ Map<String, dynamic> _$SchoolModelToJson(SchoolModel instance) =>
       'schoolName': instance.schoolName,
       'country': instance.country,
       'location': instance.location,
-      'id': instance.id,
+      'schoolId': instance.schoolId,
     };

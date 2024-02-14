@@ -44,10 +44,14 @@ dependencies:
   easy_upi_payment:
   google_fonts: ^6.1.0
   http:
-  sqflite: ^2.3.0
+  http_interceptor:
+  connectivity_plus:
+  sqflite:
   provider:
   flutter_bloc:
   equatable:
+  path_provider: ^2.1.2
+  path:
 
   # Plugins
   youtube_player_flutter:

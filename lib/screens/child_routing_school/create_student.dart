@@ -11,7 +11,8 @@ import 'package:sample_latest/widgets/text_field.dart';
 
 class CreateStudent extends StatefulWidget {
   final int schoolId;
-  const CreateStudent(this.schoolId, {Key? key}) : super(key: key);
+  final StudentModel? student;
+  const CreateStudent(this.schoolId, {Key? key, this.student}) : super(key: key);
 
   @override
   State<CreateStudent> createState() => _CreateStudentState();
@@ -21,13 +22,9 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
 
   final TextEditingController studentNameCtrl = TextEditingController();
 
-  final TextEditingController studentStrengthCtrl = TextEditingController();
-
   final TextEditingController staffStrengthCtrl = TextEditingController();
 
   final TextEditingController studentLocationCtrl = TextEditingController();
-
-  bool hostelAvailability = false;
 
   static const List<String> standard = [
     'LKG',
@@ -49,10 +46,20 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
   String? selectedStandard;
 
   @override
+  void initState() {
+    if(widget.student != null){
+      studentNameCtrl.text = widget.student?.studentName ?? '';
+      studentLocationCtrl.text = widget.student?.studentLocation ?? '';
+      selectedStandard = widget.student?.standard;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return dialogWithButtons(
         title: 'Create Student',
-        content: _buildFrom(), actions: ['Cancel', 'Create'], callBack: onTapOfAction
+        content: _buildFrom(), actions: ['Cancel', widget.student != null ? 'Update' : 'Create'], callBack: onTapOfAction
     );
   }
 
@@ -82,33 +89,11 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
               validator: (val)=> textEmptyValidator(val, 'Standard is required!!'),
             ),
             CustomTextField(
-              controller: studentStrengthCtrl,
-              label: 'Student Strength',
-              suffixIcon: const Icon(Icons.child_care),
-              inputFormatter: [Validators.onlyNumerics],
-              validator: (val)=> textEmptyValidator(val, 'Strength is required!!'),
-            ),
-            CustomTextField(
-              controller: staffStrengthCtrl,
-              label: 'Staff Strength',
-              suffixIcon: const Icon(Icons.person),
-              inputFormatter: [Validators.onlyNumerics],
-              validator: (val)=> textEmptyValidator(val, 'Strength is required!!'),
-            ),
-            CustomTextField(
               controller: studentLocationCtrl,
               label: 'Location of Student',
               suffixIcon: const Icon(Icons.location_on),
               validator: (val)=> textEmptyValidator(val, 'Location is required!!'),
             ),
-            Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runSpacing: 5,
-              children: [
-                Text('Hostel Availability :'),
-                Switch.adaptive(value: hostelAvailability, onChanged: (val) =>  hostelAvailability = val)
-              ],
-            )
           ],
         ),
       ),
@@ -122,15 +107,11 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().add(CreateStudentEvent(
+          context.read<SchoolBloc>().add(CreateOrEditStudentEvent(
               StudentModel(
-                widget.schoolId,
+                widget.student != null ? widget.student!.id : -1,
                 studentNameCtrl.text.trim(),
-                selectedStandard!,
-                int.parse(studentStrengthCtrl.text.trim()),
-                int.parse(staffStrengthCtrl.text.trim()),
                 studentLocationCtrl.text.trim(),
-                hostelAvailability,
                 selectedStandard!
               ), widget.schoolId));
           GoRouter.of(context).pop();

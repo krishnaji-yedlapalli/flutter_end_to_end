@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/data/models/school/school_details_model.dart';
+import 'package:sample_latest/data/models/school/school_model.dart';
+import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
 import 'package:sample_latest/widgets/custom_dropdown.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
 class AddSchoolDetails extends StatefulWidget {
-  const AddSchoolDetails({Key? key}) : super(key: key);
+
+  final SchoolDetailsModel? schoolDetails;
+
+  final SchoolModel school;
+
+  const AddSchoolDetails({Key? key, required this.school, this.schoolDetails}) : super(key: key);
 
   @override
   State<AddSchoolDetails> createState() => _AddSchoolDetailsState();
@@ -17,29 +25,30 @@ class AddSchoolDetails extends StatefulWidget {
 
 class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs, Validators{
 
-  final TextEditingController schoolNameCtrl = TextEditingController();
 
-  final TextEditingController locationCtrl = TextEditingController();
+  final TextEditingController studentStrengthCtrl = TextEditingController();
 
-  static const List<String> countries = [
-    'India',
-    'USA',
-    'UK',
-    'Russia',
-    'Dubai',
-    'China',
-    'Japan'
-  ];
+  final TextEditingController staffStrengthCtrl = TextEditingController();
+
+  bool hostelAvailability = false;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String? selectedCountry;
+  @override
+  void initState() {
+
+    if(widget.schoolDetails != null){
+
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return dialogWithButtons(
-        title: 'Create School',
-        content: _buildFrom(), actions: ['Cancel', 'Create'], callBack: onTapOfAction
+        title: 'Add School Details',
+        content: _buildFrom(), actions: ['Cancel', widget.schoolDetails != null ? 'Update' : 'Create'], callBack: onTapOfAction
     );
   }
 
@@ -54,26 +63,27 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
           runSpacing: 20,
           children: [
             CustomTextField(
-              controller: schoolNameCtrl,
-              label: 'School Name',
-              suffixIcon: const Icon(Icons.school),
-              validator: (val)=> textEmptyValidator(val, 'School name is required!!'),
-            ),
-            CustomDropDown(
-              items: countries
-                  .map((e) => DropdownMenuItem(child: Text(e), value: e))
-                  .toList(),
-              onChanged: (val) => selectedCountry = val,
-              value: selectedCountry,
-              hint: 'Select Country',
-              validator: (val)=> textEmptyValidator(val, 'Country is required!!'),
+              controller: studentStrengthCtrl,
+              label: 'Student Strength',
+              suffixIcon: const Icon(Icons.child_care),
+              inputFormatter: [Validators.onlyNumerics],
+              validator: (val)=> textEmptyValidator(val, 'Strength is required!!'),
             ),
             CustomTextField(
-              controller: locationCtrl,
-              label: 'Location Name',
-              suffixIcon: const Icon(Icons.location_on),
-              validator: (val)=> textEmptyValidator(val, 'Location is required!!'),
+              controller: staffStrengthCtrl,
+              label: 'Staff Strength',
+              suffixIcon: const Icon(Icons.person),
+              inputFormatter: [Validators.onlyNumerics],
+              validator: (val)=> textEmptyValidator(val, 'Strength is required!!'),
             ),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runSpacing: 5,
+              children: [
+                Text('Hostel Availability :'),
+                Switch.adaptive(value: hostelAvailability, onChanged: (val) =>  hostelAvailability = val)
+              ],
+            )
           ],
         ),
       ),
@@ -87,9 +97,16 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().add(CreateSchoolEvent(
-              schoolNameCtrl.text.trim(), selectedCountry!,
-              locationCtrl.text.trim()));
+          context.read<SchoolBloc>().add(CreateOrEditSchoolDetailsEvent(
+              SchoolDetailsModel(
+                  widget.school.schoolId,
+                  widget.school.schoolName,
+                  widget.school.country,
+                  widget.school.location,
+                  'https://upload.wikimedia.org/wikipedia/commons/c/ce/Monroe_Township_High_School_Front_View.jpg',
+                  int.parse(studentStrengthCtrl.text.trim()),
+                  int.parse(staffStrengthCtrl.text.trim()),
+              hostelAvailability)));
           GoRouter.of(context).pop();
         }
         break;
