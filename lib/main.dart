@@ -12,6 +12,7 @@ import 'package:sample_latest/latest_3.0.dart';
 import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/routing.dart';
 import 'package:sample_latest/theme.dart';
+import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,6 +22,7 @@ void main() {
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
+  ConnectivityHandler().initialize();
   runApp(const MyApp());
 }
 

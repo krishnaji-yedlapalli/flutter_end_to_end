@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
+import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
@@ -17,17 +18,44 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
+
   late final AppLifecycleListener _lifeCycleListener;
+
+  GlobalKey offlineBannerKey = GlobalKey();
 
   @override
   void initState() {
-    _lifeCycleListener = AppLifecycleListener(onStateChange: _onLifeCycleChanged, onDetach: _onDetach, onPause: _onPause, onExitRequested: _onExit);
+    _lifeCycleListener = AppLifecycleListener(
+        onStateChange: _onLifeCycleChanged,
+        onDetach: _onDetach,
+        onPause: _onPause,
+        onExitRequested: _onExit);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Some features are currently on development')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Some features are currently on development')));
       _buildMaterialBanner();
-      Future.delayed(Duration(seconds: 3), () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner());
+      Future.delayed(const Duration(seconds: 2), () {
+        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        offlineBannerKey.currentState;
+        // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
+      });
     });
+
+    ConnectivityHandler()
+        .connectionChangeStatusController
+        .stream
+        .listen((bool state) {
+
+      if (mounted && !state) {
+        // print('sdf sf  $state');
+        // ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
+        _buildNetworkConnectivityStatus();
+        }else{
+          ScaffoldMessenger.maybeOf(context)?.clearMaterialBanners();
+        }
+    });
+
     super.initState();
   }
 
@@ -40,15 +68,63 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   @override
   Widget build(BuildContext context) {
     List<(String, ScreenType, IconData, {String? des})> screenTypes = [
-      ('Dashboard', ScreenType.dashboard, Icons.dashboard, des: 'It contains Shell Routing along with Material and Cupertino components'),
-      ('Schools child routing', ScreenType.fullscreenChildRouting, Icons.school, des: 'This describes the routing'),
-      ('Automatci Keep alive', ScreenType.automaticKeepAlive, Icons.tab, des: 'This makes the screen alive if we navigated to another tab as well'),
-      ('Localization', ScreenType.localizationWithCalendar, Icons.language, des: 'Localization and Internalization was implemented in this'),
-      ('Upi payments', ScreenType.upiPayments, Icons.payment, des: 'Make the upi payments, Supports Android only'),
-      ('Isolates', ScreenType.isolates, Icons.memory, des: 'Currently works in Mobile application only'),
-      ('Call Back Shortcuts', ScreenType.shortcuts, Icons.app_shortcut, des: 'Using keyboard shortcuts we can manipulate the options in the screen'),
-      ('Plugins', ScreenType.plugins, Icons.power, des: 'Here we can access different types of plugins'),
-      ('scrollTypes', ScreenType.scrollTypes, Icons.poll, des: 'Here we can access different types of plugins'),
+      (
+        'Dashboard',
+        ScreenType.dashboard,
+        Icons.dashboard,
+        des:
+            'It contains Shell Routing along with Material and Cupertino components'
+      ),
+      (
+        'Schools child routing',
+        ScreenType.fullscreenChildRouting,
+        Icons.school,
+        des: 'This describes the routing'
+      ),
+      (
+        'Automatci Keep alive',
+        ScreenType.automaticKeepAlive,
+        Icons.tab,
+        des:
+            'This makes the screen alive if we navigated to another tab as well'
+      ),
+      (
+        'Localization',
+        ScreenType.localizationWithCalendar,
+        Icons.language,
+        des: 'Localization and Internalization was implemented in this'
+      ),
+      (
+        'Upi payments',
+        ScreenType.upiPayments,
+        Icons.payment,
+        des: 'Make the upi payments, Supports Android only'
+      ),
+      (
+        'Isolates',
+        ScreenType.isolates,
+        Icons.memory,
+        des: 'Currently works in Mobile application only'
+      ),
+      (
+        'Call Back Shortcuts',
+        ScreenType.shortcuts,
+        Icons.app_shortcut,
+        des:
+            'Using keyboard shortcuts we can manipulate the options in the screen'
+      ),
+      (
+        'Plugins',
+        ScreenType.plugins,
+        Icons.power,
+        des: 'Here we can access different types of plugins'
+      ),
+      (
+        'scrollTypes',
+        ScreenType.scrollTypes,
+        Icons.poll,
+        des: 'Here we can access different types of plugins'
+      ),
     ];
 
     return Scaffold(
@@ -58,17 +134,25 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
-            return buildHomeCardView(title: screenDetails.$1, des: screenDetails.des ?? '', icon: screenDetails.$3, callback: () => navigateToDashboard(screenTypes.elementAt(index).$2));
+            return buildHomeCardView(
+                title: screenDetails.$1,
+                des: screenDetails.des ?? '',
+                icon: screenDetails.$3,
+                callback: () =>
+                    navigateToDashboard(screenTypes.elementAt(index).$2));
           }),
     );
   }
 
   navigateToDashboard(ScreenType type) {
     String path = switch (type) {
-      ScreenType.dashboard => DeviceConfiguration.isMobileResolution ? '/home/dashboard/' : '/home/dashboard/materialComponents',
+      ScreenType.dashboard => DeviceConfiguration.isMobileResolution
+          ? '/home/dashboard/'
+          : '/home/dashboard/materialComponents',
       ScreenType.fullscreenChildRouting => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
@@ -128,14 +212,34 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   }
 
   void _buildMaterialBanner() {
-    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content:  RichText(
-        text : const TextSpan(
-          children: [
-            TextSpan(text: 'Some features are currently under development', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            TextSpan(text: ' - Used MaterialBanner to construct this', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
-          ]
-        )
-        ),
-        actions: [IconButton(onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(), icon: Icon(Icons.close, color: Colors.white))]));
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+        content: RichText(
+            text: const TextSpan(children: [
+          TextSpan(
+              text: 'Some features are currently under development',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          TextSpan(
+              text: ' - Used MaterialBanner to construct this',
+              style:
+                  TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+        ])),
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+              icon: const Icon(Icons.close, color: Colors.white))
+        ]));
+  }
+
+  void _buildNetworkConnectivityStatus() {
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+      key: offlineBannerKey,
+      leading: const Icon(Icons.offline_bolt),
+      content: const Align(alignment : Alignment.center, child: Text('Offline')),
+      actions: [const Text('Retry', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white, decoration: TextDecoration.underline, decorationColor: Colors.white)) ?? TextButton(onPressed: () {}, child: const Text('Retry', style: TextStyle(fontWeight: FontWeight.w600)))],
+      contentTextStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+      // margin: const EdgeInsets.all(0),
+    ));
   }
 }
