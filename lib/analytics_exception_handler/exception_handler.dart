@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
 import 'package:sample_latest/analytics_exception_handler/server_exception.dart';
 import 'package:sample_latest/mixins/notifiers.dart';
@@ -38,16 +39,20 @@ class ExceptionHandler {
       [StackTrace? stackTrace]) {
     var errorStateType = DataErrorStateType.none;
 
-    switch (exception.runtimeType) {
-      case ServerException:
-        errorStateType = handleServerException(exception as ServerException, stackTrace);
-        break;
-      case HttpException:
-        errorStateType = handleNetworkExceptions(exception as Exception, stackTrace);
-        break;
-      case SocketException:
-        errorStateType = DataErrorStateType.noInternet;
-    }
+   errorStateType =  switch (exception.runtimeType) {
+     ServerException when exception is ServerException => handleServerException(exception as ServerException, stackTrace),
+    HttpException => handleNetworkExceptions(exception as Exception, stackTrace),
+        ClientException =>  handleServerException(exception as ServerException, stackTrace),
+    _ => errorStateType
+      //   break;
+      // case HttpException:
+      //   errorStateType = handleNetworkExceptions(exception as Exception, stackTrace);
+      //   break;
+      // case SocketException:
+      //   errorStateType = DataErrorStateType.noInternet;
+      // case ClientException:
+
+    };
 
     return errorStateType;
   }

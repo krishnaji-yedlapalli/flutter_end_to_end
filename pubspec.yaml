@@ -61,6 +61,7 @@ dependencies:
   network_info_plus:
   just_audio:
   fluttertoast: ^8.2.4
+  dio:
 #  intl : any
 
 dev_dependencies:

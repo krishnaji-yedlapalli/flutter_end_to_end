@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/data/interceptors/interceptor.dart';
 import 'package:sample_latest/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
@@ -37,6 +38,7 @@ void main() {
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
+  dio.interceptors.add(Interceptors());
   runApp(const MyApp());
 }
 
