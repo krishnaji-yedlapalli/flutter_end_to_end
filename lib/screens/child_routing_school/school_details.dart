@@ -10,7 +10,9 @@ import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/screens/child_routing_school/add_school_details.dart';
 import 'package:sample_latest/screens/child_routing_school/create_student.dart';
+import 'package:sample_latest/screens/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/utils/enums.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 import '../../bloc/school/school_bloc.dart';
@@ -56,8 +58,10 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return _buildSchoolDetails(state.school);
         }else if(state is SchoolDataNotFound){
           return _buildEmptySchoolView();
+        } else if(state is SchoolDataError) {
+          return ExceptionView(state.errorStateType);
         }else {
-          return Container();
+          return const ExceptionView(DataErrorStateType.none);
         }
       },
       listener: (BuildContext context, SchoolState state) {},
@@ -187,6 +191,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return circularLoader();
         } else if (state is StudentsInfoLoaded) {
           return _buildStudents(state.students);
+        } else if(state is SchoolDataError) {
+          return ExceptionView(state.errorStateType);
         } else {
           return Container();
         }

@@ -86,12 +86,14 @@ class SchoolDataNotFound extends SchoolState {
 
 }
 
-class DataError extends SchoolState {
+class SchoolDataError extends SchoolState with DataErrorState {
 
-  DataError(super.schoolStateType);
+  final DataErrorStateType errorStateType;
+
+  SchoolDataError(super.schoolStateType, this.errorStateType);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [schoolStateType, errorStateType];
 
 }
 

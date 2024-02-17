@@ -1,9 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sample_latest/analytics_exception_handler/date_error_state.dart';
+import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
+import 'package:sample_latest/mixins/notifiers.dart';
+import 'package:sample_latest/utils/enums.dart';
 
 import '../../data/repository/school_repository.dart';
 
@@ -27,7 +31,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         schools = await repository.fetchSchools();
         emit(SchoolsInfoLoaded(schoolState, schools));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        emit(SchoolDataError(schoolState, ExceptionHandler().handleException(e, s)));
       }
     });
 
@@ -44,7 +48,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
           add(StudentsDataEvent(event.id));
         }
       } catch (e, s) {
-        emit(DataError(schoolState));
+        emit(SchoolDataError(schoolState, ExceptionHandler().handleException(e, s)));
       }
     });
 
@@ -58,7 +62,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         viewAllStudents = false;
         emit(StudentsInfoLoaded(schoolState, students, event.schoolId));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        emit(SchoolDataError(schoolState, ExceptionHandler().handleException(e, s)));
       }
       // }
     });
@@ -75,7 +79,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
             await repository.fetchStudent(event.studentId, event.schoolId);
         emit(StudentInfoLoaded(schoolState, student, event.schoolId));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        emit(SchoolDataError(schoolState, ExceptionHandler().handleException(e, s)));
       }
       // }
     });
@@ -102,7 +106,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         }
         emit(SchoolsInfoLoaded(schoolState, schools));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage:'Unable to create the student');
       }
     });
 
@@ -119,15 +123,15 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
         emit(SchoolInfoLoaded(schoolState, createdOrEditSchoolDetails));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage:'Unable to create the School Details');
       }
     });
 
     on<CreateOrEditStudentEvent>((event, emit) async {
       const schoolState = SchoolDataLoadedType.students;
 
+      var isCreateStudent = event.student.id == -1;
       try {
-        var isCreateStudent = event.student.id == -1;
         var studentId=  !isCreateStudent ? event.student.id : students.isEmpty ? 0 : students.last.id + 1;
         event.student.id = studentId;
         Map<String, dynamic> body = {
@@ -157,7 +161,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
         emit(StudentsInfoLoaded(schoolState, students, event.schoolId));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: isCreateStudent ? 'Unable to create the student' : 'Failed to update the Student');
       }
     });
 
@@ -170,7 +174,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         filteredSchools.removeWhere((school) => school.schoolId == event.schoolId);
         emit(SchoolsInfoLoaded(schoolState, filteredSchools));
       } catch (e, s) {
-        emit(DataError(schoolState));
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: 'Failed to Delete the School');
       }
     });
 
@@ -188,7 +192,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
               schoolState, filteredStudents, event.schoolId));
         }
       } catch (e, s) {
-        emit(DataError(schoolState));
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: 'Failed to Delete the student');
       }
     });
   }

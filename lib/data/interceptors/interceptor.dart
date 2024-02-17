@@ -1,5 +1,6 @@
 import 'package:http/testing.dart';
 import 'package:http_interceptor/http_interceptor.dart';
+import 'package:sample_latest/data/db/offline_handler.dart';
 
 class Interceptors extends InterceptorContract {
 
@@ -10,6 +11,10 @@ class Interceptors extends InterceptorContract {
 
   @override
   Future<BaseResponse> interceptResponse({required BaseResponse response}) async {
-    return Future.value(response);
+    
+    // if(response.statusCode != 200){
+    //   return OfflineHandler().handleRequest();
+    // }
+    return response;
   }
 }

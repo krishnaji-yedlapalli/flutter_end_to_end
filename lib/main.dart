@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,6 +21,19 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+
+  /// For handling rendering/painting/widget building error's
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    if (kReleaseMode) exit(1);
+  };
+
+ /// Listen to the method channel kind of errors
+  PlatformDispatcher.instance.onError = (error, stack) {
+    return true;
+  };
+
+
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();

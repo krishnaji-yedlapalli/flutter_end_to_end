@@ -6,6 +6,7 @@ import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/screens/exception/exception.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class Student extends StatefulWidget {
@@ -46,7 +47,9 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
           return circularLoader();
         } else if (state is StudentInfoLoaded) {
           return _buildStudentDetails(state.student);
-        } else {
+        }  else if(state is SchoolDataError) {
+          return ExceptionView(state.errorStateType);
+        }else {
           return Container();
         }
       },

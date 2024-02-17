@@ -8,6 +8,7 @@ import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/screens/child_routing_school/create_school.dart';
+import 'package:sample_latest/screens/exception/exception.dart';
 import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
@@ -60,10 +61,13 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
           return state.schoolStateType == SchoolDataLoadedType.schools;
         },
         builder: (context, state) {
+
           if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
             return circularLoader();
           } else if (state is SchoolsInfoLoaded) {
             return _buildRegisteredSchools(state.schools);
+          } else if(state is SchoolDataError) {
+            return ExceptionView(state.errorStateType);
           } else {
             return Container();
           }
