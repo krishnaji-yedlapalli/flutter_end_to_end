@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:sample_latest/data/utils/enums.dart';
 
 import '../../utils/enums.dart';
 
@@ -20,8 +21,8 @@ class ExceptionView extends StatelessWidget {
         DataErrorStateType.somethingWentWrong || DataErrorStateType.none || DataErrorStateType.fetchData => _buildUnknownException(context),
         
         DataErrorStateType.unauthorized => _buildUnauthorized(context),
-    
-        DataErrorStateType.none => _buildUnknownException(context),
+
+        DataErrorStateType.timeoutException => throw UnimplementedError(),
     }
     );
   }
@@ -45,6 +46,10 @@ class ExceptionView extends StatelessWidget {
   
   Widget _buildUnauthorized(BuildContext context) {
     return  Text('You are not Authorized', style: Theme.of(context).textTheme.labelLarge);
+  }
+
+  Widget _buildTimeoutException(BuildContext context) {
+    return  Text('Time out', style: Theme.of(context).textTheme.labelLarge);
   }
   
 }

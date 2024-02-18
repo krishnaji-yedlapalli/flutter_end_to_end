@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/data/interceptors/interceptor.dart';
@@ -97,44 +98,46 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             return OrientationBuilder(
               builder: (context, orientation) {
                 DeviceConfiguration.updateDeviceResolutionAndOrientation(context, orientation);
-                return MaterialApp.router(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Flutter End to End',
-                  localeResolutionCallback: (locale, locales) {
-                    // if(locale?.languageCode == 'es') {
-                    //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                    //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                    //   return englishLocale;
-                    // }
-                    return locale;
-                  },
-                  locale: context.watch<CommonProvider>().locale,
-                  // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                  // backButtonDispatcher: () => ,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en'),
-                    Locale('es'),
-                    Locale('hi'),
-                    Locale('he'),
-                  ],
-                  /// text scale factor
-                  builder: (BuildContext context, Widget? child){
-                    var data = MediaQuery.of(context);
-                    return MediaQuery(data:data.copyWith(
-                      textScaleFactor : data.textScaleFactor,
-                    ),
-                        child: child ?? Container());
-                  },
-                  theme: CustomTheme.lightThemeData(context),
-                  darkTheme: CustomTheme.darkThemeData(),
-                  themeMode: context.watch<CommonProvider>().themeModeType,
-                  routerConfig: Routing.router,
+                return GlobalLoaderOverlay(
+                  child: MaterialApp.router(
+                    debugShowCheckedModeBanner: false,
+                    title: 'Flutter End to End',
+                    localeResolutionCallback: (locale, locales) {
+                      // if(locale?.languageCode == 'es') {
+                      //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                      //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                      //   return englishLocale;
+                      // }
+                      return locale;
+                    },
+                    locale: context.watch<CommonProvider>().locale,
+                    // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                    // backButtonDispatcher: () => ,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    supportedLocales: const [
+                      Locale('en'),
+                      Locale('es'),
+                      Locale('hi'),
+                      Locale('he'),
+                    ],
+                    /// text scale factor
+                    builder: (BuildContext context, Widget? child){
+                      var data = MediaQuery.of(context);
+                      return MediaQuery(data:data.copyWith(
+                        textScaleFactor : data.textScaleFactor,
+                      ),
+                          child: child ?? Container());
+                    },
+                    theme: CustomTheme.lightThemeData(context),
+                    darkTheme: CustomTheme.darkThemeData(),
+                    themeMode: context.watch<CommonProvider>().themeModeType,
+                    routerConfig: Routing.router,
+                  ),
                 );
               }
             );

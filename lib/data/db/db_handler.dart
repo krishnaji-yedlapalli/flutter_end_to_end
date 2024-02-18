@@ -1,52 +1,52 @@
-
-import 'dart:io';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+class SqfLiteDbHandler {
+  late Database _db;
 
-class DbHandler {
-  static final _singleton = DbHandler._internal();
+  SqfLiteDbHandler._create();
 
-  static const String _dbName = 'school';
-
-  factory DbHandler() {
-    return _singleton;
+  static Future<SqfLiteDbHandler> create(String dbName, String queryFileName) async {
+    var component = SqfLiteDbHandler._create();
+    await component._initializeDb(dbName, queryFileName);
+    return component;
   }
 
-  DbHandler._internal();
-
-  Database? _db;
-
-  Future<void> initializeDb() async {
-
-    assert(_db == null, 'Db already initialized');
-
-    try{
-    String dbPath = join(await getDatabasesPath(), '$_dbName.db');
-    _db = await openDatabase(dbPath, version: 1, onCreate: onCreate);
-    }catch(e,s){
-
+  Future<void> _initializeDb(String dbName, String queryFileName) async {
+    try {
+      String dbPath = join(await getDatabasesPath(), '$dbName.db');
+      debugPrint('db path : $dbPath');
+      _db = await openDatabase(dbPath, version: 4, onCreate: (Database db, int version) => _onCreate(db, version, queryFileName), onUpgrade: (Database db, int oldVersion, int newVersion) => _onUpgrade(db, oldVersion, newVersion, queryFileName));
+    } catch (e, s) {
+      rethrow;
     }
   }
 
-  Future<Database> get db async {
-    if(_db == null) await initializeDb();
-    return _db!;
+  Database get db {
+    return _db;
   }
 
-  void onCreate(Database db, int version) async {
+  void _onCreate(Database db, int version, String queryFileName) async {
     // Read SQL queries from file
-    String fileContents = await rootBundle.loadString('');
-    List<String> queries = fileContents.split(';'); // Assuming queries are separated by semicolon
+    String fileContents = await rootBundle.loadString('lib/data/db/queries/$queryFileName.sql');
+    fileContents = fileContents.trim().replaceAll('\n', '');
+    List<String> queries = fileContents.split(';');
 
     // Execute each query
     Batch batch = db.batch();
+
     for (String query in queries) {
       if (query.trim().isNotEmpty) {
         batch.execute(query.trim());
       }
     }
+
+    await batch.commit();
+  }
+
+  void _onUpgrade(Database db, int oldVersion, int newVersion, String queryFileName){
+
   }
 }

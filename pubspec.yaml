@@ -43,8 +43,6 @@ dependencies:
   workmanager: ^0.5.1
   easy_upi_payment:
   google_fonts: ^6.1.0
-  http:
-  http_interceptor:
   connectivity_plus:
   sqflite:
   provider:
@@ -52,6 +50,7 @@ dependencies:
   equatable:
   path_provider: ^2.1.2
   path:
+  loader_overlay: ^4.0.0
 
   # Plugins
   youtube_player_flutter:
@@ -118,6 +117,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - asset/exception_error/
+     - lib/data/db/queries/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

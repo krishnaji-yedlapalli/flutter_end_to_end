@@ -13,6 +13,7 @@ StudentModel _$StudentModelFromJson(Map<String, dynamic> json) {
   );
   return StudentModel(
     json['id'] as int,
+    json['schoolId'] as int,
     json['studentName'] as String,
     json['studentLocation'] as String,
     json['standard'] as String,
@@ -22,6 +23,7 @@ StudentModel _$StudentModelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$StudentModelToJson(StudentModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'schoolId': instance.schoolId,
       'studentName': instance.studentName,
       'studentLocation': instance.studentLocation,
       'standard': instance.standard,

@@ -4,6 +4,7 @@ import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/data/urls.dart';
+import 'package:sample_latest/data/utils/enums.dart';
 import 'package:sample_latest/utils/enums.dart';
 
 abstract class SchoolRepo {

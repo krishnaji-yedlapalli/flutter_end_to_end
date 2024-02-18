@@ -86,7 +86,7 @@ class SchoolDataNotFound extends SchoolState {
 
 }
 
-class SchoolDataError extends SchoolState with DataErrorState {
+class SchoolDataError extends SchoolState {
 
   final DataErrorStateType errorStateType;
 

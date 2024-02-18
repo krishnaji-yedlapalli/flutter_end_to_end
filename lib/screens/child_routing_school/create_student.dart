@@ -110,6 +110,7 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
           context.read<SchoolBloc>().add(CreateOrEditStudentEvent(
               StudentModel(
                 widget.student != null ? widget.student!.id : -1,
+                widget.schoolId,
                 studentNameCtrl.text.trim(),
                 studentLocationCtrl.text.trim(),
                 selectedStandard!

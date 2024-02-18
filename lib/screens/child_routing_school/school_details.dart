@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
+import 'package:sample_latest/data/utils/enums.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';

@@ -6,5 +6,6 @@ class Urls {
   static const  String schools = 'schools';
   static const  String students = 'students';
   static const  String schoolDetails = 'schooldetails';
+  static const  String todoList = 'todoList';
 
 }

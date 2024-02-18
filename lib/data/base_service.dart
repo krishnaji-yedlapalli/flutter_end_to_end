@@ -8,6 +8,7 @@ import 'package:sample_latest/global_variables.dart';
 
 import '../utils/enums.dart';
 import 'urls.dart';
+import 'utils/enums.dart';
 
 class BaseService {
   Future<dynamic> makeRequest<T>(
@@ -61,6 +62,7 @@ class BaseService {
           data: body,
         );
     }
+    return response.data;
   }
 
   // Future<dynamic> makeRequest<T>(

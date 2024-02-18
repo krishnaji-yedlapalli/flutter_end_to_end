@@ -67,7 +67,7 @@ class DecrementIntent extends Intent {
 class LoggingShortcutManager extends ShortcutManager {
 
   @override
-  KeyEventResult handleKeypress(BuildContext context, RawKeyEvent event) {
+  KeyEventResult handleKeypress(BuildContext context, KeyEvent event) {
     final KeyEventResult result =  super.handleKeypress(context, event);
     if(result == KeyEventResult.handled){
       print('handle system itself');

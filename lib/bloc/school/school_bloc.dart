@@ -1,15 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sample_latest/analytics_exception_handler/date_error_state.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
+import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/notifiers.dart';
 import 'package:sample_latest/utils/enums.dart';
 
 import '../../data/repository/school_repository.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 part 'school_event.dart';
 part 'school_state.dart';
@@ -88,6 +90,9 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
       const schoolState = SchoolDataLoadedType.schools;
 
       try {
+
+        navigatorKey.currentContext?.loaderOverlay.show();
+
         var newSchool = SchoolModel(event.schoolName, event.country,
             event.location, event.id != null ? event.id! : schools.isNotEmpty ? schools.last.schoolId + 1 : 0);
         Map<String, dynamic> body = {
@@ -106,7 +111,9 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         }
         emit(SchoolsInfoLoaded(schoolState, schools));
       } catch (e, s) {
-        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage:'Unable to create the student');
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage:'Unable to create the School');
+      }finally {
+        navigatorKey.currentContext?.loaderOverlay.hide();
       }
     });
 
@@ -114,6 +121,8 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
       const schoolState = SchoolDataLoadedType.school;
 
       try {
+
+        navigatorKey.currentContext?.loaderOverlay.show();
 
         Map<String, dynamic> body = {
           event.schoolDetails.schoolId.toString(): event.schoolDetails.toJson()
@@ -124,6 +133,8 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         emit(SchoolInfoLoaded(schoolState, createdOrEditSchoolDetails));
       } catch (e, s) {
         ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage:'Unable to create the School Details');
+      }finally{
+        navigatorKey.currentContext?.loaderOverlay.hide();
       }
     });
 
@@ -132,6 +143,9 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
       var isCreateStudent = event.student.id == -1;
       try {
+
+        navigatorKey.currentContext?.loaderOverlay.show();
+
         var studentId=  !isCreateStudent ? event.student.id : students.isEmpty ? 0 : students.last.id + 1;
         event.student.id = studentId;
         Map<String, dynamic> body = {
@@ -162,6 +176,8 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         emit(StudentsInfoLoaded(schoolState, students, event.schoolId));
       } catch (e, s) {
         ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: isCreateStudent ? 'Unable to create the student' : 'Failed to update the Student');
+      }finally{
+        navigatorKey.currentContext?.loaderOverlay.hide();
       }
     });
 
@@ -169,12 +185,18 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
       const schoolState = SchoolDataLoadedType.schools;
 
       try {
+
+        navigatorKey.currentContext?.loaderOverlay.show();
+
         var status = await repository.deleteSchool(event.schoolId);
         var filteredSchools = [...schools, ...<SchoolModel>[]];
         filteredSchools.removeWhere((school) => school.schoolId == event.schoolId);
+        schools = filteredSchools;
         emit(SchoolsInfoLoaded(schoolState, filteredSchools));
       } catch (e, s) {
         ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: 'Failed to Delete the School');
+      }finally {
+        navigatorKey.currentContext?.loaderOverlay.hide();
       }
     });
 
@@ -183,16 +205,21 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
       emit(SchoolInfoLoading(schoolState));
       try {
+        navigatorKey.currentContext?.loaderOverlay.show();
+
         var status = await repository.deleteStudent(event.studentId, event.schoolId);
         if(status) {
           var filteredStudents = [...students, ...<StudentModel>[]];
           filteredStudents.removeWhere((student) =>
           student.id == event.studentId);
+          students = filteredStudents;
           emit(StudentsInfoLoaded(
               schoolState, filteredStudents, event.schoolId));
         }
       } catch (e, s) {
         ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: 'Failed to Delete the student');
+      }finally{
+        navigatorKey.currentContext?.loaderOverlay.hide();
       }
     });
   }
