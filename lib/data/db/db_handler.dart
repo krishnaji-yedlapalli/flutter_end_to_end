@@ -49,4 +49,12 @@ class SqfLiteDbHandler {
   void _onUpgrade(Database db, int oldVersion, int newVersion, String queryFileName){
 
   }
+
+  Future<int> insertData(String tableName, dynamic data) async {
+   return await db.insert(tableName, data);
+  }
+
+  Future<dynamic> query() async {
+    await db.query('appointments',);
+  }
 }

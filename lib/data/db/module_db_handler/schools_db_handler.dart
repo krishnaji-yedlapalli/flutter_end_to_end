@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:sample_latest/data/db/db_handler.dart';
 import 'package:sample_latest/data/utils/abstract_db_handler.dart';
 import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
 
 class SchoolsDbHandler extends DbHandler {
   SchoolsDbHandler._internal();
@@ -25,7 +26,9 @@ class SchoolsDbHandler extends DbHandler {
 
   @override
   Future<Response> performCrudOperation(RequestOptions options) async {
-    var requestType  =  RequestType.get; /*.enumFromString(RequestType.values, options.method.toLowerCase());*/
+
+    var requestType  =  HelperMethods.enumFromString(RequestType.values, options.method.toLowerCase());
+
     var response;
     try {
       switch (requestType) {
