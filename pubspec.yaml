@@ -62,6 +62,7 @@ dependencies:
   fluttertoast: ^8.2.4
   dio:
   uuid:
+  cached_network_image: 3.3.1
 #  intl : any
 
 dev_dependencies:

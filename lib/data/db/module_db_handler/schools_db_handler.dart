@@ -77,6 +77,7 @@ class SchoolsDbHandler extends DbHandler {
     if (dbName != null) {
       int recordId = await dbHandler!.deleteRecord(
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
+
     } else {
       return Response(
           requestOptions: options,
@@ -190,22 +191,4 @@ class SchoolsDbHandler extends DbHandler {
     throw UnimplementedError();
   }
 
-  @override
-  Future<void> getOfflineData() async {
-    var data = <String>[];
-
-    List<String> list = [
-      SchoolDbConstants.schoolsTableName,
-      SchoolDbConstants.schoolDetailsTableName,
-      SchoolDbConstants.studentsTableName
-    ];
-
-    for (var dbName in list) {
-      var reqDatas = await dbHandler!.db
-          .query(dbName, where: '${DbConstants.reqDataColumnName} IS NULL');
-      for (var reqData in reqDatas) {
-        // data.add(reqData);
-      }
-    }
-  }
 }

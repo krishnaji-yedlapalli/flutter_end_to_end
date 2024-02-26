@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,10 +41,16 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
             children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
-            ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync'))
+            Wrap(
+              spacing: 10,
+              children: [
+                ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Dump Offline data')),
+                ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Sync'))
+              ],
+            )
             ],
           ),
           Expanded(child: _buildSchoolBlocConsumer()),

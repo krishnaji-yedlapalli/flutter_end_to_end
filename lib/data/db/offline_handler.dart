@@ -82,4 +82,24 @@ class OfflineHandler extends BaseService {
 
     return status;
   }
+
+
+  Future<void> dumpOfflineData() async {
+    try{
+      /// Fetching school information
+      var schools = await makeRequest(url: Urls.schools);
+
+      SchoolsDbHandler().performDbOperation(options);
+
+      /// Fetching school details
+      var schoolDetailsList = await makeRequest(url: Urls.schoolDetails);
+
+      /// Fetching student information
+      var students = await makeRequest(url: Urls.students);
+
+
+    }catch(e,s){
+
+    }
+  }
 }
