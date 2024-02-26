@@ -8,15 +8,15 @@ import 'package:sample_latest/data/utils/enums.dart';
 import 'package:sample_latest/utils/enums.dart';
 
 abstract class SchoolRepo {
-Future<SchoolDetailsModel?> fetchSchoolDetails(int id);
+Future<SchoolDetailsModel?> fetchSchoolDetails(String id);
 Future<List<SchoolModel>> fetchSchools();
-Future<List<StudentModel>> fetchStudents(int schoolId);
-Future<StudentModel> fetchStudent(int studentId, int schoolId);
+Future<List<StudentModel>> fetchStudents(String schoolId);
+Future<StudentModel> fetchStudent(String studentId, String schoolId);
 Future<SchoolModel> createOrEditSchool(Map<String, dynamic> body);
 Future<SchoolDetailsModel> addOrEditSchoolDetails(Map<String, dynamic> body);
-Future<StudentModel?> createOrEditStudent(int schoolId, Map<String, dynamic> body);
-Future<bool> deleteSchool(int id);
-Future<bool> deleteStudent(int studentId, int schoolId);
+Future<StudentModel?> createOrEditStudent(String schoolId, Map<String, dynamic> body);
+Future<bool> deleteSchool(String id);
+Future<bool> deleteStudent(String studentId, String schoolId);
 }
 
 class SchoolRepository extends BaseService implements SchoolRepo{
@@ -35,7 +35,7 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<StudentModel> fetchStudent(int studentId, int schoolId) async {
+  Future<StudentModel> fetchStudent(String studentId, String schoolId) async {
     StudentModel student;
     var response = await makeRequest(url: '${Urls.students}/$schoolId/$studentId.json');
     if(response != null) {
@@ -47,7 +47,7 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<SchoolDetailsModel?> fetchSchoolDetails(int id) async {
+  Future<SchoolDetailsModel?> fetchSchoolDetails(String id) async {
     SchoolDetailsModel? schoolDetails;
     var response = await makeRequest(url: '${Urls.schoolDetails}/$id.json');
     if(response != null) {
@@ -57,7 +57,7 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<List<StudentModel>> fetchStudents(int schoolId) async {
+  Future<List<StudentModel>> fetchStudents(String schoolId) async {
     List<StudentModel> students = <StudentModel>[];
     var response = await makeRequest(url: '${Urls.students}/$schoolId.json');
     if(response != null && response is List) {
@@ -96,7 +96,7 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<StudentModel?> createOrEditStudent(int schoolId, Map<String, dynamic> body) async {
+  Future<StudentModel?> createOrEditStudent(String schoolId, Map<String, dynamic> body) async {
     StudentModel? studentModel;
 
     var response = await makeRequest(url: '${Urls.students}/$schoolId.json', body: body, method: RequestType.patch);
@@ -107,7 +107,7 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<bool> deleteSchool(int schoolId) async {
+  Future<bool> deleteSchool(String schoolId) async {
     var schoolDelRes = await makeRequest(url: '${ Urls.schools}/$schoolId.json', method: RequestType.delete);
     var schoolDetailsDelRes = await makeRequest(url: '${Urls.schoolDetails}/$schoolId.json', method: RequestType.delete);
     var studentsDel = await makeRequest(url: '${Urls.students}/$schoolId.json', method: RequestType.delete);
@@ -115,7 +115,7 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   }
 
   @override
-  Future<bool> deleteStudent(int studentId, int schoolId) async {
+  Future<bool> deleteStudent(String studentId, String schoolId) async {
     var studentsDel = await makeRequest(url: '${Urls.students}/$schoolId/$studentId.json', method: RequestType.delete);
     return true;
   }

@@ -68,4 +68,10 @@ class TodoListDbHandler extends DbHandler {
     // TODO: implement performPostOperation
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> getOfflineData() {
+    // TODO: implement getOfflineData
+    throw UnimplementedError();
+  }
 }

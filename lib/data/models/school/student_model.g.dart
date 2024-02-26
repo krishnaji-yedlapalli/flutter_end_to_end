@@ -12,8 +12,8 @@ StudentModel _$StudentModelFromJson(Map<String, dynamic> json) {
     requiredKeys: const ['id'],
   );
   return StudentModel(
-    json['id'] as int,
-    json['schoolId'] as int,
+    json['id'] as String,
+    json['schoolId'] as String,
     json['studentName'] as String,
     json['studentLocation'] as String,
     json['standard'] as String,

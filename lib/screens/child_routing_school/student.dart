@@ -10,8 +10,8 @@ import 'package:sample_latest/screens/exception/exception.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class Student extends StatefulWidget {
-  final int studentId;
-  final int schoolId;
+  final String studentId;
+  final String schoolId;
   final String schoolName;
   const Student({Key? key, required this.studentId, required this.schoolId, required this.schoolName})
       : super(key: key);

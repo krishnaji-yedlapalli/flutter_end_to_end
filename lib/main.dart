@@ -32,6 +32,7 @@ void main() {
 
  /// Listen to the method channel kind of errors
   PlatformDispatcher.instance.onError = (error, stack) {
+    print(error);
     return true;
   };
 

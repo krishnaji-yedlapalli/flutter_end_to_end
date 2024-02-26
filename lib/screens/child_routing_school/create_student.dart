@@ -10,7 +10,7 @@ import 'package:sample_latest/widgets/custom_dropdown.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
 class CreateStudent extends StatefulWidget {
-  final int schoolId;
+  final String schoolId;
   final StudentModel? student;
   const CreateStudent(this.schoolId, {Key? key, this.student}) : super(key: key);
 
@@ -109,7 +109,7 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
         if(formKey.currentState?.validate() ?? false) {
           context.read<SchoolBloc>().add(CreateOrEditStudentEvent(
               StudentModel(
-                widget.student != null ? widget.student!.id : -1,
+                widget.student != null ? widget.student!.id : '',
                 widget.schoolId,
                 studentNameCtrl.text.trim(),
                 studentLocationCtrl.text.trim(),

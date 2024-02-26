@@ -7,6 +7,7 @@ import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
 import 'package:sample_latest/data/utils/enums.dart';
 import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/mixins/notifiers.dart';
 import 'package:sample_latest/utils/enums.dart';
 
@@ -93,15 +94,16 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
         navigatorKey.currentContext?.loaderOverlay.show();
 
+        String schoolId = event.id != null ? event.id! : HelperMethods.uuid;
         var newSchool = SchoolModel(event.schoolName, event.country,
-            event.location, event.id != null ? event.id! : schools.isNotEmpty ? schools.last.schoolId + 1 : 0);
+            event.location, schoolId);
         Map<String, dynamic> body = {
-          newSchool.schoolId.toString(): newSchool.toJson()
+          schoolId: newSchool.toJson()
         };
         var createdSchool = await repository.createOrEditSchool(body);
         if(event.id != null){
           var filteredSchools = [...schools];
-          var index = filteredSchools.indexWhere((school) => school.schoolId == event.id);
+          var index = filteredSchools.indexWhere((school) => school.id == event.id);
           if(index != - 1){
             filteredSchools[index] = createdSchool;
           }
@@ -125,7 +127,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         navigatorKey.currentContext?.loaderOverlay.show();
 
         Map<String, dynamic> body = {
-          event.schoolDetails.schoolId.toString(): event.schoolDetails.toJson()
+          event.schoolDetails.id.toString(): event.schoolDetails.toJson()
         };
 
         var createdOrEditSchoolDetails = await repository.addOrEditSchoolDetails(body);
@@ -141,12 +143,12 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
     on<CreateOrEditStudentEvent>((event, emit) async {
       const schoolState = SchoolDataLoadedType.students;
 
-      var isCreateStudent = event.student.id == -1;
+      var isCreateStudent = event.student.id.trim().isEmpty;
       try {
 
         navigatorKey.currentContext?.loaderOverlay.show();
 
-        var studentId=  !isCreateStudent ? event.student.id : students.isEmpty ? 0 : students.last.id + 1;
+        String studentId=  !isCreateStudent ? event.student.id : HelperMethods.uuid;
         event.student.id = studentId;
         Map<String, dynamic> body = {
           studentId.toString() : event.student.toJson()
@@ -190,7 +192,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
         var status = await repository.deleteSchool(event.schoolId);
         var filteredSchools = [...schools, ...<SchoolModel>[]];
-        filteredSchools.removeWhere((school) => school.schoolId == event.schoolId);
+        filteredSchools.removeWhere((school) => school.id == event.schoolId);
         schools = filteredSchools;
         emit(SchoolsInfoLoaded(schoolState, filteredSchools));
       } catch (e, s) {

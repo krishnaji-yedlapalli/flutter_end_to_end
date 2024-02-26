@@ -99,7 +99,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
         if(formKey.currentState?.validate() ?? false) {
           context.read<SchoolBloc>().add(CreateOrEditSchoolDetailsEvent(
               SchoolDetailsModel(
-                  widget.school.schoolId,
+                  widget.school.id,
                   widget.school.schoolName,
                   widget.school.country,
                   widget.school.location,

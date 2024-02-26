@@ -61,6 +61,7 @@ dependencies:
   just_audio:
   fluttertoast: ^8.2.4
   dio:
+  uuid:
 #  intl : any
 
 dev_dependencies:

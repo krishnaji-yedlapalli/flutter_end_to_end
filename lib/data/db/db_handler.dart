@@ -51,10 +51,23 @@ class SqfLiteDbHandler {
   }
 
   Future<int> insertData(String tableName, dynamic data) async {
-   return await db.insert(tableName, data);
+   return await db.insert(tableName, data, conflictAlgorithm: ConflictAlgorithm.replace,
+   );
   }
 
-  Future<dynamic> query() async {
-    await db.query('appointments',);
+  Future<dynamic> query(String tableName, {String? columnName, List<String>? ids}) async {
+    return await db.query(tableName, where: columnName != null ? '$columnName = ?' : null, whereArgs : ids);
   }
+
+  Future<dynamic> rawQueryWithParams(String query, {List<String>? params}) async {
+    await db.rawQuery(query, params);
+  }
+
+
+  Future<int> deleteRecord({required String tableName , required String columnName, required List<String> ids}) async {
+    return await db.delete(tableName, where: columnName, whereArgs: ids);
+  }
+
+
+
 }

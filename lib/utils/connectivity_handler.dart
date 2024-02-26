@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:sample_latest/data/db/offline_handler.dart';
 
 class ConnectivityHandler {
   static final _singleton = ConnectivityHandler._internal();
@@ -47,11 +48,11 @@ class ConnectivityHandler {
           currentState = true;
         }
 
-       // print('state : $currentState');
        if(currentState != _isConnected) {
-         // print('entered state : $currentState');
          _isConnected = currentState;
           connectionChangeStatusController.add(_isConnected);
+
+          if(_isConnected) OfflineHandler().syncData();
         }
     });
   }

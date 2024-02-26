@@ -102,7 +102,7 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
           context.read<SchoolBloc>().add(CreateSchoolEvent(
               schoolNameCtrl.text.trim(), selectedCountry!,
               locationCtrl.text.trim(),
-          id: widget.school?.schoolId
+          id: widget.school?.id
           ));
           GoRouter.of(context).pop();
         }

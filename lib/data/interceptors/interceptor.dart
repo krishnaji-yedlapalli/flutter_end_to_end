@@ -6,10 +6,10 @@ class Interceptors extends Interceptor {
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 
-    // if (!ConnectivityHandler().isConnected) {
-    //   handler.resolve(await OfflineHandler().handleRequest(options));
-    // }
-    await OfflineHandler().handleRequest(options);
+    if (ConnectivityHandler().isConnected && (options.extra['isOfflineApi'] ?? false)) {
+      handler.resolve(await OfflineHandler().handleRequest(options));
+    }
+    // await OfflineHandler().handleRequest(options);
     super.onRequest(options, handler);
   }
 

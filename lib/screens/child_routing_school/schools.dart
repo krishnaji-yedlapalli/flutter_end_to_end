@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/data/db/offline_handler.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
@@ -41,7 +42,9 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium)],
+            children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
+            ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync'))
+            ],
           ),
           Expanded(child: _buildSchoolBlocConsumer()),
         ],
@@ -98,7 +101,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
               trailing:Wrap(
                 children: [
                   IconButton(icon : const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfEditSchool(school)),
-                  IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: () => onTapOfSchoolDelete(school.schoolId))
+                  IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: () => onTapOfSchoolDelete(school.id))
                 ],
               ),
               onTap: () => onTapOfSchool(school),
@@ -123,7 +126,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     adaptiveDialog(context, CreateSchool(school: school));
   }
 
-  onTapOfSchoolDelete(int schoolId) {
+  onTapOfSchoolDelete(String schoolId) {
     BlocProvider.of<SchoolBloc>(context).add(DeleteSchoolEvent(schoolId));
   }
 

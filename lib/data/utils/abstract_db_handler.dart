@@ -19,5 +19,4 @@ abstract class DbHandler {
   Future<Response> performDeleteOperation(RequestOptions options);
 
   Future<Response> performPatchOperation(RequestOptions options);
-
 }

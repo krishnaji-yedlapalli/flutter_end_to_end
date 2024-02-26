@@ -19,12 +19,11 @@ class BaseService {
       Map<String, dynamic>? queryParameters,
       Map<String, String>? headers,
       RequestType method = RequestType.get,
-      Map<String, dynamic> extras = const {},
-      bool storeResponseInDb = false}) async {
+      Map<String, dynamic> extras = const {}, bool isOfflineApi = true}) async {
 
     dio.options.baseUrl = baseUrl ?? Urls.baseUrl;
     dio.options.extra.addAll(extras);
-    dio.options.extra['storeResponse'] = storeResponseInDb;
+    dio.options.extra['isOfflineApi'] = isOfflineApi;
 
     if (headers != null) dio.options.headers.addAll(headers);
 

@@ -12,7 +12,7 @@ SchoolDetailsModel _$SchoolDetailsModelFromJson(Map<String, dynamic> json) {
     requiredKeys: const ['schoolName'],
   );
   return SchoolDetailsModel(
-    json['schoolId'] as int,
+    json['id'] as String,
     json['schoolName'] as String,
     json['country'] as String,
     json['location'] as String,
@@ -25,7 +25,7 @@ SchoolDetailsModel _$SchoolDetailsModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SchoolDetailsModelToJson(SchoolDetailsModel instance) =>
     <String, dynamic>{
-      'schoolId': instance.schoolId,
+      'id': instance.id,
       'schoolName': instance.schoolName,
       'country': instance.country,
       'location': instance.location,
