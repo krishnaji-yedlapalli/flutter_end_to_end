@@ -68,6 +68,18 @@ class SqfLiteDbHandler {
     return await db.delete(tableName, where: '$columnName = ?', whereArgs: ids);
   }
 
+  Future<int> deleteTableData(String tableName) async {
+    return await db.rawDelete("DELETE FROM $tableName");
+  }
 
+  Future<List<Object?>> insertBulkData(String tableName, List<Map<String, dynamic>> bulkData) async {
+    Batch batch = db.batch();
+
+    for(var obj in bulkData){
+      batch.insert(tableName, obj);
+    }
+
+   return await batch.commit(continueOnError: true);
+  }
 
 }

@@ -19,17 +19,16 @@ Future<bool> deleteSchool(String id);
 Future<bool> deleteStudent(String studentId, String schoolId);
 }
 
-class SchoolRepository extends BaseService implements SchoolRepo{
+class SchoolRepository with BaseService implements SchoolRepo{
 
   @override
   Future<List<SchoolModel>> fetchSchools() async {
      List<SchoolModel> schools = <SchoolModel>[];
      var response = await makeRequest(url: '${Urls.schools}.json');
-     if(response != null && response is List) {
-       response.removeWhere((element) => element == null);
-       schools = response.map<SchoolModel>((school) => SchoolModel.fromJson(school)).toList();
-     }else if (response != null && response is Map){
-       schools.add(SchoolModel.fromJson(response[response.keys.first]));
+     if(response is Map) {
+       schools = response.entries.map<SchoolModel>((json) => SchoolModel.fromJson(json.value)).toList();
+     }else if(response is List){
+       schools = response.map<SchoolModel>((json) => SchoolModel.fromJson(json)).toList();
      }
      return schools;
   }
@@ -60,11 +59,10 @@ class SchoolRepository extends BaseService implements SchoolRepo{
   Future<List<StudentModel>> fetchStudents(String schoolId) async {
     List<StudentModel> students = <StudentModel>[];
     var response = await makeRequest(url: '${Urls.students}/$schoolId.json');
-    if(response != null && response is List) {
-      response.removeWhere((element) => element == null);
-      students = response.map<StudentModel>((json) =>StudentModel.fromJson(json)).toList();
-    } else if (response != null && response is Map){
-      students.add(StudentModel.fromJson(response[response.keys.first]));
+    if(response is Map) {
+      students = response.entries.map<StudentModel>((json) => StudentModel.fromJson(json.value)).toList();
+    }else if( response is List){
+      students = response.map<StudentModel>((json) => StudentModel.fromJson(json)).toList();
     }
     return students;
   }

@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:sample_latest/data/db/offline_handler.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 
 class Interceptors extends Interceptor {
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 
-    if (ConnectivityHandler().isConnected && (options.extra['isOfflineApi'] ?? false)) {
+    if (!ConnectivityHandler().isConnected && (options.extra['isOfflineApi'] ?? false) && !DeviceConfiguration.isWeb) {
       handler.resolve(await OfflineHandler().handleRequest(options));
     }
-    // await OfflineHandler().handleRequest(options);
     super.onRequest(options, handler);
   }
 

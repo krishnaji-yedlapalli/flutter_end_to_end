@@ -8,6 +8,7 @@ import 'package:sample_latest/data/utils/db_constants.dart';
 import 'package:sample_latest/data/utils/enums.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 
+import '../../base_service.dart';
 import '../../models/services/queue_item.dart';
 
 class SchoolsDbHandler extends DbHandler {
@@ -45,6 +46,8 @@ class SchoolsDbHandler extends DbHandler {
           return performPatchOperation(options);
         case RequestType.delete:
           return performDeleteOperation(options);
+        case RequestType.store:
+          return performBulkStoreOperation(options);
         default:
           return Response(
               requestOptions: options,
@@ -77,7 +80,6 @@ class SchoolsDbHandler extends DbHandler {
     if (dbName != null) {
       int recordId = await dbHandler!.deleteRecord(
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
-
     } else {
       return Response(
           requestOptions: options,
@@ -143,41 +145,29 @@ class SchoolsDbHandler extends DbHandler {
 
   @override
   Future<Response> performPatchOperation(RequestOptions options) async {
+    String? tableName;
+
     if (options.path.contains(Urls.schools)) {
-      /// Storing school information
-
-      var body = options.data[options.data.keys.first];
-      var schools =
-          await dbHandler!.insertData(SchoolDbConstants.schoolsTableName, body);
-      body = {body['id']: body};
-
-      options.extra['isQueueItem'] = true;
+      tableName = SchoolDbConstants.schoolsTableName;
       options.extra['priority'] = 1;
-      CommonDbHandler().performDbOperation(options);
-      return Response(requestOptions: options, data: body, statusCode: 200);
     } else if (options.path.contains(Urls.schoolDetails)) {
-      /// Storing school Details information
-      var body = options.data[options.data.keys.first];
-      var schools = await dbHandler!
-          .insertData(SchoolDbConstants.schoolDetailsTableName, body);
-      body = {body['id']: body};
-
-      options.extra['isQueueItem'] = true;
-      options.extra['priority'] = 1;
-      CommonDbHandler().performDbOperation(options);
-      return Response(requestOptions: options, data: body, statusCode: 200);
+      tableName = SchoolDbConstants.schoolDetailsTableName;
+      options.extra['priority'] = 2;
     } else if (options.path.contains(Urls.students)) {
-      /// Storing student information
-      var body = options.data[options.data.keys.first];
-      var schools = await dbHandler!
-          .insertData(SchoolDbConstants.studentsTableName, body);
-      body = {body['id']: body};
+      tableName = SchoolDbConstants.studentsTableName;
+      options.extra['priority'] = 3;
+    }
 
+    if (tableName != null) {
+      var body = options.data[options.data.keys.first];
+      var response = await dbHandler!.insertData(tableName, body);
+
+      /// Storing the data locally
       options.extra['isQueueItem'] = true;
-      options.extra['priority'] = 1;
       CommonDbHandler().performDbOperation(options);
       return Response(requestOptions: options, data: body, statusCode: 200);
     }
+
     return Response(
         requestOptions: options,
         data: {},
@@ -191,4 +181,41 @@ class SchoolsDbHandler extends DbHandler {
     throw UnimplementedError();
   }
 
+  Future<Response> performBulkStoreOperation(RequestOptions options) async {
+    String? tableName;
+
+    if (options.path.contains(Urls.schools)) {
+      tableName = SchoolDbConstants.schoolsTableName;
+    } else if (options.path.contains(Urls.schoolDetails)) {
+      tableName = SchoolDbConstants.schoolDetailsTableName;
+    } else if (options.path.contains(Urls.students)) {
+      tableName = SchoolDbConstants.studentsTableName;
+    }
+
+    if (tableName != null && options.data is Map) {
+      List<Map<String, dynamic>> items = <Map<String, dynamic>>[];
+      await dbHandler!.deleteTableData(tableName);
+
+        items = (options.data as Map<String, dynamic>).entries.map<
+            Map<String, dynamic>>((e) => e.value).toList();
+
+      if(tableName == Urls.students) {
+        var innerList = <Map<String, dynamic>>[];
+        for (var value in items) {
+          innerList.addAll(value.entries.map<
+              Map<String, dynamic>>((e) => e.value).toList());
+        }
+        items = innerList;
+      }
+
+      await dbHandler!.insertBulkData(tableName, items);
+      return Response(requestOptions: options, data: true, statusCode: 200);
+    }
+
+    return Response(
+        requestOptions: options,
+        data: false,
+        statusCode: 405,
+        statusMessage: 'Method Not Allowed');
+  }
 }

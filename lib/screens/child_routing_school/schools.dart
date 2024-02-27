@@ -43,12 +43,13 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         children: [
           Wrap(
             alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
             Wrap(
               spacing: 10,
               children: [
-                ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Dump Offline data')),
-                ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Sync'))
+                ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
+                ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync'))
               ],
             )
             ],

@@ -10,7 +10,7 @@ import '../utils/enums.dart';
 import 'urls.dart';
 import 'utils/enums.dart';
 
-class BaseService {
+mixin BaseService {
   Future<dynamic> makeRequest<T>(
       {required String url,
       String? baseUrl,
@@ -60,6 +60,8 @@ class BaseService {
           queryParameters: queryParameters,
           data: body,
         );
+      case RequestType.store:
+       throw UnsupportedError('');
     }
     return response.data;
   }

@@ -94,7 +94,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
 
         navigatorKey.currentContext?.loaderOverlay.show();
 
-        String schoolId = event.id != null ? event.id! : HelperMethods.uuid;
+        String schoolId = event.id != null ? event.id! :  HelperMethods.uuid;
         var newSchool = SchoolModel(event.schoolName, event.country,
             event.location, schoolId);
         Map<String, dynamic> body = {
