@@ -9,8 +9,9 @@ class Interceptors extends Interceptor {
 
     if (!ConnectivityHandler().isConnected && (options.extra['isOfflineApi'] ?? false) && !DeviceConfiguration.isWeb) {
       handler.resolve(await OfflineHandler().handleRequest(options));
+    }else {
+      super.onRequest(options, handler);
     }
-    super.onRequest(options, handler);
   }
 
   @override

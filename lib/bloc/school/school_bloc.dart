@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
+import 'package:sample_latest/data/db/offline_handler.dart';
 import 'package:sample_latest/data/models/school/school_details_model.dart';
 import 'package:sample_latest/data/models/school/school_model.dart';
 import 'package:sample_latest/data/models/school/student_model.dart';
@@ -222,6 +223,27 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: 'Failed to Delete the student');
       }finally{
         navigatorKey.currentContext?.loaderOverlay.hide();
+      }
+    });
+
+
+    on<SyncOrDumpTheData>((event, emit) async {
+
+      const schoolState = SchoolDataLoadedType.schools;
+
+      // emit(SchoolInfoLoading(schoolState));
+      try {
+
+        if(event.isSyncData){
+          await OfflineHandler().syncData();
+        }else{
+         await OfflineHandler().dumpOfflineData();
+        }
+
+          emit(SchoolsInfoLoaded(
+              schoolState, [...schools]));
+      } catch (e, s) {
+        ExceptionHandler().handleExceptionWithToastNotifier(e, stackTrace: s, toastMessage: 'Failed to Delete the student');
       }
     });
   }

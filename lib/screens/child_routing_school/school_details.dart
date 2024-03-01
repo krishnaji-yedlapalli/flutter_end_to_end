@@ -116,7 +116,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
               schoolDetails.schoolName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: schoolDetails.image, fit: BoxFit.fill),
+            background: CachedNetworkImage(imageUrl: schoolDetails.image, fit: BoxFit.fill, errorWidget: (context, error, o)=> Icon(Icons.image), ),
           ),
         ),
         SliverToBoxAdapter(

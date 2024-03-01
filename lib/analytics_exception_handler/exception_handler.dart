@@ -81,7 +81,7 @@ class ExceptionHandler {
       case DioExceptionType.unknown:
         errorStateType = DataErrorStateType.somethingWentWrong;
       default:
-        ErrorLogging.errorLog(exception, message: 'Unknown Server exception');
+        ErrorLogging.errorLog(exception);
     }
     return errorStateType;
   }
@@ -94,7 +94,7 @@ class ExceptionHandler {
         errorStateType = DataErrorStateType.noInternet;
         break;
       default:
-        ErrorLogging.errorLog(exception, message: 'Unknown Network exception');
+        ErrorLogging.errorLog(exception);
     }
     return errorStateType;
   }

@@ -66,3 +66,10 @@ class DeleteStudentEvent extends SchoolEvent {
 
   DeleteStudentEvent( this.studentId, this.schoolId);
 }
+
+class SyncOrDumpTheData extends SchoolEvent {
+
+  final bool isSyncData;
+
+  SyncOrDumpTheData(this.isSyncData);
+}

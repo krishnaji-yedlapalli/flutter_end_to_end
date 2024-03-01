@@ -2,7 +2,7 @@
 
 
 class ErrorLogging {
-  static errorLog(Object error, {String? message}){
+  static errorLog(Object error, [StackTrace? stackTrace]){
 
   }
 }

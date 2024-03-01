@@ -60,7 +60,8 @@ class SqfLiteDbHandler {
   }
 
   Future<dynamic> rawQueryWithParams(String query, {List<String>? params}) async {
-    await db.rawQuery(query, params);
+    var a = await db.rawQuery(query, params);
+    return a.first['COUNT(*)'];
   }
 
 

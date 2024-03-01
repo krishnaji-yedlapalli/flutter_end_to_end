@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
@@ -42,6 +43,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Wrap(
+            spacing: 10,
             alignment: WrapAlignment.spaceBetween,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
@@ -49,7 +51,19 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
               spacing: 10,
               children: [
                 ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
-                ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync'))
+                StreamBuilder<int>(
+                  stream: OfflineHandler().queueItemsCount.stream,
+                  initialData: 0,
+                  builder: (context, snapshot) {
+                    var count = 0;
+                    if(snapshot.hasData){
+                      count = snapshot.data ?? 0;
+                    }
+                    return Badge(
+                        label: Text('$count'),
+                        child: ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync')));
+                  },
+                )
               ],
             )
             ],

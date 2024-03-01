@@ -165,7 +165,7 @@ class SchoolsDbHandler extends DbHandler {
       /// Storing the data locally
       options.extra['isQueueItem'] = true;
       CommonDbHandler().performDbOperation(options);
-      return Response(requestOptions: options, data: body, statusCode: 200);
+      return Response(requestOptions: options, data: options.data, statusCode: 200);
     }
 
     return Response(

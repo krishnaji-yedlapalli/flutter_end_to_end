@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/data/base_service.dart';
 import 'package:sample_latest/data/db/module_db_handler/common_db_handler.dart';
@@ -23,6 +25,8 @@ class OfflineHandler with BaseService {
 
   OfflineHandler._internal();
 
+  StreamController<int> queueItemsCount = StreamController<int>.broadcast();
+
   Future<Response> handleRequest(RequestOptions options) async {
     String path = options.path;
 
@@ -40,11 +44,16 @@ class OfflineHandler with BaseService {
     } catch (e, s) {
       throw DioException(
           requestOptions: options, type: DioExceptionType.connectionError);
+    }finally{
+      updateQueueItemsCount();
     }
   }
 
   Future<bool> syncData() async {
     var status = false;
+
+    // if((await updateQueueItemsCount()) <= 0) return false;
+    updateQueueItemsCount();
 
     var queueItems = <QueueItem>[];
     Response response = await CommonDbHandler().performDbOperation(
@@ -59,6 +68,8 @@ class OfflineHandler with BaseService {
         queueItem['queryParams'] = jsonDecode(queueItem['queryParams']);
         queueItems.add(QueueItem.fromJson(queueItem));
       }
+
+      updateQueueItemsCount();
     }else{
       return false;
     }
@@ -84,6 +95,7 @@ class OfflineHandler with BaseService {
       } catch (e, s) {
         ExceptionHandler().handleException(e, s);
       }finally{
+        updateQueueItemsCount();
         navigatorKey.currentContext?.loaderOverlay.hide();
       }
     }
@@ -91,7 +103,8 @@ class OfflineHandler with BaseService {
     return status;
   }
 
-  Future<void> dumpOfflineData() async {
+  Future<bool> dumpOfflineData() async {
+    var status = false;
     try {
 
       navigatorKey.currentContext?.loaderOverlay.show();
@@ -119,10 +132,26 @@ class OfflineHandler with BaseService {
        await SchoolsDbHandler().performDbOperation(RequestOptions(
           path: Urls.students, method: RequestType.store.name, data: students));
      }
+
+     status = true;
     } catch (e, s) {
-      print('error');
+      status = false;
     }finally{
       navigatorKey.currentContext?.loaderOverlay.hide();
     }
+
+    return status;
+  }
+
+
+  Future<int> updateQueueItemsCount() async {
+    var count = 0;
+    try{
+      count = await CommonDbHandler().queueItemsCount();
+      queueItemsCount.add(count);
+    }catch(e,s){
+     ErrorLogging.errorLog(e,s);
+    }
+    return count;
   }
 }

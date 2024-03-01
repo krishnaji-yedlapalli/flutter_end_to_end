@@ -118,4 +118,10 @@ class CommonDbHandler extends DbHandler {
     // TODO: implement performPostOperation
     throw UnimplementedError();
   }
+
+  Future<int> queueItemsCount() async {
+    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
+    var result = await dbHandler!.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
+    return result;
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/constants.dart';
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
 
   late final AppLifecycleListener _lifeCycleListener;
 
-  GlobalKey offlineBannerKey = GlobalKey();
+  // GlobalKey offlineBannerKey = GlobalKey();
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       _buildMaterialBanner();
       Future.delayed(const Duration(seconds: 2), () {
         ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-        offlineBannerKey.currentState;
+        // offlineBannerKey.currentState;
         // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
       });
     });
@@ -234,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
 
   void _buildNetworkConnectivityStatus() {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-      key: offlineBannerKey,
+      // key: offlineBannerKey,
       leading: const Icon(Icons.offline_bolt),
       content: const Align(alignment : Alignment.center, child: Text('Offline')),
       actions: [const Text('Retry', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white, decoration: TextDecoration.underline, decorationColor: Colors.white)) ?? TextButton(onPressed: () {}, child: const Text('Retry', style: TextStyle(fontWeight: FontWeight.w600)))],
