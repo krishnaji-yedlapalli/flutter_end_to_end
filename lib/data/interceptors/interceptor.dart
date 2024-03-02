@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sample_latest/data/db/offline_handler.dart';
+import 'package:sample_latest/data/utils/db_constants.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
@@ -23,7 +24,10 @@ class Interceptors extends Interceptor {
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    print('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
-    super.onError(err, handler);
+    if(err.type == DioExceptionType.connectionError && (err.requestOptions.extra['isOfflineApi'] ?? false)){
+      handler.resolve(await OfflineHandler().handleRequest(err.requestOptions));
+    }else{
+      super.onError(err, handler);
+    }
   }
 }

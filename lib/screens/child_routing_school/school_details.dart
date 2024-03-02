@@ -81,7 +81,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
                 widget.school.schoolName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: Image.network('https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill),
+            background: CachedNetworkImage(imageUrl: 'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill, placeholder: (context, error) {return Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
           ),
         ),
     SliverToBoxAdapter(
@@ -116,7 +116,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
               schoolDetails.schoolName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: schoolDetails.image, fit: BoxFit.fill, errorWidget: (context, error, o)=> Icon(Icons.image), ),
+            background: CachedNetworkImage(imageUrl: schoolDetails.image, fit: BoxFit.fill, placeholder: (context, error) {return const Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
           ),
         ),
         SliverToBoxAdapter(

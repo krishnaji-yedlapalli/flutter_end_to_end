@@ -12,6 +12,8 @@ class DbConstants {
   static const String reqDataColumnName = 'reqdata';
 
   static const String queueItems = 'queue_items';
+
+  static const String notRequiredToStoreInQueue = 'storeInQueue';
 }
 
 class SchoolDbConstants {

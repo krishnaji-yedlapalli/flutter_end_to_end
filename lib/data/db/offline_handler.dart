@@ -45,7 +45,7 @@ class OfflineHandler with BaseService {
       throw DioException(
           requestOptions: options, type: DioExceptionType.connectionError);
     }finally{
-      updateQueueItemsCount();
+      await updateQueueItemsCount();
     }
   }
 
@@ -106,6 +106,8 @@ class OfflineHandler with BaseService {
   Future<bool> dumpOfflineData() async {
     var status = false;
     try {
+
+      if((await updateQueueItemsCount()) > 0) await syncData();
 
       navigatorKey.currentContext?.loaderOverlay.show();
 

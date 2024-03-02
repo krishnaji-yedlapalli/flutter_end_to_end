@@ -22,7 +22,7 @@ class CustomDropDown<T> extends StatelessWidget {
       items: items, onChanged: onChanged,
       value: value,
       validator: validator,
-      style: TextStyle(fontWeight: FontWeight.w100),
+      style: const TextStyle(fontWeight: FontWeight.w100, color: Colors.black),
       decoration: const InputDecoration(
         border: OutlineInputBorder()
       ),
