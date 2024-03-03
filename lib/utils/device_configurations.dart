@@ -58,5 +58,8 @@ class DeviceConfiguration {
 
   static bool get isWeb =>  _applicationType == ApplicationType.web;
 
-  static bool get isOfflineSupported =>  Platform.isIOS || Platform.isMacOS || Platform.isAndroid;
+  static bool get isOfflineSupported {
+    if(kIsWeb) return false;
+    return Platform.isIOS || Platform.isMacOS || Platform.isAndroid;
+  }
 }
