@@ -65,7 +65,7 @@ class SqfLiteDbHandler {
   }
 
 
-  Future<int> deleteRecord({required String tableName , required String columnName, required List<String> ids}) async {
+  Future<int> deleteRecord({required String tableName , required String columnName, required List<dynamic> ids}) async {
     return await db.delete(tableName, where: '$columnName = ?', whereArgs: ids);
   }
 

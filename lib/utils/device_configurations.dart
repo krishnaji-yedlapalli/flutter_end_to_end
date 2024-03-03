@@ -57,4 +57,6 @@ class DeviceConfiguration {
   static bool get isPortrait =>  _orientationType == Orientation.portrait;
 
   static bool get isWeb =>  _applicationType == ApplicationType.web;
+
+  static bool get isOfflineSupported =>  Platform.isIOS || Platform.isMacOS || Platform.isAndroid;
 }

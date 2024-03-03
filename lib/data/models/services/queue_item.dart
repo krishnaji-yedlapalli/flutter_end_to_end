@@ -5,7 +5,9 @@ part 'queue_item.g.dart';
 @JsonSerializable()
 class QueueItem {
 
-  final int? id;
+  final String? id;
+
+  final int? queueId;
 
   final String path;
 
@@ -17,7 +19,7 @@ class QueueItem {
 
   final int priority;
 
-  QueueItem(this.path, this.methodType, {this.body, this.queryParams, this.priority = -1, this.id});
+  QueueItem(this.path, this.methodType, {this.body, this.queryParams, this.priority = -1, this.id, this.queueId});
 
   factory QueueItem.fromJson(Map<String, dynamic> json) => _$QueueItemFromJson(json);
 

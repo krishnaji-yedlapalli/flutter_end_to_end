@@ -95,17 +95,19 @@ class CommonDbHandler extends DbHandler {
       /// storing in queue items
       var queueItem = QueueItem(options.path, options.method,
           body: options.data,
+          id: options.data is Map && options.data.keys.isNotEmpty ? options.data.keys.first : null,
           queryParams: options.queryParameters,
           priority: options.extra['priority'] ?? -1);
 
       var queueItemBody = queueItem.toJson();
-      queueItemBody['body'] = jsonEncode(queueItem.body);
+      if(queueItem.body != null) queueItemBody['body'] = jsonEncode(queueItem.body);
       queueItemBody['queryParams'] = jsonEncode(queueItem.queryParams);
 
       var res =
           await dbHandler!.insertData(DbConstants.queueItems, queueItemBody);
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
+
     return Response(
         requestOptions: options,
         data: {},
@@ -124,4 +126,21 @@ class CommonDbHandler extends DbHandler {
     var result = await dbHandler!.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
     return result;
   }
+
+  Future<int> insertQueueItem(RequestOptions options) async {
+    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
+    options.extra['isQueueItem'] = true;
+    await performPatchOperation(options);
+    return 1;
+  }
+
+
+  Future<int> deleteQueueItem(int id) async {
+    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
+
+    int recordId = await dbHandler!.deleteRecord(
+        tableName: DbConstants.queueItems, columnName: DbConstants.queueColumnName, ids: [id]);
+  return recordId;
+  }
+
 }

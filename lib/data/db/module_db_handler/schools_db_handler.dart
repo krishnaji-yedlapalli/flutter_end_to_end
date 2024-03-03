@@ -66,7 +66,13 @@ class SchoolsDbHandler extends DbHandler {
 
   @override
   Future<Response> performDeleteOperation(RequestOptions options) async {
-    var id = options.path.split('/').last.split('.').first;
+
+    dynamic id;
+    if(options.queryParameters.containsKey(DbConstants.idColumnName)){
+      id = options.queryParameters[DbConstants.idColumnName];
+    }else{
+     id = options.path.split('/').last.split('.').first;
+    }
     String? dbName;
 
     if (options.path.contains(Urls.schools)) {
@@ -80,6 +86,11 @@ class SchoolsDbHandler extends DbHandler {
     if (dbName != null) {
       int recordId = await dbHandler!.deleteRecord(
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
+
+      /// Storing the data locally
+      if(!(options.extra.containsKey(DbConstants.notRequiredToStoreInQueue) && options.extra[DbConstants.notRequiredToStoreInQueue])) {
+        await CommonDbHandler().insertQueueItem(options);
+      }
     } else {
       return Response(
           requestOptions: options,
@@ -163,8 +174,9 @@ class SchoolsDbHandler extends DbHandler {
       var response = await dbHandler!.insertData(tableName, body);
 
       /// Storing the data locally
-      options.extra['isQueueItem'] = true;
-      CommonDbHandler().performDbOperation(options);
+      if(!(options.extra.containsKey(DbConstants.notRequiredToStoreInQueue) && options.extra[DbConstants.notRequiredToStoreInQueue])) {
+        await CommonDbHandler().insertQueueItem(options);
+      }
       return Response(requestOptions: options, data: options.data, statusCode: 200);
     }
 

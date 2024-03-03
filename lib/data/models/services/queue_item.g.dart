@@ -12,11 +12,13 @@ QueueItem _$QueueItemFromJson(Map<String, dynamic> json) => QueueItem(
       body: json['body'],
       queryParams: json['queryParams'] as Map<String, dynamic>?,
       priority: json['priority'] as int? ?? -1,
-      id: json['id'] as int?,
+      id: json['id'] as String?,
+      queueId: json['queueId'] as int?,
     );
 
 Map<String, dynamic> _$QueueItemToJson(QueueItem instance) => <String, dynamic>{
       'id': instance.id,
+      'queueId': instance.queueId,
       'path': instance.path,
       'methodType': instance.methodType,
       'body': instance.body,

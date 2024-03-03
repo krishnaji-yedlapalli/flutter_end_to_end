@@ -9,6 +9,8 @@ class DbConstants {
 
   static const String idColumnName = 'id';
 
+  static const String queueColumnName = 'queueId';
+
   static const String reqDataColumnName = 'reqdata';
 
   static const String queueItems = 'queue_items';

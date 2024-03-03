@@ -52,7 +52,7 @@ class ConnectivityHandler {
          _isConnected = currentState;
           connectionChangeStatusController.add(_isConnected);
 
-          // if(_isConnected) OfflineHandler().syncData();
+          if(_isConnected) OfflineHandler().syncData();
         }
     });
   }

@@ -47,10 +47,10 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
             alignment: WrapAlignment.spaceBetween,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
-            Wrap(
+            if(DeviceConfiguration.isOfflineSupported) Wrap(
               spacing: 10,
               children: [
-                ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
+                // ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
                 StreamBuilder<int>(
                   stream: OfflineHandler().queueItemsCount.stream,
                   initialData: 0,
