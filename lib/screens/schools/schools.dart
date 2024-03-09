@@ -10,7 +10,7 @@ import 'package:sample_latest/extensions/widget_extension.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/loaders.dart';
-import 'package:sample_latest/screens/child_routing_school/create_school.dart';
+import 'package:sample_latest/screens/schools/create_update_school.dart';
 import 'package:sample_latest/screens/exception/exception.dart';
 import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
