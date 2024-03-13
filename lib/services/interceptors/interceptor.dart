@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:sample_latest/data/db/offline_handler.dart';
-import 'package:sample_latest/data/utils/db_constants.dart';
+import 'package:sample_latest/services/db/offline_handler.dart';
+import 'package:sample_latest/services/utils/db_constants.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 

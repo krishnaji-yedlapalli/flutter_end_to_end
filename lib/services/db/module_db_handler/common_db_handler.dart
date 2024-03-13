@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:dio/src/options.dart';
 import 'package:dio/src/response.dart';
-import 'package:sample_latest/data/db/db_handler.dart';
-import 'package:sample_latest/data/models/services/queue_item.dart';
-import 'package:sample_latest/data/utils/abstract_db_handler.dart';
-import 'package:sample_latest/data/utils/db_constants.dart';
-import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/services/db/db_handler.dart';
+import 'package:sample_latest/models/services/queue_item.dart';
+import 'package:sample_latest/services/utils/abstract_db_handler.dart';
+import 'package:sample_latest/services/utils/db_constants.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 
 class CommonDbHandler extends DbHandler {

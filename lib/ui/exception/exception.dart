@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 
 import '../../utils/enums.dart';
 

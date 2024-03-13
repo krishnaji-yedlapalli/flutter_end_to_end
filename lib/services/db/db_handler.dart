@@ -30,7 +30,7 @@ class SqfLiteDbHandler {
 
   void _onCreate(Database db, int version, String queryFileName) async {
     // Read SQL queries from file
-    String fileContents = await rootBundle.loadString('lib/data/db/queries/$queryFileName.sql');
+    String fileContents = await rootBundle.loadString('lib/services/db/queries/$queryFileName.sql');
     fileContents = fileContents.trim().replaceAll('\n', '');
     List<String> queries = fileContents.split(';');
 

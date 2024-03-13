@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:sample_latest/data/db/db_handler.dart';
-import 'package:sample_latest/data/db/module_db_handler/common_db_handler.dart';
-import 'package:sample_latest/data/urls.dart';
-import 'package:sample_latest/data/utils/abstract_db_handler.dart';
-import 'package:sample_latest/data/utils/db_constants.dart';
-import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/services/db/db_handler.dart';
+import 'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
+import 'package:sample_latest/services/urls.dart';
+import 'package:sample_latest/services/utils/abstract_db_handler.dart';
+import 'package:sample_latest/services/utils/db_constants.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 
 import '../../base_service.dart';
-import '../../models/services/queue_item.dart';
 
 class SchoolsDbHandler extends DbHandler {
   SchoolsDbHandler._internal();

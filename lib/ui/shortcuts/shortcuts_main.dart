@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/screens/shortcuts/call_back_shortcuts.dart';
-import 'package:sample_latest/screens/shortcuts/shortcut_actions.dart';
+import 'package:sample_latest/ui/shortcuts/call_back_shortcuts.dart';
+import 'package:sample_latest/ui/shortcuts/shortcut_actions.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class ShortcutsTabView extends StatefulWidget {

@@ -1,7 +1,7 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:sample_latest/data/db/db_handler.dart';
+import 'package:sample_latest/services/db/db_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class DbHandler {

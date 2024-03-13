@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/data/db/offline_handler.dart';
+import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';

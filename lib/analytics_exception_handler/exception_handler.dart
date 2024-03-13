@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
 import 'package:sample_latest/analytics_exception_handler/server_exception.dart';
-import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 import 'package:sample_latest/mixins/notifiers.dart';
 import 'package:sample_latest/utils/enums.dart';
 

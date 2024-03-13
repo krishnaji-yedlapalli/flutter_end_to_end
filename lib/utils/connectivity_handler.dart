@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:sample_latest/data/db/offline_handler.dart';
+import 'package:sample_latest/services/db/offline_handler.dart';
 
 class ConnectivityHandler {
   static final _singleton = ConnectivityHandler._internal();

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/data/models/school/student_model.dart';
+import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
 import 'package:sample_latest/widgets/custom_dropdown.dart';

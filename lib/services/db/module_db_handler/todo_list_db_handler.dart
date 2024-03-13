@@ -1,9 +1,9 @@
 
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:sample_latest/data/db/db_handler.dart';
-import 'package:sample_latest/data/utils/abstract_db_handler.dart';
-import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/services/db/db_handler.dart';
+import 'package:sample_latest/services/utils/abstract_db_handler.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 
 class TodoListDbHandler extends DbHandler {
 

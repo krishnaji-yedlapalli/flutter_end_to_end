@@ -1,10 +1,10 @@
 
-import 'package:sample_latest/data/base_service.dart';
-import 'package:sample_latest/data/models/school/school_details_model.dart';
-import 'package:sample_latest/data/models/school/school_model.dart';
-import 'package:sample_latest/data/models/school/student_model.dart';
-import 'package:sample_latest/data/urls.dart';
-import 'package:sample_latest/data/utils/enums.dart';
+import 'package:sample_latest/services/base_service.dart';
+import 'package:sample_latest/models/school/school_details_model.dart';
+import 'package:sample_latest/models/school/school_model.dart';
+import 'package:sample_latest/models/school/student_model.dart';
+import 'package:sample_latest/services/urls.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 import 'package:sample_latest/utils/enums.dart';
 
 abstract class SchoolRepo {
