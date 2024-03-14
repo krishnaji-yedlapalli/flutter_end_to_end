@@ -9,7 +9,7 @@ import 'package:sample_latest/services/base_service.dart';
 import 'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
 import 'package:sample_latest/services/db/module_db_handler/schools_db_handler.dart';
 import 'package:sample_latest/services/db/module_db_handler/todo_list_db_handler.dart';
-import 'package:sample_latest/models/services/queue_item.dart';
+import 'package:sample_latest/models/service/queue_item.dart';
 import 'package:sample_latest/services/urls.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
 import 'package:sample_latest/services/utils/enums.dart';

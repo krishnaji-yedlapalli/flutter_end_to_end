@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/src/options.dart';
 import 'package:dio/src/response.dart';
 import 'package:sample_latest/services/db/db_handler.dart';
-import 'package:sample_latest/models/services/queue_item.dart';
+import 'package:sample_latest/models/service/queue_item.dart';
 import 'package:sample_latest/services/utils/abstract_db_handler.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
 import 'package:sample_latest/services/utils/enums.dart';

@@ -27,8 +27,6 @@ class SchoolRepository with BaseService implements SchoolRepo{
      var response = await makeRequest(url: '${Urls.schools}.json');
      if(response is Map) {
        schools = response.entries.map<SchoolModel>((json) => SchoolModel.fromJson(json.value)).toList();
-     }else if(response is List){
-       schools = response.map<SchoolModel>((json) => SchoolModel.fromJson(json)).toList();
      }
      return schools;
   }
@@ -61,8 +59,6 @@ class SchoolRepository with BaseService implements SchoolRepo{
     var response = await makeRequest(url: '${Urls.students}/$schoolId.json');
     if(response is Map) {
       students = response.entries.map<StudentModel>((json) => StudentModel.fromJson(json.value)).toList();
-    }else if( response is List){
-      students = response.map<StudentModel>((json) => StudentModel.fromJson(json)).toList();
     }
     return students;
   }

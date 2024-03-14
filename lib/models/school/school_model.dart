@@ -11,7 +11,7 @@ class SchoolModel {
 
   final String country;
   final String location;
-  final String id;
+  String id;
 
   factory SchoolModel.fromJson(Map<String, dynamic> json) =>
       _$SchoolModelFromJson(json);

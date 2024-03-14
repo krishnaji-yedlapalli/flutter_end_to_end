@@ -27,12 +27,10 @@ class StudentDataEvent extends SchoolEvent {
 }
 
 class CreateSchoolEvent extends SchoolEvent {
-  final String? id;
-  final String schoolName;
-  final String country;
-  final String location;
 
-  CreateSchoolEvent(this.schoolName, this.country, this.location, {this.id});
+  final SchoolModel school;
+
+  CreateSchoolEvent(this.school);
 }
 
 class CreateOrEditStudentEvent extends SchoolEvent {
