@@ -39,38 +39,47 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         appBar: AppBar(),
       ),
       floatingActionButton: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: Text('Create School'), icon: Icon(Icons.add)),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 10,
-            alignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
-            if(DeviceConfiguration.isOfflineSupported) Wrap(
+      body: BlocListener<SchoolBloc, SchoolState>(
+        listener: (context, state) {
+         buildAlertDialog(context, title : '!!! Welcome to School Module !!!', content : 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
+         BlocProvider.of<SchoolBloc>(context).isWelcomeMessageShowed = true;
+         },
+        listenWhen: (context, state){
+          return !state.isWelcomeMessageShowed;
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
               spacing: 10,
-              children: [
-                // ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
-                StreamBuilder<int>(
-                  stream: OfflineHandler().queueItemsCount.stream,
-                  initialData: 0,
-                  builder: (context, snapshot) {
-                    var count = 0;
-                    if(snapshot.hasData){
-                      count = snapshot.data ?? 0;
-                    }
-                    return Badge(
-                        label: Text('$count'),
-                        child: ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync')));
-                  },
-                )
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
+              if(DeviceConfiguration.isOfflineSupported) Wrap(
+                spacing: 10,
+                children: [
+                  // ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
+                  StreamBuilder<int>(
+                    stream: OfflineHandler().queueItemsCount.stream,
+                    initialData: 0,
+                    builder: (context, snapshot) {
+                      var count = 0;
+                      if(snapshot.hasData){
+                        count = snapshot.data ?? 0;
+                      }
+                      return Badge(
+                          label: Text('$count'),
+                          child: ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync')));
+                    },
+                  )
+                ],
+              )
               ],
-            )
-            ],
-          ),
-          Expanded(child: _buildSchoolBlocConsumer()),
-        ],
-      ).screenPadding(),
+            ),
+            Expanded(child: _buildSchoolBlocConsumer()),
+          ],
+        ).screenPadding(),
+      ),
     );
   }
 

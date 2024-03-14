@@ -6,13 +6,15 @@ abstract class SchoolState extends Equatable{
 
   final SchoolDataLoadedType schoolStateType;
 
-  const SchoolState(this.schoolStateType);
+  final bool isWelcomeMessageShowed;
+
+  const SchoolState(this.schoolStateType, {this.isWelcomeMessageShowed = true});
 }
 
 
 class SchoolInfoInitial extends SchoolState {
 
-  SchoolInfoInitial(super.schoolStateType);
+  const SchoolInfoInitial(super.schoolStateType);
 
   @override
   List<Object?> get props => [];
@@ -21,7 +23,7 @@ class SchoolInfoInitial extends SchoolState {
 
 class SchoolInfoLoading extends SchoolState {
 
-  SchoolInfoLoading(super.schoolStateType);
+  const SchoolInfoLoading(super.schoolStateType, {bool showedWelcomeMessage = true}) : super(isWelcomeMessageShowed: showedWelcomeMessage);
 
   @override
   List<Object?> get props => [];
@@ -42,7 +44,7 @@ class SchoolInfoLoaded extends SchoolState {
 
   final SchoolDetailsModel school;
 
-  SchoolInfoLoaded(super.schoolStateType, this.school);
+  const SchoolInfoLoaded(super.schoolStateType, this.school);
 
   @override
   // TODO: implement props
@@ -55,7 +57,7 @@ class StudentInfoLoaded extends SchoolState {
 
   final String schoolId;
 
-  StudentInfoLoaded(super.schoolStateType, this.student, this.schoolId);
+  const StudentInfoLoaded(super.schoolStateType, this.student, this.schoolId);
 
   @override
   // TODO: implement props
@@ -70,7 +72,7 @@ class StudentsInfoLoaded extends SchoolState {
 
   // final SchoolDetailsModel? school;
 
-  StudentsInfoLoaded(super.schoolStateType, this.students, this.schoolId);
+  const StudentsInfoLoaded(super.schoolStateType, this.students, this.schoolId);
 
   @override
   // TODO: implement props
@@ -90,7 +92,7 @@ class SchoolDataError extends SchoolState {
 
   final DataErrorStateType errorStateType;
 
-  SchoolDataError(super.schoolStateType, this.errorStateType);
+  const SchoolDataError(super.schoolStateType, this.errorStateType);
 
   @override
   List<Object?> get props => [schoolStateType, errorStateType];

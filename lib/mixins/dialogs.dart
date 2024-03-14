@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 mixin CustomDialogs {
@@ -52,5 +54,19 @@ mixin CustomDialogs {
                     child: Text(actions.elementAt(index)))),
           ),
         ));
+  }
+
+  Future<bool?> buildAlertDialog(BuildContext context, {required String title, required String content}) async {
+    showAdaptiveDialog(barrierDismissible: true,
+       context: context,
+       builder: (context) {
+         return CupertinoAlertDialog(
+       title: Text(title),
+       content: Text(content),
+       actions: [
+         IconButton(onPressed: () => GoRouter.of(context).pop(), icon: const Icon(Icons.thumb_up))
+       ],
+     );
+   });
   }
 }
