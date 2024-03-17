@@ -8,7 +8,8 @@ class SchoolDetailsModel {
 
   SchoolDetailsModel(this.id, this.schoolName, this.country, this.location, this.image, this.studentCount, this.employeeCount, this.hostelAvailability);
 
-  String id;
+  @JsonKey(required: true)
+  final String id;
 
   @JsonKey(required: true)
   final String schoolName;

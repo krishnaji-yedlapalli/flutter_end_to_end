@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
@@ -45,12 +46,16 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
 
   String? selectedStandard;
 
+  bool isCreateStudent = true;
+
   @override
   void initState() {
     if(widget.student != null){
       studentNameCtrl.text = widget.student?.studentName ?? '';
       studentLocationCtrl.text = widget.student?.studentLocation ?? '';
       selectedStandard = widget.student?.standard;
+
+      isCreateStudent = false;
     }
     super.initState();
   }
@@ -109,12 +114,15 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
         if(formKey.currentState?.validate() ?? false) {
           context.read<SchoolBloc>().add(CreateOrEditStudentEvent(
               StudentModel(
-                widget.student != null ? widget.student!.id : '',
+                  isCreateStudent ? HelperMethods.uuid : widget.student!.id,
                 widget.schoolId,
                 studentNameCtrl.text.trim(),
                 studentLocationCtrl.text.trim(),
                 selectedStandard!
-              ), widget.schoolId));
+              ), widget.schoolId,
+          isCreateStudent: isCreateStudent
+          ),
+          );
           GoRouter.of(context).pop();
         }
         break;

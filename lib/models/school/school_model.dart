@@ -9,9 +9,11 @@ class SchoolModel {
   @JsonKey(required: true)
   final String schoolName;
 
+  @JsonKey(required: true)
+  String id;
+
   final String country;
   final String location;
-  String id;
 
   factory SchoolModel.fromJson(Map<String, dynamic> json) =>
       _$SchoolModelFromJson(json);

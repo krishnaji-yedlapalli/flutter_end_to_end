@@ -26,11 +26,12 @@ class StudentDataEvent extends SchoolEvent {
   StudentDataEvent(this.studentId, this.schoolId);
 }
 
-class CreateSchoolEvent extends SchoolEvent {
+class CreateOrUpdateSchoolEvent extends SchoolEvent {
 
   final SchoolModel school;
+  final bool isCreateSchool;
 
-  CreateSchoolEvent(this.school);
+  CreateOrUpdateSchoolEvent(this.school, {this.isCreateSchool = true});
 }
 
 class CreateOrEditStudentEvent extends SchoolEvent {
@@ -39,7 +40,9 @@ class CreateOrEditStudentEvent extends SchoolEvent {
 
    final String schoolId;
 
-   CreateOrEditStudentEvent(this.student, this.schoolId);
+   final bool isCreateStudent;
+
+   CreateOrEditStudentEvent(this.student, this.schoolId, {this.isCreateStudent = true});
 }
 
 class CreateOrEditSchoolDetailsEvent extends SchoolEvent {

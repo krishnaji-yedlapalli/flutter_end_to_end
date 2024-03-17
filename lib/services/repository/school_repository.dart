@@ -67,8 +67,6 @@ class SchoolRepository with BaseService implements SchoolRepo{
   @override
   Future<SchoolDetailsModel> addOrEditSchoolDetails(SchoolDetailsModel schoolDetails) async {
 
-    schoolDetails.id = schoolDetails.id.trim().isEmpty ? HelperMethods.uuid : schoolDetails.id;
-
     Map<String, dynamic> body = {
       schoolDetails.id: schoolDetails.toJson()
     };
@@ -85,8 +83,6 @@ class SchoolRepository with BaseService implements SchoolRepo{
   @override
   Future<SchoolModel> createOrEditSchool(SchoolModel school) async {
 
-    school.id = school.id.trim().isEmpty ? HelperMethods.uuid : school.id;
-
     Map<String, dynamic> body = {school.id : school.toJson()};
 
     var response = await makeRequest(url: '${Urls.schools}.json', body: body, method: RequestType.patch);
@@ -100,8 +96,6 @@ class SchoolRepository with BaseService implements SchoolRepo{
 
   @override
   Future<StudentModel> createOrEditStudent(String schoolId, StudentModel student) async {
-
-    student.id = student.id.trim().isEmpty ? HelperMethods.uuid : student.id;
 
     Map<String, dynamic> body = {
       student.id: student.toJson()

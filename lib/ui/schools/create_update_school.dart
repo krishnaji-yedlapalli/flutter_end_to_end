@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
@@ -37,12 +38,16 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
 
   String? selectedCountry;
 
+  bool isCreateSchool = true;
+
   @override
   void initState() {
     if(widget.school != null) {
       schoolNameCtrl.text = widget.school?.schoolName ?? '';
       locationCtrl.text = widget.school?.location ?? '';
       selectedCountry = widget.school?.country;
+
+      isCreateSchool = false;
     }
     super.initState();
   }
@@ -51,7 +56,7 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
   Widget build(BuildContext context) {
     return dialogWithButtons(
       title: 'Create School',
-      content: _buildFrom(), actions: ['Cancel', widget.school != null ? 'Update' : 'Create'], callBack: onTapOfAction
+      content: _buildFrom(), actions: ['Cancel', isCreateSchool ? 'Create' : 'Update'], callBack: onTapOfAction
     );
   }
 
@@ -99,12 +104,14 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().add(CreateSchoolEvent(SchoolModel(
+          context.read<SchoolBloc>().add(CreateOrUpdateSchoolEvent(SchoolModel(
               schoolNameCtrl.text.trim(),
               selectedCountry!,
               locationCtrl.text.trim(),
-              widget.school?.id ?? '',
-          )));
+              isCreateSchool ? HelperMethods.uuid : widget.school!.id,
+          ),
+              isCreateSchool : isCreateSchool
+          ));
           GoRouter.of(context).pop();
         }
         break;

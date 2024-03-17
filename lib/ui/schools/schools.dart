@@ -84,18 +84,11 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   }
 
   Widget _buildSchoolBlocConsumer() {
-    return BlocConsumer<SchoolBloc, SchoolState>(
-        listener: (context, state) {
-        },
-        // listenWhen: (context, state) {
-        //   return state is SchoolsInfoLoaded && state is List<SchoolModel>;
-        // },
-
+    return BlocBuilder<SchoolBloc, SchoolState>(
         buildWhen: (context, state) {
           return state.schoolStateType == SchoolDataLoadedType.schools;
         },
         builder: (context, state) {
-
           if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
             return circularLoader();
           } else if (state is SchoolsInfoLoaded) {
