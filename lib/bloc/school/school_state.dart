@@ -53,7 +53,7 @@ class StudentInfoLoaded extends SchoolState {
 
   final StudentModel student;
 
-  final int schoolId;
+  final String schoolId;
 
   StudentInfoLoaded(super.schoolStateType, this.student, this.schoolId);
 
@@ -66,7 +66,7 @@ class StudentsInfoLoaded extends SchoolState {
 
   final List<StudentModel> students;
 
-  final int schoolId;
+  final String schoolId;
 
   // final SchoolDetailsModel? school;
 
@@ -86,12 +86,14 @@ class SchoolDataNotFound extends SchoolState {
 
 }
 
-class DataError extends SchoolState {
+class SchoolDataError extends SchoolState {
 
-  DataError(super.schoolStateType);
+  final DataErrorStateType errorStateType;
+
+  SchoolDataError(super.schoolStateType, this.errorStateType);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [schoolStateType, errorStateType];
 
 }
 

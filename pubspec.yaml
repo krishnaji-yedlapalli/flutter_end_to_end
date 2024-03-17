@@ -43,8 +43,6 @@ dependencies:
   workmanager: ^0.5.1
   easy_upi_payment:
   google_fonts: ^6.1.0
-  http:
-  http_interceptor:
   connectivity_plus:
   sqflite:
   provider:
@@ -52,6 +50,7 @@ dependencies:
   equatable:
   path_provider: ^2.1.2
   path:
+  loader_overlay: ^4.0.0
 
   # Plugins
   youtube_player_flutter:
@@ -60,6 +59,11 @@ dependencies:
   video_player:
   network_info_plus:
   just_audio:
+  fluttertoast: ^8.2.4
+  dio:
+  uuid:
+  cached_network_image: 3.3.1
+  rxdart: ^0.27.7
 #  intl : any
 
 dev_dependencies:
@@ -114,9 +118,9 @@ flutter:
   generate: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+     - asset/exception_error/
+     - lib/data/db/queries/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

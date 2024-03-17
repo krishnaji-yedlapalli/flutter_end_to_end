@@ -11,4 +11,3 @@ enum ApplicationType {mobile, web, desktop}
 
 enum PluginType {youtube, localAuthentication, localNotifications, sharePlus, audioPlayer, networkInfo }
 
-enum RequestType { get, put, post, delete, patch }

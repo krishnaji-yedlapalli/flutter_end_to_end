@@ -1,39 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/data/models/school/school_details_model.dart';
-import 'package:sample_latest/data/models/school/school_model.dart';
-import 'package:sample_latest/data/models/school/student_model.dart';
-import 'package:sample_latest/screens/plugins/plugins_dashboard.dart';
-import 'package:sample_latest/screens/regular_widgets/animations/custom_implicit_animation_widgets.dart';
-import 'package:sample_latest/screens/regular_widgets/animations/explicit_animation_widgets.dart';
-import 'package:sample_latest/screens/regular_widgets/animations/implicit_animations_widgets.dart';
-import 'package:sample_latest/screens/plugins/youtube.dart';
-import 'package:sample_latest/screens/regular_widgets/cupertino_components.dart';
-import 'package:sample_latest/screens/regular_widgets/material_components.dart';
-import 'package:sample_latest/screens/regular_widgets/dialogs.dart';
-import 'package:sample_latest/screens/regular_widgets/regular_widgets_dashboard.dart';
+import 'package:sample_latest/models/school/school_details_model.dart';
+import 'package:sample_latest/models/school/school_model.dart';
+import 'package:sample_latest/models/school/student_model.dart';
+import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
+import 'package:sample_latest/ui/regular_widgets/animations/custom_implicit_animation_widgets.dart';
+import 'package:sample_latest/ui/regular_widgets/animations/explicit_animation_widgets.dart';
+import 'package:sample_latest/ui/regular_widgets/animations/implicit_animations_widgets.dart';
+import 'package:sample_latest/ui/plugins/youtube.dart';
+import 'package:sample_latest/ui/regular_widgets/cupertino_components.dart';
+import 'package:sample_latest/ui/regular_widgets/material_components.dart';
+import 'package:sample_latest/ui/regular_widgets/dialogs.dart';
+import 'package:sample_latest/ui/regular_widgets/regular_widgets_dashboard.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/main.dart';
-import 'package:sample_latest/screens/automatic_keep_alive.dart';
-import 'package:sample_latest/screens/regular_widgets/selectable_text.dart';
-import 'package:sample_latest/screens/regular_widgets/tables.dart';
-import 'package:sample_latest/screens/scrolling/scroll_types.dart';
-import 'package:sample_latest/screens/shortcuts/call_back_shortcuts.dart';
-import 'package:sample_latest/screens/regular_widgets/cards_list_view_grid.dart';
-import 'package:sample_latest/screens/child_routing_school/school_details.dart';
-import 'package:sample_latest/screens/child_routing_school/schools.dart';
-import 'package:sample_latest/screens/child_routing_school/student.dart';
-import 'package:sample_latest/screens/home_screen.dart';
-import 'package:sample_latest/screens/isolates/isolate_home.dart';
-import 'package:sample_latest/screens/isolates/isolate_with_compute.dart';
-import 'package:sample_latest/screens/localization.dart';
-import 'package:sample_latest/screens/shortcuts/shortcuts_main.dart';
-import 'package:sample_latest/screens/upi_payments/easy_upi_payments.dart';
+import 'package:sample_latest/ui/automatic_keep_alive.dart';
+import 'package:sample_latest/ui/regular_widgets/selectable_text.dart';
+import 'package:sample_latest/ui/regular_widgets/tables.dart';
+import 'package:sample_latest/ui/scrolling/scroll_types.dart';
+import 'package:sample_latest/ui/shortcuts/call_back_shortcuts.dart';
+import 'package:sample_latest/ui/regular_widgets/cards_list_view_grid.dart';
+import 'package:sample_latest/ui/schools/school_details.dart';
+import 'package:sample_latest/ui/schools/schools.dart';
+import 'package:sample_latest/ui/schools/student.dart';
+import 'package:sample_latest/ui/home_screen.dart';
+import 'package:sample_latest/ui/isolates/isolate_home.dart';
+import 'package:sample_latest/ui/isolates/isolate_with_compute.dart';
+import 'package:sample_latest/ui/localization.dart';
+import 'package:sample_latest/ui/shortcuts/shortcuts_main.dart';
+import 'package:sample_latest/ui/upi_payments/easy_upi_payments.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/screens/regular_widgets/stepper_ui.dart';
+import 'package:sample_latest/ui/regular_widgets/stepper_ui.dart';
 
-import 'screens/plugins/local_authentication.dart';
+import 'ui/plugins/local_authentication.dart';
 
 class Routing {
   static const String home = '/home';
@@ -252,7 +252,6 @@ class Routing {
               builder: (BuildContext context, GoRouterState state) {
                 Map<String, dynamic> query = {};
                 query.addAll(state.queryParameters);
-                query['schoolId'] = int.parse(query['schoolId']);
                 return SchoolDetails(SchoolModel.fromJson(query));
               },
               routes: [
@@ -260,7 +259,7 @@ class Routing {
                     path: 'student',
                     name: 'student',
                     builder: (context, state) {
-                      return Student(studentId : int.parse(state.queryParameters['studentId'].toString()), schoolId : int.parse(state.queryParameters['schoolId'].toString()), schoolName: state.queryParameters['schoolName'].toString());
+                      return Student(studentId : state.queryParameters['studentId'] ?? '', schoolId : state.queryParameters['schoolId'] ?? '', schoolName: state.queryParameters['schoolName'] ?? '');
                     })
               ]),
         ]);

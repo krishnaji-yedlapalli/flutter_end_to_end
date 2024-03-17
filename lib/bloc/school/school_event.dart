@@ -11,23 +11,23 @@ class SchoolsDataEvent extends SchoolEvent {
 }
 
 class SchoolDataEvent extends SchoolEvent {
-  final int id;
+  final String id;
   SchoolDataEvent(this.id);
 }
 
 class StudentsDataEvent extends SchoolEvent {
-  final int schoolId;
+  final String schoolId;
   StudentsDataEvent(this.schoolId);
 }
 
 class StudentDataEvent extends SchoolEvent {
-  final int studentId;
-  final int schoolId;
+  final String studentId;
+  final String schoolId;
   StudentDataEvent(this.studentId, this.schoolId);
 }
 
 class CreateSchoolEvent extends SchoolEvent {
-  final int? id;
+  final String? id;
   final String schoolName;
   final String country;
   final String location;
@@ -39,7 +39,7 @@ class CreateOrEditStudentEvent extends SchoolEvent {
 
    final StudentModel student;
 
-   final int schoolId;
+   final String schoolId;
 
    CreateOrEditStudentEvent(this.student, this.schoolId);
 }
@@ -53,16 +53,23 @@ class CreateOrEditSchoolDetailsEvent extends SchoolEvent {
 
 class DeleteSchoolEvent extends SchoolEvent {
 
-  final int schoolId;
+  final String schoolId;
 
   DeleteSchoolEvent(this.schoolId);
 }
 
 class DeleteStudentEvent extends SchoolEvent {
 
-  final int schoolId;
+  final String schoolId;
 
-  final int studentId;
+  final String studentId;
 
   DeleteStudentEvent( this.studentId, this.schoolId);
+}
+
+class SyncAndDumpTheData extends SchoolEvent {
+
+  final bool isSyncData;
+
+  SyncAndDumpTheData(this.isSyncData);
 }
