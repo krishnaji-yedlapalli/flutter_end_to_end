@@ -51,8 +51,8 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
               spacing: 10,
               children: [
                 _buildSyncButton(),
-                        _buildDbConfigurationsButtonForDevelopment(
-                )
+                //         _buildDbConfigurationsButtonForDevelopment(
+                // )
               ],
             )
             ],
