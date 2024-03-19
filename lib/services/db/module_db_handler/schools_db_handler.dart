@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:sample_latest/extensions/dio_request_extension.dart';
 import 'package:sample_latest/services/db/db_handler.dart';
 import 'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
 import 'package:sample_latest/services/urls.dart';
@@ -159,13 +160,13 @@ class SchoolsDbHandler extends DbHandler {
 
     if (options.path.contains(Urls.schools)) {
       tableName = SchoolDbConstants.schoolsTableName;
-      options.extra['priority'] = 1;
+      options.priority = 1;
     } else if (options.path.contains(Urls.schoolDetails)) {
       tableName = SchoolDbConstants.schoolDetailsTableName;
-      options.extra['priority'] = 2;
+      options.priority = 2;
     } else if (options.path.contains(Urls.students)) {
       tableName = SchoolDbConstants.studentsTableName;
-      options.extra['priority'] = 3;
+      options.priority = 3;
     }
 
     if (tableName != null) {
@@ -173,7 +174,7 @@ class SchoolsDbHandler extends DbHandler {
       var response = await dbHandler!.insertData(tableName, body);
 
       /// Storing the data locally
-      if(!(options.extra.containsKey(DbConstants.notRequiredToStoreInQueue) && options.extra[DbConstants.notRequiredToStoreInQueue])) {
+      if(!(options.notRequiredToStoreInQueue)) {
         await CommonDbHandler().insertQueueItem(options);
       }
       return Response(requestOptions: options, data: options.data, statusCode: 200);

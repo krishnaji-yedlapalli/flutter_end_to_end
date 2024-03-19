@@ -13,6 +13,7 @@ import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/ui/schools/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/ui/regular_widgets/dialogs.dart';
+import 'package:sample_latest/ui/schools/db_configurations_for_devs.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
@@ -27,7 +28,6 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   @override
   void initState() {
       BlocProvider.of<SchoolBloc>(context).add(SchoolsDataEvent());
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => ScaffoldMessenger.of(context).showSnackBar(snackbar));
     super.initState();
   }
 
@@ -39,54 +39,44 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         appBar: AppBar(),
       ),
       floatingActionButton: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: Text('Create School'), icon: Icon(Icons.add)),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 10,
-            alignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
-            if(DeviceConfiguration.isOfflineSupported) Wrap(
+      body: BlocListener<SchoolBloc, SchoolState>(
+        listener: (context, state) {
+         buildAlertDialog(context, title : '!!! Welcome to School Module !!!', content : 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
+         BlocProvider.of<SchoolBloc>(context).isWelcomeMessageShowed = true;
+         },
+        listenWhen: (context, state){
+          return !state.isWelcomeMessageShowed;
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
               spacing: 10,
-              children: [
-                // ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
-                StreamBuilder<int>(
-                  stream: OfflineHandler().queueItemsCount.stream,
-                  initialData: 0,
-                  builder: (context, snapshot) {
-                    var count = 0;
-                    if(snapshot.hasData){
-                      count = snapshot.data ?? 0;
-                    }
-                    return Badge(
-                        label: Text('$count'),
-                        child: ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync')));
-                  },
-                )
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
+              if(DeviceConfiguration.isOfflineSupportedDevice) Wrap(
+                spacing: 10,
+                children: [
+                  _buildSyncButton(),
+                  // _buildDbConfigurationsButtonForDevelopment()
+                ],
+              )
               ],
-            )
-            ],
-          ),
-          Expanded(child: _buildSchoolBlocConsumer()),
-        ],
-      ).screenPadding(),
+            ),
+            Expanded(child: _buildSchoolBlocConsumer()),
+          ],
+        ).screenPadding(),
+      ),
     );
   }
 
   Widget _buildSchoolBlocConsumer() {
-    return BlocConsumer<SchoolBloc, SchoolState>(
-        listener: (context, state) {
-        },
-        // listenWhen: (context, state) {
-        //   return state is SchoolsInfoLoaded && state is List<SchoolModel>;
-        // },
-
+    return BlocBuilder<SchoolBloc, SchoolState>(
         buildWhen: (context, state) {
           return state.schoolStateType == SchoolDataLoadedType.schools;
         },
         builder: (context, state) {
-
           if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
             return circularLoader();
           } else if (state is SchoolsInfoLoaded) {
@@ -132,7 +122,27 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     );
   }
 
-  SnackBar get snackbar => const SnackBar(content: Text("Integrated the API's using Firebase Realtime Data base !!!"));
+  Widget _buildSyncButton() {
+    return  StreamBuilder<int>(
+      stream: OfflineHandler().queueItemsCount.stream,
+      initialData: 0,
+      builder: (context, snapshot) {
+        var count = 0;
+        if(snapshot.hasData){
+          count = snapshot.data ?? 0;
+        }
+        return Badge(
+            label: Text('$count'),
+            child: ElevatedButton(onPressed: OfflineHandler().syncData, child: const Text('Sync')));
+      },
+    );
+  }
+
+  Widget _buildDbConfigurationsButtonForDevelopment() {
+    return ElevatedButton(onPressed: (){
+      adaptiveDialog(context, DbConfigurationDialog());
+    }, child: const Text('Set Db Configurations'));
+  }
 
   onTapOfSchool(SchoolModel school) {
     var query = school.toJson();

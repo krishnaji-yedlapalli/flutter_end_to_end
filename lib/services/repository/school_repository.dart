@@ -1,4 +1,5 @@
 
+import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/services/base_service.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
@@ -12,9 +13,9 @@ Future<SchoolDetailsModel?> fetchSchoolDetails(String id);
 Future<List<SchoolModel>> fetchSchools();
 Future<List<StudentModel>> fetchStudents(String schoolId);
 Future<StudentModel> fetchStudent(String studentId, String schoolId);
-Future<SchoolModel> createOrEditSchool(Map<String, dynamic> body);
-Future<SchoolDetailsModel> addOrEditSchoolDetails(Map<String, dynamic> body);
-Future<StudentModel?> createOrEditStudent(String schoolId, Map<String, dynamic> body);
+Future<SchoolModel> createOrEditSchool(SchoolModel school);
+Future<SchoolDetailsModel> addOrEditSchoolDetails(SchoolDetailsModel schoolDetails);
+Future<StudentModel> createOrEditStudent(String schoolId, StudentModel student);
 Future<bool> deleteSchool(String id);
 Future<bool> deleteStudent(String studentId, String schoolId);
 }
@@ -27,8 +28,6 @@ class SchoolRepository with BaseService implements SchoolRepo{
      var response = await makeRequest(url: '${Urls.schools}.json');
      if(response is Map) {
        schools = response.entries.map<SchoolModel>((json) => SchoolModel.fromJson(json.value)).toList();
-     }else if(response is List){
-       schools = response.map<SchoolModel>((json) => SchoolModel.fromJson(json)).toList();
      }
      return schools;
   }
@@ -61,15 +60,16 @@ class SchoolRepository with BaseService implements SchoolRepo{
     var response = await makeRequest(url: '${Urls.students}/$schoolId.json');
     if(response is Map) {
       students = response.entries.map<StudentModel>((json) => StudentModel.fromJson(json.value)).toList();
-    }else if( response is List){
-      students = response.map<StudentModel>((json) => StudentModel.fromJson(json)).toList();
     }
     return students;
   }
 
   @override
-  Future<SchoolDetailsModel> addOrEditSchoolDetails(Map<String, dynamic> body) async {
-    SchoolDetailsModel schoolDetails;
+  Future<SchoolDetailsModel> addOrEditSchoolDetails(SchoolDetailsModel schoolDetails) async {
+
+    Map<String, dynamic> body = {
+      schoolDetails.id: schoolDetails.toJson()
+    };
 
     var response = await makeRequest(url: '${Urls.schoolDetails}.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
@@ -81,27 +81,31 @@ class SchoolRepository with BaseService implements SchoolRepo{
   }
 
   @override
-  Future<SchoolModel> createOrEditSchool(Map<String, dynamic> body) async {
-    SchoolModel schoolDetails;
+  Future<SchoolModel> createOrEditSchool(SchoolModel school) async {
+
+    Map<String, dynamic> body = {school.id : school.toJson()};
 
     var response = await makeRequest(url: '${Urls.schools}.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
-      schoolDetails = SchoolModel.fromJson(response[response.keys.first]);
+      school = SchoolModel.fromJson(response[response.keys.first]);
     }else{
       throw UnimplementedError();
     }
-    return schoolDetails;
+    return school;
   }
 
   @override
-  Future<StudentModel?> createOrEditStudent(String schoolId, Map<String, dynamic> body) async {
-    StudentModel? studentModel;
+  Future<StudentModel> createOrEditStudent(String schoolId, StudentModel student) async {
+
+    Map<String, dynamic> body = {
+      student.id: student.toJson()
+    };
 
     var response = await makeRequest(url: '${Urls.students}/$schoolId.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
-      studentModel = StudentModel.fromJson(response[response.keys.first]);
+      student = StudentModel.fromJson(response[response.keys.first]);
     }
-    return studentModel;
+    return student;
   }
 
   @override

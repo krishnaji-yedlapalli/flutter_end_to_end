@@ -9,7 +9,7 @@ class StudentModel {
   StudentModel(this.id, this.schoolId, this.studentName, this.studentLocation, this.standard);
 
   @JsonKey(required: true,)
-  String id;
+  final String id;
   final String schoolId;
   final String studentName;
   final String studentLocation;

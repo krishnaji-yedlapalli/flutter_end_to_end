@@ -92,8 +92,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       providers : [
         ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale))
       ],
-      child: BlocProvider<SchoolBloc>.value(
-        value: _schoolBloc,
+      child: BlocProvider<SchoolBloc>(
+        create: (BuildContext context) => SchoolBloc(SchoolRepository()),
         child: Builder(
           builder: (context) {
             return OrientationBuilder(

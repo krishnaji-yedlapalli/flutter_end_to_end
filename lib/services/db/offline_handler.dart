@@ -6,10 +6,11 @@ import 'package:rxdart/subjects.dart';
 import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/services/base_service.dart';
+import 'package:sample_latest/services/db/db_configuration.dart';
 import 'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
 import 'package:sample_latest/services/db/module_db_handler/schools_db_handler.dart';
 import 'package:sample_latest/services/db/module_db_handler/todo_list_db_handler.dart';
-import 'package:sample_latest/models/services/queue_item.dart';
+import 'package:sample_latest/models/service/queue_item.dart';
 import 'package:sample_latest/services/urls.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
 import 'package:sample_latest/services/utils/enums.dart';
@@ -51,12 +52,12 @@ class OfflineHandler with BaseService {
     var status = false;
 
     /// checking whether queue data is present or not
-    if (await updateQueueItemsCount() <= 0) return false;
+    if (await updateQueueItemsCount() <= 0) return status;
 
     var queueItems = <QueueItem>[];
 
     /// Fetching queue items from local DB
-    Response queueItemsResponse = await CommonDbHandler().performDbOperation(RequestOptions(method: 'get', path: DbConstants.queueItems));
+    Response queueItemsResponse = await CommonDbHandler().performDbOperation(RequestOptions(method: RequestType.get.name, path: DbConstants.queueItems));
 
     for (var a in queueItemsResponse.data) {
       var queueItem = Map<String, dynamic>.from(a);
@@ -80,13 +81,14 @@ class OfflineHandler with BaseService {
       var requestType = HelperMethods.enumFromString(RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        var result = await makeRequest(url: queueItem.path, method: requestType ?? RequestType.get, body: queueItem.body, queryParameters: queueItem.queryParams, isOfflineApi: false);
+        var result = await makeRequest(url: queueItem.path, method: requestType ?? RequestType.get, body: queueItem.body, queryParameters: queueItem.queryParams, isFromQueue: true);
 
         /// Deleting item from queue table
         if (queueItem.queueId != null) await CommonDbHandler().deleteQueueItem(queueItem.queueId!);
 
         /// Deleting items from school db
-        await SchoolsDbHandler().performDbOperation(RequestOptions(path: queueItem.path, method: RequestType.delete.name, queryParameters: {DbConstants.idColumnName: queueItem.id.toString()}, extra: {DbConstants.notRequiredToStoreInQueue: true}));
+       if(DbConfigurationsByDev().deleteOfflineDataOnceSuccess) await SchoolsDbHandler().performDbOperation(RequestOptions(path: queueItem.path, method: RequestType.delete.name, queryParameters: {DbConstants.idColumnName: queueItem.id.toString()}, extra: {DbConstants.notRequiredToStoreInQueue: true}));
+
       } catch (e, s) {
         ExceptionHandler().handleException(e, s);
       } finally {
