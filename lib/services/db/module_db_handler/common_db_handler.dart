@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/src/options.dart';
 import 'package:dio/src/response.dart';
+import 'package:sample_latest/extensions/dio_request_extension.dart';
 import 'package:sample_latest/services/db/db_handler.dart';
 import 'package:sample_latest/models/services/queue_item.dart';
 import 'package:sample_latest/services/utils/abstract_db_handler.dart';
@@ -90,14 +91,14 @@ class CommonDbHandler extends DbHandler {
   @override
   Future<Response> performPatchOperation(RequestOptions options) async {
 
-    if (options.extra['isQueueItem'] ?? false) {
+    if (options.isFromQueueItem) {
 
       /// storing in queue items
       var queueItem = QueueItem(options.path, options.method,
           body: options.data,
           id: options.data is Map && options.data.keys.isNotEmpty ? options.data.keys.first : null,
           queryParams: options.queryParameters,
-          priority: options.extra['priority'] ?? -1);
+          priority: options.priority);
 
       var queueItemBody = queueItem.toJson();
       if(queueItem.body != null) queueItemBody['body'] = jsonEncode(queueItem.body);
@@ -129,7 +130,7 @@ class CommonDbHandler extends DbHandler {
 
   Future<int> insertQueueItem(RequestOptions options) async {
     super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
-    options.extra['isQueueItem'] = true;
+    options.isFromQueueItem = true;
     await performPatchOperation(options);
     return 1;
   }

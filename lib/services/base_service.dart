@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:sample_latest/analytics_exception_handler/server_exception.dart';
 import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/services/utils/db_constants.dart';
 
 import '../utils/enums.dart';
 import 'urls.dart';
@@ -19,11 +20,12 @@ mixin BaseService {
       Map<String, dynamic>? queryParameters,
       Map<String, String>? headers,
       RequestType method = RequestType.get,
-      Map<String, dynamic> extras = const {}, bool isOfflineApi = true}) async {
+      Map<String, dynamic> extras = const {}, bool isOfflineApi = true, bool isFromQueue = false}) async {
 
     dio.options.baseUrl = baseUrl ?? Urls.baseUrl;
     dio.options.extra.addAll(extras);
-    dio.options.extra['isOfflineApi'] = isOfflineApi;
+    dio.options.extra[DbConstants.isOfflineApi] = isOfflineApi;
+    dio.options.extra[DbConstants.isFromQueue] = isFromQueue;
 
     if (headers != null) dio.options.headers.addAll(headers);
 

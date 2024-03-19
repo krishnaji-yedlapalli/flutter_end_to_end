@@ -15,7 +15,15 @@ class DbConstants {
 
   static const String queueItems = 'queue_items';
 
-  static const String notRequiredToStoreInQueue = 'storeInQueue';
+  static const String notRequiredToStoreInQueue = 'notRequiredToStoreInQueue';
+
+  static const String isOfflineApi = 'isOfflineApi';
+
+  static const String isFromQueue = 'isFromQueue';
+
+  static const String priority = 'priority';
+
+  // static const String isSuccessFromResponse = 'isSuccessFromResponse';
 }
 
 class SchoolDbConstants {

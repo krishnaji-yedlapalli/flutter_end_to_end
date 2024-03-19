@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 mixin CustomDialogs {
@@ -21,18 +23,24 @@ mixin CustomDialogs {
       required Widget content,
       required List<String> actions,
       required ValueChanged<int> callBack}) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-          child: Text(title),
-        ),
-        const Divider(),
-        content,
-        const Divider(),
-        _buildButtons(actions, callBack)
-      ],
+    return Builder(
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+              child: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+            ),
+            const Divider(),
+            Flexible(
+                fit: FlexFit.loose,
+                child: content),
+            const Divider(),
+            _buildButtons(actions, callBack)
+          ],
+        );
+      }
     );
   }
 

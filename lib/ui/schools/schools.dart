@@ -13,6 +13,7 @@ import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/ui/schools/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/ui/regular_widgets/dialogs.dart';
+import 'package:sample_latest/ui/schools/db_configurations_for_devs.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
@@ -27,7 +28,6 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   @override
   void initState() {
       BlocProvider.of<SchoolBloc>(context).add(SchoolsDataEvent());
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) => ScaffoldMessenger.of(context).showSnackBar(snackbar));
     super.initState();
   }
 
@@ -47,22 +47,11 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
             alignment: WrapAlignment.spaceBetween,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [Text('Registered Schools:', style: Theme.of(context).textTheme.titleMedium),
-            if(DeviceConfiguration.isOfflineSupported) Wrap(
+            if(DeviceConfiguration.isOfflineSupportedDevice) Wrap(
               spacing: 10,
               children: [
-                // ElevatedButton(onPressed: OfflineHandler().dumpOfflineData, child: Text('Dump Offline data')),
-                StreamBuilder<int>(
-                  stream: OfflineHandler().queueItemsCount.stream,
-                  initialData: 0,
-                  builder: (context, snapshot) {
-                    var count = 0;
-                    if(snapshot.hasData){
-                      count = snapshot.data ?? 0;
-                    }
-                    return Badge(
-                        label: Text('$count'),
-                        child: ElevatedButton(onPressed: OfflineHandler().syncData, child: Text('Sync')));
-                  },
+                _buildSyncButton(),
+                        _buildDbConfigurationsButtonForDevelopment(
                 )
               ],
             )
@@ -132,7 +121,27 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     );
   }
 
-  SnackBar get snackbar => const SnackBar(content: Text("Integrated the API's using Firebase Realtime Data base !!!"));
+  Widget _buildSyncButton() {
+    return  StreamBuilder<int>(
+      stream: OfflineHandler().queueItemsCount.stream,
+      initialData: 0,
+      builder: (context, snapshot) {
+        var count = 0;
+        if(snapshot.hasData){
+          count = snapshot.data ?? 0;
+        }
+        return Badge(
+            label: Text('$count'),
+            child: ElevatedButton(onPressed: OfflineHandler().syncData, child: const Text('Sync')));
+      },
+    );
+  }
+
+  Widget _buildDbConfigurationsButtonForDevelopment() {
+    return ElevatedButton(onPressed: (){
+      adaptiveDialog(context, DbConfigurationDialog());
+    }, child: const Text('Set Db Configurations'));
+  }
 
   onTapOfSchool(SchoolModel school) {
     var query = school.toJson();
