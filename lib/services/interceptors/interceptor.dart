@@ -29,7 +29,7 @@ class Interceptors extends Interceptor {
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    if(err.type == DioExceptionType.connectionError && (err.requestOptions.isOfflineApi) && !err.requestOptions.isFromQueueItem){
+    if(err.type == DioExceptionType.connectionError && (err.requestOptions.isOfflineApi) && DbConfigurationsByDev().storeData && !err.requestOptions.isFromQueueItem){
       handler.resolve(await OfflineHandler().handleRequest(err.requestOptions));
     }else{
       super.onError(err, handler);

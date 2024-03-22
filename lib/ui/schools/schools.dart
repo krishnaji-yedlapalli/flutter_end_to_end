@@ -59,7 +59,8 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
                 spacing: 10,
                 children: [
                   _buildSyncButton(),
-                  // _buildDbConfigurationsButtonForDevelopment()
+                  _buildDbConfigurationsButtonForDevelopment(),
+                  _buildDbClearButton()
                 ],
               )
               ],
@@ -140,8 +141,12 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
 
   Widget _buildDbConfigurationsButtonForDevelopment() {
     return ElevatedButton(onPressed: (){
-      adaptiveDialog(context, DbConfigurationDialog());
+      adaptiveDialog(context, const DbConfigurationDialog());
     }, child: const Text('Set Db Configurations'));
+  }
+
+  Widget _buildDbClearButton() {
+    return  ElevatedButton.icon(onPressed: OfflineHandler().eraseAllDatabaseData, icon: const Icon(Icons.refresh), label: const Text('Reset Whole Db'));
   }
 
   onTapOfSchool(SchoolModel school) {

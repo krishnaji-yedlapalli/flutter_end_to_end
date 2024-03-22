@@ -1,24 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'package:sample_latest/services/utils/enums.dart';
 import 'package:sqflite/sqflite.dart';
 
+
 class SqfLiteDbHandler {
+
   late Database _db;
 
   SqfLiteDbHandler._create();
 
-  static Future<SqfLiteDbHandler> create(String dbName, String queryFileName) async {
+  static Future<SqfLiteDbHandler> initializeDb(DbInfo dbInfo) async {
     var component = SqfLiteDbHandler._create();
-    await component._initializeDb(dbName, queryFileName);
+    await component._initializeDb(dbInfo.dbName, dbInfo.queryFileName, dbInfo.dbVersion);
     return component;
   }
 
-  Future<void> _initializeDb(String dbName, String queryFileName) async {
+  Future<void> _initializeDb(String dbName, String queryFileName, int dbVersion) async {
     try {
       String dbPath = join(await getDatabasesPath(), '$dbName.db');
       debugPrint('db path : $dbPath');
-      _db = await openDatabase(dbPath, version: 4, onCreate: (Database db, int version) => _onCreate(db, version, queryFileName), onUpgrade: (Database db, int oldVersion, int newVersion) => _onUpgrade(db, oldVersion, newVersion, queryFileName));
+      _db = await openDatabase(dbPath,
+             version: dbVersion,
+             onCreate: (Database db, int version) => _onCreate(db, version, queryFileName),
+             onUpgrade: (Database db, int oldVersion, int newVersion) => _onUpgrade(db, oldVersion, newVersion, queryFileName));
     } catch (e, s) {
       rethrow;
     }
@@ -81,6 +87,24 @@ class SqfLiteDbHandler {
     }
 
    return await batch.commit(continueOnError: true);
+  }
+
+  Future<bool> resetDataBase() async {
+    List<Map> maps =
+    await db.rawQuery('SELECT * FROM sqlite_master ORDER BY name;');
+
+    if (maps.isNotEmpty) {
+      for (int i = 0; i < maps.length; i++) {
+        try {
+          if(maps[i]['name'] != null) {
+            await deleteTableData(maps[i]['name'].toString());
+          }
+        } catch (e) {
+          rethrow;
+        }
+      }
+    }
+    return true;
   }
 
 }

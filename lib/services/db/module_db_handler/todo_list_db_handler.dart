@@ -1,36 +1,30 @@
 
-import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:sample_latest/services/db/db_handler.dart';
-import 'package:sample_latest/services/utils/abstract_db_handler.dart';
-import 'package:sample_latest/services/utils/enums.dart';
+part of 'package:sample_latest/services/db/offline_handler.dart';
 
-class TodoListDbHandler extends DbHandler {
+class _TodoListDbHandler extends DbHandler {
 
-  TodoListDbHandler._internal();
+  _TodoListDbHandler._internal();
 
-  static final TodoListDbHandler _singleton = TodoListDbHandler._internal();
+  static final _TodoListDbHandler _singleton = _TodoListDbHandler._internal();
 
-  factory TodoListDbHandler() {
+  factory _TodoListDbHandler() {
     return _singleton;
   }
 
-  final _dbName = 'todolist';
-
-  final _sqlQueries = 'create_school_table_queries';
+  final DbInfo dbInfo = (dbName: 'todolist', dbVersion: 0, queryFileName: 'create_school_table_queries');
 
   @override
-  Future<Response> performDbOperation(RequestOptions options) async {
-    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
-    return await performCrudOperation(options);
+  Future<bool> initializeDbIfNot() async {
+    return await super.initializeDb(dbInfo);
   }
 
   @override
   Future<Response> performCrudOperation(RequestOptions options) async {
-    var requestType  =  RequestType.get; /*.enumFromString(RequestType.values, options.method.toLowerCase());*/
-    var response;
+
+    await super.initializeDb(dbInfo);
+
     try {
-      switch (requestType) {
+      switch (requestType(options.method)) {
         case RequestType.get:
           return performGetOperation(options);
         case RequestType.post:case RequestType.patch: case RequestType.put:
@@ -38,10 +32,10 @@ class TodoListDbHandler extends DbHandler {
         case RequestType.delete:
           return performDeleteOperation(options);
         default:
-          return Response(requestOptions: options, data: response, statusCode: 405, statusMessage: 'Method Not Allowed');
+          return Response(requestOptions: options, data: Null, statusCode: 405, statusMessage: 'Method Not Allowed');
       }
     } catch (e) {
-      return Response(requestOptions: options, data: response, statusCode: 500, statusMessage: 'Internal Exception');
+      return Response(requestOptions: options, data: Null, statusCode: 500, statusMessage: 'Internal Exception');
     }
   }
 
@@ -70,8 +64,14 @@ class TodoListDbHandler extends DbHandler {
   }
 
   @override
-  Future<void> getOfflineData() {
-    // TODO: implement getOfflineData
+  Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) {
+    // TODO: implement _performBulkStoreOperation
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> resetDataBase() async {
+    await initializeDbIfNot();
+    return await _dbHandler.resetDataBase();
   }
 }

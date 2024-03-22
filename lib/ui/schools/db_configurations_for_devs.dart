@@ -22,7 +22,9 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
         title: "!!! Hey Dev's !!!",
         content: _buildFrom(),
         actions: ['Close'],
-        callBack: (index) => Navigator.pop(context));
+        callBack: (index) {
+          DbConfigurationsByDev().saveData();
+          Navigator.pop(context); });
   }
 
   Widget _buildFrom() {
@@ -69,7 +71,7 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
         DbConfigurationsByDev.storeInBothOfflineAndOnline = status;
         break;
       case 2:
-        DbConfigurationsByDev.dumpOfflineData = status;
+        DbConfigurationsByDev.dumpOfflineData = DbConfigurationsByDev.storeInBothOfflineAndOnline = status;
         break;
     }
     setState(() {

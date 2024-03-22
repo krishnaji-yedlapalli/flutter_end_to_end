@@ -1,43 +1,30 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:sample_latest/extensions/dio_request_extension.dart';
-import 'package:sample_latest/services/db/db_handler.dart';
-import 'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
-import 'package:sample_latest/services/urls.dart';
-import 'package:sample_latest/services/utils/abstract_db_handler.dart';
-import 'package:sample_latest/services/utils/db_constants.dart';
-import 'package:sample_latest/services/utils/enums.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
 
-import '../../base_service.dart';
+part of 'package:sample_latest/services/db/offline_handler.dart';
 
-class SchoolsDbHandler extends DbHandler {
-  SchoolsDbHandler._internal();
+class _SchoolsDbHandler extends DbHandler {
 
-  static final SchoolsDbHandler _singleton = SchoolsDbHandler._internal();
+  _SchoolsDbHandler._internal();
 
-  factory SchoolsDbHandler() {
+  static final _SchoolsDbHandler _singleton = _SchoolsDbHandler._internal();
+
+  factory _SchoolsDbHandler() {
     return _singleton;
   }
 
-  final _dbName = 'school';
-
-  final _sqlQueries = 'create_school_table_queries';
+  final DbInfo dbInfo = (dbName: 'school', dbVersion: 5, queryFileName: 'create_school_table_queries');
 
   @override
-  Future<Response> performDbOperation(RequestOptions options) async {
-    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
-    return await performCrudOperation(options);
+  Future<bool> initializeDbIfNot() async {
+    return await super.initializeDb(dbInfo);
   }
 
   @override
   Future<Response> performCrudOperation(RequestOptions options) async {
-    var requestType = HelperMethods.enumFromString(
-        RequestType.values, options.method.toLowerCase());
 
-    var response;
+    await initializeDbIfNot();
+
     try {
-      switch (requestType) {
+      switch (requestType(options.method)) {
         case RequestType.get:
           return performGetOperation(options);
         case RequestType.post:
@@ -47,18 +34,18 @@ class SchoolsDbHandler extends DbHandler {
         case RequestType.delete:
           return performDeleteOperation(options);
         case RequestType.store:
-          return performBulkStoreOperation(options);
+          return performBulkLocalDataStoreOperation(options);
         default:
           return Response(
               requestOptions: options,
-              data: response,
+              data: Null,
               statusCode: 405,
               statusMessage: 'Method Not Allowed');
       }
     } catch (e) {
       return Response(
           requestOptions: options,
-          data: response,
+          data: Null,
           statusCode: 500,
           statusMessage: 'Internal Exception');
     }
@@ -73,6 +60,7 @@ class SchoolsDbHandler extends DbHandler {
     }else{
      id = options.path.split('/').last.split('.').first;
     }
+
     String? dbName;
 
     if (options.path.contains(Urls.schools)) {
@@ -84,12 +72,12 @@ class SchoolsDbHandler extends DbHandler {
     }
 
     if (dbName != null) {
-      int recordId = await dbHandler!.deleteRecord(
+      int recordId = await _dbHandler.deleteRecord(
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
 
       /// Storing the data locally
       if(!(options.extra.containsKey(DbConstants.notRequiredToStoreInQueue) && options.extra[DbConstants.notRequiredToStoreInQueue])) {
-        await CommonDbHandler().insertQueueItem(options);
+        await _CommonDbHandler().insertQueueItem(options);
       }
     } else {
       return Response(
@@ -107,12 +95,12 @@ class SchoolsDbHandler extends DbHandler {
     if (options.path.contains(Urls.schools)) {
       /// To get the school details
       List<Map<String, dynamic>>? schools =
-          await dbHandler!.query(SchoolDbConstants.schoolsTableName);
+          await _dbHandler.query(SchoolDbConstants.schoolsTableName);
       return Response(
           requestOptions: options, data: schools ?? [], statusCode: 200);
     } else if (options.path.contains(Urls.schoolDetails)) {
       /// To get the school added details
-      List<Map<String, dynamic>>? schoolDetailsList = await dbHandler!.query(
+      List<Map<String, dynamic>>? schoolDetailsList = await _dbHandler.query(
           SchoolDbConstants.schoolDetailsTableName,
           columnName: DbConstants.idColumnName,
           ids: [options.path.split('/').last.split('.').first]);
@@ -130,7 +118,7 @@ class SchoolsDbHandler extends DbHandler {
       var paths = options.path.split('/');
       if (paths.length >= 2 &&
           paths[paths.length - 2].contains(Urls.students)) {
-        List<Map<String, dynamic>>? students = await dbHandler!.query(
+        List<Map<String, dynamic>>? students = await _dbHandler.query(
             SchoolDbConstants.studentsTableName,
             columnName: SchoolDbConstants.schoolIdColumnName,
             ids: [paths.last.split('.').first]);
@@ -138,7 +126,7 @@ class SchoolsDbHandler extends DbHandler {
             requestOptions: options, data: students ?? [], statusCode: 200);
       } else {
         /// To get the students based on the school
-        List<Map<String, dynamic>>? students = await dbHandler!.query(
+        List<Map<String, dynamic>>? students = await _dbHandler.query(
             SchoolDbConstants.studentsTableName,
             columnName: DbConstants.idColumnName,
             ids: [paths.last.split('.').first]);
@@ -171,11 +159,11 @@ class SchoolsDbHandler extends DbHandler {
 
     if (tableName != null) {
       var body = options.data[options.data.keys.first];
-      var response = await dbHandler!.insertData(tableName, body);
+      var response = await _dbHandler.insertData(tableName, body);
 
       /// Storing the data locally
       if(!(options.notRequiredToStoreInQueue)) {
-        await CommonDbHandler().insertQueueItem(options);
+        await _CommonDbHandler().insertQueueItem(options);
       }
       return Response(requestOptions: options, data: options.data, statusCode: 200);
     }
@@ -193,7 +181,8 @@ class SchoolsDbHandler extends DbHandler {
     throw UnimplementedError();
   }
 
-  Future<Response> performBulkStoreOperation(RequestOptions options) async {
+  @override
+  Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) async {
     String? tableName;
 
     if (options.path.contains(Urls.schools)) {
@@ -206,7 +195,7 @@ class SchoolsDbHandler extends DbHandler {
 
     if (tableName != null && options.data is Map) {
       List<Map<String, dynamic>> items = <Map<String, dynamic>>[];
-      await dbHandler!.deleteTableData(tableName);
+      await _dbHandler.deleteTableData(tableName);
 
         items = (options.data as Map<String, dynamic>).entries.map<
             Map<String, dynamic>>((e) => e.value).toList();
@@ -220,7 +209,7 @@ class SchoolsDbHandler extends DbHandler {
         items = innerList;
       }
 
-      await dbHandler!.insertBulkData(tableName, items);
+      await _dbHandler.insertBulkData(tableName, items);
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
 
@@ -229,5 +218,11 @@ class SchoolsDbHandler extends DbHandler {
         data: false,
         statusCode: 405,
         statusMessage: 'Method Not Allowed');
+  }
+
+  @override
+  Future<bool> resetDataBase() async {
+    await initializeDbIfNot();
+    return await _dbHandler.resetDataBase();
   }
 }
