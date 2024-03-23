@@ -109,6 +109,8 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
               selectedCountry!,
               locationCtrl.text.trim(),
               isCreateSchool ? HelperMethods.uuid : widget.school!.id,
+              widget.school?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+              updatedDate: DateTime.now().millisecondsSinceEpoch
           ),
               isCreateSchool : isCreateSchool
           ));

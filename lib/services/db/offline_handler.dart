@@ -96,7 +96,7 @@ class OfflineHandler with BaseService {
         if (queueItem.queueId != null) await _CommonDbHandler().deleteQueueItem(queueItem.queueId!);
 
         /// Deleting items from school db
-       if(DbConfigurationsByDev().deleteOfflineDataOnceSuccess) await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: queueItem.path, method: RequestType.delete.name, queryParameters: {DbConstants.idColumnName: queueItem.id.toString()}, extra: {DbConstants.notRequiredToStoreInQueue: true}));
+       if(DbConfigurationsByDev.deleteOfflineDataOnceSuccess) await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: queueItem.path, method: RequestType.delete.name, queryParameters: {DbConstants.idColumnName: queueItem.id.toString()}, extra: {DbConstants.notRequiredToStoreInQueue: true}));
 
       } catch (e, s) {
         ExceptionHandler().handleException(e, s);
@@ -154,14 +154,30 @@ class OfflineHandler with BaseService {
       queueItemsCount.add(count);
     } catch (e, s) {
       ErrorLogging.errorLog(e, s);
+    }finally{
+      deleteOutDatedData();
     }
     return count;
   }
 
+  Future<void> deleteOutDatedData() async {
+
+    if(DbConfigurationsByDev.isOutDatedDataNeedsToBeDeleted && (DbConfigurationsByDev.lastDeletedOutDataDate == null ||
+        DateTime.now().difference(DbConfigurationsByDev.lastDeletedOutDataDate!).inDays > DbConfigurationsByDev.howLongDataShouldPersist)){
+      var date = DateTime.now().subtract(Duration(days: DbConfigurationsByDev.howLongDataShouldPersist)).millisecondsSinceEpoch;
+      await _SchoolsDbHandler().deleteOutdatedData(date);
+      // await _TodoListDbHandler().deleteOutdatedData(date);
+      DbConfigurationsByDev.lastDeletedOutDataDate = DateTime.now();
+      await DbConfigurationsByDev.set(DbConfigurationsByDev.lastDeletedOutDataDate!);
+      debugPrint('Deleted outdated data');
+    }
+  }
+
   ///
  Future<void> eraseAllDatabaseData() async {
-    _SchoolsDbHandler().resetDataBase();
-   _CommonDbHandler().resetDataBase();
-   _TodoListDbHandler().resetDataBase();
+   await  _SchoolsDbHandler().resetDataBase();
+   await _CommonDbHandler().resetDataBase();
+   await _TodoListDbHandler().resetDataBase();
+   debugPrint('Erased all the data');
  }
 }

@@ -147,6 +147,13 @@ class _CommonDbHandler extends DbHandler {
   }
 
   @override
+  Future<bool> deleteOutdatedData(int millisecondsSinceEpoch) async {
+    await initializeDbIfNot();
+    await _dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
+    return true;
+  }
+
+  @override
   Future<bool> resetDataBase() async {
     await initializeDbIfNot();
     return await _dbHandler.resetDataBase();

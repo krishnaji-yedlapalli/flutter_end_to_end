@@ -89,22 +89,27 @@ class SqfLiteDbHandler {
    return await batch.commit(continueOnError: true);
   }
 
-  Future<bool> resetDataBase() async {
-    List<Map> maps =
-    await db.rawQuery('SELECT * FROM sqlite_master ORDER BY name;');
+  Future<bool> deleteTableRowsBasedOnTheDate(int millisecondsSinceEpoch, {List<String> tablesToExclude = const[]}) async {
 
-    if (maps.isNotEmpty) {
-      for (int i = 0; i < maps.length; i++) {
-        try {
-          if(maps[i]['name'] != null) {
-            await deleteTableData(maps[i]['name'].toString());
-          }
-        } catch (e) {
-          rethrow;
-        }
+      for (var tableName in await tables()) {
+          if(tablesToExclude.contains(tableName)) continue;
+          await db.delete(tableName, where: 'updatedDate < $millisecondsSinceEpoch');
       }
-    }
     return true;
   }
 
+  Future<bool> resetDataBase() async {
+
+      for (var tableName in await tables()) {
+            await deleteTableData(tableName);
+      }
+    return true;
+  }
+
+  Future<List<String>> tables() async {
+    List<Map<String, dynamic>> tables = await db.rawQuery(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';");
+
+    return tables.map<String?>((table) => table['name']).nonNulls.toList();
+  }
 }

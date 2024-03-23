@@ -252,7 +252,7 @@ class Routing {
               builder: (BuildContext context, GoRouterState state) {
                 Map<String, dynamic> query = {};
                 query.addAll(state.queryParameters);
-                return SchoolDetails(SchoolModel.fromJson(query));
+                return SchoolDetails(SchoolModel.fromRouteJson(query));
               },
               routes: [
                 GoRoute(

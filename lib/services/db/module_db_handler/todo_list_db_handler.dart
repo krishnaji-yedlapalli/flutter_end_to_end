@@ -11,7 +11,7 @@ class _TodoListDbHandler extends DbHandler {
     return _singleton;
   }
 
-  final DbInfo dbInfo = (dbName: 'todolist', dbVersion: 0, queryFileName: 'create_school_table_queries');
+  final DbInfo dbInfo = (dbName: 'todolist', dbVersion: 5, queryFileName: 'create_todolist_table_queries');
 
   @override
   Future<bool> initializeDbIfNot() async {
@@ -67,6 +67,13 @@ class _TodoListDbHandler extends DbHandler {
   Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) {
     // TODO: implement _performBulkStoreOperation
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> deleteOutdatedData(int millisecondsSinceEpoch) async {
+    await initializeDbIfNot();
+    await _dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
+    return true;
   }
 
   @override

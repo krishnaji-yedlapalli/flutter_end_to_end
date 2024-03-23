@@ -106,7 +106,10 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
                   'https://upload.wikimedia.org/wikipedia/commons/c/ce/Monroe_Township_High_School_Front_View.jpg',
                   int.parse(studentStrengthCtrl.text.trim()),
                   int.parse(staffStrengthCtrl.text.trim()),
-              hostelAvailability)));
+              hostelAvailability,
+              widget.schoolDetails?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+              updatedDate: DateTime.now().millisecondsSinceEpoch
+              )));
           GoRouter.of(context).pop();
         }
         break;

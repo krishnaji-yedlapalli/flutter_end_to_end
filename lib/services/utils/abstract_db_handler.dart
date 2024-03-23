@@ -35,5 +35,7 @@ abstract class DbHandler {
 
   Future<Response> performBulkLocalDataStoreOperation(RequestOptions options);
 
+  Future<bool> deleteOutdatedData(int millisecondsSinceEpoch);
+
   Future<bool> resetDataBase();
 }
