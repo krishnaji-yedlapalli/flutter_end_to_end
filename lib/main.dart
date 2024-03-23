@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/services/db/db_configuration.dart';
 import 'package:sample_latest/services/interceptors/interceptor.dart';
 import 'package:sample_latest/services/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
@@ -36,7 +37,7 @@ void main() {
     return true;
   };
 
-
+  DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();

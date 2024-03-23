@@ -9,7 +9,7 @@ part of 'school_details_model.dart';
 SchoolDetailsModel _$SchoolDetailsModelFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    requiredKeys: const ['schoolName'],
+    requiredKeys: const ['id', 'schoolName'],
   );
   return SchoolDetailsModel(
     json['id'] as String,
@@ -20,6 +20,8 @@ SchoolDetailsModel _$SchoolDetailsModelFromJson(Map<String, dynamic> json) {
     json['studentCount'] as int,
     json['employeeCount'] as int,
     json['hostelAvailability'] as bool,
+    json['createdDate'] as int,
+    updatedDate: json['updatedDate'] as int?,
   );
 }
 
@@ -33,4 +35,6 @@ Map<String, dynamic> _$SchoolDetailsModelToJson(SchoolDetailsModel instance) =>
       'studentCount': instance.studentCount,
       'employeeCount': instance.employeeCount,
       'hostelAvailability': instance.hostelAvailability,
+      'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
     };

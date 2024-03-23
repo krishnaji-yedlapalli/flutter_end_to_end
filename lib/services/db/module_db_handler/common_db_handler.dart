@@ -1,42 +1,30 @@
-import 'dart:convert';
 
-import 'package:dio/src/options.dart';
-import 'package:dio/src/response.dart';
-import 'package:sample_latest/extensions/dio_request_extension.dart';
-import 'package:sample_latest/services/db/db_handler.dart';
-import 'package:sample_latest/models/service/queue_item.dart';
-import 'package:sample_latest/services/utils/abstract_db_handler.dart';
-import 'package:sample_latest/services/utils/db_constants.dart';
-import 'package:sample_latest/services/utils/enums.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
+part of 'package:sample_latest/services/db/offline_handler.dart';
 
-class CommonDbHandler extends DbHandler {
-  CommonDbHandler._internal();
+class _CommonDbHandler extends DbHandler {
+  _CommonDbHandler._internal();
 
-  static final CommonDbHandler _singleton = CommonDbHandler._internal();
+  static final _CommonDbHandler _singleton = _CommonDbHandler._internal();
 
-  factory CommonDbHandler() {
+  factory _CommonDbHandler() {
     return _singleton;
   }
 
-  final _dbName = 'common';
-
-  final _sqlQueries = 'create_common_tables_queries';
+  final DbInfo dbInfo = (dbName: 'common', dbVersion: 5, queryFileName: 'create_common_tables_queries');
 
   @override
-  Future<Response> performDbOperation(RequestOptions options) async {
-    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
-    return await performCrudOperation(options);
+  Future<bool> initializeDbIfNot() async {
+    return await super.initializeDb(dbInfo);
   }
 
   @override
   Future<Response> performCrudOperation(RequestOptions options) async {
-    var requestType = HelperMethods.enumFromString(
-        RequestType.values, options.method.toLowerCase());
+
+    await super.initializeDb(dbInfo);
 
     var response;
     try {
-      switch (requestType) {
+      switch (requestType(options.method)) {
         case RequestType.get:
           return performGetOperation(options);
         case RequestType.post:
@@ -66,7 +54,7 @@ class CommonDbHandler extends DbHandler {
 
     if(options.path.contains(DbConstants.queueItems)) {
 
-      int recordId = await dbHandler!.deleteRecord(
+      int recordId = await _dbHandler.deleteRecord(
           tableName: DbConstants.queueItems, columnName: DbConstants.idColumnName, ids: [options.queryParameters['id']]);
     }
     return Response(requestOptions: options, statusCode: 200);
@@ -76,7 +64,7 @@ class CommonDbHandler extends DbHandler {
   Future<Response> performGetOperation(RequestOptions options) async {
     if (options.path.contains(DbConstants.queueItems)) {
       List<Map<String, dynamic>>? queueItems =
-          await dbHandler!.query(DbConstants.queueItems);
+          await _dbHandler.query(DbConstants.queueItems);
       return Response(
           requestOptions: options, data: queueItems ?? [], statusCode: 200);
     }
@@ -105,7 +93,7 @@ class CommonDbHandler extends DbHandler {
       queueItemBody['queryParams'] = jsonEncode(queueItem.queryParams);
 
       var res =
-          await dbHandler!.insertData(DbConstants.queueItems, queueItemBody);
+          await _dbHandler.insertData(DbConstants.queueItems, queueItemBody);
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
 
@@ -123,13 +111,17 @@ class CommonDbHandler extends DbHandler {
   }
 
   Future<int> queueItemsCount() async {
-    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
-    var result = await dbHandler!.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
+
+    await super.initializeDb(dbInfo);
+
+    var result = await _dbHandler.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
     return result;
   }
 
   Future<int> insertQueueItem(RequestOptions options) async {
-    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
+
+    await super.initializeDb(dbInfo);
+
     options.isFromQueueItem = true;
     await performPatchOperation(options);
     return 1;
@@ -137,11 +129,33 @@ class CommonDbHandler extends DbHandler {
 
 
   Future<int> deleteQueueItem(int id) async {
-    super.dbHandler ??= await SqfLiteDbHandler.create(_dbName, _sqlQueries);
 
-    int recordId = await dbHandler!.deleteRecord(
+    await super.initializeDb(dbInfo);
+
+    int recordId = await _dbHandler.deleteRecord(
         tableName: DbConstants.queueItems, columnName: DbConstants.queueColumnName, ids: [id]);
   return recordId;
   }
 
+  @override
+  Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) async {
+
+    await super.initializeDb(dbInfo);
+
+    // TODO: implement _performBulkStoreOperation
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> deleteOutdatedData(int millisecondsSinceEpoch) async {
+    await initializeDbIfNot();
+    await _dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
+    return true;
+  }
+
+  @override
+  Future<bool> resetDataBase() async {
+    await initializeDbIfNot();
+    return await _dbHandler.resetDataBase();
+  }
 }

@@ -118,7 +118,9 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
                 widget.schoolId,
                 studentNameCtrl.text.trim(),
                 studentLocationCtrl.text.trim(),
-                selectedStandard!
+                selectedStandard!,
+                widget.student?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+                updatedDate: DateTime.now().millisecondsSinceEpoch
               ), widget.schoolId,
           isCreateStudent: isCreateStudent
           ),

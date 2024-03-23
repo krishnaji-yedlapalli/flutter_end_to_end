@@ -244,7 +244,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   onTapOfViewStudents(String id, String schoolId) {
-    var query = widget.school.toJson();
+    var query = widget.school.toRouteJson();
     query['studentId'] = id;
     query['schoolId'] = widget.school.id;
     context.go(Uri(

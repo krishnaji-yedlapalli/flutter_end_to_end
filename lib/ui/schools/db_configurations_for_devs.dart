@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
 import 'package:sample_latest/widgets/text_field.dart';
@@ -22,7 +24,9 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
         title: "!!! Hey Dev's !!!",
         content: _buildFrom(),
         actions: ['Close'],
-        callBack: (index) => Navigator.pop(context));
+        callBack: (index) {
+          DbConfigurationsByDev().saveData();
+          Navigator.pop(context); });
   }
 
   Widget _buildFrom() {
@@ -40,12 +44,23 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
                 isThreeLine: true,
                 value: DbConfigurationsByDev.storeOnlyIfOffline,
                 onChanged: (status) => onSelection(0, status)),
+            Divider(),
             CheckboxListTile(
                 title: const Text('Online & Offline Mode'),
                 subtitle: const Text('Irrespective of Internet data will be stored in local db and data will be deleted based on the configured date'),
                 isThreeLine: true,
                 value: DbConfigurationsByDev.storeInBothOfflineAndOnline,
                 onChanged: (status) => onSelection(1, status)),
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+               child: Row(
+                 children: [
+                   const Expanded(child: Text('How long should local data be stored from its creation or last update date?', style: TextStyle(fontSize: 12, color: Colors.black26))),
+                   DropdownButton(value: DbConfigurationsByDev.howLongDataShouldPersist, items: [2,5,10,15,20,25,30].map((days) => DropdownMenuItem(value: days, child: Text('$days days'))).toList(), onChanged: showDataPersistDatePicker)
+                 ],
+               ),
+             ),
+            Divider(),
             CheckboxListTile(
                 title: const Text('Dumping Offline Data'),
                 subtitle: const Text('Data will be dumped into the local DB at the time login or Module loading. Later it is used making some operations'),
@@ -58,6 +73,12 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
     );
   }
 
+  Future<void> showDataPersistDatePicker(int? days) async {
+    setState(() {
+      DbConfigurationsByDev.howLongDataShouldPersist = days ?? 2;
+    });
+  }
+
   void onSelection(int index, bool? status) {
     status ??= false;
 
@@ -66,10 +87,10 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
         DbConfigurationsByDev.storeOnlyIfOffline = status;
         break;
       case 1:
-        DbConfigurationsByDev.storeInBothOfflineAndOnline = status;
+        DbConfigurationsByDev.storeInBothOfflineAndOnline = DbConfigurationsByDev.storeOnlyIfOffline = status;
         break;
       case 2:
-        DbConfigurationsByDev.dumpOfflineData = status;
+        DbConfigurationsByDev.dumpOfflineData = DbConfigurationsByDev.storeInBothOfflineAndOnline = DbConfigurationsByDev.storeOnlyIfOffline = status;
         break;
     }
     setState(() {
