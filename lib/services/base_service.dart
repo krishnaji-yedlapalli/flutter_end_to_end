@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:sample_latest/analytics_exception_handler/server_exception.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
 

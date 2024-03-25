@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
-import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
-import 'package:sample_latest/analytics_exception_handler/server_exception.dart';
+import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
 import 'package:sample_latest/services/utils/enums.dart';
 import 'package:sample_latest/mixins/notifiers.dart';
 import 'package:sample_latest/utils/enums.dart';
 
 class ExceptionHandler {
+
   static final ExceptionHandler _singleton = ExceptionHandler._internal();
 
   factory ExceptionHandler() {
@@ -19,7 +19,7 @@ class ExceptionHandler {
 
   void handleExceptionWithToastNotifier(Object exception, {StackTrace? stackTrace, String? toastMessage}) {
     var errorStateType = handleException(exception, stackTrace);
-    late String notifierText;
+    String? notifierText;
 
     switch (errorStateType) {
       case DataErrorStateType.noInternet:
@@ -37,7 +37,7 @@ class ExceptionHandler {
         notifierText = 'Timeout Exception!!!';
     }
 
-    Notifiers.toastNotifier(notifierText);
+    Notifiers.toastNotifier(notifierText ?? '!!! Some unknown exception occurred !!!');
   }
 
   DataErrorStateType handleException(Object exception, [StackTrace? stackTrace]) {

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
+import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/services/base_service.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
