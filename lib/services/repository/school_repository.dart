@@ -5,8 +5,8 @@ import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/services/urls.dart';
-import 'package:sample_latest/services/utils/enums.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 abstract class SchoolRepo {
 Future<SchoolDetailsModel?> fetchSchoolDetails(String id);

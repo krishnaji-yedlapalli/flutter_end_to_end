@@ -23,7 +23,6 @@ class _SchoolsDbHandler extends DbHandler {
 
     await initializeDbIfNot();
 
-    try {
       switch (requestType(options.method)) {
         case RequestType.get:
           return performGetOperation(options);
@@ -36,19 +35,12 @@ class _SchoolsDbHandler extends DbHandler {
         case RequestType.store:
           return performBulkLocalDataStoreOperation(options);
         default:
-          return Response(
+          throw DioException(
               requestOptions: options,
-              data: Null,
-              statusCode: 405,
-              statusMessage: 'Method Not Allowed');
+              error:  OfflineException(),
+              type: DioExceptionType.unknown,
+              message : DbConstants.notSupportedOfflineErrorMsg);
       }
-    } catch (e) {
-      return Response(
-          requestOptions: options,
-          data: Null,
-          statusCode: 500,
-          statusMessage: 'Internal Exception');
-    }
   }
 
   @override
@@ -80,11 +72,11 @@ class _SchoolsDbHandler extends DbHandler {
         await _CommonDbHandler().insertQueueItem(options);
       }
     } else {
-      return Response(
+      throw DioException(
           requestOptions: options,
-          data: false,
-          statusCode: 405,
-          statusMessage: 'Method Not Allowed');
+          error:  OfflineException(),
+          type: DioExceptionType.unknown,
+          message : DbConstants.notSupportedOfflineErrorMsg);
     }
 
     return Response(requestOptions: options, data: true, statusCode: 200);
@@ -135,11 +127,11 @@ class _SchoolsDbHandler extends DbHandler {
       }
     }
 
-    return Response(
+    throw DioException(
         requestOptions: options,
-        data: {},
-        statusCode: 405,
-        statusMessage: 'Method Not Allowed');
+        error:  OfflineException(),
+        type: DioExceptionType.unknown,
+        message : DbConstants.notSupportedOfflineErrorMsg);
   }
 
   @override
@@ -168,11 +160,11 @@ class _SchoolsDbHandler extends DbHandler {
       return Response(requestOptions: options, data: options.data, statusCode: 200);
     }
 
-    return Response(
+    throw DioException(
         requestOptions: options,
-        data: {},
-        statusCode: 405,
-        statusMessage: 'Method Not Allowed');
+        error:  OfflineException(),
+        type: DioExceptionType.unknown,
+        message : DbConstants.notSupportedOfflineErrorMsg);
   }
 
   @override
@@ -213,11 +205,11 @@ class _SchoolsDbHandler extends DbHandler {
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
 
-    return Response(
+    throw DioException(
         requestOptions: options,
-        data: false,
-        statusCode: 405,
-        statusMessage: 'Method Not Allowed');
+        error:  OfflineException(),
+        type: DioExceptionType.unknown,
+        message : DbConstants.notSupportedOfflineErrorMsg);
   }
 
   @override

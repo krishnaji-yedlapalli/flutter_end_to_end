@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 class DeviceConfiguration {
 

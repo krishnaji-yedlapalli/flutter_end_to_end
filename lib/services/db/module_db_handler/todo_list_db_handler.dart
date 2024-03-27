@@ -23,7 +23,6 @@ class _TodoListDbHandler extends DbHandler {
 
     await super.initializeDb(dbInfo);
 
-    try {
       switch (requestType(options.method)) {
         case RequestType.get:
           return performGetOperation(options);
@@ -32,11 +31,12 @@ class _TodoListDbHandler extends DbHandler {
         case RequestType.delete:
           return performDeleteOperation(options);
         default:
-          return Response(requestOptions: options, data: Null, statusCode: 405, statusMessage: 'Method Not Allowed');
-      }
-    } catch (e) {
-      return Response(requestOptions: options, data: Null, statusCode: 500, statusMessage: 'Internal Exception');
-    }
+          throw DioException(
+              requestOptions: options,
+              error:  OfflineException(),
+              type: DioExceptionType.unknown,
+              message : DbConstants.notSupportedOfflineErrorMsg);      }
+
   }
 
   @override

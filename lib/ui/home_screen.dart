@@ -9,7 +9,7 @@ import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {

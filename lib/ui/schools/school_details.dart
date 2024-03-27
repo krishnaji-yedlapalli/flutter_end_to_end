@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
-import 'package:sample_latest/services/utils/enums.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
@@ -14,7 +14,7 @@ import 'package:sample_latest/ui/schools/add_update_school_details.dart';
 import 'package:sample_latest/ui/schools/create_update_student.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 import '../../bloc/school/school_bloc.dart';
@@ -63,7 +63,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
         } else if(state is SchoolDataError) {
           return ExceptionView(state.errorStateType);
         }else {
-          return const ExceptionView(DataErrorStateType.none);
+          return const ExceptionView((DataErrorStateType.none, message: null));
         }
       },
       listener: (BuildContext context, SchoolState state) {},

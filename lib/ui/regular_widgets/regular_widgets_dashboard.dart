@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/routing.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {
