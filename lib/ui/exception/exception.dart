@@ -1,55 +1,94 @@
 
 import 'package:flutter/material.dart';
-import 'package:sample_latest/services/utils/enums.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 
-import '../../utils/enums.dart';
+import '../../utils/enums_type_def.dart';
 
 class ExceptionView extends StatelessWidget {
-  final DataErrorStateType stateType; 
+  final ErrorDetails stateType;
   
   const ExceptionView(this.stateType, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: switch(stateType){
+      child: switch(stateType.$1){
         
-        DataErrorStateType.noInternet  => _buildNoInternetView(context),
+        DataErrorStateType.noInternet  => _buildNoInternetView(),
          
-        DataErrorStateType.serverNotFound => _buildServerNotFound(context),
+        DataErrorStateType.serverNotFound => _buildServerNotFound(),
         
-        DataErrorStateType.somethingWentWrong || DataErrorStateType.none || DataErrorStateType.fetchData => _buildUnknownException(context),
+        DataErrorStateType.somethingWentWrong || DataErrorStateType.none || DataErrorStateType.fetchData => _buildUnknownException(),
         
-        DataErrorStateType.unauthorized => _buildUnauthorized(context),
+        DataErrorStateType.unauthorized => _buildUnauthorized(),
 
-        DataErrorStateType.timeoutException => throw UnimplementedError(),
+        DataErrorStateType.timeoutException => _buildTimeoutException(),
+        // TODO: Handle this case.
+        DataErrorStateType.offlineError => _buildOfflineException(),
     }
     );
   }
 
-  Widget _buildNoInternetView(BuildContext context) {
-   return Image.asset('asset/exception_error/no_internet.gif');
+  Widget _buildNoInternetView() {
+   return _buildTitleWithImage(
+     title: 'No Internet Connection',
+     image: 'asset/exception_error/no_internet.png'
+   );
   }
   
-  Widget _buildUnknownException(BuildContext context) {
-        return Column(
-          children: [
-            Text('Some thing went Wrong', style: Theme.of(context).textTheme.headlineMedium),
-            Image.asset('asset/exception_error/unknown_error.gif')
-          ],
+  Widget _buildUnknownException() {
+        return _buildTitleWithImage(
+          image: 'asset/exception_error/something_went_wrong.png',
+          title: 'Some thing went Wrong'
         );
   }
   
-  Widget _buildServerNotFound(BuildContext context) {
-        return Text('Server Not Found', style: Theme.of(context).textTheme.labelLarge);
+  Widget _buildServerNotFound() {
+        return _buildTitleWithImage(
+            image: 'asset/exception_error/something_went_wrong.png',
+            title: 'Server Not Found'
+        );
   }
   
-  Widget _buildUnauthorized(BuildContext context) {
-    return  Text('You are not Authorized', style: Theme.of(context).textTheme.labelLarge);
+  Widget _buildUnauthorized() {
+    return _buildTitleWithImage(
+        image: 'asset/exception_error/no_access.png',
+        title: 'Some thing went Wrong'
+    );
   }
 
-  Widget _buildTimeoutException(BuildContext context) {
-    return  Text('Time out', style: Theme.of(context).textTheme.labelLarge);
+  Widget _buildTimeoutException() {
+    return _buildTitleWithImage(
+        image: 'asset/exception_error/timeout.png',
+        title: 'Some thing went Wrong'
+    );
+  }
+
+  Widget _buildOfflineException() {
+    return _buildTitleWithImage(
+        image: 'asset/exception_error/offline_error.png',
+        title: stateType.message ?? ''
+    );
+  }
+
+  Widget _buildTitleWithImage({required String title, required String image}) {
+    return LayoutBuilder(
+      builder: (context, BoxConstraints constraints) {
+        double? size = DeviceConfiguration.isMobileResolution ? null :  constraints.maxHeight/2;
+        return Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(image, fit: BoxFit.scaleDown, height: size, width: size),
+              const SizedBox(height: 5),
+              Text(title, style: Theme.of(context).textTheme.titleLarge?.apply(color: Colors.black))
+            ]
+          ),
+        );
+      }
+    );
   }
   
 }

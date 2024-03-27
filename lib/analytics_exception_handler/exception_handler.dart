@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
+import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
 import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
 import 'package:sample_latest/analytics_exception_handler/server_exception.dart';
-import 'package:sample_latest/services/utils/enums.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 import 'package:sample_latest/mixins/notifiers.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 class ExceptionHandler {
   static final ExceptionHandler _singleton = ExceptionHandler._internal();
@@ -18,10 +19,10 @@ class ExceptionHandler {
   ExceptionHandler._internal();
 
   void handleExceptionWithToastNotifier(Object exception, {StackTrace? stackTrace, String? toastMessage}) {
-    var errorStateType = handleException(exception, stackTrace);
+    ErrorDetails errorStateType = handleException(exception, stackTrace);
     late String notifierText;
 
-    switch (errorStateType) {
+    switch (errorStateType.$1) {
       case DataErrorStateType.noInternet:
         notifierText = 'Check your Internet connection!!!';
       case DataErrorStateType.serverNotFound:
@@ -32,26 +33,31 @@ class ExceptionHandler {
       case DataErrorStateType.unauthorized:
         notifierText = 'Not Authorized!!!';
       case DataErrorStateType.none:
-        if (toastMessage != null) notifierText = toastMessage;
+        notifierText =  toastMessage ?? 'Unknown Exception occurred!!!';
       case DataErrorStateType.timeoutException:
         notifierText = 'Timeout Exception!!!';
+      case DataErrorStateType.offlineError:
+        notifierText = exception is DioException ? exception.message ?? '' : 'Unknown Exception occurred!!!';
     }
 
     Notifiers.toastNotifier(notifierText);
   }
 
-  DataErrorStateType handleException(Object exception, [StackTrace? stackTrace]) {
-    var errorStateType = DataErrorStateType.none;
+  ErrorDetails handleException(Object exception, [StackTrace? stackTrace]) {
+    ErrorDetails errorStateType = (DataErrorStateType.none, message: null);
 
     if (exception is DioException) {
       errorStateType = handleServerException(exception, stackTrace);
-    } else {}
+    } else {
+
+    }
 
     return errorStateType;
   }
 
-  DataErrorStateType handleServerException(DioException exception, StackTrace? stackTrace) {
+  ErrorDetails handleServerException(DioException exception, StackTrace? stackTrace) {
     var errorStateType = DataErrorStateType.none;
+    String? message;
 
     switch (exception.type) {
       case DioExceptionType.connectionTimeout:
@@ -71,19 +77,22 @@ class ExceptionHandler {
           case 403:
             errorStateType = DataErrorStateType.unauthorized;
             break;
-          case 500:
-            errorStateType = DataErrorStateType.unauthorized;
-            break;
-          case 502:
+          case 500:case 502:
             errorStateType = DataErrorStateType.serverNotFound;
             break;
         }
       case DioExceptionType.unknown:
-        errorStateType = DataErrorStateType.somethingWentWrong;
+        if(exception.error is OfflineException) {
+          errorStateType = DataErrorStateType.offlineError;
+          message = exception.message;
+        }else{
+          errorStateType = DataErrorStateType.somethingWentWrong;
+          ReportError.errorLog(exception);
+        }
       default:
-        ErrorLogging.errorLog(exception);
+        ReportError.errorLog(exception);
     }
-    return errorStateType;
+    return (errorStateType, message: message);
   }
 
   DataErrorStateType handleNetworkExceptions(Exception exception, StackTrace? stackTrace) {
@@ -94,7 +103,7 @@ class ExceptionHandler {
         errorStateType = DataErrorStateType.noInternet;
         break;
       default:
-        ErrorLogging.errorLog(exception);
+        ReportError.errorLog(exception);
     }
     return errorStateType;
   }
