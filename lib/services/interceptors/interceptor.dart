@@ -11,7 +11,7 @@ class Interceptors extends Interceptor {
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 
     if (!ConnectivityHandler().isConnected && options.isOfflineApi && DeviceConfiguration.isOfflineSupportedDevice && DbConfigurationsByDev.storeData && !options.isFromQueueItem) {
-      handler.resolve(await OfflineHandler().handleRequest(options));
+      OfflineHandler().handleRequest(options, handler);
     }else {
       super.onRequest(options, handler);
     }
@@ -22,7 +22,7 @@ class Interceptors extends Interceptor {
 
     if(DbConfigurationsByDev.storeInBothOfflineAndOnline && response.requestOptions.isOfflineApi && !response.requestOptions.isFromQueueItem){
       response.requestOptions.notRequiredToStoreInQueue = true;
-      await OfflineHandler().handleRequest(response.requestOptions);
+      await OfflineHandler().handleRequest(response.requestOptions, handler);
     }
     super.onResponse(response, handler);
   }
@@ -30,7 +30,7 @@ class Interceptors extends Interceptor {
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
     if(err.type == DioExceptionType.connectionError && (err.requestOptions.isOfflineApi) && DbConfigurationsByDev.storeData && !err.requestOptions.isFromQueueItem){
-      handler.resolve(await OfflineHandler().handleRequest(err.requestOptions));
+      OfflineHandler().handleRequest(err.requestOptions, handler);
     }else{
       super.onError(err, handler);
     }

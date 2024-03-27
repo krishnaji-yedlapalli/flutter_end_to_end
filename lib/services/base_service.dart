@@ -6,9 +6,9 @@ import 'package:dio/dio.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
 
-import '../utils/enums.dart';
+import '../utils/enums_type_def.dart';
 import 'urls.dart';
-import 'utils/enums.dart';
+import 'utils/service_enums_typedef.dart';
 
 mixin BaseService {
   Future<dynamic> makeRequest<T>(

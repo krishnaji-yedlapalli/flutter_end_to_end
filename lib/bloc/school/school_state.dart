@@ -90,7 +90,7 @@ class SchoolDataNotFound extends SchoolState {
 
 class SchoolDataError extends SchoolState {
 
-  final DataErrorStateType errorStateType;
+  final ErrorDetails errorStateType;
 
   const SchoolDataError(super.schoolStateType, this.errorStateType);
 

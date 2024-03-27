@@ -4,14 +4,15 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
+import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
+import 'package:sample_latest/analytics_exception_handler/error_logging.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/services/base_service.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
 import 'package:sample_latest/models/service/queue_item.dart';
 import 'package:sample_latest/services/urls.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
-import 'package:sample_latest/services/utils/enums.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -38,19 +39,27 @@ class OfflineHandler with BaseService {
   var queueItemsCount = BehaviorSubject<int>.seeded(0);
 
   /// Handle the request which is from the interceptor
-  Future<Response> handleRequest(RequestOptions options) async {
+  Future<void> handleRequest(RequestOptions options, dynamic handler) async {
     String path = options.path;
+    Response? response;
 
     try {
       if (path.contains(Urls.schools) || path.contains(Urls.schoolDetails) || path.contains(Urls.students)) {
-        return await _SchoolsDbHandler().performCrudOperation(options);
+         handler.resolve(await _SchoolsDbHandler().performCrudOperation(options));
       } else if (path.contains(Urls.todoList)) {
-        return await _TodoListDbHandler().performCrudOperation(options);
+         handler.resolve(await _TodoListDbHandler().performCrudOperation(options));
       } else {
-        throw DioException(requestOptions: options, type: DioExceptionType.connectionError);
+         handler.reject(DioException(requestOptions: options, type: DioExceptionType.unknown, error:  OfflineException(), message: DbConstants.notSupportedOfflineErrorMsg));
       }
     } catch (e, s) {
-      throw DioException(requestOptions: options, type: DioExceptionType.connectionError);
+      if(e is DioException){
+        handler.reject(e);
+      }else {
+        handler.reject(DioException(requestOptions: options,
+            type: DioExceptionType.unknown,
+            message: DbConstants.failedToProcessInOfflineErrorMsg,
+            error: OfflineException(error: e, stackTrace: s)));
+      }
     } finally {
       await updateQueueItemsCount();
     }
@@ -153,7 +162,7 @@ class OfflineHandler with BaseService {
       count = await _CommonDbHandler().queueItemsCount();
       queueItemsCount.add(count);
     } catch (e, s) {
-      ErrorLogging.errorLog(e, s);
+      ReportError.errorLog(e, s);
     }finally{
       deleteOutDatedData();
     }

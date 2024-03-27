@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/utils/constants.dart';
-import 'package:sample_latest/utils/enums.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 class IsolateHome extends StatelessWidget {
   const IsolateHome({Key? key}) : super(key: key);

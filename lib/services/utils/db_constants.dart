@@ -23,7 +23,9 @@ class DbConstants {
 
   static const String priority = 'priority';
 
-  // static const String isSuccessFromResponse = 'isSuccessFromResponse';
+  static const String notSupportedOfflineErrorMsg = 'Currently not supported Offline. Please retry when Online';
+
+  static const String failedToProcessInOfflineErrorMsg = 'Failed to process the data, Unexpected error occurred';
 }
 
 class SchoolDbConstants {

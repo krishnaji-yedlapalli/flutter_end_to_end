@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
-import 'package:sample_latest/services/utils/enums.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 import 'package:sqflite/sqflite.dart';
 
 
