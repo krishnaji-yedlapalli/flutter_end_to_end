@@ -78,6 +78,19 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
             'It contains Shell Routing along with Material and Cupertino components'
       ),
       (
+          'Localization',
+          ScreenType.localizationWithCalendar,
+          Icons.language,
+          des: 'Localization and Internalization was implemented in this'
+      ),
+      (
+          'Routing concept',
+          ScreenType.routing,
+          Icons.school,
+          des: 'This describes the routing'
+      ),
+
+      (
         'Schools child routing',
         ScreenType.fullscreenChildRouting,
         Icons.school,
@@ -89,12 +102,6 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
         Icons.tab,
         des:
             'This makes the screen alive if we navigated to another tab as well'
-      ),
-      (
-        'Localization',
-        ScreenType.localizationWithCalendar,
-        Icons.language,
-        des: 'Localization and Internalization was implemented in this'
       ),
       (
         'Upi payments',
@@ -153,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   navigateToDashboard(ScreenType type) {
     String path = switch (type) {
       ScreenType.dashboard => DeviceConfiguration.isMobileResolution
-          ? '/home/dashboard/'
+          ? '/home/dashboard'
           : '/home/dashboard/materialComponents',
       ScreenType.fullscreenChildRouting => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
@@ -163,6 +170,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       ScreenType.shortcuts => '/home/actionShortcuts',
       ScreenType.plugins => '/home/plugins',
       ScreenType.scrollTypes => '/home/scrollTypes',
+      ScreenType.routing => '/home/route',
     };
     context.go(path);
   }

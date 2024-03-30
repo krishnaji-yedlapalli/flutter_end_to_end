@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path/path.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
+import 'package:sample_latest/ui/exception/page_not_found.dart';
 import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/explicit_animation_widgets.dart';
@@ -18,6 +20,13 @@ import 'package:sample_latest/main.dart';
 import 'package:sample_latest/ui/automatic_keep_alive.dart';
 import 'package:sample_latest/ui/regular_widgets/selectable_text.dart';
 import 'package:sample_latest/ui/regular_widgets/tables.dart';
+import 'package:sample_latest/ui/routing_features/route_dashboard.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_one.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_three.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_two.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_routing.dart';
+import 'package:sample_latest/ui/routing_features/state_ful_shell_routing_with_indexed.dart';
+import 'package:sample_latest/ui/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/ui/scrolling/scroll_types.dart';
 import 'package:sample_latest/ui/shortcuts/call_back_shortcuts.dart';
 import 'package:sample_latest/ui/regular_widgets/cards_list_view_grid.dart';
@@ -32,6 +41,7 @@ import 'package:sample_latest/ui/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/ui/upi_payments/easy_upi_payments.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/ui/regular_widgets/stepper_ui.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 import 'ui/plugins/local_authentication.dart';
 
@@ -51,11 +61,22 @@ class Routing {
   static const String cardLayouts = 'cardLayouts';
   static const String stepper = 'stepper';
 
+  static final shellNavigatorKey = GlobalKey<NavigatorState>();
+
+
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: home,
-    // errorBuilder: _errorBuilder,
-    routes: <RouteBase>[homeRoute()],
+    routes: <RouteBase>[
+      homeRoute(),
+    ],
+    errorBuilder: (context, state) => PageNotFound(state),
+    redirect: (context, state) async {
+      return null;
+    },
+    // onException: (context, state, goRouter) {
+    //   debugPrint('On ROute exception');
+    // }
   );
 
   /// Home items
@@ -69,6 +90,7 @@ class Routing {
         routes: [
           dashboardRoute(),
           schoolRoute(),
+          goRoute(),
           GoRoute(
               path: 'keepalive',
               name: 'KeepAlive screen',
@@ -264,6 +286,46 @@ class Routing {
               ]),
         ]);
   }
+
+  static GoRoute goRoute() {
+    return GoRoute(path: 'route',
+    builder: (BuildContext context, GoRouterState state){
+      return RoutingDashboard();
+    },
+    routes: [
+      ShellRoute(
+          navigatorKey: shellNavigatorKey,
+          builder: (context, state, child) => ShellRouting(child),
+          routes: [
+            GoRoute(
+              path: 'shellroute/child1',
+              parentNavigatorKey: shellNavigatorKey,
+              builder: (context, state) =>  ShellChildOne(),
+            ),
+            GoRoute(
+              path: 'child2',
+              parentNavigatorKey: shellNavigatorKey,
+              builder: (context, state) =>  ShellChildTwo(),
+            ),
+            GoRoute(
+              path: 'child3',
+              parentNavigatorKey: shellNavigatorKey,
+              builder: (context, state) =>  ShellChildThree(),
+            ),
+         ]),
+      StatefulShellRoute.indexedStack(builder: (context, state, navigationShell) => StateFulShellRoutingWithIndexed(navigationShell: navigationShell),
+          branches: [
+            StatefulShellBranch(routes: [
+              GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hi', builder: (context, state) => Text('Hi'),),]),
+            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hello', builder: (context, state) => Text('Heloo'))]),
+            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hola', builder: (context, state) => Text('Hola'))]),
+          ]
+      ),
+      GoRoute(path: RouteType.stateFullShellRoutingWithoutIndexed.name,
+          builder: (BuildContext context, GoRouterState state) => const StateFulShellRoutingWithoutIndexed()
+      )
+      ]);
+}
 
   static Widget _errorBuilder(BuildContext context, GoRouterState state) {
     return Container(child: Text('error'));
