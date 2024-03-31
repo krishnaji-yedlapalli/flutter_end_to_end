@@ -15,6 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: Image.asset('asset/leading_logo.png'),
       title: title,
       bottom: bottom,
       actions: [

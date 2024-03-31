@@ -122,6 +122,7 @@ flutter:
   assets:
      - asset/exception_error/
      - lib/services/db/queries/
+     - asset/leading_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

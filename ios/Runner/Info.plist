@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>task-identifier</string>
@@ -37,16 +39,16 @@
 		<string>fetch</string>
 		<string>processing</string>
 	</array>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Need microphone access for uploading audio</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Need camera access for uploading images</string>
-    <key>NSLocationUsageDescription</key>
-    <string>Need location access for updating nearby friends</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app will use your location to show features near you.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Program requires GPS to track cars and job orders</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need microphone access for uploading audio</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need camera access for uploading images</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Need location access for updating nearby friends</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app will use your location to show features near you.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Program requires GPS to track cars and job orders</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
