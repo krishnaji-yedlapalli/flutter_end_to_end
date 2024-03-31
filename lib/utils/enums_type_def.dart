@@ -1,5 +1,7 @@
 
-enum ScreenType {dashboard, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes}
+enum ScreenType {dashboard, routing, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes}
+
+enum RouteType {shellRouting, stateFullShellRoutingWithIndexed, stateFullShellRoutingWithoutIndexed}
 
 enum IsolateType {isolateWithWithOutLag, isolateWithSpawn}
 
