@@ -1,10 +1,14 @@
 import 'dart:ui';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/routing.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
+import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,7 +24,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
-
   late final AppLifecycleListener _lifeCycleListener;
 
   // GlobalKey offlineBannerKey = GlobalKey();
@@ -48,16 +51,17 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
         .connectionChangeStatusController
         .stream
         .listen((bool state) {
-
       if (mounted && !state) {
         // print('sdf sf  $state');
         // ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
         _buildNetworkConnectivityStatus();
-        }else{
-          ScaffoldMessenger.maybeOf(context)?.clearMaterialBanners();
-        }
+      } else {
+        ScaffoldMessenger.maybeOf(context)?.clearMaterialBanners();
+      }
     });
 
+    PushNotificationService.initiateTheFirebaseListeners();
+    PushNotificationService.initializeLocalPushNotifications();
     super.initState();
   }
 
@@ -78,23 +82,28 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
             'It contains Shell Routing along with Material and Cupertino components'
       ),
       (
-          'Localization',
-          ScreenType.localizationWithCalendar,
-          Icons.language,
-          des: 'Localization and Internalization was implemented in this'
+        'Localization',
+        ScreenType.localizationWithCalendar,
+        Icons.language,
+        des: 'Localization and Internalization was implemented in this'
       ),
       (
-          'Routing concept',
-          ScreenType.routing,
-          Icons.school,
-          des: 'This describes the routing'
+        'Routing concept',
+        ScreenType.routing,
+        Icons.school,
+        des: 'This describes the routing'
       ),
-
       (
         'Schools child routing',
         ScreenType.fullscreenChildRouting,
         Icons.school,
         des: 'This describes the routing'
+      ),
+      (
+        'Push Notifications',
+        ScreenType.pushNotifications,
+        Icons.notifications,
+        des: 'Firebase push notifications'
       ),
       (
         'Automatci Keep alive',
@@ -171,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       ScreenType.plugins => '/home/plugins',
       ScreenType.scrollTypes => '/home/scrollTypes',
       ScreenType.routing => '/home/route',
+      ScreenType.pushNotifications => '/home/push-notifications/remote-notifications',
     };
     context.go(path);
   }
@@ -245,22 +255,35 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
   void _buildNetworkConnectivityStatus() {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
       // key: offlineBannerKey,
-      leading:   StreamBuilder<int>(
+      leading: StreamBuilder<int>(
         stream: OfflineHandler().queueItemsCount.stream,
         initialData: 0,
         builder: (context, snapshot) {
           var count = 0;
-          if(snapshot.hasData){
+          if (snapshot.hasData) {
             count = snapshot.data ?? 0;
           }
           return Badge(
               label: Text('$count'),
-              child: TextButton(onPressed: OfflineHandler().syncData, child: Text('Sync')));
+              child: TextButton(
+                  onPressed: OfflineHandler().syncData, child: Text('Sync')));
         },
       ),
-      content: const Align(alignment : Alignment.center, child: Text('Offline')),
-      actions: [const Text('Retry', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white, decoration: TextDecoration.underline, decorationColor: Colors.white)) ?? TextButton(onPressed: () {}, child: const Text('Retry', style: TextStyle(fontWeight: FontWeight.w600)))],
-      contentTextStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+      content: const Align(alignment: Alignment.center, child: Text('Offline')),
+      actions: [
+        const Text('Retry',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.white)) ??
+            TextButton(
+                onPressed: () {},
+                child: const Text('Retry',
+                    style: TextStyle(fontWeight: FontWeight.w600)))
+      ],
+      contentTextStyle: const TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
       // margin: const EdgeInsets.all(0),
     ));
   }
