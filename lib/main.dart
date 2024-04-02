@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,12 +18,22 @@ import 'package:sample_latest/latest_3.0.dart';
 import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/routing.dart';
 import 'package:sample_latest/theme.dart';
+import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+// @pragma('vm:entry-point')
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   await Firebase.initializeApp();
+//
+//   print("Handling a background message: ${message.messageId}");
+// }
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
@@ -36,6 +48,11 @@ void main() {
     print(error);
     return true;
   };
+
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp(
+    options: PushNotificationService.currentPlatform,
+  );
 
   DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
