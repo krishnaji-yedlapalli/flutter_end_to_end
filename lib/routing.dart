@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,9 @@ import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
 import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
+import 'package:sample_latest/ui/push_notifcations/firebase_push_notifications.dart';
+import 'package:sample_latest/ui/push_notifcations/local_pushNotifications.dart';
+import 'package:sample_latest/ui/push_notifcations/notifications.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/explicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/implicit_animations_widgets.dart';
@@ -72,6 +76,7 @@ class Routing {
     ],
     errorBuilder: (context, state) => PageNotFound(state),
     redirect: (context, state) async {
+
       return null;
     },
     // onException: (context, state, goRouter) {
@@ -164,7 +169,8 @@ class Routing {
             builder: (BuildContext context, GoRouterState state) {
               return const ScrollTypes();
             },
-          )
+          ),
+          pushNotification()
         ]);
   }
 
@@ -327,7 +333,25 @@ class Routing {
       ]);
 }
 
-  static Widget _errorBuilder(BuildContext context, GoRouterState state) {
-    return Container(child: Text('error'));
-  }
+static ShellRoute pushNotification() {
+    return  ShellRoute(
+        navigatorKey: shellNavigatorKey,
+        builder: (context, state, child) => NotificationWithRemoteAndLocal(child),
+        routes: [
+          GoRoute(
+            path: 'push-notifications/remote-notifications',
+            parentNavigatorKey: shellNavigatorKey,
+            builder: (context, state) =>  const FirebasePushNotifications(),
+          ),
+          GoRoute(
+            path: 'push-notifications/local-notifications',
+            parentNavigatorKey: shellNavigatorKey,
+            builder: (context, state) =>  const LocalPushNotifications(),
+          ),
+        ]);
+}
+
+ static void onPushNotificationOpened(RemoteMessage? message) {
+   if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push('/home/schools');
+ }
 }
