@@ -3,7 +3,7 @@
 
 
 # Name of your workflow.
-name: integration-test
+name: generating apk
 
 # Trigger the workflow on push or pull requests.
 on:
@@ -18,7 +18,7 @@ jobs:
   # id of job, a string that is unique to the "jobs" node above.
   drive_android:
     # The type of machine to run the job on.
-    runs-on: self-hosted
+    runs-on: ubuntu-latest,
     # Creates a build matrix for your jobs. You can define different
     # variations of an environment to run each job in.
     strategy:
@@ -41,10 +41,10 @@ jobs:
         with:
           flutter-version: '3.19.1'
           channel: 'stable'
-      - name: "Run Flutter Driver tests"
+#      - name: "Run Flutter Driver tests"
         #Operation for installing, configuring and running Android emulator
         # https://github.com/marketplace/actions/android-emulator-runner
-        uses: reactivecircus/android-emulator-runner@v2
+#        uses: reactivecircus/android-emulator-runner@v2
 #        with:
 #          api-level: ${{ matrix.api-level }}
 #          target: ${{ matrix.target }}
