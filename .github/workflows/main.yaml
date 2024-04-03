@@ -16,17 +16,17 @@ on:
 # A workflow run is made up of one or more jobs.
 jobs:
   # id of job, a string that is unique to the "jobs" node above.
-  drive_android:
+  build:
     # The type of machine to run the job on.
     runs-on: ubuntu-latest,
     # Creates a build matrix for your jobs. You can define different
     # variations of an environment to run each job in.
-    strategy:
-      # A set of different configurations of the virtual
-      # environment.
-      matrix:
-        api-level: [ 30 ]
-        target: [ default ]
+#    strategy:
+#      # A set of different configurations of the virtual
+#      # environment.
+#      matrix:
+#        api-level: [ 30 ]
+#        target: [ default ]
     # Contains a sequence of tasks.
     steps:
       # The branch or tag ref that triggered the workflow will be
@@ -53,8 +53,8 @@ jobs:
 #          script: "cd ./frontend/mgramseva && flutter drive  --dart-define=BASE_PATH=https://mgramseva-qa.egov.org.in/
 #          --driver=test_driver/integration_test_driver.dart   --target=integration_test/login_test.dart"
       # checking out to respective directory and building the apk
-      - name: "flutter pub get"
-        run: flutter build apk --no-tree-shake-icons
+      - run: flutter pub get
+      - run: flutter build apk --no-tree-shake-icons
       # uploading the release build to artifact
       - uses: actions/upload-artifact@v3
         with:
