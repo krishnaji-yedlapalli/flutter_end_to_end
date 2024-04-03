@@ -2,8 +2,7 @@
 
 A Flutter project to learn how to build the app on a Multi-platform using a single code base.
 
-
-# Currently Available Features :
+# Currently Available Features:
 1. Theme
 2. Routing
 3. Localization
@@ -12,6 +11,13 @@ A Flutter project to learn how to build the app on a Multi-platform using a sing
 6. Deep Linking
 7. Push Notification Local and Remote
 
+# Currently Supported Platforms:
+- Android
+- IOS
+- Web
+- MacOS
+- Windows
+- Linux
    
 # Reference link to access the project on Web
  https://flutter-end-to-end.web.app
