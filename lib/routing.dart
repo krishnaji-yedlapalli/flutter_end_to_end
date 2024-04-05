@@ -279,15 +279,15 @@ class Routing {
               name: 'schoolDetails',
               builder: (BuildContext context, GoRouterState state) {
                 Map<String, dynamic> query = {};
-                query.addAll(state.queryParameters);
+                query.addAll(state.uri.queryParameters);
                 return SchoolDetails(SchoolModel.fromRouteJson(query));
               },
               routes: [
                 GoRoute(
-                    path: 'student',
+                    path: 'student/:schoolId/:studentId',
                     name: 'student',
                     builder: (context, state) {
-                      return Student(studentId : state.queryParameters['studentId'] ?? '', schoolId : state.queryParameters['schoolId'] ?? '', schoolName: state.queryParameters['schoolName'] ?? '');
+                      return Student(studentId : state.pathParameters['studentId'] ?? '', schoolId : state.pathParameters['schoolId'] ?? '', schoolName: state.uri.queryParameters['schoolName'] ?? '');
                     })
               ]),
         ]);
