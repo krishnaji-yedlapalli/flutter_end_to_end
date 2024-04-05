@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path/path.dart';
+import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
@@ -272,6 +273,10 @@ class Routing {
         name: 'schools',
         builder: (BuildContext context, GoRouterState state) {
           return const Schools();
+        },
+        onExit: (context) async{
+          bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(context, title : '!!! Alert !!!', content: 'Are you sure U want to exit?');
+          return res;
         },
         routes: [
           GoRoute(

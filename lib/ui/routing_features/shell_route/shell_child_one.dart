@@ -16,9 +16,16 @@ class ShellChildOne extends StatelessWidget {
         runSpacing: 10,
         children: [
           Text('Child one ${context.read<RouteProvider>().value}', style: Theme.of(context).textTheme.displayLarge),
-          ElevatedButton(onPressed: () => context.push('/home/route/child2'), child: Text('Navigate to Child 2'))
+          ElevatedButton(onPressed: () => onTap(context), child: Text('Navigate to Child 2'))
         ],
       ),
     );
+  }
+
+  void onTap(BuildContext context) {
+    var query = {
+      'id' : 123
+    };
+    context.push('/home/route/child2', );
   }
 }
