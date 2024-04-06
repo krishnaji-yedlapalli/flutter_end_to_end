@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path/path.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
+import 'package:sample_latest/mixins/notifiers.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
@@ -77,12 +78,8 @@ class Routing {
     ],
     errorBuilder: (context, state) => PageNotFound(state),
     redirect: (context, state) async {
-
       return null;
     },
-    // onException: (context, state, goRouter) {
-    //   debugPrint('On ROute exception');
-    // }
   );
 
   /// Home items
@@ -280,19 +277,19 @@ class Routing {
         },
         routes: [
           GoRoute(
-              path: 'schoolDetails',
+              path: 'school-details',
               name: 'schoolDetails',
+              redirect: (BuildContext context, GoRouterState state) => redirectWithToast(context, state : state, redirectPath: '/home/schools', paramKeys: ['schoolId'], toastMessage: 'Invalid School details'),
               builder: (BuildContext context, GoRouterState state) {
-                Map<String, dynamic> query = {};
-                query.addAll(state.uri.queryParameters);
-                return SchoolDetails(SchoolModel.fromRouteJson(query));
+                return SchoolDetails(state.uri.queryParameters['schoolId'] ?? '', state.extra != null && state.extra is SchoolModel ? state.extra as SchoolModel : null);
               },
               routes: [
                 GoRoute(
-                    path: 'student/:schoolId/:studentId',
+                    path: 'student',
                     name: 'student',
+                    redirect: (BuildContext context, GoRouterState state) => redirectWithToast(context, state : state, redirectPath: '/home/schools', paramKeys: ['schoolId', 'studentId'], toastMessage: 'Invalid Student Details'),
                     builder: (context, state) {
-                      return Student(studentId : state.pathParameters['studentId'] ?? '', schoolId : state.pathParameters['schoolId'] ?? '', schoolName: state.uri.queryParameters['schoolName'] ?? '');
+                      return Student(studentId : state.uri.queryParameters['studentId'] ?? '', schoolId : state.uri.queryParameters['schoolId'] ?? '');
                     })
               ]),
         ]);
@@ -359,4 +356,24 @@ static ShellRoute pushNotification() {
  static void onPushNotificationOpened(RemoteMessage? message) {
    if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push('/home/schools');
  }
+
+  static String? redirectWithToast(BuildContext context,{required GoRouterState state, required String redirectPath, required List<String> paramKeys, required toastMessage}) {
+    if(paramKeys.any((key) => !state.uri.queryParameters.containsKey(key))){
+      return redirectPath;
+    }
+    return null;
+  }
+
+  static bool navigateToHome(BuildContext context) {
+
+   var route = GoRouter.of(context);
+    while (route.canPop()) {
+      if(route.routerDelegate.currentConfiguration.uri.path == '/home/schools'){
+        route.pop();
+        break;
+      }
+      route.pop();
+    }
+    return true;
+  }
 }

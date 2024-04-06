@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/provider/common_provider.dart';
+import 'package:sample_latest/routing.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -15,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Image.asset('asset/leading_logo.png'),
+      leading: DeviceConfiguration.isWeb ? InkResponse(child: Image.asset('asset/leading_logo.png'), onTap: ()=> Routing.navigateToHome(context)) : null,
       title: title,
       bottom: bottom,
       actions: [

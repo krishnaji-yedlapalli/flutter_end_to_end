@@ -12,7 +12,7 @@ abstract class SchoolRepo {
 Future<SchoolDetailsModel?> fetchSchoolDetails(String id);
 Future<List<SchoolModel>> fetchSchools();
 Future<List<StudentModel>> fetchStudents(String schoolId);
-Future<StudentModel> fetchStudent(String studentId, String schoolId);
+Future<StudentModel?> fetchStudent(String studentId, String schoolId);
 Future<SchoolModel> createOrEditSchool(SchoolModel school);
 Future<SchoolDetailsModel> addOrEditSchoolDetails(SchoolDetailsModel schoolDetails);
 Future<StudentModel> createOrEditStudent(String schoolId, StudentModel student);
@@ -35,7 +35,7 @@ class SchoolRepository with BaseService implements SchoolRepo{
   }
 
   @override
-  Future<StudentModel> fetchStudent(String studentId, String schoolId) async {
+  Future<StudentModel?> fetchStudent(String studentId, String schoolId) async {
     StudentModel student;
     var response = await makeRequest(url: '${Urls.students}/$schoolId/$studentId.json');
     if(response != null) {
