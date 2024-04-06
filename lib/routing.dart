@@ -8,6 +8,7 @@ import 'package:sample_latest/mixins/notifiers.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
+import 'package:sample_latest/ui/deep_linking/deep_linking.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
 import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/ui/push_notifcations/firebase_push_notifications.dart';
@@ -168,7 +169,14 @@ class Routing {
               return const ScrollTypes();
             },
           ),
-          pushNotification()
+          pushNotification(),
+          GoRoute(
+            path: 'deep-linking',
+            name: 'deeplinking',
+            builder: (BuildContext context, GoRouterState state) {
+              return DeepLinkingTesting();
+            },
+          ),
         ]);
   }
 
@@ -354,8 +362,15 @@ static ShellRoute pushNotification() {
 }
 
  static void onPushNotificationOpened(RemoteMessage? message) {
-   if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push('/home/schools');
+    String path = '/home/schools';
+    if(message?.data['path'] != null) path = message?.data['path'];
+   if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push(path);
  }
+
+  static void onLocalPushNotificationOpened(String? path) {
+     path ??= '/home/schools';
+    if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push(path);
+  }
 
   static String? redirectWithToast(BuildContext context,{required GoRouterState state, required String redirectPath, required List<String> paramKeys, required toastMessage}) {
     if(paramKeys.any((key) => !state.uri.queryParameters.containsKey(key))){

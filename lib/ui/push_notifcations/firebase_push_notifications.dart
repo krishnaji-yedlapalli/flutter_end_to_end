@@ -30,6 +30,7 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
   final tokenCtrl = TextEditingController();
   final titleCtrl = TextEditingController();
   final bodyCtrl = TextEditingController();
+  final pageCtrl = TextEditingController(text: '/home/schools');
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -110,6 +111,7 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
                   CustomTextField(controller: tokenCtrl, label: 'Paste the Registration Token', suffixIcon: IconButton(icon: Icon(Icons.clear), onPressed: ()=> tokenCtrl.clear()), validator: (val) => textEmptyValidator(val, 'Token required')),
                   CustomTextField(controller: titleCtrl, label: 'Message Title', validator: (val) => textEmptyValidator(val, 'Message Title required')),
                   CustomTextField(controller: bodyCtrl, label: 'Message Body', validator: (val) => textEmptyValidator(val, 'Message Body required')),
+                  CustomTextField(controller: pageCtrl, label: 'Page Navigation', validator: (val) => textEmptyValidator(val, 'Page navigation is required')),
                   ElevatedButton(onPressed: requestPushNotification, child: const Text('Send Push Notification'))
                 ],
               ),
@@ -183,6 +185,9 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
           "body": bodyCtrl.text.trim(),
           "mutable_content": true,
           "sound": "Tri-tone"
+        },
+        "data" : {
+          "path" : pageCtrl.text.trim()
         }
       };
 

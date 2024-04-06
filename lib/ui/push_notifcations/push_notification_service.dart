@@ -84,7 +84,7 @@ class PushNotificationService {
       print('Message notification: ${message.notification?.title}');
       print('Message notification: ${message.notification?.body}');
 
-      showNotification(title: '${message.notification?.title}', body: '${message.notification?.body}');
+      showNotification(title: '${message.notification?.title}', body: '${message.notification?.body}', payLoad: message.data);
 
     }).onError((e) => debugPrint('Failed to on omessage ${e.toString()}'));
 
@@ -112,8 +112,7 @@ class PushNotificationService {
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse notificationResponse) async {});
+        onDidReceiveNotificationResponse: handleLocalPushNotification);
   }
 
   static notificationDetails() {
@@ -123,10 +122,17 @@ class PushNotificationService {
         iOS: DarwinNotificationDetails());
   }
 
+  static handleLocalPushNotification(NotificationResponse notificationResponse) async {
+    if(notificationResponse.payload != null){
+      Routing.onLocalPushNotificationOpened(notificationResponse.payload);
+    }
+  }
+
   static Future showNotification(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
+      {int id = 0, String? title, String? body, Map<dynamic, dynamic>? payLoad}) async {
+
      await flutterLocalNotificationsPlugin.show(
-        id, title, body, await notificationDetails());
+        id, title, body, await notificationDetails(), payload: payLoad?['path']);
 
     await flutterLocalNotificationsPlugin.cancel(0);
 

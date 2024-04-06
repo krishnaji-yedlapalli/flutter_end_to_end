@@ -106,6 +106,12 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
         des: 'Firebase push notifications'
       ),
       (
+          'Deep Linking',
+          ScreenType.deepLinking,
+          Icons.notifications,
+          des: 'Test the deeplink in device'
+      ),
+      (
         'Automatci Keep alive',
         ScreenType.automaticKeepAlive,
         Icons.tab,
@@ -181,6 +187,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
       ScreenType.scrollTypes => '/home/scrollTypes',
       ScreenType.routing => '/home/route',
       ScreenType.pushNotifications => '/home/push-notifications/remote-notifications',
+      ScreenType.deepLinking => '/home/deep-linking',
     };
     context.go(path);
   }
