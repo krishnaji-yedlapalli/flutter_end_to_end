@@ -28,9 +28,10 @@ import 'package:sample_latest/ui/automatic_keep_alive.dart';
 import 'package:sample_latest/ui/regular_widgets/selectable_text.dart';
 import 'package:sample_latest/ui/regular_widgets/tables.dart';
 import 'package:sample_latest/ui/routing_features/route_dashboard.dart';
-import 'package:sample_latest/ui/routing_features/shell_route/shell_child_one.dart';
-import 'package:sample_latest/ui/routing_features/shell_route/shell_child_three.dart';
-import 'package:sample_latest/ui/routing_features/shell_route/shell_child_two.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_one/shell_parent.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_one/shell_child_one.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_one/shell_child_three.dart';
+import 'package:sample_latest/ui/routing_features/shell_route/shell_child_one/shell_child_two.dart';
 import 'package:sample_latest/ui/routing_features/shell_route/shell_routing.dart';
 import 'package:sample_latest/ui/routing_features/state_ful_shell_routing_with_indexed.dart';
 import 'package:sample_latest/ui/routing_features/stateful_shell_routing_without_indexed.dart';
@@ -305,6 +306,7 @@ class Routing {
 
   static GoRoute goRoute() {
     return GoRoute(path: 'route',
+    parentNavigatorKey: navigatorKey,
     builder: (BuildContext context, GoRouterState state){
       return RoutingDashboard();
     },
@@ -314,19 +316,29 @@ class Routing {
           builder: (context, state, child) => ShellRouting(child),
           routes: [
             GoRoute(
-              path: 'shellroute/child1',
+              path: 'parent',
               parentNavigatorKey: shellNavigatorKey,
-              builder: (context, state) =>  ShellChildOne(),
-            ),
-            GoRoute(
-              path: 'child2',
-              parentNavigatorKey: shellNavigatorKey,
-              builder: (context, state) =>  ShellChildTwo(),
-            ),
-            GoRoute(
-              path: 'child3',
-              parentNavigatorKey: shellNavigatorKey,
-              builder: (context, state) =>  ShellChildThree(),
+              builder: (context, state) =>  const ShellChildOne(),
+              routes: [
+                GoRoute(
+                  path: 'child1',
+                  parentNavigatorKey: shellNavigatorKey,
+                  builder: (context, state) =>  ShellChildOneChildOne(),
+                  routes: [
+                    GoRoute(
+                        path: 'child2',
+                        parentNavigatorKey: shellNavigatorKey,
+                        builder: (context, state) =>  ShellChildOneChildTwo(),
+                      routes: [
+                        GoRoute(
+                            path: 'child3',
+                            parentNavigatorKey: shellNavigatorKey,
+                            builder: (context, state) =>  ShellChildOneChildThree())
+                      ]
+                    )
+                  ]
+                )
+              ]
             ),
          ]),
       StatefulShellRoute.indexedStack(builder: (context, state, navigationShell) => StateFulShellRoutingWithIndexed(navigationShell: navigationShell),

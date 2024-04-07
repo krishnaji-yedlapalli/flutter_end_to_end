@@ -13,16 +13,16 @@ class RoutingDashboard extends StatelessWidget  with CardWidgetsMixin {
    RoutingDashboard({Key? key}) : super(key: key);
 
   final List<(String, RouteType, IconData, {String? des})> screenTypes = [
-   ('Shell Route', RouteType.shellRouting, Icons.route, des : ""),
-   ('Stateful Shell Routing', RouteType.stateFullShellRoutingWithIndexed, Icons.route, des : "Nested routing will work based on the index"),
-   ('Shell l', RouteType.stateFullShellRoutingWithoutIndexed, Icons.route, des : ""),
+   ('Shell Route with inner inner children', RouteType.shellRouting, Icons.route, des : "this will have one parent with inner children appbar will be same parent-child1-child2-child3"),
+   ('Indexed Stateful Shell Routing', RouteType.stateFullShellRoutingWithIndexed, Icons.route, des : "Nested routing will work based on the index"),
+   // ('Shell l', RouteType.stateFullShellRoutingWithoutIndexed, Icons.route, des : ""),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: const Text('Different types of Routes'),
+        title: const Text('Different types Shell of Routes'),
         appBar: AppBar(),
       ),
       body: GridView.builder(
@@ -43,7 +43,7 @@ class RoutingDashboard extends StatelessWidget  with CardWidgetsMixin {
 
    navigateToDashboard(BuildContext context, RouteType type) {
      String path = switch (type) {
-     RouteType.shellRouting => '/home/route/shellroute/child1',
+     RouteType.shellRouting => '/home/route/parent',
        RouteType.stateFullShellRoutingWithIndexed => '/home/route/${type.name}/hi',
        RouteType.stateFullShellRoutingWithoutIndexed => throw UnimplementedError(),
      };

@@ -11,13 +11,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
+  final Widget? leading;
 
-    CustomAppBar({required this.appBar, Key? key, this.title, this.actions, this.bottom}) : super(key: key);
+    CustomAppBar({required this.appBar, Key? key, this.title, this.actions, this.bottom, this.leading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: DeviceConfiguration.isWeb ? InkResponse(child: Image.asset('asset/leading_logo.png'), onTap: ()=> Routing.navigateToHome(context)) : null,
+      leading: DeviceConfiguration.isWeb ? InkResponse(child: Image.asset('asset/leading_logo.png'), onTap: ()=> Routing.navigateToHome(context)) : leading,
       title: title,
       bottom: bottom,
       actions: [
