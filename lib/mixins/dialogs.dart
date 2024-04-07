@@ -64,16 +64,32 @@ mixin CustomDialogs {
   }
 
   Future<bool?> buildAlertDialog(BuildContext context, {required String title, required String content}) async {
-    showAdaptiveDialog(barrierDismissible: true,
+    return await showAdaptiveDialog<bool?>(barrierDismissible: true,
        context: context,
        builder: (context) {
          return CupertinoAlertDialog(
        title: Text(title),
        content: Text(content),
        actions: [
-         IconButton(onPressed: () => GoRouter.of(context).pop(), icon: const Icon(Icons.thumb_up))
+         IconButton(onPressed: () => GoRouter.of(context).pop(true), icon: const Icon(Icons.thumb_up))
        ],
      );
    });
+  }
+
+  static Future<bool> buildAlertDialogWithYesOrNo(BuildContext context, {required String title, required String content}) async {
+    var style = const TextStyle(color: Colors.orange, fontWeight: FontWeight.w600);
+    return await showAdaptiveDialog<bool>(barrierDismissible: true,
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: [
+              TextButton(onPressed: ()=> GoRouter.of(context).pop(false), child: Text('No', style: style)),
+              TextButton(onPressed: ()=> GoRouter.of(context).pop(true), child: Text('Yes', style: style)),
+            ],
+          );
+        }) ?? false;
   }
 }

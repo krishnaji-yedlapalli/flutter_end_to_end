@@ -150,8 +150,12 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   }
 
   onTapOfSchool(SchoolModel school) {
-    var query = school.toRouteJson();
-    context.go(Uri(path: '/home/schools/schoolDetails', queryParameters: query).toString(), extra: (school, null));
+
+    var query = {
+      "schoolId" : school.id
+    };
+
+    context.go(Uri(path: '/home/schools/school-details', queryParameters: query).toString(), extra: school);
   }
 
   onTapOfCreateSchool() {

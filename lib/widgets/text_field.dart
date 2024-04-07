@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
 
-  const CustomTextField({Key? key, required this.controller, required this.label, this.suffixIcon, this.validator, this.inputFormatter}) : super(key: key);
+  const CustomTextField({Key? key, required this.controller, required this.label, this.suffixIcon, this.validator, this.inputFormatter, this.prefix, this.maxLines, this.onChange}) : super(key: key);
 
   final TextEditingController controller;
 
@@ -13,9 +13,15 @@ class CustomTextField extends StatelessWidget {
 
   final Widget? suffixIcon;
 
+  final String? prefix;
+
   final String? Function(String?)? validator;
 
   final List<TextInputFormatter>? inputFormatter;
+
+  final int? maxLines;
+
+  final ValueChanged<String?>? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +30,8 @@ class CustomTextField extends StatelessWidget {
       decoration: outlineDecoration(),
       validator: validator,
       inputFormatters: inputFormatter,
+      maxLines: maxLines,
+      onChanged: onChange,
     );
   }
 
@@ -31,6 +39,7 @@ class CustomTextField extends StatelessWidget {
     return InputDecoration(
       label: Text(label),
       suffixIcon: suffixIcon,
+      prefixText: prefix,
       border: const OutlineInputBorder()
     );
   }

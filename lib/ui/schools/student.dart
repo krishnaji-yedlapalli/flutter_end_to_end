@@ -12,8 +12,7 @@ import 'package:sample_latest/widgets/custom_app_bar.dart';
 class Student extends StatefulWidget {
   final String studentId;
   final String schoolId;
-  final String schoolName;
-  const Student({Key? key, required this.studentId, required this.schoolId, required this.schoolName})
+  const Student({Key? key, required this.studentId, required this.schoolId})
       : super(key: key);
 
   @override
