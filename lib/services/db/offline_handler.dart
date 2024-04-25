@@ -19,12 +19,13 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/extensions/dio_request_extension.dart';
 import 'package:sample_latest/services/db/db_handler.dart';
 
+import '../utils/abstract_db_handler.dart';
+
 export 'package:sample_latest/services/db/offline_handler.dart';
 
 part  'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
 part  'package:sample_latest/services/db/module_db_handler/schools_db_handler.dart';
 part  'package:sample_latest/services/db/module_db_handler/todo_list_db_handler.dart';
-part  'package:sample_latest/services/utils/abstract_db_handler.dart';
 
 class OfflineHandler with BaseService {
 
