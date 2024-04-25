@@ -1,12 +1,17 @@
-
-part of 'package:sample_latest/services/db/offline_handler.dart';
-
+import 'package:dio/dio.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/services/db/db_handler.dart';
+import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 
 abstract class DbHandler {
 
   bool isDbInitialized = false;
 
   late SqfLiteDbHandler _dbHandler;
+
+  SqfLiteDbHandler get dbHandler {
+    return _dbHandler;
+  }
 
   Future<bool> initializeDb(DbInfo dbInfo) async {
     if(!isDbInitialized) {

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sample_latest/environment/environment.dart';
 
 class CustomTheme {
   static ThemeData lightThemeData(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: GoogleFonts.openSans().fontFamily,
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, background: Colors.white ?? Colors.green.shade50) ?? ColorScheme(brightness: Brightness.light, primary: Colors.green, primaryContainer: Colors.green, secondary: Colors.white, secondaryContainer: Colors.white, background: Colors.white, surface: Colors.green, onBackground: Colors.white, onSurface: Colors.white, onError: Colors.white, onPrimary: Colors.white, onSecondary: Colors.white, error: Colors.red.shade400),
+      colorScheme: ColorScheme.fromSeed(seedColor: Environment().configuration.seedColor, background: Colors.white ?? Colors.green.shade50) ?? ColorScheme(brightness: Brightness.light, primary: Colors.green, primaryContainer: Colors.green, secondary: Colors.white, secondaryContainer: Colors.white, background: Colors.white, surface: Colors.green, onBackground: Colors.white, onSurface: Colors.white, onError: Colors.white, onPrimary: Colors.white, onSecondary: Colors.white, error: Colors.red.shade400),
 
-      hoverColor: Colors.green.shade200,
+      hoverColor: Environment().configuration.hoverColor ?? Colors.green.shade200,
 
       dividerColor: Colors.purple,
 
@@ -52,7 +53,7 @@ class CustomTheme {
         ),
       ),
 
-      appBarTheme: const AppBarTheme(color: Colors.green, shadowColor: Colors.red, elevation: 5, foregroundColor: Colors.white),
+      appBarTheme: AppBarTheme(color: Environment().configuration.seedColor, shadowColor: Colors.red, elevation: 5, foregroundColor: Colors.white),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(

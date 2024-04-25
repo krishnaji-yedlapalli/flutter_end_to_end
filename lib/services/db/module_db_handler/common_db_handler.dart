@@ -54,7 +54,7 @@ class _CommonDbHandler extends DbHandler {
 
     if(options.path.contains(DbConstants.queueItems)) {
 
-      int recordId = await _dbHandler.deleteRecord(
+      int recordId = await dbHandler.deleteRecord(
           tableName: DbConstants.queueItems, columnName: DbConstants.idColumnName, ids: [options.queryParameters['id']]);
     }
     return Response(requestOptions: options, statusCode: 200);
@@ -64,7 +64,7 @@ class _CommonDbHandler extends DbHandler {
   Future<Response> performGetOperation(RequestOptions options) async {
     if (options.path.contains(DbConstants.queueItems)) {
       List<Map<String, dynamic>>? queueItems =
-          await _dbHandler.query(DbConstants.queueItems);
+          await dbHandler.query(DbConstants.queueItems);
       return Response(
           requestOptions: options, data: queueItems ?? [], statusCode: 200);
     }
@@ -93,7 +93,7 @@ class _CommonDbHandler extends DbHandler {
       queueItemBody['queryParams'] = jsonEncode(queueItem.queryParams);
 
       var res =
-          await _dbHandler.insertData(DbConstants.queueItems, queueItemBody);
+          await dbHandler.insertData(DbConstants.queueItems, queueItemBody);
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
 
@@ -114,7 +114,7 @@ class _CommonDbHandler extends DbHandler {
 
     await super.initializeDb(dbInfo);
 
-    var result = await _dbHandler.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
+    var result = await dbHandler.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
     return result;
   }
 
@@ -132,7 +132,7 @@ class _CommonDbHandler extends DbHandler {
 
     await super.initializeDb(dbInfo);
 
-    int recordId = await _dbHandler.deleteRecord(
+    int recordId = await dbHandler.deleteRecord(
         tableName: DbConstants.queueItems, columnName: DbConstants.queueColumnName, ids: [id]);
   return recordId;
   }
@@ -149,13 +149,13 @@ class _CommonDbHandler extends DbHandler {
   @override
   Future<bool> deleteOutdatedData(int millisecondsSinceEpoch) async {
     await initializeDbIfNot();
-    await _dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
+    await dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
     return true;
   }
 
   @override
   Future<bool> resetDataBase() async {
     await initializeDbIfNot();
-    return await _dbHandler.resetDataBase();
+    return await dbHandler.resetDataBase();
   }
 }

@@ -64,11 +64,11 @@ class _SchoolsDbHandler extends DbHandler {
     }
 
     if (dbName != null) {
-      int recordId = await _dbHandler.deleteRecord(
+      int recordId = await dbHandler.deleteRecord(
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
 
       /// Storing the data locally
-      if(!(options.extra.containsKey(DbConstants.notRequiredToStoreInQueue) && options.extra[DbConstants.notRequiredToStoreInQueue])) {
+      if(!options.notRequiredToStoreInQueue) {
         await _CommonDbHandler().insertQueueItem(options);
       }
     } else {
@@ -87,12 +87,12 @@ class _SchoolsDbHandler extends DbHandler {
     if (options.path.contains(Urls.schools)) {
       /// To get the school details
       List<Map<String, dynamic>>? schools =
-          await _dbHandler.query(SchoolDbConstants.schoolsTableName);
+          await dbHandler.query(SchoolDbConstants.schoolsTableName);
       return Response(
           requestOptions: options, data: schools ?? [], statusCode: 200);
     } else if (options.path.contains(Urls.schoolDetails)) {
       /// To get the school added details
-      List<Map<String, dynamic>>? schoolDetailsList = await _dbHandler.query(
+      List<Map<String, dynamic>>? schoolDetailsList = await dbHandler.query(
           SchoolDbConstants.schoolDetailsTableName,
           columnName: DbConstants.idColumnName,
           ids: [options.path.split('/').last.split('.').first]);
@@ -110,7 +110,7 @@ class _SchoolsDbHandler extends DbHandler {
       var paths = options.path.split('/');
       if (paths.length >= 2 &&
           paths[paths.length - 2].contains(Urls.students)) {
-        List<Map<String, dynamic>>? students = await _dbHandler.query(
+        List<Map<String, dynamic>>? students = await dbHandler.query(
             SchoolDbConstants.studentsTableName,
             columnName: SchoolDbConstants.schoolIdColumnName,
             ids: [paths.last.split('.').first]);
@@ -118,7 +118,7 @@ class _SchoolsDbHandler extends DbHandler {
             requestOptions: options, data: students ?? [], statusCode: 200);
       } else {
         /// To get the students based on the school
-        List<Map<String, dynamic>>? students = await _dbHandler.query(
+        List<Map<String, dynamic>>? students = await dbHandler.query(
             SchoolDbConstants.studentsTableName,
             columnName: DbConstants.idColumnName,
             ids: [paths.last.split('.').first]);
@@ -151,7 +151,7 @@ class _SchoolsDbHandler extends DbHandler {
 
     if (tableName != null) {
       var body = options.data[options.data.keys.first];
-      var response = await _dbHandler.insertData(tableName, body);
+      var response = await dbHandler.insertData(tableName, body);
 
       /// Storing the data locally
       if(!(options.notRequiredToStoreInQueue)) {
@@ -187,7 +187,7 @@ class _SchoolsDbHandler extends DbHandler {
 
     if (tableName != null && options.data is Map) {
       List<Map<String, dynamic>> items = <Map<String, dynamic>>[];
-      await _dbHandler.deleteTableData(tableName);
+      await dbHandler.deleteTableData(tableName);
 
         items = (options.data as Map<String, dynamic>).entries.map<
             Map<String, dynamic>>((e) => e.value).toList();
@@ -201,7 +201,7 @@ class _SchoolsDbHandler extends DbHandler {
         items = innerList;
       }
 
-      await _dbHandler.insertBulkData(tableName, items);
+      await dbHandler.insertBulkData(tableName, items);
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
 
@@ -215,13 +215,13 @@ class _SchoolsDbHandler extends DbHandler {
   @override
   Future<bool> deleteOutdatedData(int millisecondsSinceEpoch) async {
     await initializeDbIfNot();
-    await _dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
+    await dbHandler.deleteTableRowsBasedOnTheDate(millisecondsSinceEpoch);
     return true;
   }
 
   @override
   Future<bool> resetDataBase() async {
     await initializeDbIfNot();
-    return await _dbHandler.resetDataBase();
+    return await dbHandler.resetDataBase();
   }
 }
