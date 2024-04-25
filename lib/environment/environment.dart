@@ -18,9 +18,6 @@ class Environment {
   Environment._internal();
 
   void configure() {
-    const String? appFlavor = String.fromEnvironment('FLUTTER_APP_FLAVOR') != '' ?
-    String.fromEnvironment('FLUTTER_APP_FLAVOR') : null;
-
     ///Fetching selected flavor Flavor
     EnvironmentType environmentType = const String.fromEnvironment('FLUTTER_APP_FLAVOR').isNotEmpty ?
     (HelperMethods.enumFromString(EnvironmentType.values, const String.fromEnvironment('FLUTTER_APP_FLAVOR')) ?? EnvironmentType.defaultDash) : EnvironmentType.defaultDash;
