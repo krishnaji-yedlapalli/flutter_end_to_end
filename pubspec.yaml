@@ -125,7 +125,15 @@ flutter:
   assets:
      - asset/exception_error/
      - lib/services/db/queries/
-     - asset/leading_logo.png
+     - asset/default_dash_flavor/leading_logo.png
+     - asset/dart_flavor/dart_leading_logo.png
+     - asset/flutter_flavor/flutter_leading_logo.png
+#     - path: asset/dart_flavor/launcher_icons/dart_desktop.png
+#       flavors:
+#         - dart
+#     - path: asset/flutter_flavor/launcher_icons/flutter_logo.jpg
+#       flavors:
+#         - flutter
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

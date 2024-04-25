@@ -1,6 +1,6 @@
 flutter_launcher_icons:
-  image_path_android: "asset/launcher_icons/dash_android_desktop.jpeg"
-  image_path_ios: "asset/launcher_icons/dash_flutter.jpeg"
+  image_path_android: "asset/default_dash_flavor/launcher_icons/dash_android_desktop.jpeg"
+  image_path_ios: "asset/default_dash_flavor/launcher_icons/dash_flutter.jpeg"
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
   #  adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
@@ -11,13 +11,13 @@ flutter_launcher_icons:
   background_color_ios: "#ffffff"
   web:
     generate: true
-    image_path: "asset/launcher_icons/dash_flutter.jpeg"
+    image_path: "asset/default_dash_flavor/launcher_icons/dash_flutter.jpeg"
     background_color: "#hexcode"
     theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "asset/launcher_icons/dash_flutter.jpeg"
+    image_path: "asset/default_dash_flavor/launcher_icons/dash_flutter.jpeg"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "asset/launcher_icons/dash_flutter.jpeg"
+    image_path: "asset/default_dash_flavor/launcher_icons/dash_flutter.jpeg"
