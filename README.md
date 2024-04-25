@@ -87,11 +87,11 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 ## Product Flavors:
 
-  ####  Flavors are used to build applications on different use cases like different environment, like
+  ####  Flavors are used to build applications on different aspects like
 
  * Maintaining different environment.
- * Buidling different application on same code base for different customers by changning logos and App name.
- * Changning Configurations.
+ * Buidling application on same code base for different customers by changning logos and App name.
+ * Changning Configurations like colors,acess,etc.
 
 #### This application supports two build flavors 
 1. Flutter 
@@ -102,9 +102,11 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 `flutter run --flavor dart`
 
+`flutter run`
 
-      
-
+<img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
+<img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
+<img width="1434" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
 
 # Reference link to access the project on Web
  https://flutter-end-to-end.web.app
