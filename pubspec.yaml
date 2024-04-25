@@ -87,30 +87,30 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 
-flutter_launcher_icons:
+flutter_launcher_icons: 0.13.1
   #  image_path: "assets/images/icon-128x128.png"
-  image_path_android: "asset/launcher_icons/dash_android_desktop.jpeg"
-  image_path_ios: "asset/launcher_icons/dash_flutter.jpeg"
-  android: true # can specify file name here e.g. "ic_launcher"
-  ios: true # can specify file name here e.g. "My-Launcher-Icon"
-#  adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
-#  adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" # only available for Android 8.0 devices and above
-#  adaptive_icon_monochrome: "assets/images/icon-monochrome-432x432.png" # only available for Android 13 devices and above
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  remove_alpha_ios: true
-  background_color_ios: "#ffffff"
-  web:
-    generate: true
-    image_path: "asset/launcher_icons/dash_flutter.jpeg"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
-  windows:
-    generate: true
-    image_path: "asset/launcher_icons/dash_flutter.jpeg"
-    icon_size: 48 # min:48, max:256, default: 48
-  macos:
-    generate: true
-    image_path: "asset/launcher_icons/dash_flutter.jpeg"
+#  image_path_android: "asset/launcher_icons/dash_android_desktop.jpeg"
+#  image_path_ios: "asset/launcher_icons/dash_flutter.jpeg"
+#  android: true # can specify file name here e.g. "ic_launcher"
+#  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+##  adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
+##  adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" # only available for Android 8.0 devices and above
+##  adaptive_icon_monochrome: "assets/images/icon-monochrome-432x432.png" # only available for Android 13 devices and above
+#  min_sdk_android: 21 # android min sdk min:16, default 21
+#  remove_alpha_ios: true
+#  background_color_ios: "#ffffff"
+#  web:
+#    generate: true
+#    image_path: "asset/launcher_icons/dash_flutter.jpeg"
+#    background_color: "#hexcode"
+#    theme_color: "#hexcode"
+#  windows:
+#    generate: true
+#    image_path: "asset/launcher_icons/dash_flutter.jpeg"
+#    icon_size: 48 # min:48, max:256, default: 48
+#  macos:
+#    generate: true
+#    image_path: "asset/launcher_icons/dash_flutter.jpeg"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -125,7 +125,15 @@ flutter:
   assets:
      - asset/exception_error/
      - lib/services/db/queries/
-     - asset/leading_logo.png
+     - asset/default_dash_flavor/leading_logo.png
+     - asset/dart_flavor/dart_leading_logo.png
+     - asset/flutter_flavor/flutter_leading_logo.png
+#     - path: asset/dart_flavor/launcher_icons/dart_desktop.png
+#       flavors:
+#         - dart
+#     - path: asset/flutter_flavor/launcher_icons/flutter_logo.jpg
+#       flavors:
+#         - flutter
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
