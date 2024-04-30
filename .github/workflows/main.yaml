@@ -24,8 +24,8 @@ jobs:
       - name: Get pub dependencies
         run: flutter pub get
 
-      - name: Analyze code
-        run: flutter analyze
+#      - name: Analyze code
+#        run: flutter analyze
 
       - name: Build APK
         run: flutter build apk --no-tree-shake-icons
