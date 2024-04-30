@@ -12,7 +12,7 @@ class StudentModel {
 }
 
 class Tables extends StatefulWidget {
-  Tables({Key? key}) : super(key: key);
+  const Tables({Key? key}) : super(key: key);
 
   @override
   State<Tables> createState() => _TablesState();

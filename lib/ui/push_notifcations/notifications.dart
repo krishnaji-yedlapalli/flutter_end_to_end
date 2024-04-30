@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/ui/push_notifcations/firebase_push_notifications.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class NotificationWithRemoteAndLocal extends StatefulWidget {

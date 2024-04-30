@@ -6,7 +6,7 @@ class StepperExampleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StepperExample();
+    return const StepperExample();
   }
 }
 
@@ -90,7 +90,7 @@ class _StepperExampleState extends State<StepperExample> {
           child: Column(
               children: [
                 _stepperWithoutAction(),
-                Divider(),
+                const Divider(),
                 _stepperWithTapAction()
               ],
             ),
@@ -98,7 +98,7 @@ class _StepperExampleState extends State<StepperExample> {
         : Row(
             children: [
               Expanded(child: _stepperWithoutAction()),
-              VerticalDivider(),
+              const VerticalDivider(),
               Expanded(child: _stepperWithTapAction())
             ],
           );
@@ -112,7 +112,7 @@ class _StepperExampleState extends State<StepperExample> {
             currentStep: 5,
             // stepIconBuilder: (index, state) => Icon(Icons.add, size: 12),
             // connectorColor: MaterialStateProperty.all(Colors.black),
-            controlsBuilder: (_, controlDetails) => SizedBox(
+            controlsBuilder: (_, controlDetails) => const SizedBox(
                   height: 0,
                   width: 0,
                 ),
@@ -125,7 +125,7 @@ class _StepperExampleState extends State<StepperExample> {
                         ? Text(stepper.subtitle!)
                         : null,
                     title: Text(stepper.title),
-                    content: SizedBox(),
+                    content: const SizedBox(),
                     isActive: stepper.isActive,
                     state: stepper.state))
                 .toList()),
@@ -172,8 +172,8 @@ class _StepperExampleState extends State<StepperExample> {
                         child: Wrap(
                           direction: Axis.vertical,
                           children: [
-                            Text(stepper.content ?? '', style: TextStyle(color: Colors.orange)),
-                            Text(DateTime.now().subtract(Duration(days: _index)).toString(), style: TextStyle(color: Colors.purple))
+                            Text(stepper.content ?? '', style: const TextStyle(color: Colors.orange)),
+                            Text(DateTime.now().subtract(Duration(days: _index)).toString(), style: const TextStyle(color: Colors.purple))
                           ],
                         ),
                       ),

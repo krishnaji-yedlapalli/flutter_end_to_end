@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
-import '../../utils/enums_type_def.dart';
 
 class ExceptionView extends StatelessWidget {
   final ErrorDetails stateType;

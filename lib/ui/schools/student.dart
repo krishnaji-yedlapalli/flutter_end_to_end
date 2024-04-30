@@ -63,7 +63,7 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
         _buildStudent(student),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton.icon(onPressed: deleteStudent, icon: Icon(Icons.delete), label : Text('Delete Student'), style: ElevatedButton.styleFrom(backgroundColor: Colors.red)),
+          child: ElevatedButton.icon(onPressed: deleteStudent, icon: const Icon(Icons.delete), label : const Text('Delete Student'), style: ElevatedButton.styleFrom(backgroundColor: Colors.red)),
         )
       ],
     ).screenPadding();

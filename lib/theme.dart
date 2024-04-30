@@ -28,7 +28,7 @@ class CustomTheme {
           ),
 
       /// Card Theme
-      cardTheme: CardTheme(color: Colors.white ?? Colors.green.shade50, margin: EdgeInsets.all(16), shadowColor: Colors.greenAccent, elevation: 5, surfaceTintColor: Colors.white),
+      cardTheme: CardTheme(color: Colors.white ?? Colors.green.shade50, margin: const EdgeInsets.all(16), shadowColor: Colors.greenAccent, elevation: 5, surfaceTintColor: Colors.white),
 
       /// Text Theme data
       textTheme: TextTheme(
@@ -89,7 +89,7 @@ class CustomTheme {
         indicatorColor: Colors.orange.shade100,
         indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         // labelType: NavigationRailLabelType.selected,
-        selectedIconTheme: IconThemeData(
+        selectedIconTheme: const IconThemeData(
           color: Colors.orange,
           weight: 100,
         ),
@@ -97,11 +97,11 @@ class CustomTheme {
         unselectedLabelTextStyle: GoogleFonts.robotoSlab(color: Colors.green.shade500),
       ),
 
-      dialogTheme: DialogTheme(iconColor: Colors.orange),
+      dialogTheme: const DialogTheme(iconColor: Colors.orange),
 
       snackBarTheme: SnackBarThemeData(backgroundColor: Colors.black, contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)),
 
-      bannerTheme: MaterialBannerThemeData(backgroundColor: Colors.red, contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white), padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8), leadingPadding: EdgeInsets.all(0), elevation: 5),
+      bannerTheme: MaterialBannerThemeData(backgroundColor: Colors.red, contentTextStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white), padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8), leadingPadding: const EdgeInsets.all(0), elevation: 5),
 
       dataTableTheme: DataTableThemeData(
           decoration: BoxDecoration(
@@ -134,7 +134,7 @@ class CustomTheme {
           ),
       ),
 
-      dropdownMenuTheme: DropdownMenuThemeData(
+      dropdownMenuTheme: const DropdownMenuThemeData(
         textStyle: TextStyle(fontWeight: FontWeight.w100)
       ),
 
@@ -145,8 +145,8 @@ class CustomTheme {
   static ThemeData darkThemeData() {
     return ThemeData(
       brightness: Brightness.dark,
-      cardTheme: CardTheme(margin: EdgeInsets.all(16), elevation: 5),
-      appBarTheme: AppBarTheme(elevation: 5),
+      cardTheme: const CardTheme(margin: EdgeInsets.all(16), elevation: 5),
+      appBarTheme: const AppBarTheme(elevation: 5),
 
       /// Icon theme
       iconTheme: const IconThemeData(

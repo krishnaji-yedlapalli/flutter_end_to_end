@@ -25,7 +25,7 @@ class SqfLiteDbHandler {
              version: dbVersion,
              onCreate: (Database db, int version) => _onCreate(db, version, queryFileName),
              onUpgrade: (Database db, int oldVersion, int newVersion) => _onUpgrade(db, oldVersion, newVersion, queryFileName));
-    } catch (e, s) {
+    } catch (e) {
       rethrow;
     }
   }

@@ -20,7 +20,7 @@ class ShortcutActions extends StatelessWidget {
       },
       child:  Focus(
         autofocus: true,
-        child: Text('dfsd') ??  TextField(
+        child: const Text('dfsd') ??  TextField(
           controller: controller,
           autofocus: true,
           decoration: InputDecoration(

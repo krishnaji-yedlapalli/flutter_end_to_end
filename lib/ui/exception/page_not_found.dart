@@ -8,7 +8,7 @@ class PageNotFound extends StatelessWidget {
 
   final GoRouterState state;
 
-  PageNotFound(this.state, {Key? key}) : super(key: key);
+  const PageNotFound(this.state, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class PageNotFound extends StatelessWidget {
         builder: (context, constraints) {
           double? size = DeviceConfiguration.isMobileResolution ? null :  null;
           return Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
               alignment: Alignment.center,
               child: Image.asset('asset/exception_error/page_not_found.png', fit: BoxFit.scaleDown, height: size, width: size));
         }

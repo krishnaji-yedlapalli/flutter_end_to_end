@@ -35,7 +35,7 @@ class IsolateWithCompute extends StatelessWidget {
                   stream: stream.stream,
                   builder: (context, snapShotData) {
                     if (snapShotData.hasData) {
-                      return Text(snapShotData.data.toString(), style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold));
+                      return Text(snapShotData.data.toString(), style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold));
                     }
                     return const CircularProgressIndicator();
                   }),
@@ -67,7 +67,7 @@ class IsolateWithCompute extends StatelessWidget {
       // });
       var filteredCount = receivePort.first;
       stream.add(filteredCount);
-    }catch(e,s){
+    }catch(e){
       receivePort.close();
       debugPrint('Isolate spwan error');
     }

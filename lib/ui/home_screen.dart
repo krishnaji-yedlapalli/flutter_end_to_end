@@ -1,16 +1,11 @@
 import 'dart:ui';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/routing.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
-import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
 import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
-import 'package:sample_latest/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
@@ -273,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
           return Badge(
               label: Text('$count'),
               child: TextButton(
-                  onPressed: OfflineHandler().syncData, child: Text('Sync')));
+                  onPressed: OfflineHandler().syncData, child: const Text('Sync')));
         },
       ),
       content: const Align(alignment: Alignment.center, child: Text('Offline')),

@@ -62,7 +62,7 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   }
 
   Widget _buildLandScapeListView() {
-    return Row(children: [ListView.builder(itemCount: navigationRails.length, itemBuilder: (context, index) => ListTile()), Expanded(child: SizedBox())]);
+    return Row(children: [ListView.builder(itemCount: navigationRails.length, itemBuilder: (context, index) => const ListTile()), const Expanded(child: SizedBox())]);
   }
 
   Widget _buildNavigationRail(BuildContext context) {

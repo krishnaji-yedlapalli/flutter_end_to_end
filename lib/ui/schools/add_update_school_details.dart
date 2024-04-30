@@ -5,10 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
-import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
-import 'package:sample_latest/widgets/custom_dropdown.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
 class AddSchoolDetails extends StatefulWidget {
@@ -80,7 +78,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
               crossAxisAlignment: WrapCrossAlignment.center,
               runSpacing: 5,
               children: [
-                Text('Hostel Availability :'),
+                const Text('Hostel Availability :'),
                 Switch.adaptive(value: hostelAvailability, onChanged: (val) =>  hostelAvailability = val)
               ],
             )

@@ -1,13 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path/path.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/notifiers.dart';
-import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
-import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/ui/deep_linking/deep_linking.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
 import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
@@ -23,7 +18,6 @@ import 'package:sample_latest/ui/regular_widgets/material_components.dart';
 import 'package:sample_latest/ui/regular_widgets/dialogs.dart';
 import 'package:sample_latest/ui/regular_widgets/regular_widgets_dashboard.dart';
 import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/main.dart';
 import 'package:sample_latest/ui/automatic_keep_alive.dart';
 import 'package:sample_latest/ui/regular_widgets/selectable_text.dart';
 import 'package:sample_latest/ui/regular_widgets/tables.dart';
@@ -36,7 +30,6 @@ import 'package:sample_latest/ui/routing_features/shell_route/shell_routing.dart
 import 'package:sample_latest/ui/routing_features/state_ful_shell_routing_with_indexed.dart';
 import 'package:sample_latest/ui/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/ui/scrolling/scroll_types.dart';
-import 'package:sample_latest/ui/shortcuts/call_back_shortcuts.dart';
 import 'package:sample_latest/ui/regular_widgets/cards_list_view_grid.dart';
 import 'package:sample_latest/ui/schools/school_details.dart';
 import 'package:sample_latest/ui/schools/schools.dart';
@@ -100,7 +93,7 @@ class Routing {
               path: 'keepalive',
               name: 'KeepAlive screen',
               builder: (context, state) {
-                return AutomaticKeepAliveScreen();
+                return const AutomaticKeepAliveScreen();
               }),
           GoRoute(
               path: 'localization',
@@ -230,7 +223,7 @@ class Routing {
         path: tables,
         name: 'Tables',
         builder: (BuildContext context, GoRouterState state) {
-          return Tables();
+          return const Tables();
         },
       ),
       (
@@ -323,17 +316,17 @@ class Routing {
                 GoRoute(
                   path: 'child1',
                   parentNavigatorKey: shellNavigatorKey,
-                  builder: (context, state) =>  ShellChildOneChildOne(),
+                  builder: (context, state) =>  const ShellChildOneChildOne(),
                   routes: [
                     GoRoute(
                         path: 'child2',
                         parentNavigatorKey: shellNavigatorKey,
-                        builder: (context, state) =>  ShellChildOneChildTwo(),
+                        builder: (context, state) =>  const ShellChildOneChildTwo(),
                       routes: [
                         GoRoute(
                             path: 'child3',
                             parentNavigatorKey: shellNavigatorKey,
-                            builder: (context, state) =>  ShellChildOneChildThree())
+                            builder: (context, state) =>  const ShellChildOneChildThree())
                       ]
                     )
                   ]
@@ -344,9 +337,9 @@ class Routing {
       StatefulShellRoute.indexedStack(builder: (context, state, navigationShell) => StateFulShellRoutingWithIndexed(navigationShell: navigationShell),
           branches: [
             StatefulShellBranch(routes: [
-              GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hi', builder: (context, state) => Text('Hi'),),]),
-            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hello', builder: (context, state) => Text('Heloo'))]),
-            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hola', builder: (context, state) => Text('Hola'))]),
+              GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hi', builder: (context, state) => const Text('Hi'),),]),
+            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hello', builder: (context, state) => const Text('Heloo'))]),
+            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hola', builder: (context, state) => const Text('Hola'))]),
           ]
       ),
       GoRoute(path: RouteType.stateFullShellRoutingWithoutIndexed.name,

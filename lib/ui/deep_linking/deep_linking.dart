@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
@@ -29,7 +28,7 @@ class DeepLinkingTesting extends StatelessWidget with Validators {
               'Install the application and paste the copied URL into the browser/notes/messages app on the same device.\nUpon tapping the URL, it will automatically open the application instead of the device browser',
               textAlign: TextAlign.center,
             ),
-            CustomTextField(controller: urlCtrl, label: 'Enter path', prefix: '/home/', suffixIcon: IconButton(icon: Icon(Icons.clear), onPressed: () => urlCtrl.clear()), onChange: (val) => textListener.value = baseUrl + (val ?? '').trim(), maxLines: 2),
+            CustomTextField(controller: urlCtrl, label: 'Enter path', prefix: '/home/', suffixIcon: IconButton(icon: const Icon(Icons.clear), onPressed: () => urlCtrl.clear()), onChange: (val) => textListener.value = baseUrl + (val ?? '').trim(), maxLines: 2),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [

@@ -13,7 +13,7 @@ class CupertinoComponents extends StatefulWidget {
 
 class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWidget  {
 
-   List<String> _fruitNames = <String>[
+   final List<String> _fruitNames = <String>[
     'Apple',
     'Mango',
     'Banana',
@@ -21,7 +21,7 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
     'Pineapple',
     'Strawberry',
   ];
-   double _kItemExtent = 32.0;
+   final double _kItemExtent = 32.0;
    int _selectedFruit = 0;
 
 
@@ -29,7 +29,7 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Wrap(
           spacing: 50,
           runSpacing: 50,
@@ -50,14 +50,14 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
   Widget _buildActivityIndicator() {
     return buildTitleWithContent(
       title: 'Cupertino Activity Indicator',
-      content:CupertinoActivityIndicator(),
+      content:const CupertinoActivityIndicator(),
     );
   }
 
   Widget _buildCupertinoAlertDialog() {
     return buildTitleWithContent(
       title: 'Cupertino Alert Dialog',
-      content: CupertinoButton(child: const Text('Alert Dialog'), onPressed: _showAlertDialog),
+      content: CupertinoButton(onPressed: _showAlertDialog, child: const Text('Alert Dialog')),
     );
   }
 
@@ -96,7 +96,7 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
         CupertinoContextMenuAction(child: const Text('Paste'), onPressed: () => GoRouter.of(context).pop()),
       ],
        enableHapticFeedback: true,
-          child: RichText(text: TextSpan(text: 'Menu Item')))
+          child: RichText(text: const TextSpan(text: 'Menu Item')))
     );
   }
 

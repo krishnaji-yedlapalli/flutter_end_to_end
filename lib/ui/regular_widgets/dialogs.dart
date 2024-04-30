@@ -31,7 +31,7 @@ class Dialogs extends StatelessWidget {
         ElevatedButton(
           onPressed: () =>
               showDialogBasedOnType(context, DialogType.simpleDialogOption),
-          child: Text('Simple Dialog Option'),
+          child: const Text('Simple Dialog Option'),
         )
       ],
     ).screenPadding();
@@ -59,23 +59,23 @@ class Dialogs extends StatelessWidget {
       builder: (context) {
         return Dialog.fullscreen(
              insetAnimationCurve: Curves.bounceIn,
-            insetAnimationDuration: Duration(seconds: 3),
+            insetAnimationDuration: const Duration(seconds: 3),
             child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(),
+                const SizedBox(),
                 Text('Full Screen Dialog', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.purple)),
-                IconButton(onPressed: () =>  GoRouter.of(context).pop(), icon: Icon(Icons.close, size: 30, color: Colors.red))
+                IconButton(onPressed: () =>  GoRouter.of(context).pop(), icon: const Icon(Icons.close, size: 30, color: Colors.red))
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Divider(),
             ),
             sampleText,
-            Expanded(child: FlutterLogo(size: 200)),
+            const Expanded(child: FlutterLogo(size: 200)),
             sampleText
           ],
         ).screenPadding());
@@ -85,10 +85,10 @@ class Dialogs extends StatelessWidget {
 
   Widget alertDialog(BuildContext context) {
     return AlertDialog(
-      title: Text('Alert Dialog'),
+      title: const Text('Alert Dialog'),
       content: sampleText,
       actions: [
-        IconButton(onPressed: () => navigator(context), icon: Icon(Icons.close))
+        IconButton(onPressed: () => navigator(context), icon: const Icon(Icons.close))
       ],
       // insetPadding: ,
     );
@@ -96,15 +96,15 @@ class Dialogs extends StatelessWidget {
 
   Widget simpleDialog(BuildContext context) {
     return SimpleDialog(
-      title: Text('Simple Dialog'),
-      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      title: const Text('Simple Dialog'),
+      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       // insetPadding:  EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       children: sampleText.children
     );
   }
 
   Widget simpleDialogWithOptions(BuildContext context) {
-    return SimpleDialogOption(
+    return const SimpleDialogOption(
       child: Text(
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm"),
     );

@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/services/utils/db_constants.dart';
 
-import '../utils/enums_type_def.dart';
 import 'urls.dart';
 import 'utils/service_enums_typedef.dart';
 

@@ -13,7 +13,7 @@ class _LocalPushNotificationsState extends State<LocalPushNotifications> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         children: [
 

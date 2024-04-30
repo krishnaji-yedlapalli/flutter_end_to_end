@@ -6,7 +6,6 @@ import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/validators.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/custom_dropdown.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
@@ -78,7 +77,7 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
             ),
             CustomDropDown(
                 items: countries
-                    .map((e) => DropdownMenuItem(child: Text(e), value: e))
+                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 onChanged: (val) => selectedCountry = val,
                 value: selectedCountry,

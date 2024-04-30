@@ -20,9 +20,9 @@ class ShellChildOneChildOne extends StatelessWidget {
           Wrap(
             spacing: 5,
             children: [
-              IconButton.filledTonal(onPressed: context.read<RouteProvider>().decrease, icon: Icon(Icons.remove)),
+              IconButton.filledTonal(onPressed: context.read<RouteProvider>().decrease, icon: const Icon(Icons.remove)),
               Text('${context.watch<RouteProvider>().value}', style: Theme.of(context).textTheme.displaySmall),
-              IconButton.filledTonal(onPressed: context.read<RouteProvider>().increase, icon: Icon(Icons.add)),
+              IconButton.filledTonal(onPressed: context.read<RouteProvider>().increase, icon: const Icon(Icons.add)),
             ],
           ),
           ElevatedButton(onPressed: () => onTap(context), child: const Text('Navigate to Child 2')),

@@ -48,7 +48,7 @@ class _CallBackShortCutsViewState extends State<CallBackShortCutsView> with Help
                   spacing: 10,
                   children: [
                     Text('We can control the below count using below keyboard shortcuts : ', style: Theme.of(context).textTheme.titleSmall),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     iconWithText('Up Arrow', Icons.arrow_upward_outlined, 'Increment the value'),
                     iconWithText('Down Arrow', Icons.arrow_downward, 'Decrement the value'),
                     iconWithText('Ctrl + delete/backspace', Icons.clear, 'Reset the value to Zero')

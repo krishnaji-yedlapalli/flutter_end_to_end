@@ -33,25 +33,25 @@ class _EasyUpiPaymentsState extends State<EasyUpiPayments> {
                 children: [
                   TextField(
                     controller: vpaCtrl,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'VPA Address'
                     ),
                   ),
                   TextField(
                     controller: vpaNameCtrl,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Name'
                     ),
                   ),
                   TextField(
                     controller: vpaAmountCtrl,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Amount'
                     ),
                   ),
                   TextField(
                     controller: vpaDescriptionCtrl,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Description'
                     ),
                   ),
@@ -62,7 +62,7 @@ class _EasyUpiPaymentsState extends State<EasyUpiPayments> {
               child: Center(
                 child: ElevatedButton(
                   onPressed: onPayment,
-                  child: Text('Easy Upi payments'),
+                  child: const Text('Easy Upi payments'),
                 ),
               ),
             ),
@@ -87,7 +87,7 @@ class _EasyUpiPaymentsState extends State<EasyUpiPayments> {
       }else{
         showFailure();
       }
-    } catch(e,s) {
+    } catch(e) {
       showFailure();
     }
 
@@ -98,7 +98,7 @@ class _EasyUpiPaymentsState extends State<EasyUpiPayments> {
     showDialog(context: context,
         builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Success or failure'),
+          title: const Text('Success or failure'),
           content: Column(
             children: [
               Text('${transactionDetailModel.amount}'),
@@ -113,7 +113,7 @@ class _EasyUpiPaymentsState extends State<EasyUpiPayments> {
   void showFailure() {
     showDialog(context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return const AlertDialog(
             title: Text(' failure'),
             content: Column(
               children: [

@@ -22,15 +22,15 @@ class _CardsLayoutState extends State<CardsLayout> {
     return GridView.builder(
         shrinkWrap: true,
         itemCount: 5,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
         itemBuilder: (_, index) => Card(
           child: GridTile(
-              header : Title(color: Colors.red, child: Text('Friday'), ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+              header : Title(color: Colors.red, child: const Text('Friday'), ),
+            footer: const Text('End of the Week'),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: Text('Fun Day'),
           ),
-            footer: Text('End of the Week'),
           ),
         )
     );
@@ -41,7 +41,7 @@ class _CardsLayoutState extends State<CardsLayout> {
         shrinkWrap: true,
         itemCount: 5,
         // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 250),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 250),
         itemBuilder: (_, index) => Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -51,7 +51,7 @@ class _CardsLayoutState extends State<CardsLayout> {
               children: [
                 Text('Friday', style: Theme.of(context).textTheme.headlineSmall),
                 Text('Fun Day, Chill with the People', style: Theme.of(context).textTheme.bodyMedium),
-                Icon(Icons.access_alarm),
+                const Icon(Icons.access_alarm),
                 Text('End of the week !!', style: Theme.of(context).textTheme.labelMedium),
               ],
             ),

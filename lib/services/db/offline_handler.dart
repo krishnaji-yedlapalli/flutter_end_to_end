@@ -17,7 +17,6 @@ import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/extensions/dio_request_extension.dart';
-import 'package:sample_latest/services/db/db_handler.dart';
 
 import '../utils/abstract_db_handler.dart';
 
@@ -147,7 +146,7 @@ class OfflineHandler with BaseService {
       }
 
       status = true;
-    } catch (e, s) {
+    } catch (e) {
       status = false;
     } finally {
       navigatorKey.currentContext?.loaderOverlay.hide();
