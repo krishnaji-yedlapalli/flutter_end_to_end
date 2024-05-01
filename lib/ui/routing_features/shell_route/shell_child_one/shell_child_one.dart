@@ -34,9 +34,9 @@ class ShellChildOneChildOne extends StatelessWidget {
 
 
   void onTap(BuildContext context) {
-    var query = {
-      'id' : 123
-    };
+    // var query = {
+    //   'id' : 123
+    // };
     context.push('/home/route/parent/child1/child2', );
   }
 }
