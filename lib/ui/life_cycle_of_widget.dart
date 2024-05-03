@@ -51,9 +51,9 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton(onPressed: updateRandomName, child: Text('pass random button')),
-          ElevatedButton(onPressed: isolate, child: Text('isolates')),
-          ElevatedButton(onPressed: workManger, child: Text('work manger')),
+          ElevatedButton(onPressed: updateRandomName, child: const Text('pass random button')),
+          ElevatedButton(onPressed: isolate, child: const Text('isolates')),
+          ElevatedButton(onPressed: workManger, child: const Text('work manger')),
            LifeCycleChildWidget(randomName)
         ],
       ),
@@ -70,7 +70,7 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
     Workmanager().registerOneOffTask(
         si,
         si,
-        initialDelay: Duration(seconds: 10),
+        initialDelay: const Duration(seconds: 10),
         inputData: <String, dynamic>{
           'int': 1 }
     );
@@ -80,7 +80,7 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     int i = 0;
     while(i < a) {
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       // prefs.setInt('getTime', i);
       i++;
     }
@@ -110,11 +110,11 @@ class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget> with Single
   void initState() {
     print('idle phase 1 : ${SchedulerBinding.instance.schedulerPhase}'); /// SchedulerPhase.idle
 
-    ctrl = AnimationController(vsync: this, duration: Duration(seconds: 1))..addListener(() {
+    ctrl = AnimationController(vsync: this, duration: const Duration(seconds: 1))..addListener(() {
       print('Animation started phase : ${SchedulerBinding.instance.schedulerPhase}'); /// transient callbacks
     })..forward();
     /// this will be executed one frame is constructed only.
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       print('shceduler phase 2 : ${SchedulerBinding.instance.schedulerPhase}');
       someAsyncronusTask();
     },); ///

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/environment/environment.dart';
 import 'package:sample_latest/provider/common_provider.dart';
@@ -14,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   final Widget? leading;
 
-    CustomAppBar({required this.appBar, Key? key, this.title, this.actions, this.bottom, this.leading}) : super(key: key);
+    const CustomAppBar({required this.appBar, Key? key, this.title, this.actions, this.bottom, this.leading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

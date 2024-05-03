@@ -20,13 +20,14 @@ class ShortcutActions extends StatelessWidget {
       },
       child:  Focus(
         autofocus: true,
-        child: Text('dfsd') ??  TextField(
-          controller: controller,
-          autofocus: true,
-          decoration: InputDecoration(
-            icon: IconButton(onPressed: () => Actions.handler<ClearAllIntent>(context, const ClearAllIntent()), icon: const Icon(Icons.clear))
-          ),
-        ),
+        child: const Text('dfsd')
+        //     ??  TextField(
+        //   controller: controller,
+        //   autofocus: true,
+        //   decoration: InputDecoration(
+        //     icon: IconButton(onPressed: () => Actions.handler<ClearAllIntent>(context, const ClearAllIntent()), icon: const Icon(Icons.clear))
+        //   ),
+        // ),
       ),
     ));
   }

@@ -28,7 +28,7 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
     ];
     var count = 0;
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: !DeviceConfiguration.isMobileResolution ? SingleChildScrollView(
         child: Wrap(
           spacing: 50,
@@ -53,9 +53,9 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
         runSpacing: 20,
         spacing: 20,
         children: [
-          Badge(label: Text('20'), child: IconButton(onPressed: () {}, icon: Icon(Icons.message))),
-          Badge(label: Text('10+'), offset: Offset(10, 5), child: IconButton(onPressed: () {}, icon: Icon(Icons.notification_add))),
-          Badge(label: Text('200+'), offset: Offset(10, 10), child: IconButton(onPressed: () {}, icon: Icon(Icons.notification_add))),
+          Badge(label: const Text('20'), child: IconButton(onPressed: () {}, icon: const Icon(Icons.message))),
+          Badge(label: const Text('10+'), offset: const Offset(10, 5), child: IconButton(onPressed: () {}, icon: const Icon(Icons.notification_add))),
+          Badge(label: const Text('200+'), offset: const Offset(10, 10), child: IconButton(onPressed: () {}, icon: const Icon(Icons.notification_add))),
         ],
       ),
     );
@@ -68,13 +68,13 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Checkbox(value: value, onChanged: onChange),
-            SizedBox(width: 300, child: CheckboxListTile(title: Text('CheckBox List Tile'), value: value, onChanged: onChange)),
+            SizedBox(width: 300, child: CheckboxListTile(title: const Text('CheckBox List Tile'), value: value, onChanged: onChange)),
             SizedBox(
              width: 300,
               child: CheckboxMenuButton(
-                child: Text('Heloo'),
                 onChanged: onChangeCheckBoxMenuItem,
                 value: checkBoxMenuItem,
+                child: const Text('Heloo'),
               ),
             ),
           ],
@@ -87,11 +87,11 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
         content: Wrap(
           spacing: 15,
           children: [
-            Chip(label: Text('Chip')),
-            Chip(label: Text('Chip'), deleteIcon: Icon(Icons.close), onDeleted: (){}),
-            Chip(label: Text('Chip'), deleteIcon: Icon(Icons.close), onDeleted: (){}, avatar: Icon(Icons.person)),
-            Chip(label: Text('Chip'), deleteIcon: Icon(Icons.close), onDeleted: (){}, avatar: Icon(Icons.person), side: BorderSide(width: 2)),
-            Chip(label: Text('Chip'), deleteIcon: Icon(Icons.close), onDeleted: (){}, avatar: Icon(Icons.person), shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(20),bottomRight: Radius.circular(20)))),
+            const Chip(label: Text('Chip')),
+            Chip(label: const Text('Chip'), deleteIcon: const Icon(Icons.close), onDeleted: (){}),
+            Chip(label: const Text('Chip'), deleteIcon: const Icon(Icons.close), onDeleted: (){}, avatar: const Icon(Icons.person)),
+            Chip(label: const Text('Chip'), deleteIcon: const Icon(Icons.close), onDeleted: (){}, avatar: const Icon(Icons.person), side: const BorderSide(width: 2)),
+            Chip(label: const Text('Chip'), deleteIcon: const Icon(Icons.close), onDeleted: (){}, avatar: const Icon(Icons.person), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(20),bottomRight: Radius.circular(20)))),
           ],
         ));
   }
@@ -99,7 +99,7 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
   Widget _progressIndicators() {
     return  buildTitleWithContent(
         title: 'Progress Indicators',
-        content: Wrap(
+        content: const Wrap(
           spacing: 20,
           runSpacing: 20,
           direction: Axis.vertical,
@@ -124,11 +124,11 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
                 Radio(value: 1, groupValue: radioGroupValue, onChanged: onChangeRadioButton),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
               child: VerticalDivider(),
             ),
-            SizedBox(width: 300, child: RadioListTile(title: Text('CheckBox List Tile'), value: 2, groupValue: radioGroupValue, onChanged: onChangeRadioButton)),
+            SizedBox(width: 300, child: RadioListTile(title: const Text('CheckBox List Tile'), value: 2, groupValue: radioGroupValue, onChanged: onChangeRadioButton)),
             // Radio.adaptive(value: value, groupValue: groupValue, onChanged: onChanged)
           ],
         ));
@@ -171,10 +171,10 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
     return buildTitleWithContent(title: 'Floating Action Buttons', content: Wrap(
       spacing: 20,
       children: [
-       FloatingActionButton(onPressed: (){}, child: Icon(Icons.edit)),
-       FloatingActionButton.extended(onPressed: (){}, label: Text('Extended !!!')),
-        FloatingActionButton.large(onPressed: (){}, child: Text('Large')),
-        FloatingActionButton.small(onPressed: (){}, child: Text('Small'))
+       FloatingActionButton(onPressed: (){}, child: const Icon(Icons.edit)),
+       FloatingActionButton.extended(onPressed: (){}, label: const Text('Extended !!!')),
+        FloatingActionButton.large(onPressed: (){}, child: const Text('Large')),
+        FloatingActionButton.small(onPressed: (){}, child: const Text('Small'))
       ],
     ));
   }
@@ -255,20 +255,19 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
         // icon: Icon(Icons.dialpad_outlined),
         itemBuilder: (context) {
       return <PopupMenuEntry<int>>[
-        const PopupMenuItem<int>(child: Text('Pop up 1'),
-        value: 0,
+        const PopupMenuItem<int>(value: 0,child: Text('Pop up 1'),
         ),
         const PopupMenuDivider(height: 0.5),
-        const PopupMenuItem(child: Text('Pop up 2'), value: 1,),
+        const PopupMenuItem(value: 1,child: Text('Pop up 2'),),
         const PopupMenuDivider(height: 0.5),
-        const PopupMenuItem(child: Text('Disabled Item'), value: 2, enabled: false,),
+        const PopupMenuItem(value: 2, enabled: false,child: Text('Disabled Item'),),
       ];
     },
         child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(),
-              borderRadius: BorderRadius.all(Radius.circular(2))
+              borderRadius: const BorderRadius.all(Radius.circular(2))
             ),
             child: const Text('Pop up Items')))
     );
@@ -284,11 +283,11 @@ class _MaterialComponentsState extends State<MaterialComponents> with HelperWidg
         children : [
            MenuAnchor(menuChildren: [
              MenuItemButton(
-               child: Text('Sample 1'),
+               child: const Text('Sample 1'),
                onPressed: () {},
              ),
              MenuItemButton(
-               child: Text('Sample 2'),
+               child: const Text('Sample 2'),
                onPressed: () {},
              ),
            ])

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/ui/schools/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/ui/regular_widgets/dialogs.dart';
 import 'package:sample_latest/ui/schools/db_configurations_for_devs.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
@@ -38,7 +35,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         title: const Text('Schools'),
         appBar: AppBar(),
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: Text('Create School'), icon: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: const Text('Create School'), icon: const Icon(Icons.add)),
       body: BlocListener<SchoolBloc, SchoolState>(
         listener: (context, state) {
          buildAlertDialog(context, title : '!!! Welcome to School Module !!!', content : 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
@@ -119,7 +116,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
               ),
               onTap: () => onTapOfSchool(school),
             );
-          }, separatorBuilder: (BuildContext context, int index) => Divider()),
+          }, separatorBuilder: (BuildContext context, int index) => const Divider()),
     );
   }
 

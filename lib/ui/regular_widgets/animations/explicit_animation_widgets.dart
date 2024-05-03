@@ -49,16 +49,16 @@ class _ExplicitAnimationsWidgetsState extends State<ExplicitAnimationsWidgets> w
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey, width: 0.5),
-                borderRadius: BorderRadius.all(Radius.circular(10))
+                borderRadius: const BorderRadius.all(Radius.circular(10))
             ),
             child: buildTitleWithContent(title: animationList.elementAt(index).name, content: _buildAnimationView(index), hideBorder: true)));
   }
 
   Widget _buildAnimationView(int index){
     return switch(index){
-    0 => SizedBox(),
-    1 => SizedBox(),
-    _ => SizedBox()
+    0 => const SizedBox(),
+    1 => const SizedBox(),
+    _ => const SizedBox()
   };
   }
 

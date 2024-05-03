@@ -16,7 +16,7 @@ class ShellRouting extends StatelessWidget {
         child: Scaffold(
           appBar: CustomAppBar(
             title: const Text('Shell Routing'),
-            leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
+            leading: IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () {
               if(GoRouter.of(context).canPop()) GoRouter.of(context).pop();
             },),
             appBar: AppBar(),

@@ -34,7 +34,7 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
   double targetValue = 48;
   bool flag = false;
   double scale = .0;
-  Offset offset = Offset(0, 0);
+  Offset offset = const Offset(0, 0);
   double opacity = .0 ;
   double turns = 0.0;
 
@@ -81,7 +81,7 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
             alignment: Alignment.center,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey, width: 0.5),
-              borderRadius: BorderRadius.all(Radius.circular(10))
+              borderRadius: const BorderRadius.all(Radius.circular(10))
             ),
             child: buildTitleWithExpandedContent(title: animationList.elementAt(index).name, content: _buildAnimationView(index), hideBorder: true)));
   }
@@ -96,7 +96,7 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
     5 => _buildAnimatedRotation,
     6 => _buildAnimatedSlide,
     7 => _buildAnimatedOpacity,
-    _ => SizedBox()
+    _ => const SizedBox()
   };
   }
 
@@ -105,7 +105,7 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
       tween: Tween<double>(begin: 0, end: targetValue),
       duration: const Duration(seconds: 1),
       builder: (BuildContext context, double size, Widget? child) {
-        return FlutterLogo(size: 80);
+        return const FlutterLogo(size: 80);
       },
       child: const Icon(Icons.aspect_ratio),
     );
@@ -114,7 +114,7 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
   
   Widget get _animatedAlignBuilder {
     return AnimatedAlign(
-        alignment: flag ? Alignment.topRight : Alignment.bottomLeft, duration: Duration(seconds: 1),
+        alignment: flag ? Alignment.topRight : Alignment.bottomLeft, duration: const Duration(seconds: 1),
         child: const FlutterLogo(size: 80),
     );
   }
@@ -125,14 +125,14 @@ class _ImplicitAnimationsState extends State<ImplicitAnimationsWidgets> with Hel
       height: flag ? 50 : 0,
       duration: const Duration(seconds: 1),
       color: Colors.black26,
-      child: FlutterLogo(),
+      child: const FlutterLogo(),
     );
   }
 
   Widget get _animatedDefaultTextStyle {
     return Align(
         alignment: Alignment.center,
-        child: AnimatedDefaultTextStyle(textAlign: TextAlign.center, style: flag ? TextStyle(fontWeight: FontWeight.bold, color: Colors.purpleAccent,) : TextStyle(fontWeight: FontWeight.w300, color: Colors.cyan), duration: Duration(seconds: 1), child: const Text('Heloo World, Lets practice implicit animations')));
+        child: AnimatedDefaultTextStyle(textAlign: TextAlign.center, style: flag ? const TextStyle(fontWeight: FontWeight.bold, color: Colors.purpleAccent,) : const TextStyle(fontWeight: FontWeight.w300, color: Colors.cyan), duration: const Duration(seconds: 1), child: const Text('Heloo World, Lets practice implicit animations')));
   }
 
   Widget get _animatedScale {

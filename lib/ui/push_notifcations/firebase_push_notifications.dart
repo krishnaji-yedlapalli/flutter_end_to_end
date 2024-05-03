@@ -1,18 +1,14 @@
 
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
-import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/validators.dart';
 import 'package:sample_latest/services/base_service.dart';
 import 'package:sample_latest/services/utils/service_enums_typedef.dart';
-import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
 class FirebasePushNotifications extends StatefulWidget {
@@ -84,7 +80,7 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
                 ElevatedButton(onPressed: _requestPermissions, child: const Text('Request Notification Permissions')),
               ],
             ),
-            Divider(),
+            const Divider(),
             Column(
               // direction: Axis.vertical,
               children: [
@@ -100,7 +96,7 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
             ),
             // Divider(),
             // ElevatedButton.icon(onPressed: DefaultFirebaseOptions.deleteToken, label: const Text('Delete Token'), icon: Icon(Icons.delete)),
-            Divider(),
+            const Divider(),
             Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: formKey,
@@ -108,7 +104,7 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
                 spacing: 10,
                 runSpacing: 10,
                 children: [
-                  CustomTextField(controller: tokenCtrl, label: 'Paste the Registration Token', suffixIcon: IconButton(icon: Icon(Icons.clear), onPressed: ()=> tokenCtrl.clear()), validator: (val) => textEmptyValidator(val, 'Token required')),
+                  CustomTextField(controller: tokenCtrl, label: 'Paste the Registration Token', suffixIcon: IconButton(icon: const Icon(Icons.clear), onPressed: ()=> tokenCtrl.clear()), validator: (val) => textEmptyValidator(val, 'Token required')),
                   CustomTextField(controller: titleCtrl, label: 'Message Title', validator: (val) => textEmptyValidator(val, 'Message Title required')),
                   CustomTextField(controller: bodyCtrl, label: 'Message Body', validator: (val) => textEmptyValidator(val, 'Message Body required')),
                   CustomTextField(controller: pageCtrl, label: 'Page Navigation', validator: (val) => textEmptyValidator(val, 'Page navigation is required')),
@@ -200,7 +196,7 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
         var snack = const SnackBar(content: Text('Successfully sent the message!!!'));
         ScaffoldMessenger.of(context).showSnackBar(snack);
       }
-    }catch(e,s){
+    }catch(e){
 
     }
   }

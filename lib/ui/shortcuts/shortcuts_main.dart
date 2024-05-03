@@ -26,7 +26,7 @@ class _ShortcutsTabViewState extends State<ShortcutsTabView> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appBar: AppBar(), title: Text('Shortcuts')),
+      appBar: CustomAppBar(appBar: AppBar(), title: const Text('Shortcuts')),
       body: Shortcuts(
         // bindings: <SingleActivator, VoidCallback>{
         //   SingleActivator(LogicalKeyboardKey.arrowLeft) : () {
@@ -37,8 +37,8 @@ class _ShortcutsTabViewState extends State<ShortcutsTabView> with SingleTickerPr
         //   }
         // },
         shortcuts: <LogicalKeySet, Intent>{
-        LogicalKeySet(LogicalKeyboardKey.arrowRight) : TabChangeRightIntent(),
-        LogicalKeySet(LogicalKeyboardKey.arrowLeft) : TabChangeLeftIntent()
+        LogicalKeySet(LogicalKeyboardKey.arrowRight) : const TabChangeRightIntent(),
+        LogicalKeySet(LogicalKeyboardKey.arrowLeft) : const TabChangeLeftIntent()
         },
         child: Actions(
           actions: <Type, Action>{
@@ -50,7 +50,7 @@ class _ShortcutsTabViewState extends State<ShortcutsTabView> with SingleTickerPr
                 TabBar(
                     controller: tabCtrl,
                     isScrollable: true,
-                    tabs: [
+                    tabs: const [
                   Tab(text: 'Call Back Shortcuts'),
                   Tab(text: 'Action Shortcuts'),
                 ]),
@@ -71,7 +71,7 @@ class _ShortcutsTabViewState extends State<ShortcutsTabView> with SingleTickerPr
 }
 
 class TabChangeRightIntent extends Intent {
-  TabChangeRightIntent();
+  const TabChangeRightIntent();
 }
 
 class TabChangeRightAction extends Action<TabChangeRightIntent> {
@@ -82,11 +82,12 @@ class TabChangeRightAction extends Action<TabChangeRightIntent> {
   @override
   Object? invoke(covariant TabChangeRightIntent intent) {
     tabController.animateTo(1);
+    return null;
   }
 }
 
 class TabChangeLeftIntent extends Intent {
-  TabChangeLeftIntent();
+  const TabChangeLeftIntent();
 }
 
 class TabChangeLeftAction extends Action<TabChangeLeftIntent> {
@@ -97,5 +98,6 @@ class TabChangeLeftAction extends Action<TabChangeLeftIntent> {
   @override
   Object? invoke(TabChangeLeftIntent intent) {
     tabController.animateTo(0);
+    return null;
   }
 }

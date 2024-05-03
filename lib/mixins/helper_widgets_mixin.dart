@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,7 +17,7 @@ mixin HelperWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: content,
             ),
-           if(!DeviceConfiguration.isMobileResolution && !hideBorder) SizedBox(width : 150, child: Divider())
+           if(!DeviceConfiguration.isMobileResolution && !hideBorder) const SizedBox(width : 150, child: Divider())
           ],
         );
       }
@@ -41,7 +40,7 @@ mixin HelperWidget {
                    child: content,
                  ),
                ),
-               if(!DeviceConfiguration.isMobileResolution && !hideBorder) SizedBox(width : 150, child: Divider())
+               if(!DeviceConfiguration.isMobileResolution && !hideBorder) const SizedBox(width : 150, child: Divider())
              ],
            ),
          );
@@ -92,7 +91,7 @@ mixin HelperWidget {
                      softWrap: true,
                      text: TextSpan(
                    text: '${AppLocalizations.of(context)!.description} :',
-                  style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.black),
+                  style: const TextStyle(fontWeight: FontWeight.bold,  color: Colors.black),
                   children: [
                     TextSpan(
                       text: des,
@@ -101,7 +100,7 @@ mixin HelperWidget {
                   ]
                  )),
                ),
-               Text('$value', style: TextStyle(backgroundColor: Colors.grey.shade200)),
+               Text(value, style: TextStyle(backgroundColor: Colors.grey.shade200)),
              ],
            ),
        );

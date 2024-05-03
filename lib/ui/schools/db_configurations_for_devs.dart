@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
-import 'package:sample_latest/widgets/text_field.dart';
 
 class DbConfigurationDialog extends StatefulWidget {
   const DbConfigurationDialog({Key? key}) : super(key: key);
@@ -44,7 +41,7 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
                 isThreeLine: true,
                 value: DbConfigurationsByDev.storeOnlyIfOffline,
                 onChanged: (status) => onSelection(0, status)),
-            Divider(),
+            const Divider(),
             CheckboxListTile(
                 title: const Text('Online & Offline Mode'),
                 subtitle: const Text('Irrespective of Internet data will be stored in local db and data will be deleted based on the configured date'),
@@ -60,7 +57,7 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog> with Cust
                  ],
                ),
              ),
-            Divider(),
+            const Divider(),
             CheckboxListTile(
                 title: const Text('Dumping Offline Data'),
                 subtitle: const Text('Data will be dumped into the local DB at the time login or Module loading. Later it is used making some operations'),

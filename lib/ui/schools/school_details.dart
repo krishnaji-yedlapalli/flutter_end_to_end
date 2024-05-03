@@ -14,8 +14,6 @@ import 'package:sample_latest/ui/schools/add_update_school_details.dart';
 import 'package:sample_latest/ui/schools/create_update_student.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
-import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 import '../../bloc/school/school_bloc.dart';
 
@@ -83,7 +81,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
                 widget.school?.schoolName ?? '',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: 'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill, placeholder: (context, error) {return Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
+            background: CachedNetworkImage(imageUrl: 'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill, placeholder: (context, error) {return const Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
           ),
         ),
     SliverToBoxAdapter(

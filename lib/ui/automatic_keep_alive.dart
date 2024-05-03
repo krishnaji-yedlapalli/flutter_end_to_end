@@ -106,7 +106,9 @@ class _ListDataState extends State<ListData>
     const String chars = '0123456789ABCDEF';
     int length = 3;
     String hex = '0xe';
-    while(length-- > 0) hex += chars[(random.nextInt(16)) | 0];
+    while(length-- > 0) {
+      hex += chars[(random.nextInt(16)) | 0];
+    }
     return IconData(int.parse(hex), fontFamily: 'MaterialIcons');
   }
 }

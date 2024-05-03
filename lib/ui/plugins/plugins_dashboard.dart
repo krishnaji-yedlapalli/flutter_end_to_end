@@ -17,7 +17,7 @@ class PluginsDashboard extends StatelessWidget with CardWidgetsMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
-          title: Text('Plugins'),
+          title: const Text('Plugins'),
           appBar: AppBar(),
         ),
         body: GridView.builder(

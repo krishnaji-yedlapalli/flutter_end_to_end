@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +21,6 @@ import 'package:sample_latest/theme.dart';
 import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:workmanager/workmanager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // @pragma('vm:entry-point')
@@ -150,7 +148,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     builder: (BuildContext context, Widget? child){
                       var data = MediaQuery.of(context);
                       return MediaQuery(data:data.copyWith(
-                        textScaleFactor : data.textScaleFactor,
+                        textScaler: TextScaler.linear(data.textScaleFactor),
                       ),
                           child: child ?? Container());
                     },
