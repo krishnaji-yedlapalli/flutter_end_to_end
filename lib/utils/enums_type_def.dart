@@ -13,3 +13,5 @@ enum ApplicationType {mobile, web, desktop}
 
 enum PluginType {youtube, localAuthentication, localNotifications, sharePlus, audioPlayer, networkInfo }
 
+typedef OfflineDumpingStatus = ({String title, int percentage})?;
+

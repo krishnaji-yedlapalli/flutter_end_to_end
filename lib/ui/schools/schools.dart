@@ -11,7 +11,9 @@ import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/ui/schools/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/ui/schools/db_configurations_for_devs.dart';
+import 'package:sample_latest/ui/schools/dumping_status.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
 
 class Schools extends StatefulWidget {
@@ -56,6 +58,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
                 spacing: 10,
                 children: [
                   _buildSyncButton(),
+                  _buildDumpOfflineButton(),
                   _buildDbConfigurationsButtonForDevelopment(),
                   _buildDbClearButton()
                 ],
@@ -142,6 +145,25 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     }, child: const Text('Set Db Configurations'));
   }
 
+  Widget _buildDumpOfflineButton() {
+    return  StreamBuilder<OfflineDumpingStatus>(
+      stream: OfflineHandler().dumpingOfflineDataStatus.stream,
+      builder: (context, snapshot) {
+        Widget child;
+        OfflineDumpingStatus status = snapshot.data;
+        if(status != null){
+          child = Wrap(children: [
+            Text(status.title),
+            Text('${status.percentage}%')
+          ]);
+        }else{
+          child = const Text('Dump Offline Data');
+        }
+        return  ElevatedButton(onPressed: status == null ? onTapOfDumpStatus : ()=> onTapOfDumpStatus(true), child: child);
+      },
+    );
+  }
+
   Widget _buildDbClearButton() {
     return  ElevatedButton.icon(onPressed: OfflineHandler().eraseAllDatabaseData, icon: const Icon(Icons.refresh), label: const Text('Reset Whole Db'));
   }
@@ -165,6 +187,11 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
 
   onTapOfSchoolDelete(String schoolId) {
     BlocProvider.of<SchoolBloc>(context).add(DeleteSchoolEvent(schoolId));
+  }
+
+  onTapOfDumpStatus([bool isRunning = false]) {
+    if(!isRunning) OfflineHandler().dumpOfflineData();
+    adaptiveDialog(context, const DumpingStatusView());
   }
 
 }
