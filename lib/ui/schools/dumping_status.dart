@@ -59,7 +59,7 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
                       fontWeight: FontWeight.bold, color: Colors.black)),
               TextSpan(
                   text:
-                      ' In our dumping process, we extract huge amounts of school and student data from a zip file and store it in a local database. This entire process runs in an isolate, ensuring a smoother experience without cluttering the UI screen with unnecessary details.',
+                      ' In dumping process, we extract huge amounts of school and student data from a zip file and store it in a local database. This entire process runs in an isolate, ensuring a smoother experience without cluttering the UI screen with unnecessary details.',
                   style: TextStyle(color: Colors.black))
             ])),
           )
@@ -83,27 +83,48 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
   }
 
   Widget _buildDownloadingStatus(OfflineDumpingStatus status) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text('${status?.title}'),
-        SizedBox(
-          height: 100,
-          width: 100,
-          child: LiquidCircularProgressIndicator(
-                value: (status?.percentage ?? 0)/100, // Defaults to 0.5.
-                // valueColor: AlwaysStoppedAnimation(Colors
-                //     .pink), // Defaults to the current Theme's accentColor.
-                // backgroundColor: Colors
-                //     .white, // Defaults to the current Theme's backgroundColor.
-                // borderColor: Colors.red,
-                // borderWidth: 5.0,
-                direction: Axis
-                    .vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
-                // center: Text("Loading..."),
-              )
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+            child: Column(
+              // direction: Axis.vertical,
+              // crossAxisAlignment: WrapCrossAlignment.center,
+              // spacing : 10,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+               Padding(
+                 padding: const EdgeInsets.only(bottom: 8.0),
+                 child: Image.asset(status!.percentage >= 100 ? 'asset/gifs/happy.gif' : 'asset/gifs/waiting.gif', height: 100,),
+               ),
+                Text(status.title, style: TextStyle(color: Colors.orange)),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: SizedBox(
+                height: 100,
+                width: 100,
+                child: LiquidCircularProgressIndicator(
+                      value: (status?.percentage ?? 0)/100, // Defaults to 0.5.
+                      // valueColor: AlwaysStoppedAnimation(Colors
+                      //     .pink), // Defaults to the current Theme's accentColor.
+                      // backgroundColor: Colors
+                      //     .white, // Defaults to the current Theme's backgroundColor.
+                      // borderColor: Colors.red,
+                      // borderWidth: 5.0,
+                      direction: Axis
+                          .vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
+                      // center: Text("Loading..."),
+                    )
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 

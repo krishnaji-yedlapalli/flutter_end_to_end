@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
 import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
@@ -18,7 +19,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
+class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDialogs {
   late final AppLifecycleListener _lifeCycleListener;
 
   // GlobalKey offlineBannerKey = GlobalKey();
@@ -32,6 +33,9 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin {
         onExitRequested: _onExit);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+     // if(DeviceConfiguration.isWeb) buildAlertDialog(context, title : '!!! Hey !!!', content : 'Discover how Android and iOS apps utilize Offline, background, and Isolate functionalities. Install now');
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Some features are currently on development')));
       _buildMaterialBanner();

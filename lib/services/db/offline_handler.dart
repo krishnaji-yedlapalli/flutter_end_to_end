@@ -128,43 +128,6 @@ class OfflineHandler with BaseService {
     return status;
   }
 
-  // /// Store offline data from the server
-  // Future<bool> dumpOfflineData() async {
-  //   var status = false;
-  //   try {
-  //     if ((await updateQueueItemsCount()) > 0) await syncData();
-  //
-  //     navigatorKey.currentContext?.loaderOverlay.show();
-  //
-  //     /// Fetching school information
-  //     var schools = await makeRequest(url: '${Urls.schools}.json', isOfflineApi: false);
-  //
-  //     if (schools != null) {
-  //       await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.schools, method: RequestType.store.name, data: schools));
-  //     }
-  //
-  //     /// Fetching school details
-  //     var schoolDetailsList = await makeRequest(url: '${Urls.schoolDetails}.json', isOfflineApi: false);
-  //     if (schoolDetailsList != null) {
-  //       await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.schoolDetails, method: RequestType.store.name, data: schoolDetailsList));
-  //     }
-  //
-  //     /// Fetching student information
-  //     var students = await makeRequest(url: '${Urls.students}.json', isOfflineApi: false);
-  //     if (students != null) {
-  //       await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.students, method: RequestType.store.name, data: students));
-  //     }
-  //
-  //     status = true;
-  //   } catch (e) {
-  //     status = false;
-  //   } finally {
-  //     navigatorKey.currentContext?.loaderOverlay.hide();
-  //   }
-  //
-  //   return status;
-  // }
-
   /// Store offline data from the server
   Future<bool> dumpOfflineData() async {
     var status = false;
@@ -176,41 +139,39 @@ class OfflineHandler with BaseService {
 
       if ((await updateQueueItemsCount()) > 0) await syncData();
 
-      for(int i =0; i < 10; i++){
-        await Future.delayed(const Duration(milliseconds: 100));
-        dumpingOfflineDataStatus.add((title: 'Downloading Data.......', percentage: i));
-      }
-
-      // dumpingOfflineDataStatus.add(
-      //     (title: 'Extracting Data from Zip', percentage: 40));
+      dumpingOfflineDataStatus.add((title: 'Loading Zip File.......', percentage: 10));
 
       RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
+      _SchoolsDbHandler().initializeDbIfNot();
+      var completer = Completer();
 
-      var com = Completer();
+      /// Loading Zip Data
+      ByteData byteData = await rootBundle.load("asset/school_data.zip");
 
-      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData, [receivePort.sendPort, rootIsolateToken]);
 
+      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData, [receivePort.sendPort, rootIsolateToken, byteData]);
+
+      /// Listening to the Dumping status
       receivePort.listen((message) {
         if(message == 'success'){
-          com.complete();
+          completer.complete();
         }else {
           dumpingOfflineDataStatus.add(
-              (title: 'Extracting Data from Zip', percentage: 50));
-          // com.complete();
+              (title: message.title, percentage: message.percentage));
         }
       });
 
-      await com.future;
+      /// Once data dumping is success or failure this future is completed
+      await completer.future;
 
       dumpingOfflineDataStatus.add((title: 'Successfully Dumped.......', percentage: 100));
-      await Future.delayed(const Duration(seconds: 2));
-      dumpingOfflineDataStatus.add(null);
-
+      await Future.delayed(const Duration(seconds: 1)); /// Delay is added for better experience
+      status = true;
     } catch (e) {
       status = false;
     } finally {
+      dumpingOfflineDataStatus.add(null);
       receivePort.close();
-      // navigatorKey.currentContext?.loaderOverlay.hide();
     }
 
     return status;

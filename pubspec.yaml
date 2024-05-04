@@ -132,6 +132,8 @@ flutter:
      - asset/dart_flavor/dart_leading_logo.png
      - asset/flutter_flavor/flutter_leading_logo.png
      - asset/school_data.zip
+     - asset/gifs/waiting.gif
+     - asset/gifs/happy.gif
 #     - path: asset/dart_flavor/launcher_icons/dart_desktop.png
 #       flavors:
 #         - dart
