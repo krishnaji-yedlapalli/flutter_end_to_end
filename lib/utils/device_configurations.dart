@@ -52,6 +52,8 @@ class DeviceConfiguration {
 
   static bool get isMobileResolution =>  _deviceResolutionType == DeviceResolutionType.mobile;
 
+  static bool get isTabResolution =>  _deviceResolutionType == DeviceResolutionType.tab;
+
   static DeviceResolutionType get resolutionType =>  _deviceResolutionType;
 
   static bool get isPortrait =>  _orientationType == Orientation.portrait;

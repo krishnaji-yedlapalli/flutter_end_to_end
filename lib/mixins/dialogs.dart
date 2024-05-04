@@ -12,7 +12,7 @@ mixin CustomDialogs {
               child: SizedBox(
             width: DeviceConfiguration.isMobileResolution
                 ? null
-                : MediaQuery.of(context).size.width / 3,
+                : DeviceConfiguration.isTabResolution ? MediaQuery.of(context).size.width / 2 : MediaQuery.of(context).size.width / 3,
             child: content,
           ));
         });

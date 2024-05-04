@@ -1,8 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:typed_data';
 
+import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
 import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
@@ -17,14 +23,17 @@ import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/extensions/dio_request_extension.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 import '../utils/abstract_db_handler.dart';
 
 export 'package:sample_latest/services/db/offline_handler.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 part  'package:sample_latest/services/db/module_db_handler/common_db_handler.dart';
 part  'package:sample_latest/services/db/module_db_handler/schools_db_handler.dart';
 part  'package:sample_latest/services/db/module_db_handler/todo_list_db_handler.dart';
+part 'dumping_offline_data.dart';
 
 class OfflineHandler with BaseService {
 
@@ -37,6 +46,7 @@ class OfflineHandler with BaseService {
   OfflineHandler._internal();
 
   var queueItemsCount = BehaviorSubject<int>.seeded(0);
+  var dumpingOfflineDataStatus = BehaviorSubject<OfflineDumpingStatus>.seeded(null);
 
   /// Handle the request which is from the interceptor
   Future<void> handleRequest(RequestOptions options, dynamic handler) async {
@@ -121,35 +131,47 @@ class OfflineHandler with BaseService {
   /// Store offline data from the server
   Future<bool> dumpOfflineData() async {
     var status = false;
+    final receivePort = ReceivePort();
+
     try {
+      dumpingOfflineDataStatus.asBroadcastStream();
+      dumpingOfflineDataStatus.add((title: 'Checking for Existing Sync Data...', percentage: 0));
+
       if ((await updateQueueItemsCount()) > 0) await syncData();
 
-      navigatorKey.currentContext?.loaderOverlay.show();
+      dumpingOfflineDataStatus.add((title: 'Loading Zip File.......', percentage: 10));
 
-      /// Fetching school information
-      var schools = await makeRequest(url: '${Urls.schools}.json', isOfflineApi: false);
+      RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
+      _SchoolsDbHandler().initializeDbIfNot();
+      var completer = Completer();
 
-      if (schools != null) {
-        await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.schools, method: RequestType.store.name, data: schools));
-      }
+      /// Loading Zip Data
+      ByteData byteData = await rootBundle.load("asset/school_data.zip");
 
-      /// Fetching school details
-      var schoolDetailsList = await makeRequest(url: '${Urls.schoolDetails}.json', isOfflineApi: false);
-      if (schoolDetailsList != null) {
-        await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.schoolDetails, method: RequestType.store.name, data: schoolDetailsList));
-      }
 
-      /// Fetching student information
-      var students = await makeRequest(url: '${Urls.students}.json', isOfflineApi: false);
-      if (students != null) {
-        await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.students, method: RequestType.store.name, data: students));
-      }
+      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData, [receivePort.sendPort, rootIsolateToken, byteData]);
 
+      /// Listening to the Dumping status
+      receivePort.listen((message) {
+        if(message == 'success'){
+          completer.complete();
+        }else {
+          dumpingOfflineDataStatus.add(
+              (title: message.title, percentage: message.percentage));
+        }
+      });
+
+      /// Once data dumping is success or failure this future is completed
+      await completer.future;
+
+      dumpingOfflineDataStatus.add((title: 'Successfully Dumped.......', percentage: 100));
+      await Future.delayed(const Duration(seconds: 1)); /// Delay is added for better experience
       status = true;
     } catch (e) {
       status = false;
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      dumpingOfflineDataStatus.add(null);
+      receivePort.close();
     }
 
     return status;
