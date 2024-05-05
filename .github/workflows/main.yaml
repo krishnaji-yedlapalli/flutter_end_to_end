@@ -23,7 +23,7 @@ jobs:
 #        run: flutter analyze
 
       - name: Build APK
-        run: flutter build apk --no-tree-shake-icons
+        run: flutter build apk --flavor flutter --no-tree-shake-icons
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v3
