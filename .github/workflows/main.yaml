@@ -34,7 +34,7 @@ jobs:
       - name: Copy APKs
         run: cp -r build/app/outputs/apk/release/*.apk $GITHUB_WORKSPACE
 
-      - name: Display Info Message
+      - name: Display Information Message
         run: echo "Adjust the path (build/app/outputs/apk/release/) based on your actual project structure to ensure that the cp command can find and copy the APK files correctly."
 
       - name: Deploy to GitHub Pages
