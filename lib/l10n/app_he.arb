@@ -1,0 +1,149 @@
+ {
+ "localization" :  "לוקליזציה",
+  "lightTheme" :  "נושא קליל",
+  "darkTheme" :  "ערכת נושא כהה",
+  "simplifiedStrings" : "פשט את המיתרים באמצעות החבילה",
+  "selectLanguage" : "בחר שפה :",
+  "overridingTheLanguage" : "עקיפה של השפה במקום/יישומון ספציפי",
+  "selectOverrideLanguage" : "בחר ביטול שפה",
+   "passingDynamicValue" :  "העברת ערך דינמי למחרוזת",
+   "pluralOrSingular" :  "הצגת רבים או יחיד על סמך הספירה",
+   "selectMessageBasedOnString" :  "הצג את ההודעה על סמך המחרוזת שעברה באמצעות select",
+   "typeBasedOnCount" :  "מציג את הסוג על סמך הספירה",
+   "escapeInterpolation" :  "בריחה מהאינטרפולציה במחרוזת",
+   "passingDynamicValueDes" : "העברת Hello and Brother כערך דינמי למחרוזת מקומית, למטה הייתה הפלט",
+   "pluralOrSingularDes" : "מראה בריבוי המילה, כאן בהתבסס על הספירה ריבוי יוצגו אנשים/אנשים..",
+   "selectMessageBasedOnStringDes" : "בדומה לרבים אנו יכולים להציג את ההודעה על סמך הערך שעבר, להלן על סמך שם העצם מגדר יוצג",
+   "escapeInterpolationDes" : "כברירת מחדל, יש לשקול את האינטרפולציה כמחזיק מקום, במחרוזת למטה אנו בורחים ממנה באמצעות ציטוט בודד",
+   "representingCurrencies" : "ייצוג המטבעות עם סמל המטבע על סמך המקום",
+   "compact" : "קומפקטי:",
+   "compactCurrency" : "מטבע קומפקטי:",
+   "compactSimpleCurrency" : "מטבע קומפקטי פשוט:",
+   "compactLong" : "קומפקטי ארוך:",
+   "currency" : "מטבע:",
+   "decimalPercent" : "אחוז עשרוני:",
+   "description" : "של ה ",
+ "greetings": "שלום {firstName} {lastName}",
+  "@greetings": {
+    "description": "שלום למשתמש",
+    "placeholders" : {
+    "firstName" : {
+       "type" : "String",
+       "example" : "Robbin"
+    },
+    "lastName" : {
+      "type" : "String",
+      "example" : "Hood"
+    }
+    }
+  },
+  "pluralMessage" : "יש סך הכל {peoplesCount, plural, =0{0 אֲנָשִׁים} =1{1 אדם} =2{2 אֲנָשִׁים} other{{count} עמים}} במאורה",
+  "@pluralMessage" : {
+   "description" : "Showing the peoples based on the count",
+    "placeholders" : {
+     "peoplesCount" : {
+       "type" : "num"
+     }
+  }
+  },
+  "pluralSampleOne" : "{count, plural, =0{sampleNameOne} =1{sampleNameTwo} =2{sampleNameThree} few{few persons} many{many persons} other{{count} students}}",
+ "countDetails" : "{count, plural, =0{0 persons} =1{1 persons} other{{count} peoples}}",
+ "@countDetails" : {
+     "placeholders": {
+       "count": {
+         "type": "num",
+         "format": "compact"
+       }
+     }
+ },
+ "selectSample" : "אדם הוא {gender, select, he{זָכָר} she{נְקֵבָה} other{הוא/היא אין מידע}}",
+ "@selectSample" : {
+  "description" : "Shows the personal nouns based on the input",
+  "placeholders" : {
+  "gender" : {
+     "type" : "String"
+  }
+ }
+ },
+  "escapingTheInterpolation" : "שלום זה גון קרטר '{is n''t}'",
+    "amountWithCompact" : "תקציב יישום נוכחי: {amount}",
+    "@amount" : {
+     "description" : "Amount with compact",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compact"
+       }
+    }
+    },
+  "amountWithCompactCurrency" : "תקציב יישום נוכחי: {amount}",
+  "@amount" : {
+   "description" : "Amount with compact currency",
+   "placeholders" : {
+     "amount" : {
+      "type" : "int",
+      "format" : "compactCurrency",
+      "optionalParameters": {
+              "decimalDigits": 2
+            }
+     }
+  }
+  },
+   "amountWithCompactSimpleCurrency" : "תקציב יישום נוכחי: {amount}",
+    "@amount" : {
+     "description" : "Amount with compact currency",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactSimpleCurrency"
+       }
+    }
+    },
+ "amountWithCompactLong" : "תקציב יישום נוכחי: {amount}",
+    "@amount" : {
+     "description" : "Amount with compact long",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactLong"
+       }
+    }
+    },
+   "amountWithCurrency" : "תקציב יישום נוכחי: {amount}",
+        "@amount" : {
+         "description" : "Amount with currency",
+         "placeholders" : {
+           "amount" : {
+            "type" : "int",
+            "format" : "currency"
+           }
+        }
+        },
+    "amountWithDecimalPercentPattern" : "תקציב יישום נוכחי: {amount}",
+                "@amount" : {
+                 "description" : "Amount with decimal percent currency pattern",
+                 "placeholders" : {
+                   "amount" : {
+                    "type" : "int",
+                    "format" : "decimalPercentPattern"
+                   }
+                }
+                },
+ "dateFormat" : "פורמט תאריך",
+ "currentDate" : "תאריך היום : {date}",
+ "@currentDate" : {
+   "description" : "Showing current date by formatting",
+  "placeholders" : {
+       "date" : {
+         "type" : "DateTime",
+         "format" : "yMd"
+       }
+  }
+ },
+ "sampleText1" : "Lorem Ipsum הוא פשוט טקסט דמה של תעשיית הדפוס והקביעה. Lorem Ipsum היה טקסט הדמה הסטנדרטי של התעשייה מאז שנות ה-1500, כאשר מדפסת לא ידועה לקחה גלריה של סוג וערבכה אותה כדי ליצור ספר דגימות סוג.",
+"@sampleText" : {
+  "description" : "Sample text"
+},
+ "sampleText2" : "הוא פשוט טקסט גולמי של תעשיית ההדפסה וההקלדה. Lorem Ipsum היה טקסט סטנדרטי עוד במאה ה-16, כאשר הדפסה לא ידועה לקחה מגש של דפוס ועירבלה אותו כדי ליצור סוג של ספר דגימה. ספר זה שרד לא רק חמש מאות שנים אלא גם את הקפיצה לתוך ההדפסה האלקטרונית, ונותר כמו שהוא ביסודו. ספר זה הפך פופולרי יותר בשנות ה-60 ",
+ "sampleText3" : " וחלקים מתוך הספרות הלטינית הקלאסית מאז 45 לפני הספירה. מה שהופך אותו לעתיק מעל 2000 שנה. ריצ'רד מקלינטוק, פרופסור לטיני בקול של המפדן-סידני בורג'יניה, חיפש את אחת המילים המעורפלות ביותר בלטינית - consectetur - מתוך פסקאות של Lorem Ipsum ודרך ציטוטים של המילה מתוך הספרות הקלאסית, הוא גילה מקור בלתי ניתן לערעור."
+}

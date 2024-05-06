@@ -1,0 +1,149 @@
+ {
+ "localization" :  "Localization",
+ "lightTheme" :  "Light Theme",
+ "darkTheme" :  "Dark Theme",
+ "selectLanguage" : "Select Language : ",
+   "overridingTheLanguage" : "Overriding the Language in a specific place/widget",
+   "selectOverrideLanguage" : "Select Override Language",
+ "simplifiedStrings" :  "Simplified the below strings using Intl package : ",
+ "passingDynamicValue" :  "Passing dynamic value to a String",
+ "pluralOrSingular" :  "Showing the plural or singular based on the count",
+ "selectMessageBasedOnString" :  "Show the message based on the passed string using select",
+ "typeBasedOnCount" :  "Showing the type based on the count",
+ "escapeInterpolation" :  "Escaping the Interpolation in a string",
+ "passingDynamicValueDes" : "Passing Hello and Brother as dynamic value to localized string, below was the output",
+ "pluralOrSingularDes" : "Showing the pluralizing the word, here based on the count pluralize will be displayed people/peoples.. ",
+ "selectMessageBasedOnStringDes" : "Similar to Plural we can shown the message based on the passed value, below based on the noun gender will be shown",
+ "escapeInterpolationDes" : "By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation",
+ "representingCurrencies" : "Representing the Currencies with currency symbol based on the locale",
+ "compact" : "Compact :",
+ "compactCurrency" : "Compact currency :",
+ "compactSimpleCurrency" : "Compact Simple currency :",
+ "compactLong" : "Compact Long :",
+ "currency" : "Currency :",
+ "decimalPercent" : "Decimal Percent :",
+ "description" : "Des :",
+ "greetings": "Hello {firstName} {lastName}",
+  "@greetings": {
+    "description": "Greetings to the user",
+    "placeholders" : {
+    "firstName" : {
+       "type" : "String",
+       "example" : "Robbin"
+    },
+    "lastName" : {
+      "type" : "String",
+      "example" : "Hood"
+    }
+    }
+  },
+  "pluralMessage" : "There are total {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} in den",
+  "@pluralMessage" : {
+   "description" : "Showing the peoples based on the count",
+    "placeholders" : {
+     "peoplesCount" : {
+       "type" : "num"
+     }
+  }
+  },
+  "pluralSampleOne" : "{count, plural, =0{ramesh} =1{raza} =2{krishna} few{few persons} many{many persons} other{{count} students}}",
+ "countDetails" : "{count, plural, =0{0 persons} =1{1 persons} other{{count} peoples}}",
+ "@countDetails" : {
+     "placeholders": {
+       "count": {
+         "type": "num",
+         "format": "compact"
+       }
+     }
+ },
+ "selectSample" : "Person is{gender, select, he{Male} she{Female} other{He/She not info}}",
+ "@selectSample" : {
+  "description" : "Shows the personal nouns based on the input",
+  "placeholders" : {
+  "gender" : {
+     "type" : "String"
+  }
+ }
+ },
+  "escapingTheInterpolation" : "Hello this is John carter '{is n''t}'",
+    "amountWithCompact" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compact"
+       }
+    }
+    },
+  "amountWithCompactCurrency" : "Current Budget of application : {amount}",
+  "@amount" : {
+   "description" : "Amount with compact currency",
+   "placeholders" : {
+     "amount" : {
+      "type" : "int",
+      "format" : "compactCurrency",
+      "optionalParameters": {
+              "decimalDigits": 2
+            }
+     }
+  }
+  },
+   "amountWithCompactSimpleCurrency" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact currency",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactSimpleCurrency"
+       }
+    }
+    },
+ "amountWithCompactLong" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact long",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactLong"
+       }
+    }
+    },
+   "amountWithCurrency" : "Current Budget of application : {amount}",
+        "@amount" : {
+         "description" : "Amount with currency",
+         "placeholders" : {
+           "amount" : {
+            "type" : "int",
+            "format" : "currency"
+           }
+        }
+        },
+    "amountWithDecimalPercentPattern" : "Current Budget of application : {amount}",
+                "@amount" : {
+                 "description" : "Amount with decimal percent currency pattern",
+                 "placeholders" : {
+                   "amount" : {
+                    "type" : "int",
+                    "format" : "decimalPercentPattern"
+                   }
+                }
+                },
+  "dateFormat" : "Date Format",
+ "currentDate" : "Today Date : {date}",
+ "@currentDate" : {
+   "description" : "Showing current date by formatting",
+  "placeholders" : {
+       "date" : {
+         "type" : "DateTime",
+         "format" : "yMd"
+       }
+  }
+ },
+ "sampleText1" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the '{industry''s}' standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+"@sampleText" : {
+  "description" : "Sample text"
+},
+ "sampleText2" : "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary",
+ "sampleText3" : "It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable"
+}

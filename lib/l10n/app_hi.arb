@@ -1,0 +1,123 @@
+ {
+ "localization" :  "स्थानीयकरण",
+ "greetings": "हैलो {firstName} {lastName}",
+  "@greetings": {
+    "description": "Greetings to the user",
+    "placeholders" : {
+    "firstName" : {
+       "type" : "String",
+       "example" : "Robbin"
+    },
+    "lastName" : {
+      "type" : "String",
+      "example" : "Hood"
+    }
+    }
+  },
+  "pluralMessage" : "कुल हैं {peoplesCount, plural, =0{0 people} =1{1 person} =2{2 people} other{{count} peoples}} मांद में",
+  "@pluralMessage" : {
+   "description" : "Showing the peoples based on the count",
+    "placeholders" : {
+     "peoplesCount" : {
+       "type" : "num"
+     }
+  }
+  },
+  "pluralSampleOne" : "{count, plural, =0{ramesh} =1{raza} =2{krishna} few{few persons} many{many persons} other{{count} students}}",
+ "countDetails" : "{count, plural, =0{0 persons} =1{1 persons} other{{count} peoples}}",
+ "@countDetails" : {
+     "placeholders": {
+       "count": {
+         "type": "num",
+         "format": "compact"
+       }
+     }
+ },
+ "selectSample" : "व्यक्ति है {gender, select, he{पुरुष} she{महिला} other{उसे कोई जानकारी नहीं है}}",
+ "@selectSample" : {
+  "description" : "Shows the personal nouns based on the input",
+  "placeholders" : {
+  "gender" : {
+     "type" : "String"
+  }
+ }
+ },
+  "escapingTheInterpolation" : "नमस्ते, मैं जॉन कार्टर हूं '{is n''t}'",
+    "amountWithCompact" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compact"
+       }
+    }
+    },
+  "amountWithCompactCurrency" : "आवेदन का वर्तमान बजट: {amount}",
+  "@amount" : {
+   "description" : "Amount with compact currency",
+   "placeholders" : {
+     "amount" : {
+      "type" : "int",
+      "format" : "compactCurrency",
+      "optionalParameters": {
+              "decimalDigits": 2
+            }
+     }
+  }
+  },
+   "amountWithCompactSimpleCurrency" : "आवेदन का वर्तमान बजट: {amount}",
+    "@amount" : {
+     "description" : "Amount with compact currency",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactSimpleCurrency"
+       }
+    }
+    },
+ "amountWithCompactLong" : "आवेदन का वर्तमान बजट: {amount}",
+    "@amount" : {
+     "description" : "Amount with compact long",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactLong"
+       }
+    }
+    },
+   "amountWithCurrency" : "आवेदन का वर्तमान बजट: {amount}",
+        "@amount" : {
+         "description" : "Amount with currency",
+         "placeholders" : {
+           "amount" : {
+            "type" : "int",
+            "format" : "currency"
+           }
+        }
+        },
+    "amountWithDecimalPercentPattern" : "आवेदन का वर्तमान बजट: {amount}",
+                "@amount" : {
+                 "description" : "Amount with decimal percent currency pattern",
+                 "placeholders" : {
+                   "amount" : {
+                    "type" : "int",
+                    "format" : "decimalPercentPattern"
+                   }
+                }
+                },
+ "currentDate" : "आज की तारीख़ : {date}",
+ "@currentDate" : {
+   "description" : "Showing current date by formatting",
+  "placeholders" : {
+       "date" : {
+         "type" : "DateTime",
+         "format" : "yMd"
+       }
+  }
+ },
+ "sampleText" : "लोरेम इप्सम केवल मुद्रण और टाइपसेटिंग उद्योग का नकली पाठ है। लोरेम इप्सम 1500 के दशक से ही उद्योग का मानक डमी पाठ रहा है, जब एक अज्ञात प्रिंटर ने एक प्रकार की गैली ली और उसे एक प्रकार की नमूना पुस्तक बनाने के लिए तैयार किया।",
+"@sampleText" : {
+  "description" : "Sample text"
+}
+}

@@ -1,0 +1,149 @@
+ {
+ "localization" :  "Localización",
+ "lightTheme" :  "Tema ligero",
+ "darkTheme" :  "Tema oscuro",
+ "selectLanguage" : "Seleccione el idioma :",
+   "overridingTheLanguage" : "Anular el idioma en un lugar/widget específico",
+   "selectOverrideLanguage" : "Seleccionar idioma de anulación",
+ "simplifiedStrings" :  "Simplificó las siguientes cadenas usando el paquete Intl:",
+ "passingDynamicValue" :  "Pasar valor dinámico a una cadena",
+ "pluralOrSingular" :  "Mostrando la plural o singular basada en el conc.t",
+ "selectMessageBasedOnString" :  "Muestre el mensaje según la cadena pasada usando select",
+ "typeBasedOnCount" :  "Mostrando el tipo según el recuento",
+ "escapeInterpolation" :  "Escapar de la interpolación en una cadena",
+ "passingDynamicValueDes" : "Pasando Hola y Hermano como valor dinámico a una cadena localizada, a continuación se muestra el resultado",
+ "pluralOrSingularDes" : "Mostrando la pluralización de la palabra, aquí, según el recuento de pluralización, se mostrará personas/pueblos.",
+ "selectMessageBasedOnStringDes" : "De manera similar a Plural, podemos mostrar el mensaje según el valor pasado; a continuación, se mostrará según el género del sustantivo.",
+ "escapeInterpolationDes" : "De forma predeterminada, Dart considera la interpolación como un marcador de posición. En la siguiente cadena, la escapamos usando comillas simples.n",
+ "representingCurrencies" : "Representar las monedas con el símbolo de moneda según la ubicación",
+ "compact" : "Compacto :",
+ "compactCurrency" : "Moneda compacta:",
+ "compactSimpleCurrency" : "Moneda simple compacta:",
+ "compactLong" : "Compacta larga:",
+ "currency" : "Divisa :",
+ "decimalPercent" : "Porcentaje decimal:",
+ "description" : "Des:",
+ "greetings": "Hola {firstName} {lastName}",
+  "@greetings": {
+    "description": "Greetings to the user",
+    "placeholders" : {
+    "firstName" : {
+       "type" : "String",
+       "example" : "Robbin"
+    },
+    "lastName" : {
+      "type" : "String",
+      "example" : "Hood"
+    }
+    }
+  },
+  "pluralMessage" : "hay totales {peoplesCount, plural, =0{0 gente} =1{1 persona} =2{2 gente} other{{count} pueblos}} in den",
+  "@pluralMessage" : {
+   "description" : "Showing the peoples based on the count",
+    "placeholders" : {
+     "peoplesCount" : {
+       "type" : "num"
+     }
+  }
+  },
+  "pluralSampleOne" : "{count, plural, =0{ramesh} =1{raza} =2{krishna} few{Pocas personas} many{Muchas personas} other{{count} estudiantes}}",
+ "countDetails" : "{count, plural, =0{0 personas} =1{1 personas} other{{count} pueblos}}",
+ "@countDetails" : {
+     "placeholders": {
+       "count": {
+         "type": "num",
+         "format": "compact"
+       }
+     }
+ },
+ "selectSample" : "La persona es {gender, select, he{Masculina} she{Femenina} other{Él/Ella no tiene información}}",
+ "@selectSample" : {
+  "description" : "Shows the personal nouns based on the input",
+  "placeholders" : {
+  "gender" : {
+     "type" : "String"
+  }
+ }
+ },
+  "escapingTheInterpolation" : "Hola, soy John Carter. '{is n''t}'",
+    "amountWithCompact" : "Current Budget of application : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compact"
+       }
+    }
+    },
+  "amountWithCompactCurrency" : "Presupuesto actual de aplicación : {amount}",
+  "@amount" : {
+   "description" : "Amount with compact currency",
+   "placeholders" : {
+     "amount" : {
+      "type" : "int",
+      "format" : "compactCurrency",
+      "optionalParameters": {
+              "decimalDigits": 2
+            }
+     }
+  }
+  },
+   "amountWithCompactSimpleCurrency" : "Presupuesto actual de aplicación : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact currency",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactSimpleCurrency"
+       }
+    }
+    },
+ "amountWithCompactLong" : "Presupuesto actual de aplicación : {amount}",
+    "@amount" : {
+     "description" : "Amount with compact long",
+     "placeholders" : {
+       "amount" : {
+        "type" : "int",
+        "format" : "compactLong"
+       }
+    }
+    },
+   "amountWithCurrency" : "Presupuesto actual de aplicación : {amount}",
+        "@amount" : {
+         "description" : "Amount with currency",
+         "placeholders" : {
+           "amount" : {
+            "type" : "int",
+            "format" : "currency"
+           }
+        }
+        },
+    "amountWithDecimalPercentPattern" : "Presupuesto actual de aplicación : {amount}",
+                "@amount" : {
+                 "description" : "Amount with decimal percent currency pattern",
+                 "placeholders" : {
+                   "amount" : {
+                    "type" : "int",
+                    "format" : "decimalPercentPattern"
+                   }
+                }
+                },
+  "dateFormat" : "Formato de fecha",
+ "currentDate" : "Fecha de hoy : {date}",
+ "@currentDate" : {
+   "description" : "Showing current date by formatting",
+  "placeholders" : {
+       "date" : {
+         "type" : "DateTime",
+         "format" : "yMd"
+       }
+  }
+ },
+ "sampleText1" : "Lorem Ipsum es simplemente un texto de relleno de la industria de la impresión y la tipografía. Lorem Ipsum ha sido el texto de relleno estándar de la industria desde el siglo XVI, cuando un impresor desconocido tomó una galería de tipos y los mezcló para hacer un libro de muestra de tipos.",
+"@sampleText" : {
+  "description" : "Sample text"
+},
+ "sampleText2" : "Hay muchas variaciones de pasajes de Lorem Ipsum disponibles, pero la mayoría ha sufrido alguna alteración, mediante humor inyectado o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum, debes asegurarte de que no haya nada vergonzoso escondido en medio del texto. Todos los generadores de Lorem Ipsum en Internet tienden a repetir fragmentos predefinidos según sea necesario.",
+ "sampleText3" : "Utiliza un diccionario de más de 200 palabras latinas, combinado con un puñado de estructuras de oraciones modelo, para generar Lorem Ipsum, que parece razonable."
+}
