@@ -41,7 +41,7 @@ class HomeScreenFeatureDiscovery with ButtonMixin {
     prefs.setBool(Constants.homeDiscoveryStatus, true);
   }
 
-  Widget aboutAppsDiscovery(VoidCallback callback) {
+  Widget aboutAppsDiscovery(ValueChanged<String> callback) {
     var widgetToDisplay = const Padding(
       padding: EdgeInsets.all(8.0),
       child: Wrap(
@@ -75,10 +75,7 @@ class HomeScreenFeatureDiscovery with ButtonMixin {
             )],
         ),
         child: PopupMenuButton(
-          onSelected: null,
-          //     (item) {
-          //   callback();
-          // },
+          onSelected: (val) => callback(val as String),
           itemBuilder: (BuildContext context) => <PopupMenuEntry>[
             const PopupMenuItem(
               value: 'android',
@@ -123,6 +120,9 @@ class HomeScreenFeatureDiscovery with ButtonMixin {
                     TextSpan(text: '3. Offline Support\n'),
                     TextSpan(text: '4. Isolates\n'),
                     TextSpan(text: '5. Running Background Task With Work Manager'),
+                    TextSpan(text: '6. CI & CD Pipeline'),
+                    TextSpan(text: '7. Push Notifications'),
+                    TextSpan(text: '8. Deep Linking'),
                   ]
                 )
             ]

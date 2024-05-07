@@ -304,8 +304,10 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
     ));
   }
 
-  void onTapOfApps() async {
-    if (!await launchUrl(Uri.parse('https://github.com/krishnaji-yedlapalli/flutter_end_to_end/actions/runs/8897936698'), mode: LaunchMode.externalApplication,)) {
+  void onTapOfApps(String val) async {
+    String url = val == 'android' ? 'https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages' : 'https://i.diawi.com/VeQECd';
+
+    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication,)) {
       print('error');
     }
 
