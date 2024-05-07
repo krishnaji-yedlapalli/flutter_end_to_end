@@ -23,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Image.asset(Environment().configuration.appBarLogoPath),
       ), onTap: ()=> Routing.navigateToHome(context)) : leading,
       title: title,
+      centerTitle: true,
       bottom: bottom,
       actions: [
         ...actions ?? [],

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
+import 'package:sample_latest/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/extensions/widget_extension.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/ui/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/ui/schools/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/ui/schools/db_configurations_for_devs.dart';
@@ -23,10 +25,13 @@ class Schools extends StatefulWidget {
   State<Schools> createState() => _SchoolsState();
 }
 
-class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWidget{
+class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWidget, FeatureDiscovery{
   @override
   void initState() {
       BlocProvider.of<SchoolBloc>(context).add(SchoolsDataEvent());
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        SchoolScreenFeatureDiscovery().startFeatureDiscovery(context);
+      });
     super.initState();
   }
 
@@ -35,9 +40,12 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     return Scaffold(
       appBar: CustomAppBar(
         title: const Text('Schools'),
+        actions: [
+          featureDiscovery(() => SchoolScreenFeatureDiscovery().startFeatureDiscovery(context, forceTour: true))
+        ],
         appBar: AppBar(),
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: const Text('Create School'), icon: const Icon(Icons.add)),
+      floatingActionButton: SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.create ,child: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: const Text('Create School'), icon: const Icon(Icons.add))),
       body: BlocListener<SchoolBloc, SchoolState>(
         listener: (context, state) {
          buildAlertDialog(context, title : '!!! Welcome to School Module !!!', content : 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
@@ -57,10 +65,10 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
               if(DeviceConfiguration.isOfflineSupportedDevice) Wrap(
                 spacing: 10,
                 children: [
-                  _buildSyncButton(),
-                  _buildDumpOfflineButton(),
-                  _buildDbConfigurationsButtonForDevelopment(),
-                  _buildDbClearButton()
+                  SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.sync ,child: _buildSyncButton()),
+                  SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.dumpOfflineData ,child: _buildDumpOfflineButton()),
+                  SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.setDdConfig ,child: _buildDbConfigurationsButtonForDevelopment()),
+                  SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.resetDb ,child: _buildDbClearButton())
                 ],
               )
               ],
@@ -113,8 +121,8 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
                   )),
               trailing:Wrap(
                 children: [
-                  IconButton(icon : const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfEditSchool(school)),
-                  IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: () => onTapOfSchoolDelete(school.id))
+                  SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.edit ,child: IconButton(icon : const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfEditSchool(school))),
+                  SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.delete ,child: IconButton(icon : const Icon(Icons.delete, color: Colors.red), onPressed: () => onTapOfSchoolDelete(school.id)))
                 ],
               ),
               onTap: () => onTapOfSchool(school),

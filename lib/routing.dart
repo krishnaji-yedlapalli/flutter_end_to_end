@@ -1,3 +1,4 @@
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -83,7 +84,9 @@ class Routing {
         path: home,
         name: 'homescreen',
         builder: (BuildContext context, GoRouterState state) {
-          return const HomeScreen();
+          return const FeatureDiscovery.withProvider(
+              persistenceProvider: NoPersistenceProvider(),
+          child: HomeScreen());
         },
         routes: [
           dashboardRoute(),
@@ -271,7 +274,9 @@ class Routing {
         path: 'schools',
         name: 'schools',
         builder: (BuildContext context, GoRouterState state) {
-          return const Schools();
+          return  const FeatureDiscovery.withProvider(
+              persistenceProvider: NoPersistenceProvider(),
+          child:  Schools());
         },
         onExit: (context) async{
           bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(context, title : '!!! Alert !!!', content: 'Are you sure U want to exit?');

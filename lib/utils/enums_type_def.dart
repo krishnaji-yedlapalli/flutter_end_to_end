@@ -1,5 +1,5 @@
 
-enum ScreenType {dashboard, routing, fullscreenChildRouting, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes, pushNotifications, deepLinking}
+enum ScreenType {dashboard, routing, school, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes, pushNotifications, deepLinking}
 
 enum RouteType {shellRouting, stateFullShellRoutingWithIndexed, stateFullShellRoutingWithoutIndexed}
 
@@ -14,4 +14,6 @@ enum ApplicationType {mobile, web, desktop}
 enum PluginType {youtube, localAuthentication, localNotifications, sharePlus, audioPlayer, networkInfo }
 
 typedef OfflineDumpingStatus = ({String title, int percentage})?;
+
+enum SchoolDiscoverFeatureType {create, edit, delete, sync, dumpOfflineData, setDdConfig, resetDb}
 

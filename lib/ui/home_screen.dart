@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
+import 'package:sample_latest/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/mixins/cards_mixin.dart';
 import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/widgets/custom_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'feature_discovery/home_feature_discovery.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,7 +22,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDialogs {
+class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDialogs, FeatureDiscovery {
   late final AppLifecycleListener _lifeCycleListener;
 
   // GlobalKey offlineBannerKey = GlobalKey();
@@ -44,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
         // offlineBannerKey.currentState;
         // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
       });
+       HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
+
     });
 
     ConnectivityHandler()
@@ -94,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
       ),
       (
         'Schools child routing',
-        ScreenType.fullscreenChildRouting,
+        ScreenType.school,
         Icons.school,
         des: 'This describes the routing'
       ),
@@ -154,6 +159,10 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
       appBar: CustomAppBar(
         title: Text(AppLocalizations.of(context)!.greetings('John', "Carter")),
         appBar: AppBar(),
+        actions: [
+        DeviceConfiguration.isWeb ? HomeScreenFeatureDiscovery().aboutAppsDiscovery(onTapOfApps) :
+        featureDiscovery(() => HomeScreenFeatureDiscovery().startFeatureDiscovery(context, forceTour: true))
+        ],
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
@@ -161,12 +170,13 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
               crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
-            return buildHomeCardView(
+            var module = buildHomeCardView(
                 title: screenDetails.$1,
                 des: screenDetails.des ?? '',
                 icon: screenDetails.$3,
                 callback: () =>
                     navigateToDashboard(screenTypes.elementAt(index).$2));
+            return HomeScreenFeatureDiscovery.features.contains(screenDetails.$2.name) ? HomeScreenFeatureDiscovery().aboutModuleDiscovery(module, screenDetails.$2)  : module;
           }),
     );
   }
@@ -176,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
       ScreenType.dashboard => DeviceConfiguration.isMobileResolution
           ? '/home/dashboard'
           : '/home/dashboard/materialComponents',
-      ScreenType.fullscreenChildRouting => '/home/schools',
+      ScreenType.school => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
       ScreenType.upiPayments => '/home/upipayments',
@@ -292,5 +302,14 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
           fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
       // margin: const EdgeInsets.all(0),
     ));
+  }
+
+  void onTapOfApps(String val) async {
+    String url = val == 'android' ? 'https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages' : 'https://i.diawi.com/VeQECd';
+
+    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication,)) {
+      print('error');
+    }
+
   }
 }
