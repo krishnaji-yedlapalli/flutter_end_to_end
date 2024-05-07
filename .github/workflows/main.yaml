@@ -3,6 +3,8 @@ name: Flutter End to End
 on:
   pull_request:
     branches: [ main ]  # Trigger on pushes to the main branch (adjust as needed)
+  push:
+    branches: [ main ]  
 
 jobs:
   build:
@@ -23,10 +25,23 @@ jobs:
 #        run: flutter analyze
 
       - name: Build APK
-        run: flutter build apk --no-tree-shake-icons
+        run: flutter build apk --flavor flutter --no-tree-shake-icons
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v3
         with:
           name: flutter-apk
-          path: build/app/outputs/apk/release/app-release.apk
+          path: build/app/outputs/flutter-apk/app-flutter-release.apk
+
+      # - name: Copy APKs
+      #   run: cp -r build/app/outputs/flutter-apk/*.apk $GITHUB_WORKSPACE
+
+      # - name: Display Info Message
+      #   run: echo "Adjust the path (build/app/outputs/apk/release/) based on your actual project structure to ensure that the cp command can find and copy the APK files correctly."
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/app/outputs/flutter-apk/
+          publish_branch: gh-pages    
