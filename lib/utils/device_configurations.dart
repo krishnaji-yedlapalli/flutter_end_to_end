@@ -62,6 +62,8 @@ class DeviceConfiguration {
 
   static OperatingSystemType get operatingSystemType =>  _operatingType;
 
+  static bool get isiPhone =>  _operatingType == OperatingSystemType.ios;
+
   static bool get isOfflineSupportedDevice {
     if(kIsWeb) return false;
     return Platform.isIOS || Platform.isMacOS || Platform.isAndroid;

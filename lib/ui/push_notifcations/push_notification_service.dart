@@ -161,7 +161,10 @@ class PushNotificationService {
       await flutterLocalNotificationsPlugin.show(
           id, title, body, await notificationDetails(),
           payload: payLoad?['path']);
-      await flutterLocalNotificationsPlugin.cancel(0);
+
+      if(DeviceConfiguration.isiPhone) {
+        Future.delayed(const Duration(milliseconds: 800), () => flutterLocalNotificationsPlugin.cancel(0));
+      }
     }
 
   }
