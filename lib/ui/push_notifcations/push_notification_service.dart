@@ -92,6 +92,7 @@ class PushNotificationService {
       print('Message data: ${message.data}');
       print('Message notification: ${message.notification?.title}');
       print('Message notification: ${message.notification?.body}');
+      print('Message notification: ${message.data}');
 
       showNotification(title: '${message.notification?.title}', body: '${message.notification?.body}', payLoad: message.data);
 

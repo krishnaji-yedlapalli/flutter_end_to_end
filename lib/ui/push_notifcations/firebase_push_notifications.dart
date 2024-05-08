@@ -208,6 +208,9 @@ class _FirebasePushNotificationsState extends State<FirebasePushNotifications> w
           "notification": {
             "title": titleCtrl.text.trim(),
             "body": bodyCtrl.text.trim()
+          },
+          "data": {
+            "path": pageCtrl.text.trim()
           }
         }
       };
