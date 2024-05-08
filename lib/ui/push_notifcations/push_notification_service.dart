@@ -1,10 +1,17 @@
 
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart'
     show TargetPlatform, debugPrint, defaultTargetPlatform, kIsWeb;
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:go_router/go_router.dart';
+import 'package:googleapis_auth/googleapis_auth.dart';
+import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/routing.dart';
+import 'package:sample_latest/utils/device_configurations.dart';
 
 class PushNotificationService {
 
@@ -75,6 +82,8 @@ class PushNotificationService {
     iosBundleId: 'com.example.sampleLatest.RunnerTests',
   );
 
+  static AuthClient? credentials;
+
   static void initiateTheFirebaseListeners() async {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -131,10 +140,28 @@ class PushNotificationService {
   static Future showNotification(
       {int id = 0, String? title, String? body, Map<dynamic, dynamic>? payLoad}) async {
 
-     await flutterLocalNotificationsPlugin.show(
-        id, title, body, await notificationDetails(), payload: payLoad?['path']);
-
-    await flutterLocalNotificationsPlugin.cancel(0);
+    if(DeviceConfiguration.isWeb && navigatorKey.currentState?.context != null){
+      showAdaptiveDialog<bool?>(barrierDismissible: true,
+          context: navigatorKey.currentState!.context,
+          builder: (context) {
+            return CupertinoAlertDialog(
+              title: Text(title ?? 'Title Missing'),
+              content: Text(body ?? 'No Body'),
+              actions: [
+                IconButton(onPressed: () => GoRouter.of(context).pop(true), icon: const Icon(Icons.thumb_up))
+                // TextButton.icon(onPressed: () {
+                //   GoRouter.of(context).pop(true);
+                //   Routing.onLocalPushNotificationOpened(payLoad?['path']);
+                // }, label: const Text('Navigate'), icon: const Icon(Icons.navigation))
+              ],
+            );
+          });
+    }else {
+      await flutterLocalNotificationsPlugin.show(
+          id, title, body, await notificationDetails(),
+          payload: payLoad?['path']);
+      await flutterLocalNotificationsPlugin.cancel(0);
+    }
 
   }
 

@@ -65,14 +65,16 @@ dependencies:
   cached_network_image: 3.3.1
   rxdart: ^0.27.7
   shared_preferences: ^2.2.2
-  firebase_core: ^2.27.2
-  firebase_messaging: ^14.7.21
+  firebase_core: ^2.31.0
+  firebase_messaging: ^14.9.2
   flutter_local_notifications: ^17.0.0
   json_annotation:
   archive: ^3.5.0
   liquid_progress_indicator_v2: ^0.5.0
   feature_discovery: ^0.14.1
   url_launcher: ^6.2.6
+  googleapis_auth: ^1.6.0
+
 #  intl : any
 
 dev_dependencies:
