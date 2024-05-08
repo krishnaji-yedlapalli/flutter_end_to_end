@@ -1,8 +1,6 @@
 name: Flutter End to End
 
-on:
-  pull_request:
-    branches: [ main ]  # Trigger on pushes to the main branch (adjust as needed)
+on: # Trigger on pushes to the main branch (adjust as needed)
   push:
     branches: [ main ]  
 
