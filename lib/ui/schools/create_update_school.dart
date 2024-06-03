@@ -103,7 +103,7 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().add(CreateOrUpdateSchoolEvent(SchoolModel(
+          context.read<SchoolBloc>().createOrUpdateSchool(SchoolModel(
               schoolNameCtrl.text.trim(),
               selectedCountry!,
               locationCtrl.text.trim(),
@@ -112,7 +112,7 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
               updatedDate: DateTime.now().millisecondsSinceEpoch
           ),
               isCreateSchool : isCreateSchool
-          ));
+          );
           GoRouter.of(context).pop();
         }
         break;

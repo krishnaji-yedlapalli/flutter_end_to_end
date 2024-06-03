@@ -10,10 +10,10 @@ class SchoolsDataEvent extends SchoolEvent {
   SchoolsDataEvent();
 }
 
-class SchoolDataEvent extends SchoolEvent {
-  final String id;
-  SchoolDataEvent(this.id);
-}
+// class SchoolDataEvent extends SchoolEvent {
+//   final String id;
+//   SchoolDataEvent(this.id);
+// }
 
 class StudentsDataEvent extends SchoolEvent {
   final String schoolId;
@@ -45,12 +45,12 @@ class CreateOrEditStudentEvent extends SchoolEvent {
    CreateOrEditStudentEvent(this.student, this.schoolId, {this.isCreateStudent = true});
 }
 
-class CreateOrEditSchoolDetailsEvent extends SchoolEvent {
-
-  final SchoolDetailsModel schoolDetails;
-
-  CreateOrEditSchoolDetailsEvent(this.schoolDetails);
-}
+// class CreateOrEditSchoolDetailsEvent extends SchoolEvent {
+//
+//   final SchoolDetailsModel schoolDetails;
+//
+//   CreateOrEditSchoolDetailsEvent(this.schoolDetails);
+// }
 
 class DeleteSchoolEvent extends SchoolEvent {
 
