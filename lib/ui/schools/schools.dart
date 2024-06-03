@@ -28,7 +28,7 @@ class Schools extends StatefulWidget {
 class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWidget, FeatureDiscovery{
   @override
   void initState() {
-      BlocProvider.of<SchoolBloc>(context).add(SchoolsDataEvent());
+      BlocProvider.of<SchoolBloc>(context).loadSchools();
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         SchoolScreenFeatureDiscovery().startFeatureDiscovery(context);
       });
@@ -194,7 +194,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   }
 
   onTapOfSchoolDelete(String schoolId) {
-    BlocProvider.of<SchoolBloc>(context).add(DeleteSchoolEvent(schoolId));
+    BlocProvider.of<SchoolBloc>(context).deleteSchool(schoolId);
   }
 
   onTapOfDumpStatus([bool isRunning = false]) {

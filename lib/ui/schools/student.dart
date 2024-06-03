@@ -23,7 +23,7 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
   @override
   void initState() {
     BlocProvider.of<SchoolBloc>(context)
-        .add(StudentDataEvent(widget.studentId, widget.schoolId));
+        .loadStudent(widget.studentId, widget.schoolId);
     super.initState();
   }
 
@@ -83,6 +83,6 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
 
   void deleteStudent() {
     GoRouter.of(context).pop();
-    BlocProvider.of<SchoolBloc>(context).add(DeleteStudentEvent(widget.studentId, widget.schoolId));
+    BlocProvider.of<SchoolBloc>(context).deleteStudent(widget.studentId, widget.schoolId);
   }
 }

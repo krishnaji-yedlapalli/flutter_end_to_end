@@ -34,7 +34,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   @override
   void initState() {
     BlocProvider.of<SchoolBloc>(context)
-      ..add(SchoolDataEvent(widget.schoolId))
+      ..loadSchoolDetails(widget.schoolId)
       ..viewAllStudents = true;
     super.initState();
   }
@@ -172,7 +172,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
     return  ElevatedButton(
         onPressed: () => context
             .read<SchoolBloc>()
-            .add(StudentsDataEvent(id)),
+            .loadStudents(id),
         child: const Text('View Students'));
   }
 
