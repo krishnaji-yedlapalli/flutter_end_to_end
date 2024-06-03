@@ -95,8 +95,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().add(CreateOrEditSchoolDetailsEvent(
-              SchoolDetailsModel(
+          context.read<SchoolBloc>().createOrEditSchoolDetails(SchoolDetailsModel(
                   widget.school.id,
                   widget.school.schoolName,
                   widget.school.country,
@@ -107,7 +106,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
               hostelAvailability,
               widget.schoolDetails?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
               updatedDate: DateTime.now().millisecondsSinceEpoch
-              )));
+              ));
           GoRouter.of(context).pop();
         }
         break;

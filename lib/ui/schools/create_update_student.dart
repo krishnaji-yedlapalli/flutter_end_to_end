@@ -112,7 +112,7 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().add(CreateOrEditStudentEvent(
+          context.read<SchoolBloc>().createOrEditStudent(
               StudentModel(
                   isCreateStudent ? HelperMethods.uuid : widget.student!.id,
                 widget.schoolId,
@@ -123,7 +123,6 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
                 updatedDate: DateTime.now().millisecondsSinceEpoch
               ), widget.schoolId,
           isCreateStudent: isCreateStudent
-          ),
           );
           GoRouter.of(context).pop();
         }
