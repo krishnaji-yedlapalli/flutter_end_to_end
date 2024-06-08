@@ -13,7 +13,7 @@ import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:sample_latest/widgets/custom_dropdown.dart';
 
-class MockSchoolBloc extends MockBloc<SchoolEvent, SchoolState> implements SchoolBloc {}
+class MockSchoolBloc extends MockCubit<SchoolState> implements SchoolBloc {}
 
 void main() {
 
