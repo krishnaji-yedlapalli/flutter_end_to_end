@@ -28,8 +28,8 @@ class Schools extends StatefulWidget {
 class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWidget, FeatureDiscovery{
   @override
   void initState() {
-      BlocProvider.of<SchoolBloc>(context).loadSchools();
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        BlocProvider.of<SchoolBloc>(context).loadSchools();
         SchoolScreenFeatureDiscovery().startFeatureDiscovery(context);
       });
     super.initState();
@@ -51,7 +51,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
          buildAlertDialog(context, title : '!!! Welcome to School Module !!!', content : 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
          BlocProvider.of<SchoolBloc>(context).isWelcomeMessageShowed = true;
          },
-        listenWhen: (context, state){
+        listenWhen: (oldState, state){
           return !state.isWelcomeMessageShowed;
         },
         child: Column(

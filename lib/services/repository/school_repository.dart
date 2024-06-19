@@ -18,7 +18,7 @@ Future<bool> deleteSchool(String id);
 Future<bool> deleteStudent(String studentId, String schoolId);
 }
 
-class SchoolRepository with BaseService implements SchoolRepo{
+class SchoolRepository extends SchoolRepo with BaseService {
 
   @override
   Future<List<SchoolModel>> fetchSchools() async {
@@ -34,12 +34,10 @@ class SchoolRepository with BaseService implements SchoolRepo{
 
   @override
   Future<StudentModel?> fetchStudent(String studentId, String schoolId) async {
-    StudentModel student;
+    StudentModel? student;
     var response = await makeRequest(url: '${Urls.students}/$schoolId/$studentId.json');
     if(response != null) {
       student = StudentModel.fromJson(response);
-    }else {
-      throw Exception();
     }
     return student;
   }

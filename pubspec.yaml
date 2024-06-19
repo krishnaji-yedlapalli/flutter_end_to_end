@@ -78,7 +78,7 @@ dependencies:
   url_launcher: ^6.2.6
   googleapis_auth: ^1.6.0
   bloc_test: ^9.1.7
-  mockito:
+  mockito: 5.4.4
 
 #  intl : any
 

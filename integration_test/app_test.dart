@@ -27,11 +27,19 @@ void main() {
       Environment().configure();
       DeviceConfiguration.initiate();
 
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(MyApp());
 
       await tester.pumpAndSettle(Duration(seconds: 2));
 
-     // expect(find.text('hello John Carte'),  findsOne);
+      // final homeDismiss = find.text('Dismiss');
+      //
+      // if(homeDismiss.hasFound) {
+      //   await tester.tap(homeDismiss);
+      //   await tester.pumpAndSettle(Duration(seconds: 3));
+      // }
+
+
+      // expect(find.text('hello John Carte'),  findsOne);
 
       // await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -44,7 +52,7 @@ void main() {
      //
      await tester.tap(schoolTile);
 
-      await tester.pumpAndSettle(Duration(seconds: 2));
+      await tester.pumpAndSettle();
 
       // final addButton = find.byIcon(Icons.add);
       //
@@ -52,13 +60,15 @@ void main() {
       //
       // await tester.pumpAndSettle(Duration(seconds: 2));
 
-      final dismiss = find.text('Dismiss');
-
-      await tester.tap(dismiss);
-
-      await tester.pumpAndSettle(const Duration(seconds: 2));
+      // final dismiss = find.text('Dismiss');
+      //
+      // await tester.tap(dismiss);
+      //
+      // await tester.pumpAndSettle(const Duration(seconds: 2));
 
       final createSchool = find.text('Create School');
+
+
 
       await tester.tap(createSchool);
 

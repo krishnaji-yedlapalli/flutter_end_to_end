@@ -26,7 +26,7 @@ void main() {
 
     testWidgets('test home', (tester) async {
 
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(MyApp());
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
