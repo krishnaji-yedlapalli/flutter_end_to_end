@@ -2,6 +2,9 @@
 
 A Flutter project aimed at learning app development across multiple platforms using a unified codebase.
 
+# Reference link to access the project on Web
+ https://flutter-end-to-end.web.app
+
 # Currently Available Features:
 1. Theme
 2. Routing
@@ -12,11 +15,10 @@ A Flutter project aimed at learning app development across multiple platforms us
 7. Push Notification Local and Remote
 
 # Currently Supported Platforms:
-- Android
-- IOS
-- Web
-- MacOS
-- Windows
+- Android - [Install Android App](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages)
+- IOS - [Install IOS](https://i.diawi.com/VeQECd)
+- Web - [Open Web App](https://flutter-end-to-end.web.app/)
+- MacOS - [Install IOS](https://i.diawi.com/VeQECd)
 
 # Theme:
    * In this application Material 3 themeing was implemented, in this appliacation can find different type of material components.
@@ -107,7 +109,4 @@ A Flutter project aimed at learning app development across multiple platforms us
 <img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
 <img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
 <img width="1434" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
-
-# Reference link to access the project on Web
- https://flutter-end-to-end.web.app
 
