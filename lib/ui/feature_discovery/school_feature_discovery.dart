@@ -57,7 +57,7 @@ class SchoolScreenFeatureDiscovery with ButtonMixin {
             Text(des(type)),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: customTextButton(label: 'Dismiss', callback: () => FeatureDiscovery.completeCurrentStep(context)),
+              child: customTextButton(label: 'Dismiss', callback: () => FeatureDiscovery.dismissAll(context)),
             )
           ],
         ),

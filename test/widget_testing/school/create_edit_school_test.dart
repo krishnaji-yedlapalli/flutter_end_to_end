@@ -12,10 +12,9 @@ import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/services/repository/school_repository.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:firebase_core_platform_interface/src/pigeon/mocks.dart';
-import '../../unit_testing/school_bloc_test.mocks.dart';
+import 'create_edit_school_test.mocks.dart';
 
-@GenerateMocks([SchoolRepo])
-
+@GenerateMocks([SchoolRepository])
 void main() async {
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -23,14 +22,14 @@ void main() async {
 
   group('Creating and editing a school', (){
 
-    late MockMockSchoolRepo mockSchoolRepo;
+    late MockSchoolRepository mockSchoolRepo;
 
     setUpAll(() async {
       WidgetsFlutterBinding.ensureInitialized();
       Environment().configure();
       DeviceConfiguration.initiate();
       await Firebase.initializeApp();
-      mockSchoolRepo = MockMockSchoolRepo();
+      mockSchoolRepo = MockSchoolRepository();
     });
 
     testWidgets('Creating and editing a school', (tester) async {
@@ -115,5 +114,7 @@ void main() async {
 
       expect(find.byType(ListTile), findsOneWidget);
     });
+
+
   });
 }

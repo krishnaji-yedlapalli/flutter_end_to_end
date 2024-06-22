@@ -25,10 +25,10 @@ import 'package:firebase_core_platform_interface/firebase_core_platform_interfac
 import 'package:sample_latest/widgets/custom_dropdown.dart';
 
 import '../../mock_data/school/mock_school_repo.dart';
-import '../../unit_testing/school_bloc_test.mocks.dart';
+import 'school_widget_test.mocks.dart';
 
 
-@GenerateMocks([SchoolRepo])
+@GenerateMocks([SchoolRepository])
 void main() async {
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -36,14 +36,14 @@ void main() async {
 
   group('home widget testing', () {
 
-    late MockMockSchoolRepo mockSchoolRepo;
+    late MockSchoolRepository mockSchoolRepo;
 
     setUpAll(() async {
       WidgetsFlutterBinding.ensureInitialized();
       Environment().configure();
       DeviceConfiguration.initiate();
       await Firebase.initializeApp();
-      mockSchoolRepo = MockMockSchoolRepo();
+      mockSchoolRepo = MockSchoolRepository();
     });
 
     // tearDown(() {
