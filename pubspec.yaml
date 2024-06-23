@@ -55,7 +55,7 @@ dependencies:
   # Plugins
   youtube_player_flutter:
   local_auth:
-  share_plus:
+#  share_plus:
   video_player:
   network_info_plus:
   just_audio:
