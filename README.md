@@ -6,17 +6,17 @@ A Flutter project aimed at learning app development across multiple platforms us
  https://flutter-end-to-end.web.app
 
 # Currently Available Features:
-1. Theme
-2. Routing - Declarative Routing using GoRouter
-3. Localization - Bidirectional Support
-4. Offline support using the Sqflite plugin
-5. Bloc Architecture by applying principles of Clean Architecture
-6. Integrated REST Api's using Firebase Realtime Database.
-7. Deep Linking - Using flutter deep-linking
-8. Remote Push Notifications using Firebase
-9. Flavor Support - Android, IOS & macOS
-10. Automate Tests - Unit, Widget and Integration
-11. CI/CD Pipeline integration for Android, ios, Web and MacOs.
+1. **Theme**
+2. **Routing** - Declarative Routing using GoRouter
+3. **Localization** - Bidirectional Support
+4. **Offline support** - using the Sqflite plugin
+5. **Bloc Architecture** - by applying principles of Clean Architecture
+6. **Integrated REST Api's** - using Firebase Realtime Database.
+7. **Deep Linking** - Using flutter deep-linking
+8. **Remote Push Notifications** - using Firebase
+9. **Flavor Support** - Android, IOS & macOS
+10.**Automate Tests** - Unit, Widget and Integration
+11. **CI/CD Pipeline integration** - for Android, ios, Web and MacOs.
 
 # Currently Supported Platforms:
 - Android - [Install Android App](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages)
@@ -113,4 +113,12 @@ A Flutter project aimed at learning app development across multiple platforms us
 <img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
 <img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
 <img width="1434" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
+
+## Automate Tests:
+
+**Integration Tests**
+
+`flutter test integration_test`
+
+
 
