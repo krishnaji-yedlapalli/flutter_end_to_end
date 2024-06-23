@@ -23,13 +23,13 @@ class DeviceConfiguration {
     }
   }
 
-  static void updateDeviceResolutionAndOrientation(BuildContext context, Orientation orientation) {
+  static void updateDeviceResolutionAndOrientation(Size size, Orientation orientation) {
     _orientationType = orientation;
-    double size = MediaQuery.of(context).size.width;
+    double width = size.width;
 
-    if(size < 600){
+    if(width < 600){
       _deviceResolutionType = DeviceResolutionType.mobile;
-    }else if(size > 1280) {
+    }else if(width > 1280) {
       _deviceResolutionType = DeviceResolutionType.desktop;
     }else{
       _deviceResolutionType = DeviceResolutionType.tab;

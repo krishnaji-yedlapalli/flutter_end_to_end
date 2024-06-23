@@ -20,11 +20,14 @@ class SchoolScreenFeatureDiscovery with ButtonMixin {
 
   var feature1OverflowMode = OverflowMode.clipContent;
   var feature1EnablePulsingAnimation = false;
+  var isCompleted = false;
 
   void startFeatureDiscovery(BuildContext context, {bool forceTour = false}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (!forceTour) {
+    if(isCompleted && !forceTour){
+      return;
+    }else if (!forceTour) {
       var status = prefs.getBool(Constants.schoolDiscoveryStatus) ?? false;
       if (status) return;
     }
@@ -41,6 +44,7 @@ class SchoolScreenFeatureDiscovery with ButtonMixin {
     );
 
     prefs.setBool(Constants.schoolDiscoveryStatus, true);
+    isCompleted = true;
   }
 
   Widget aboutSchoolDiscovery({required Widget child, required SchoolDiscoverFeatureType type}) {
@@ -57,7 +61,7 @@ class SchoolScreenFeatureDiscovery with ButtonMixin {
             Text(des(type)),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: customTextButton(label: 'Dismiss', callback: () => FeatureDiscovery.completeCurrentStep(context)),
+              child: customTextButton(label: 'Dismiss', callback: () => FeatureDiscovery.dismissAll(context)),
             )
           ],
         ),

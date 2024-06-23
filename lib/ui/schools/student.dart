@@ -22,8 +22,10 @@ class Student extends StatefulWidget {
 class _ChildListState extends State<Student> with HelperWidget, Loaders{
   @override
   void initState() {
-    BlocProvider.of<SchoolBloc>(context)
-        .loadStudent(widget.studentId, widget.schoolId);
+    WidgetsBinding.instance.addPostFrameCallback((val) {
+      BlocProvider.of<SchoolBloc>(context)
+          .loadStudent(widget.studentId, widget.schoolId);
+    });
     super.initState();
   }
 

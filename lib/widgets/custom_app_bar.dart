@@ -27,7 +27,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: bottom,
       actions: [
         ...actions ?? [],
-        TextButton.icon(onPressed: context.read<CommonProvider>().onChangeOfTheme, icon: Icon(context.watch<CommonProvider>().isLightTheme ? Icons.dark_mode : Icons.light_mode), label: DeviceConfiguration.isMobileResolution ? const Text('') : Text(context.watch<CommonProvider>().isLightTheme ? AppLocalizations.of(context)!.darkTheme : AppLocalizations.of(context)!.lightTheme, style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)))],
+        TextButton.icon(onPressed: context.read<CommonProvider>().onChangeOfTheme, icon: Icon(context.watch<CommonProvider>().isLightTheme ? Icons.dark_mode : Icons.light_mode), label: DeviceConfiguration.isMobileResolution ? const Text('') : Text(context.watch<CommonProvider>().isLightTheme ? AppLocalizations.of(context)!.darkTheme : AppLocalizations.of(context)!.lightTheme, style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.white)))
+      ],
     );
   }
 

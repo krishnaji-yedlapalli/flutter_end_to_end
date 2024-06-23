@@ -59,19 +59,20 @@ void main() async {
   ConnectivityHandler().initialize();
   Environment().configure();
   dio.interceptors.add(Interceptors());
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+
+  final SchoolRepository? schoolRepository;
+
+   MyApp({super.key, this.schoolRepository});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-
-  final SchoolBloc _schoolBloc = SchoolBloc(SchoolRepository());
 
   @override
   void initState() {
@@ -111,12 +112,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale))
       ],
       child: BlocProvider<SchoolBloc>(
-        create: (BuildContext context) => SchoolBloc(SchoolRepository()),
+        create: (BuildContext context) => SchoolBloc(widget.schoolRepository ?? SchoolRepository()),
         child: Builder(
           builder: (context) {
             return OrientationBuilder(
               builder: (context, orientation) {
-                DeviceConfiguration.updateDeviceResolutionAndOrientation(context, orientation);
+                DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
                 return GlobalLoaderOverlay(
                   child: MaterialApp.router(
                     debugShowCheckedModeBanner: false,

@@ -171,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
             var module = buildHomeCardView(
+                key: Key(screenDetails.$2.name),
                 title: screenDetails.$1,
                 des: screenDetails.des ?? '',
                 icon: screenDetails.$3,

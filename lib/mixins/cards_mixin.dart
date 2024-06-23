@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 mixin CardWidgetsMixin {
 
-  Widget buildHomeCardView({required String title, required String des, required IconData icon, VoidCallback? callback}) {
+  Widget buildHomeCardView({Key? key, required String title, required String des, required IconData icon, VoidCallback? callback}) {
     return Builder(
       builder: (context) {
         return Card(
           child: InkWell(
+            key: key,
             onTap: callback,
             customBorder: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))
