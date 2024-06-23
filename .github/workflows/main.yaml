@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest  # Replace with a suitable runner if needed
 
     steps:
-      - uses: actions/checkout@v3  # Checkout your code from the repository
+      - uses: actions/checkout@v4  # Checkout your code from the repository
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
