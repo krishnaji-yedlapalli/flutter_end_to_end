@@ -7,24 +7,30 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/environment/environment.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
+import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/services/repository/school_repository.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
+import 'package:sample_latest/ui/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/ui/schools/schools.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-import 'package:sample_latest/widgets/custom_dropdown.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../mock_data/school/mock_school_repo.dart';
+import '../../mock_data/configuration_data.dart';
+import '../../mock_data/school/school_mock_data.dart';
 import 'school_widget_test.mocks.dart';
 
 
@@ -50,81 +56,146 @@ void main() async {
     //   schoolBloc.close();
     // });
 
-    testWidgets('Testing Existing school flow', (tester) async {
+    Future<void> pumpSchoolWidgetWithAllDependencies(WidgetTester tester, SchoolBloc schoolBloc,  Size size) async {
 
+      final GoRouter goRouter = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => MediaQuery(
+              key: UniqueKey(),
+                data: MediaQueryData(size: size),
+                child: OrientationBuilder(
+                  builder : (context, orientation) {
+                    DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
+                    return ChangeNotifierProvider(
+                    create: (context) =>
+                        CommonProvider(ThemeMode.dark, Locale('en')),
+                    child: BlocProvider(
+                      key: UniqueKey(),
+                        create: (context) => schoolBloc,
+                        child: FeatureDiscovery.withProvider(
+                            persistenceProvider: NoPersistenceProvider(),
+                            child: Builder(builder: (context) {
+                              return Schools();
+                            }))),
+                  );
+    }
+                )), // Replace with your actual widget
+          ),
+          // Add other routes as needed
+        ],
+      );
 
-      await tester.pumpWidget(MyApp(schoolRepository: mockSchoolRepo));
+      await tester.pumpWidget(MaterialApp.router(
+        key: UniqueKey(),
+        routerConfig: goRouter,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'),
+          Locale('es'),
+          Locale('hi'),
+          Locale('he'),
+        ],
+      ));
+    }
 
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+    testWidgets('Testing feature discovery', (tester) async {
 
-      expect(find.byIcon(Icons.school), findsWidgets);
+      await pumpSchoolWidgetWithAllDependencies(tester, SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
 
-      expect(find.text('Hello John Carter'), findsOne);
+      bool schoolOverlayDismissed = false;
+      for (int i = 0; i < 100; i++) {
+        await tester.pump(
+            const Duration(milliseconds: 100)); // Pump for a short duration
 
-      var school = find.byKey(Key('school'));
-
-      await tester.tap(school);
-
-      when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-        return Future.value(<SchoolModel>[
-              SchoolModel('Oxford', 'India', 'Noida', '52a29100b99c1023a3674150b7ab5f7b', 1718168534634),
-              SchoolModel('Kennedy', 'India', 'Noida', '52a29100b99c1023a3674150b7aa5f7b', 1718168534634),
-              SchoolModel('Delhi', 'India', 'Noida', '52a29100b99c1023a3674150b7ah5f7b', 1718168534634),
-              SchoolModel('Cambridge', 'India', 'Noida', '52a29100b99c1023a3674150b7a35f7b', 1718168534634),
-              SchoolModel('Infrasonic', 'India', 'Noida', '52a29100b99c1023a3674150b7a75f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100b99c1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100b92c1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100b3c1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100699c1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100b69c1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100b97c1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Model school', 'India', 'Noida', '52a29100b99h1023a3674150b7a15f7b', 1718168534634),
-              SchoolModel('Sanfransico', 'India', 'Noida', '52a29100b99c7023a3674150b7a15f7b', 1718168534634),
-        ]);
-      });
-
-      await tester.pumpAndSettle(Duration(seconds: 1));
+        // Check if the overlay is dismissed
+        if (find.text('Dismiss').evaluate().isNotEmpty) {
+          final schoolDismiss = find.text('Dismiss');
+          schoolOverlayDismissed = true;
+          await tester.tap(schoolDismiss);
+        }
+        if (schoolOverlayDismissed) {
+          break;
+        }
+      }
+      await tester.pumpAndSettle();
 
       var welcomePopup = find.byIcon(Icons.thumb_up);
 
       await tester.tap(welcomePopup);
+      await tester.pump();
+    });
 
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+    testWidgets('Testing with No Schools', (tester) async {
+
+      when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
+        return Future.value(<SchoolModel>[]);
+      });
+
+      await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('No Schools Found, Create a new School'),  findsOneWidget);
+
+    });
+
+    testWidgets('Test Existing school flow', (tester) async {
+
+      var schoolBloc = SchoolBloc(mockSchoolRepo);
+      schoolBloc.isWelcomeMessageShowed = true;
+      when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
+        return Future.value(SchoolMockData.schools);
+      });
+
+      await pumpSchoolWidgetWithAllDependencies(tester, schoolBloc, TestConfigurationData.screenSizes.first);
+      await tester.pumpAndSettle();
 
       expect(find.byType(ListTile), findsAtLeast(2));
 
       /// Offset 0 represents x axis and 5000 represents scroll value, negative value represents up wards scroll and positive values represents downward scroll.
       /// 1000 is scroll velocity.
-      await tester.fling(find.byType(ListView), const Offset(0, -5000), 10000);
+      await tester.fling(find.byType(ListView), const Offset(0, -8000), 10000);
       await tester.pumpAndSettle();
 
       expect(find.text('Sanfransico'), findsOneWidget);
 
       await tester.fling(find.byType(ListView), const Offset(0, 100), 10000);
       await tester.pumpAndSettle();
+    });
 
-      /// loading students
-      when(mockSchoolRepo.fetchStudents('52a29100b99c1023a3674150b7ab5f7b')).thenAnswer((value) => Future.value(<StudentModel>[StudentModel('1234', '52a29100b99c1023a3674150b7ab5f7b', 'Krishna', 'Noida', '7th Standard', 1718168534634)]));
-      when(mockSchoolRepo.fetchSchoolDetails('52a29100b99c1023a3674150b7ab5f7b')).thenAnswer((value) => Future.value(null));
+    testWidgets('Test Different device Resolutions', (tester) async {
 
-      await tester.tap(find.byType(ListTile).first);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+      for (var size in TestConfigurationData.screenSizes) {
+        await tester.binding.setSurfaceSize(size);
+        DeviceConfiguration.updateDeviceResolutionAndOrientation(
+            size, Orientation.portrait);
 
-      expect(find.text('Add More details'), findsOneWidget);
-      
-      expect(find.text('Create Student'), findsOneWidget);
+        var schoolBloc = SchoolBloc(mockSchoolRepo);
+        schoolBloc.isWelcomeMessageShowed =true;
+        SchoolScreenFeatureDiscovery().isCompleted = true;
 
-      expect(find.text('Krishna'), findsOneWidget);
+        when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
+          return Future.value(SchoolMockData.schools);
+        });
 
-      when(mockSchoolRepo.fetchStudent('1234', '52a29100b99c1023a3674150b7ab5f7b')).thenAnswer((value) => Future.value(StudentModel('1234', '52a29100b99c1023a3674150b7ab5f7b', 'Krishna', 'Noida', '7th Standard', 1718168534634)));
+        await pumpSchoolWidgetWithAllDependencies(tester, schoolBloc, size);
+        await tester.pumpAndSettle();
 
-      var student = find.byType(ListTile);
+        await tester.fling(find.byType(ListView), const Offset(0, -8000), 10000);
+        await tester.pumpAndSettle();
 
-      await tester.tap(student.first);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(find.text('Sanfransico'), findsOneWidget);
 
-      expect(find.text('Delete Student'), findsOneWidget);
+        await tester.fling(find.byType(ListView), const Offset(0, 100), 10000);
+        await tester.pumpAndSettle();
+      }
+    });
 
     });
-  });
 }

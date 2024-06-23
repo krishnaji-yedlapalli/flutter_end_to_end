@@ -10,6 +10,8 @@ import 'package:sample_latest/ui/schools/create_update_student.dart';
 import 'package:sample_latest/ui/schools/school_details.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
+import '../../mock_data/configuration_data.dart';
+
 main() {
 
   group('create student widget test', () {
@@ -74,14 +76,7 @@ main() {
 
     testWidgets('Testing different Screen resolution', (tester) async {
 
-      const List<Size> screenSizes = [
-         // Size(320, 480), // Small Mobile: e.g., old iPhone SE
-         Size(375, 667), // Regular Mobile: e.g., iPhone 8
-        Size(768, 1024), // Tablet: e.g., iPad
-        Size(1440, 900), // Desktop: Typical resolution
-      ];
-
-      for (var size in screenSizes) {
+      for (var size in TestConfigurationData.screenSizes) {
         await tester.binding.setSurfaceSize(size);
         DeviceConfiguration.updateDeviceResolutionAndOrientation(size, Orientation.portrait);
 
