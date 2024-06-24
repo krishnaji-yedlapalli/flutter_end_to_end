@@ -120,7 +120,7 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 `flutter test integration_test`
 
-![Integration Test Video of Mobile](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/62c1bffb-4381-4d3d-b8d9-95e0b2ce1e17)
+https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/62c1bffb-4381-4d3d-b8d9-95e0b2ce1e17
 
 **Integration Tests on Web**
 
@@ -129,7 +129,7 @@ A Flutter project aimed at learning app development across multiple platforms us
   --target=integration_test/app_test.dart \
   -d chrome`
 
-![Integration Test Video of Web](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/4973956d-03f8-41f4-9d80-92b13f857aaa)
+https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/4973956d-03f8-41f4-9d80-92b13f857aaa
 
 **Unit Test and Widget Testing**
 
