@@ -71,7 +71,7 @@ class HomeScreenFeatureDiscovery with ButtonMixin {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: customTextButton(label: 'Dismiss', callback: () => FeatureDiscovery.completeCurrentStep(context)),
+              child: customTextButton(label: 'Dismiss', callback: () => FeatureDiscovery.dismissAll(context)),
             )],
         ),
         child: PopupMenuButton(

@@ -56,10 +56,12 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100)); // Pump for a short duration
 
         // Check if the overlay is dismissed
-        if(find.text('Dismiss').evaluate().isNotEmpty) {
-          final schoolDismiss = find.text('Dismiss');
+        var schoolDismiss = find.text('Dismiss');
+        if(schoolDismiss.evaluate().isNotEmpty && tester.any(schoolDismiss)) {
+          await tester.ensureVisible(schoolDismiss);
+          if(i < 30) continue;
           schoolOverlayDismissed = true;
-          await tester.tap(schoolDismiss);
+          await tester.tap(find.text('Dismiss'));
         }
         if (schoolOverlayDismissed) {
           break;
@@ -159,7 +161,7 @@ void main() {
 
       var deleteSchool = find.descendant(of: find.byType(ListTile).first, matching: find.byIcon(Icons.delete));
       await tester.tap(deleteSchool);
-      await tester.pump(const Duration(seconds: 1));
+      // await tester.pump(const Duration(seconds: 1));
 
     });
   });

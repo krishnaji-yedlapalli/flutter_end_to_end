@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
       body: GridView.builder(
           itemCount: screenTypes.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
+              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : DeviceConfiguration.isDesktopResolution ? 8 : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
             var module = buildHomeCardView(
