@@ -20,7 +20,7 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 # Currently Supported Platforms:
 - Android - [Install Android App](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages)
-- IOS - [Install IOS](https://i.diawi.com/VeQECd)
+- IOS - [Install IOS](https://testflight.apple.com/join/UulGfVnn)
 - Web - [Open Web App](https://flutter-end-to-end.web.app/)
 - MacOS - [Install IOS](https://i.diawi.com/VeQECd)
 
