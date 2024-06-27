@@ -78,6 +78,10 @@ android {
     flavorDimensions "flavors"
 
     productFlavors {
+        dash {
+            dimension "flavors"
+        }
+
         flutter {
             dimension "flavors"
         }

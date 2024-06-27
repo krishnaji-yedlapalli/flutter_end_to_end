@@ -8,9 +8,11 @@ mixin Notifiers {
 
     Fluttertoast.showToast(
         msg: label,
+        webShowClose: true,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
+        timeInSecForIosWeb: 5,
+        // webBgColor: Colors.grey,
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0
