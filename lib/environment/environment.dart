@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sample_latest/environment/app_configuration.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 
-enum EnvironmentType {defaultDash, flutter, dart}
+enum EnvironmentType {dash, flutter, dart}
 
 class Environment {
 
@@ -20,10 +20,10 @@ class Environment {
   void configure() {
     ///Fetching selected flavor Flavor
     EnvironmentType environmentType = const String.fromEnvironment('FLUTTER_APP_FLAVOR').isNotEmpty ?
-    (HelperMethods.enumFromString(EnvironmentType.values, const String.fromEnvironment('FLUTTER_APP_FLAVOR')) ?? EnvironmentType.defaultDash) : EnvironmentType.defaultDash;
+    (HelperMethods.enumFromString(EnvironmentType.values, const String.fromEnvironment('FLUTTER_APP_FLAVOR')) ?? EnvironmentType.dash) : EnvironmentType.dash;
 
     _configuration = switch(environmentType){
-      EnvironmentType.defaultDash => defaultConfiguration,
+      EnvironmentType.dash => defaultConfiguration,
       EnvironmentType.flutter => flutterConfiguration,
       EnvironmentType.dart => dartConfiguration,
     };
