@@ -1,5 +1,6 @@
 name: sample_latest
-description: A new Flutter project.
+description: Assist Flutter developers in constructing
+  their applications in Multi-Platform.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,6 +32,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
+    sdk: flutter
+  flutter_web_plugins:
     sdk: flutter
 
   # Flutter launcher icons
