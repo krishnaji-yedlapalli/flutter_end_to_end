@@ -4,7 +4,7 @@
       "details": [
       {
         "appID": "A6QN8A42J2.com.example.sampleLatest",
-        "paths": ["*"]
+        "paths": ["/home/*"]
       }
     ]
   }

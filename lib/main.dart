@@ -23,6 +23,10 @@ import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'package:sample_latest/adsense_web_stub.dart'
+if (dart.library.html) 'package:sample_latest/adsense_web.dart'
+as web;
+
 // @pragma('vm:entry-point')
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -34,6 +38,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+ if(kIsWeb) web.executeWebDependencies();
+
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
   /// For handling rendering/painting/widget building error's
@@ -93,6 +100,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
     super.didChangePlatformBrightness();
   }
+
 
 
   @override
