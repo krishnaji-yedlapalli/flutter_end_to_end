@@ -1,6 +1,6 @@
 part of 'offline_handler.dart';
 
-class _DumpingOfflineData with BaseService {
+class _DumpingOfflineData {
   static final _DumpingOfflineData _singleton = _DumpingOfflineData._internal();
 
   factory _DumpingOfflineData() {

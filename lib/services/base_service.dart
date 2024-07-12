@@ -6,8 +6,17 @@ import 'package:sample_latest/services/utils/db_constants.dart';
 
 import 'urls.dart';
 import 'utils/service_enums_typedef.dart';
+import 'package:sample_latest/services/interceptors/interceptor.dart';
 
-mixin BaseService {
+class BaseService {
+
+  static BaseService instance = BaseService._internal();
+  final Dio dio = Dio();
+
+    BaseService._internal(){
+     dio.interceptors.add(RequestBypassInterceptor());
+  }
+
   Future<dynamic> makeRequest<T>(
       {required String url,
       String? baseUrl,

@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sample_latest/models/school/school_details_model.dart' as _i2;
-import 'package:sample_latest/models/school/school_model.dart' as _i3;
-import 'package:sample_latest/models/school/student_model.dart' as _i4;
+import 'package:sample_latest/models/school/school_details_model.dart' as _i3;
+import 'package:sample_latest/models/school/school_model.dart' as _i4;
+import 'package:sample_latest/models/school/student_model.dart' as _i5;
+import 'package:sample_latest/services/base_service.dart' as _i2;
 import 'package:sample_latest/services/repository/school_repository.dart'
-    as _i5;
-import 'package:sample_latest/services/utils/service_enums_typedef.dart' as _i7;
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -26,9 +26,8 @@ import 'package:sample_latest/services/utils/service_enums_typedef.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeSchoolDetailsModel_0 extends _i1.SmartFake
-    implements _i2.SchoolDetailsModel {
-  _FakeSchoolDetailsModel_0(
+class _FakeBaseService_0 extends _i1.SmartFake implements _i2.BaseService {
+  _FakeBaseService_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -37,8 +36,9 @@ class _FakeSchoolDetailsModel_0 extends _i1.SmartFake
         );
 }
 
-class _FakeSchoolModel_1 extends _i1.SmartFake implements _i3.SchoolModel {
-  _FakeSchoolModel_1(
+class _FakeSchoolDetailsModel_1 extends _i1.SmartFake
+    implements _i3.SchoolDetailsModel {
+  _FakeSchoolDetailsModel_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -47,8 +47,18 @@ class _FakeSchoolModel_1 extends _i1.SmartFake implements _i3.SchoolModel {
         );
 }
 
-class _FakeStudentModel_2 extends _i1.SmartFake implements _i4.StudentModel {
-  _FakeStudentModel_2(
+class _FakeSchoolModel_2 extends _i1.SmartFake implements _i4.SchoolModel {
+  _FakeSchoolModel_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStudentModel_3 extends _i1.SmartFake implements _i5.StudentModel {
+  _FakeStudentModel_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -60,23 +70,32 @@ class _FakeStudentModel_2 extends _i1.SmartFake implements _i4.StudentModel {
 /// A class which mocks [SchoolRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSchoolRepository extends _i1.Mock implements _i5.SchoolRepository {
+class MockSchoolRepository extends _i1.Mock implements _i6.SchoolRepository {
   MockSchoolRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<List<_i3.SchoolModel>> fetchSchools() => (super.noSuchMethod(
+  _i2.BaseService get baseService => (super.noSuchMethod(
+        Invocation.getter(#baseService),
+        returnValue: _FakeBaseService_0(
+          this,
+          Invocation.getter(#baseService),
+        ),
+      ) as _i2.BaseService);
+
+  @override
+  _i7.Future<List<_i4.SchoolModel>> fetchSchools() => (super.noSuchMethod(
         Invocation.method(
           #fetchSchools,
           [],
         ),
         returnValue:
-            _i6.Future<List<_i3.SchoolModel>>.value(<_i3.SchoolModel>[]),
-      ) as _i6.Future<List<_i3.SchoolModel>>);
+            _i7.Future<List<_i4.SchoolModel>>.value(<_i4.SchoolModel>[]),
+      ) as _i7.Future<List<_i4.SchoolModel>>);
 
   @override
-  _i6.Future<_i4.StudentModel?> fetchStudent(
+  _i7.Future<_i5.StudentModel?> fetchStudent(
     String? studentId,
     String? schoolId,
   ) =>
@@ -88,68 +107,68 @@ class MockSchoolRepository extends _i1.Mock implements _i5.SchoolRepository {
             schoolId,
           ],
         ),
-        returnValue: _i6.Future<_i4.StudentModel?>.value(),
-      ) as _i6.Future<_i4.StudentModel?>);
+        returnValue: _i7.Future<_i5.StudentModel?>.value(),
+      ) as _i7.Future<_i5.StudentModel?>);
 
   @override
-  _i6.Future<_i2.SchoolDetailsModel?> fetchSchoolDetails(String? id) =>
+  _i7.Future<_i3.SchoolDetailsModel?> fetchSchoolDetails(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchSchoolDetails,
           [id],
         ),
-        returnValue: _i6.Future<_i2.SchoolDetailsModel?>.value(),
-      ) as _i6.Future<_i2.SchoolDetailsModel?>);
+        returnValue: _i7.Future<_i3.SchoolDetailsModel?>.value(),
+      ) as _i7.Future<_i3.SchoolDetailsModel?>);
 
   @override
-  _i6.Future<List<_i4.StudentModel>> fetchStudents(String? schoolId) =>
+  _i7.Future<List<_i5.StudentModel>> fetchStudents(String? schoolId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchStudents,
           [schoolId],
         ),
         returnValue:
-            _i6.Future<List<_i4.StudentModel>>.value(<_i4.StudentModel>[]),
-      ) as _i6.Future<List<_i4.StudentModel>>);
+            _i7.Future<List<_i5.StudentModel>>.value(<_i5.StudentModel>[]),
+      ) as _i7.Future<List<_i5.StudentModel>>);
 
   @override
-  _i6.Future<_i2.SchoolDetailsModel> addOrEditSchoolDetails(
-          _i2.SchoolDetailsModel? schoolDetails) =>
+  _i7.Future<_i3.SchoolDetailsModel> addOrEditSchoolDetails(
+          _i3.SchoolDetailsModel? schoolDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #addOrEditSchoolDetails,
           [schoolDetails],
         ),
         returnValue:
-            _i6.Future<_i2.SchoolDetailsModel>.value(_FakeSchoolDetailsModel_0(
+            _i7.Future<_i3.SchoolDetailsModel>.value(_FakeSchoolDetailsModel_1(
           this,
           Invocation.method(
             #addOrEditSchoolDetails,
             [schoolDetails],
           ),
         )),
-      ) as _i6.Future<_i2.SchoolDetailsModel>);
+      ) as _i7.Future<_i3.SchoolDetailsModel>);
 
   @override
-  _i6.Future<_i3.SchoolModel> createOrEditSchool(_i3.SchoolModel? school) =>
+  _i7.Future<_i4.SchoolModel> createOrEditSchool(_i4.SchoolModel? school) =>
       (super.noSuchMethod(
         Invocation.method(
           #createOrEditSchool,
           [school],
         ),
-        returnValue: _i6.Future<_i3.SchoolModel>.value(_FakeSchoolModel_1(
+        returnValue: _i7.Future<_i4.SchoolModel>.value(_FakeSchoolModel_2(
           this,
           Invocation.method(
             #createOrEditSchool,
             [school],
           ),
         )),
-      ) as _i6.Future<_i3.SchoolModel>);
+      ) as _i7.Future<_i4.SchoolModel>);
 
   @override
-  _i6.Future<_i4.StudentModel> createOrEditStudent(
+  _i7.Future<_i5.StudentModel> createOrEditStudent(
     String? schoolId,
-    _i4.StudentModel? student,
+    _i5.StudentModel? student,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -159,7 +178,7 @@ class MockSchoolRepository extends _i1.Mock implements _i5.SchoolRepository {
             student,
           ],
         ),
-        returnValue: _i6.Future<_i4.StudentModel>.value(_FakeStudentModel_2(
+        returnValue: _i7.Future<_i5.StudentModel>.value(_FakeStudentModel_3(
           this,
           Invocation.method(
             #createOrEditStudent,
@@ -169,19 +188,19 @@ class MockSchoolRepository extends _i1.Mock implements _i5.SchoolRepository {
             ],
           ),
         )),
-      ) as _i6.Future<_i4.StudentModel>);
+      ) as _i7.Future<_i5.StudentModel>);
 
   @override
-  _i6.Future<bool> deleteSchool(String? schoolId) => (super.noSuchMethod(
+  _i7.Future<bool> deleteSchool(String? schoolId) => (super.noSuchMethod(
         Invocation.method(
           #deleteSchool,
           [schoolId],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
 
   @override
-  _i6.Future<bool> deleteStudent(
+  _i7.Future<bool> deleteStudent(
     String? studentId,
     String? schoolId,
   ) =>
@@ -193,39 +212,6 @@ class MockSchoolRepository extends _i1.Mock implements _i5.SchoolRepository {
             schoolId,
           ],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
-
-  @override
-  _i6.Future<dynamic> makeRequest<T>({
-    required String? url,
-    String? baseUrl,
-    dynamic body,
-    String? contentType,
-    Map<String, dynamic>? queryParameters,
-    Map<String, String>? headers,
-    _i7.RequestType? method = _i7.RequestType.get,
-    Map<String, dynamic>? extras = const {},
-    bool? isOfflineApi = true,
-    bool? isFromQueue = false,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #makeRequest,
-          [],
-          {
-            #url: url,
-            #baseUrl: baseUrl,
-            #body: body,
-            #contentType: contentType,
-            #queryParameters: queryParameters,
-            #headers: headers,
-            #method: method,
-            #extras: extras,
-            #isOfflineApi: isOfflineApi,
-            #isFromQueue: isFromQueue,
-          },
-        ),
-        returnValue: _i6.Future<dynamic>.value(),
-      ) as _i6.Future<dynamic>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
 }

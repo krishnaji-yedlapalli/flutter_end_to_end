@@ -7,7 +7,7 @@ import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/services/repository/school_repository.dart';
 
-import '../mock_data/school/school_mock_data.dart';
+import '../../mock_data/school/school_mock_data.dart';
 import 'school_bloc_test.mocks.dart';
 
 @GenerateMocks([SchoolRepository])
