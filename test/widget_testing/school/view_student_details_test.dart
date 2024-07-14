@@ -61,18 +61,8 @@ void main() {
     await tester.pumpWidget(MaterialApp.router(
       key: UniqueKey(),
       routerConfig: goRouter,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('es'),
-        Locale('hi'),
-        Locale('he'),
-      ],
+      localizationsDelegates: TestConfigurationData.localizationDelegate,
+      supportedLocales: TestConfigurationData.supportedLocales ,
     ));
   }
 

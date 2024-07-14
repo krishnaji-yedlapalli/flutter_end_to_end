@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mockito/annotations.dart';
@@ -22,7 +21,6 @@ import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:firebase_core_platform_interface/src/pigeon/mocks.dart';
 import '../../mock_data/configuration_data.dart';
 import 'create_edit_school_test.mocks.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @GenerateMocks([SchoolRepository])
 void main() async {
@@ -128,18 +126,8 @@ void main() async {
         await tester.pumpWidget(MaterialApp.router(
           key: UniqueKey(),
           routerConfig: goRouter,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en'),
-            Locale('es'),
-            Locale('hi'),
-            Locale('he'),
-          ],
+          localizationsDelegates: TestConfigurationData.localizationDelegate,
+          supportedLocales: TestConfigurationData.supportedLocales ,
         ));
 
         await tester.tap(find.byType(FloatingActionButton));
