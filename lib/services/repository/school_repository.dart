@@ -18,12 +18,16 @@ Future<bool> deleteSchool(String id);
 Future<bool> deleteStudent(String studentId, String schoolId);
 }
 
-class SchoolRepository extends SchoolRepo with BaseService {
+class SchoolRepository extends SchoolRepo {
+
+  final BaseService baseService;
+
+  SchoolRepository({BaseService? baseService}) : baseService = baseService ?? BaseService.instance;
 
   @override
   Future<List<SchoolModel>> fetchSchools() async {
      List<SchoolModel> schools = <SchoolModel>[];
-     var response = await makeRequest(url: '${Urls.schools}.json');
+     var response = await baseService.makeRequest(url: '${Urls.schools}.json');
      if(response is Map) {
        schools = response.entries.map<SchoolModel>((json) => SchoolModel.fromJson(json.value)).toList();
      }else if(response is List){
@@ -35,7 +39,7 @@ class SchoolRepository extends SchoolRepo with BaseService {
   @override
   Future<StudentModel?> fetchStudent(String studentId, String schoolId) async {
     StudentModel? student;
-    var response = await makeRequest(url: '${Urls.students}/$schoolId/$studentId.json');
+    var response = await baseService.makeRequest(url: '${Urls.students}/$schoolId/$studentId.json');
     if(response != null) {
       student = StudentModel.fromJson(response);
     }
@@ -45,7 +49,7 @@ class SchoolRepository extends SchoolRepo with BaseService {
   @override
   Future<SchoolDetailsModel?> fetchSchoolDetails(String id) async {
     SchoolDetailsModel? schoolDetails;
-    var response = await makeRequest(url: '${Urls.schoolDetails}/$id.json');
+    var response = await baseService.makeRequest(url: '${Urls.schoolDetails}/$id.json');
     if(response != null) {
       schoolDetails = SchoolDetailsModel.fromJson(response);
     }
@@ -55,7 +59,7 @@ class SchoolRepository extends SchoolRepo with BaseService {
   @override
   Future<List<StudentModel>> fetchStudents(String schoolId) async {
     List<StudentModel> students = <StudentModel>[];
-    var response = await makeRequest(url: '${Urls.students}/$schoolId.json');
+    var response = await baseService.makeRequest(url: '${Urls.students}/$schoolId.json');
     if(response is Map) {
       students = response.entries.map<StudentModel>((json) => StudentModel.fromJson(json.value)).toList();
     }else if(response is List){
@@ -71,7 +75,7 @@ class SchoolRepository extends SchoolRepo with BaseService {
       schoolDetails.id: schoolDetails.toJson()
     };
 
-    var response = await makeRequest(url: '${Urls.schoolDetails}.json', body: body, method: RequestType.patch);
+    var response = await baseService.makeRequest(url: '${Urls.schoolDetails}.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
       schoolDetails = SchoolDetailsModel.fromJson(response[response.keys.first]);
     }else{
@@ -85,7 +89,7 @@ class SchoolRepository extends SchoolRepo with BaseService {
 
     Map<String, dynamic> body = {school.id : school.toJson()};
 
-    var response = await makeRequest(url: '${Urls.schools}.json', body: body, method: RequestType.patch);
+    var response = await baseService.makeRequest(url: '${Urls.schools}.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
       school = SchoolModel.fromJson(response[response.keys.first]);
     }else{
@@ -101,7 +105,7 @@ class SchoolRepository extends SchoolRepo with BaseService {
       student.id: student.toJson()
     };
 
-    var response = await makeRequest(url: '${Urls.students}/$schoolId.json', body: body, method: RequestType.patch);
+    var response = await baseService.makeRequest(url: '${Urls.students}/$schoolId.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
       student = StudentModel.fromJson(response[response.keys.first]);
     }
@@ -110,15 +114,15 @@ class SchoolRepository extends SchoolRepo with BaseService {
 
   @override
   Future<bool> deleteSchool(String schoolId) async {
-    var schoolDelRes = await makeRequest(url: '${ Urls.schools}/$schoolId.json', method: RequestType.delete);
-    var schoolDetailsDelRes = await makeRequest(url: '${Urls.schoolDetails}/$schoolId.json', method: RequestType.delete);
-    var studentsDel = await makeRequest(url: '${Urls.students}/$schoolId.json', method: RequestType.delete);
+    var schoolDelRes = await baseService.makeRequest(url: '${ Urls.schools}/$schoolId.json', method: RequestType.delete);
+    var schoolDetailsDelRes = await baseService.makeRequest(url: '${Urls.schoolDetails}/$schoolId.json', method: RequestType.delete);
+    var studentsDel = await baseService.makeRequest(url: '${Urls.students}/$schoolId.json', method: RequestType.delete);
    return true;
   }
 
   @override
   Future<bool> deleteStudent(String studentId, String schoolId) async {
-    var studentsDel = await makeRequest(url: '${Urls.students}/$schoolId/$studentId.json', method: RequestType.delete);
+    var studentsDel = await baseService.makeRequest(url: '${Urls.students}/$schoolId/$studentId.json', method: RequestType.delete);
     return true;
   }
 

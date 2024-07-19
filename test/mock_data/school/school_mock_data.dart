@@ -51,4 +51,23 @@ class SchoolMockData {
   static final individualStudent = StudentModel('87905', '123', 'David', 'texas', 'LKG', 1234567, updatedDate: 432211);
 
   static final schoolDetails = SchoolDetailsModel('123', 'Oxford', 'India', 'Noida', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Monroe_Township_High_School_Front_View.jpg', 1200, 50, false, 1718168534634);
+
+  static final schoolsJson = {
+    "160eeb80b9441071a5ac59e962588b3e": {
+      "country": "USA",
+      "createdDate": 1720364001555,
+      "id": "160eeb80b9441071a5ac59e962588b3e",
+      "location": "1",
+      "schoolName": "Kennedy",
+      "updatedDate": 1720364001555
+    },
+    "b4a8e200d4d81071b7c5c57a371abf3f": {
+      "country": "Dubai",
+      "createdDate": 1720367034069,
+      "id": "b4a8e200d4d81071b7c5c57a371abf3f",
+      "location": "Hyd",
+      "schoolName": "Oxford",
+      "updatedDate": 1720367034069
+    }
+  };
 }

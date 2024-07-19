@@ -5,7 +5,7 @@ import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
-class Interceptors extends Interceptor {
+class RequestBypassInterceptor extends Interceptor {
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 

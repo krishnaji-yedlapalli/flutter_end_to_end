@@ -35,7 +35,7 @@ part  'package:sample_latest/services/db/module_db_handler/schools_db_handler.da
 part  'package:sample_latest/services/db/module_db_handler/todo_list_db_handler.dart';
 part 'dumping_offline_data.dart';
 
-class OfflineHandler with BaseService {
+class OfflineHandler {
 
   factory OfflineHandler() {
     return _singleton;
@@ -109,7 +109,7 @@ class OfflineHandler with BaseService {
       var requestType = HelperMethods.enumFromString(RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        var result = await makeRequest(url: queueItem.path, method: requestType ?? RequestType.get, body: queueItem.body, queryParameters: queueItem.queryParams, isFromQueue: true);
+        var result = await BaseService.instance.makeRequest(url: queueItem.path, method: requestType ?? RequestType.get, body: queueItem.body, queryParameters: queueItem.queryParams, isFromQueue: true);
 
         /// Deleting item from queue table
         if (queueItem.queueId != null) await _CommonDbHandler().deleteQueueItem(queueItem.queueId!);
