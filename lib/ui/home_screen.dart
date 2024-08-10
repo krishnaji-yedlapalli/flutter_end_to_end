@@ -116,6 +116,18 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
           des: 'Test the deeplink in device'
       ),
       (
+      'Raspberry PI',
+      ScreenType.raspberrypi,
+      Icons.accessibility_sharp,
+      des: 'Here we can access different types of plugins'
+      ),
+      (
+      'Gemini Generative AI',
+      ScreenType.gemini,
+      Icons.chat,
+      des: 'Chat with Gemini'
+      ),
+      (
         'Automatci Keep alive',
         ScreenType.automaticKeepAlive,
         Icons.tab,
@@ -198,6 +210,8 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
       ScreenType.routing => '/home/route',
       ScreenType.pushNotifications => '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
+      ScreenType.gemini => '/home/gemini',
+      ScreenType.raspberrypi => '/home/raspberry-pi',
     };
     context.go(path);
   }

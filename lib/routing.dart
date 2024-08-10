@@ -6,10 +6,12 @@ import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/ui/deep_linking/deep_linking.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
+import 'package:sample_latest/ui/generative_ai/gemini.dart';
 import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/ui/push_notifcations/firebase_push_notifications.dart';
 import 'package:sample_latest/ui/push_notifcations/local_pushNotifications.dart';
 import 'package:sample_latest/ui/push_notifcations/notifications.dart';
+import 'package:sample_latest/ui/raspberry_pi/raspberrypi_ui.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/explicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/implicit_animations_widgets.dart';
@@ -62,6 +64,7 @@ class Routing {
   static const String tables = 'tables';
   static const String cardLayouts = 'cardLayouts';
   static const String stepper = 'stepper';
+  static const String htmlRendering = 'htmlRendering';
 
   static final shellNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -174,6 +177,16 @@ class Routing {
               return DeepLinkingTesting();
             },
           ),
+          GoRoute(
+              path: 'gemini',
+              builder: (context, state) {
+                return const GeminiChatScreen();
+              }),
+          GoRoute(
+              path: 'raspberry-pi',
+              builder: (context, state) {
+                return const RaspberrypiHome();
+              }),
         ]);
   }
 

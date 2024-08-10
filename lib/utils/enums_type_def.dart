@@ -1,5 +1,5 @@
 
-enum ScreenType {dashboard, routing, school, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes, pushNotifications, deepLinking}
+enum ScreenType {dashboard, routing, school, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes, pushNotifications, deepLinking, gemini, raspberrypi}
 
 enum RouteType {shellRouting, stateFullShellRoutingWithIndexed, stateFullShellRoutingWithoutIndexed}
 
@@ -16,4 +16,8 @@ enum PluginType {youtube, localAuthentication, localNotifications, sharePlus, au
 typedef OfflineDumpingStatus = ({String title, int percentage})?;
 
 enum SchoolDiscoverFeatureType {create, edit, delete, sync, dumpOfflineData, setDdConfig, resetDb}
+
+enum PartsOfDay {morning, afternoon, evening, night}
+
+enum EventDayType {everyday, dayByDay, weekly, fortnight, quaterly, customDate}
 

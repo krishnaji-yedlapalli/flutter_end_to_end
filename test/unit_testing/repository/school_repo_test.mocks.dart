@@ -3,11 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
+import 'package:dio/dio.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sample_latest/services/base_service.dart' as _i2;
-import 'package:sample_latest/services/utils/service_enums_typedef.dart' as _i4;
+import 'package:sample_latest/services/base_service.dart' as _i3;
+import 'package:sample_latest/services/utils/service_enums_typedef.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,23 +23,42 @@ import 'package:sample_latest/services/utils/service_enums_typedef.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeDio_0 extends _i1.SmartFake implements _i2.Dio {
+  _FakeDio_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [BaseService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBaseService extends _i1.Mock implements _i2.BaseService {
+class MockBaseService extends _i1.Mock implements _i3.BaseService {
   MockBaseService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<dynamic> makeRequest<T>({
+  _i2.Dio get dio => (super.noSuchMethod(
+        Invocation.getter(#dio),
+        returnValue: _FakeDio_0(
+          this,
+          Invocation.getter(#dio),
+        ),
+      ) as _i2.Dio);
+
+  @override
+  _i4.Future<dynamic> makeRequest<T>({
     required String? url,
     String? baseUrl,
     dynamic body,
     String? contentType,
     Map<String, dynamic>? queryParameters,
     Map<String, String>? headers,
-    _i4.RequestType? method = _i4.RequestType.get,
+    _i5.RequestType? method = _i5.RequestType.get,
     Map<String, dynamic>? extras = const {},
     bool? isOfflineApi = true,
     bool? isFromQueue = false,
@@ -60,6 +80,6 @@ class MockBaseService extends _i1.Mock implements _i2.BaseService {
             #isFromQueue: isFromQueue,
           },
         ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
 }
