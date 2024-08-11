@@ -8,11 +8,16 @@ import 'package:one_clock/one_clock.dart';
 import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/ui/raspberry_pi/check_in_btn.dart';
 import 'package:sample_latest/ui/raspberry_pi/create_tracker_event.dart';
 import 'package:sample_latest/ui/raspberry_pi/daily_tracker_event_list.dart';
+import 'package:sample_latest/ui/raspberry_pi/digital_clock.dart';
+import 'package:sample_latest/ui/raspberry_pi/today_events.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
+
+import 'time_of_day_message.dart';
 
 class RaspberrypiHome extends StatefulWidget {
   const RaspberrypiHome({super.key});
@@ -22,16 +27,29 @@ class RaspberrypiHome extends StatefulWidget {
 }
 
 class _RaspberrypiHomeState extends State<RaspberrypiHome>
-    with Loaders, CustomDialogs {
+    with TickerProviderStateMixin, Loaders, CustomDialogs {
+  final player = AudioPlayer();
 
-  final player = AudioPlayer();                   // Create a player
+  late final AnimationController controller = AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  );
+
+  bool isCheckedIn = false;
 
   @override
   void initState() {
+    controller.value = 1;
     WidgetsBinding.instance.addPostFrameCallback((duration) {
       context.read<DailyTrackerStatusBloc>().getCheckInStatus();
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,6 +81,29 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
   }
 
   Widget _buildGreetingStatus(DailyStatusTrackerCheckInStatus trackStatus) {
+    var greetingText = greeting(trackStatus.timeOfDay);
+    TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: greetingText,
+        style: Theme.of(context).textTheme.displayLarge?.apply(
+            fontSizeDelta: 40,
+            color: Colors.white,
+            fontFamily: GoogleFonts.notoSerif().fontFamily),
+      ),
+      maxLines: 2, // Set maxLines to control height based on lines
+      textDirection: TextDirection.ltr,
+    );
+    // Layout the text with an infinite width
+    textPainter.layout(maxWidth: double.infinity);
+
+    double timerHeight = 200;
+    double checkInHeight = 150;
+    double textInHeight = textPainter.size.height;
+
+    var totalHeight = timerHeight + checkInHeight + textInHeight + 20;
+    var size = MediaQuery.of(context).size;
+    var firstItemTopPosition = (size.height - totalHeight) / 2;
+
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -71,62 +112,28 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
             image:
                 AssetImage('asset/daily_tracker/pre_checkin_background.png')),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          AnalogClock(
-            decoration: BoxDecoration(
-                border: Border.all(width: 3.0, color: Colors.black),
-                color: Colors.transparent,
-                shape: BoxShape.circle),
-            width: 200.0,
-            height: 200.0,
-            isLive: true,
-            hourHandColor: Colors.black,
-            minuteHandColor: Colors.black,
-            showSecondHand: true,
-            numberColor: Colors.black87,
-            showNumbers: true,
-            showAllNumbers: false,
-            textScaleFactor: 1.4,
-            showTicks: true,
-            showDigitalClock: true,
-            // datetime: DateTime(2019, 1, 1, 9, 12, 15),
+          DailyTrackerDigitalClock(
+              position: (
+            top: firstItemTopPosition,
+            left: size.width / 2 - checkInHeight / 2,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(greeting(trackStatus.timeOfDay),
-                style: Theme.of(context).textTheme.displayLarge?.apply(
-                    fontSizeDelta: 40,
-                    color: Colors.white,
-                    fontFamily: GoogleFonts.notoSerif().fontFamily)),
+          controller: controller,
           ),
-          RippleAnimation(
-            color: Colors.lightGreenAccent,
-            delay: const Duration(milliseconds: 300),
-            repeat: true,
-            minRadius: 75,
-            ripplesCount: 6,
-            duration: const Duration(milliseconds: 6 * 300),
-            child: InkResponse(
-              onTap: onCheckIn,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle),
-                  child: Image.asset(
-                    'asset/daily_tracker/daily_tracker_check_in.png',
-                    height: 150,
-                    width: 150,
-                  )),
+          TimeOfDayMessage(title: greetingText, position: (top : firstItemTopPosition + timerHeight + 10, left : size.width / 2 - textPainter.size.width / 2), callback: (){}, textSizeDetails: textPainter.size, controller: controller),
+          CheckInBtn(
+            position: (
+              top: firstItemTopPosition + timerHeight + textInHeight + 20,
+              left: (size.width / 2) - (150/2)
             ),
-          )
-
-          // ElevatedButton(onPressed: context.read<DailyTrackerStatusBloc>().checkIn,
-          //     style: ElevatedButton.styleFrom(
-          //       minimumSize: DeviceConfiguration.isMobileResolution ? null : Size(200, 80)
-          //     ),
-          //     child: Text('Check In', style: TextStyle(fontSize: DeviceConfiguration.isMobileResolution ? null : 40)))
+            callback: onCheckIn,
+            controller: controller,
+          ),
+         if(isCheckedIn) Positioned(
+              top: 100,
+              left: 50,
+              child: const TodayEventsView())
         ],
       ),
     );
@@ -142,6 +149,8 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
       PartsOfDay.afternoon => 'Good After Noon',
       PartsOfDay.evening => 'Good Evening',
       PartsOfDay.night => 'Good Night',
+      PartsOfDay.allDay => '',
+      PartsOfDay.customTime => '',
     };
   }
 
@@ -150,9 +159,13 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
   }
 
   void onCheckIn() async {
-    final duration = await player.setAsset(           // Load a URL
+    final duration = await player.setAsset(// Load a URL
         'asset/sound_effects/check_in.mp3');
     player.play();
-
+    await controller.reverse();
+    setState(() {
+      isCheckedIn = true;
+    });
+    // context.read<DailyTrackerStatusBloc>().checkIn();
   }
 }

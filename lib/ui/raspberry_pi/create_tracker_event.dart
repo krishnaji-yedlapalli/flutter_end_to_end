@@ -6,6 +6,7 @@ import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/mixins/validators.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/widgets/custom_dropdown.dart';
 import 'package:sample_latest/widgets/text_field.dart';
 
@@ -16,35 +17,54 @@ class CreateDailyTrackerEvent extends StatefulWidget {
   const CreateDailyTrackerEvent({this.event, super.key});
 
   @override
-  State<CreateDailyTrackerEvent> createState() => _CreateDailyTrackerEventState();
+  State<CreateDailyTrackerEvent> createState() =>
+      _CreateDailyTrackerEventState();
 }
 
-class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent> with CustomDialogs, Validators {
-
+class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
+    with CustomDialogs, Validators {
   final TextEditingController titleCtrl = TextEditingController();
 
   final TextEditingController descriptionCtrl = TextEditingController();
 
   final TextEditingController selectedDateCtrl = TextEditingController();
 
-  static const List<String> eventTypes = [
-    'Every day',
-    'Day by day',
-    'Weekly',
-    'Fort Night',
-    'Quarterly',
-    'Custom Date'
-  ];
+  final TextEditingController selectedTimeCtrl = TextEditingController();
+
+  static const Map<String, EventDayType> eventTypes = {
+    'Every day': EventDayType.everyday,
+    'Day by day': EventDayType.dayByDay,
+    'Weekly': EventDayType.weekly,
+    'Fort Night': EventDayType.fortnight,
+    'Quarterly': EventDayType.quaterly,
+    'Custom Date': EventDayType.customDate
+  };
+
+  static const Map<String, PartsOfDay> partOfDay = {
+    'All Day': PartsOfDay.allDay,
+    'Morning': PartsOfDay.morning,
+    'Afternoon': PartsOfDay.afternoon,
+    'Evening': PartsOfDay.evening,
+    'Night': PartsOfDay.night,
+    'Custom Time': PartsOfDay.customTime
+  };
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late String selectedEvent;
+  late EventDayType selectedEvent;
+
+  late PartsOfDay selectedPartOfDay;
+
+  String? selectedDate;
+
+  String? selectedTime;
 
   bool isCreateEvent = true;
 
   @override
   void initState() {
-    selectedEvent = eventTypes.first;
+    selectedEvent = eventTypes.entries.first.value;
+    selectedPartOfDay = partOfDay.entries.first.value;
     super.initState();
   }
 
@@ -52,8 +72,9 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent> with 
   Widget build(BuildContext context) {
     return dialogWithButtons(
         title: 'Create Event',
-        content: _buildFrom(), actions: ['Cancel', isCreateEvent ? 'Create' : 'Update'], callBack: onTapOfAction
-    );
+        content: _buildFrom(),
+        actions: ['Cancel', isCreateEvent ? 'Create' : 'Update'],
+        callBack: onTapOfAction);
   }
 
   Widget _buildFrom() {
@@ -70,27 +91,62 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent> with 
               controller: titleCtrl,
               label: 'Title Of Event',
               suffixIcon: const Icon(Icons.title),
-              validator: (val)=> textEmptyValidator(val, 'School name is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'School name is required!!'),
             ),
             CustomTextField(
               controller: descriptionCtrl,
               label: 'Description',
               suffixIcon: const Icon(Icons.description),
-              validator: (val)=> textEmptyValidator(val, 'Location is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Location is required!!'),
             ),
             CustomDropDown(
-              items: eventTypes
-                  .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+              items: eventTypes.entries
+                  .map((e) => DropdownMenuItem(value: e.value, child: Text(e.key)))
                   .toList(),
-              onChanged: (val){ if(val != null) selectedEvent = val;},
+              onChanged: onSelectionOfEventType,
               value: selectedEvent,
               hint: 'Event Type',
-              validator: (val)=> textEmptyValidator(val, 'Country is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val?.toString(), 'Event Type is required!!'),
             ),
-            if(selectedEvent == 'Custom Date')
+            if (selectedEvent != EventDayType.everyday)
               Wrap(
+                spacing: 10,
+                runSpacing: 20,
                 children: [
-
+                  CustomTextField(
+                    controller: selectedDateCtrl,
+                    label: 'Select Date',
+                    validator: (val) =>
+                        textEmptyValidator(val, 'Date is required!!'),
+                    suffixIcon : IconButton(icon: Icon(Icons.calendar_month), onPressed: onSelectionOfDate),
+                  ),
+                  CustomDropDown(
+                    items: partOfDay.entries
+                        .map((e) => DropdownMenuItem(value: e.value, child: Text(e.key)))
+                        .toList(),
+                    onChanged: onSelectionOfPartOfDay,
+                    value: selectedPartOfDay,
+                    hint: 'Time of Day',
+                    validator: (val) =>
+                        textEmptyValidator(val?.toString(), 'Time of day is required!!'),
+                  ),
+                  if(selectedPartOfDay == PartsOfDay.customTime)
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 20,
+                    children: [
+                      CustomTextField(
+                        controller: selectedTimeCtrl,
+                        label: 'Select Time',
+                        validator: (val) =>
+                            textEmptyValidator(val, 'Time is required!!'),
+                        suffixIcon : IconButton(icon: Icon(Icons.timer), onPressed: onSelectionOfTime),
+                      ),
+                    ],
+                  )
                 ],
               )
           ],
@@ -99,30 +155,70 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent> with 
     );
   }
 
-  void onTapOfAction(int index){
-    switch(index){
-      case 0 :
+  void onSelectionOfEventType(EventDayType? val) {
+    if (val != null) {
+      setState(() {
+        selectedEvent = val;
+      });
+    }
+  }
+
+  void onSelectionOfPartOfDay(PartsOfDay? val) {
+    if (val != null) {
+      setState(() {
+        selectedPartOfDay = val;
+      });
+    }
+  }
+
+  void onSelectionOfDate() {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2050))
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+        selectedDate = pickedDate.toString();
+        selectedDateCtrl.text = pickedDate.toString();
+    });
+  }
+
+  void onSelectionOfTime() async {
+    TimeOfDay? timeOfDay = await  showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+    );
+    if(timeOfDay != null){
+      selectedTime =  timeOfDay.format(context);
+      selectedTimeCtrl.text = timeOfDay.format(context);
+    }
+  }
+
+  void onTapOfAction(int index) {
+    switch (index) {
+      case 0:
         GoRouter.of(context).pop();
         break;
-      case 1 :
-        if(formKey.currentState?.validate() ?? false) {
-          context.read<DailyTrackerStatusBloc>().createOrUpdateEvent(
-            DailyTrackerEventModel(
+      case 1:
+        if (formKey.currentState?.validate() ?? false) {
+          context
+              .read<DailyTrackerStatusBloc>()
+              .createOrUpdateEvent(DailyTrackerEventModel(
                 isCreateEvent ? HelperMethods.uuid : widget.event!.id,
-                selectedEvent,
+                selectedEvent.name,
                 titleCtrl.text.trim(),
                 descriptionCtrl.text.trim(),
-                widget.event?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+                widget.event?.createdDate ??
+                    DateTime.now().millisecondsSinceEpoch,
                 DateTime.now().millisecondsSinceEpoch,
                 updatedDate: DateTime.now().millisecondsSinceEpoch,
-
-    )
-          );
+              ));
           GoRouter.of(context).pop();
         }
         break;
     }
   }
-
-
 }

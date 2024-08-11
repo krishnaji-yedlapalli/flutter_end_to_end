@@ -17,7 +17,7 @@ typedef OfflineDumpingStatus = ({String title, int percentage})?;
 
 enum SchoolDiscoverFeatureType {create, edit, delete, sync, dumpOfflineData, setDdConfig, resetDb}
 
-enum PartsOfDay {morning, afternoon, evening, night}
+enum PartsOfDay {allDay, morning, afternoon, evening, night, customTime}
 
 enum EventDayType {everyday, dayByDay, weekly, fortnight, quaterly, customDate}
 
