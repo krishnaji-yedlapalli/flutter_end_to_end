@@ -8,10 +8,12 @@ import 'package:one_clock/one_clock.dart';
 import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 import 'package:sample_latest/ui/raspberry_pi/check_in_btn.dart';
 import 'package:sample_latest/ui/raspberry_pi/create_tracker_event.dart';
 import 'package:sample_latest/ui/raspberry_pi/daily_tracker_event_list.dart';
 import 'package:sample_latest/ui/raspberry_pi/digital_clock.dart';
+import 'package:sample_latest/ui/raspberry_pi/existing_events.dart';
 import 'package:sample_latest/ui/raspberry_pi/today_events.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
@@ -65,22 +67,24 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
 
   Widget _buildTimeOfDay() {
     return BlocBuilder<DailyTrackerStatusBloc, DailyStatusTrackerState>(
-        buildWhen: (oldState, currentState) =>
-            oldState.dailyStatusTrackerLoadedType ==
-            DailyStatusTrackerLoadedType.greeting,
+        buildWhen: (oldState, currentState) {
+          if (currentState is DailyStatusTrackerCheckInStatus && !isCheckedIn && currentState.isCheckedIn) {
+            isCheckedIn = currentState.isCheckedIn;
+            controller.reverse();
+          }
+            return   currentState.dailyStatusTrackerLoadedType ==
+              DailyStatusTrackerLoadedType.greeting;
+        },
         builder: (context, DailyStatusTrackerState trackState) {
           if (trackState is DailyStatusTrackerCheckInStatus) {
-            if (!trackState.isCheckedIn) {
-              return _buildGreetingStatus(trackState);
-            }
-            return _buildEventListDetails();
+            return _buildGreetingStatus(trackState, trackState.events);
           } else {
             return circularLoader();
           }
         });
   }
 
-  Widget _buildGreetingStatus(DailyStatusTrackerCheckInStatus trackStatus) {
+  Widget _buildGreetingStatus(DailyStatusTrackerCheckInStatus trackStatus, List<DailyTrackerEventModel> events) {
     var greetingText = greeting(trackStatus.timeOfDay);
     TextPainter textPainter = TextPainter(
       text: TextSpan(
@@ -127,20 +131,16 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
               top: firstItemTopPosition + timerHeight + textInHeight + 20,
               left: (size.width / 2) - (150/2)
             ),
-            callback: onCheckIn,
+            callback: isCheckedIn ? showEvents : onCheckIn,
             controller: controller,
           ),
-         if(isCheckedIn) Positioned(
+         if(trackStatus.isCheckedIn) Positioned(
               top: 100,
               left: 50,
-              child: const TodayEventsView())
+              child: TodayEventsView(events))
         ],
       ),
     );
-  }
-
-  Widget _buildEventListDetails() {
-    return Container();
   }
 
   String greeting(PartsOfDay timeOfDay) {
@@ -166,6 +166,10 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
     setState(() {
       isCheckedIn = true;
     });
-    // context.read<DailyTrackerStatusBloc>().checkIn();
+    context.read<DailyTrackerStatusBloc>().checkIn();
+  }
+
+  void showEvents() {
+    adaptiveDialog(context, ExistingEventsView());
   }
 }

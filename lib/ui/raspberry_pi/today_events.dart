@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
+import 'package:sample_latest/ui/raspberry_pi/selected_event.dart';
 
 class TodayEventsView extends StatefulWidget {
+  final List<DailyTrackerEventModel> todayEvents;
 
-  const TodayEventsView({super.key});
+  const TodayEventsView(this.todayEvents, {super.key});
 
   @override
   _AnimatedListExampleState createState() => _AnimatedListExampleState();
@@ -11,13 +14,20 @@ class TodayEventsView extends StatefulWidget {
 class _AnimatedListExampleState extends State<TodayEventsView>
     with SingleTickerProviderStateMixin {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  late List<String> _items;
+  late List<DailyTrackerEventModel> _items;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _sizeAnimation;
+  late DailyTrackerEventModel selectedEvent;
+
   @override
   void initState() {
     super.initState();
+
+    if(widget.todayEvents.isNotEmpty){
+      selectedEvent = widget.todayEvents.first;
+    }
+
     _items = [];
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
@@ -37,12 +47,21 @@ class _AnimatedListExampleState extends State<TodayEventsView>
     _addItemsWithDelay();
   }
 
-  Future<void> _addItemsWithDelay() async {
-    const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+  @override
+  didUpdateWidget(state) {
+    if(_items.length < state.todayEvents.length){
+      var index = _items.length;
+      _items.insert(index, widget.todayEvents[index]);
+      _listKey.currentState?.insertItem(index);
+    }
+    super.didUpdateWidget(state);
+  }
 
-    for (var i = 0; i < items.length; i++) {
+  Future<void> _addItemsWithDelay() async {
+
+    for (var i = 0; i < widget.todayEvents.length; i++) {
       await Future.delayed(const Duration(milliseconds: 300));
-      _items.insert(i, items[i]);
+      _items.insert(i, widget.todayEvents[i]);
       _listKey.currentState?.insertItem(i);
     }
   }
@@ -54,6 +73,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
   }
 
   Widget _buildItem(BuildContext context, int index, Animation<double> animation) {
+    var event = _items.elementAt(index);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: FadeTransition(
@@ -73,10 +93,10 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
                 horizontalTitleGap: 3,
                 isThreeLine: true,
-                title: Text(_items[index]),
+                title: Text(event.title),
                 leading: Icon(Icons.star),
                 trailing: Icon(Icons.accessibility),
-                subtitle: Text('sdfds sdfsdf dsf dsfd sfds fds df'),
+                subtitle: Text(event.description),
               ),
             ),
           ),
@@ -122,13 +142,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
               child: SizeTransition(
                 sizeFactor: _sizeAnimation,
                 axisAlignment: 0.0,
-                child: Container(
-                  margin: EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.8),
-                    borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
-                ),
+                child: SelectedEventView(selectedEvent),
               ),
             ),
           )

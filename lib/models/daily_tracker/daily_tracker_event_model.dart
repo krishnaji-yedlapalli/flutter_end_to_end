@@ -22,7 +22,7 @@ class DailyTrackerEventModel {
 
   final int? updatedDate;
 
-  final int? selectedDateTime;
+  final int selectedDateTime;
 
   factory DailyTrackerEventModel.fromJson(Map<String, dynamic> json) =>
       _$DailyTrackerEventModelFromJson(json);

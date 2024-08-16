@@ -1,6 +1,6 @@
 part of 'daily_status_tracker_bloc.dart';
 
-enum DailyStatusTrackerLoadedType {greeting, events, students, student}
+enum DailyStatusTrackerLoadedType {greeting, events, students, student, todayEvents}
 
 abstract class DailyStatusTrackerState extends Equatable {
 
@@ -29,16 +29,17 @@ class DailyStatusTrackerCheckInStatus extends DailyStatusTrackerState {
 
   final PartsOfDay timeOfDay;
   final bool isCheckedIn;
+  final List<DailyTrackerEventModel> events;
 
-  const DailyStatusTrackerCheckInStatus(this.timeOfDay, this.isCheckedIn, super.dailyStatusTrackerLoadedType);
+  const DailyStatusTrackerCheckInStatus(this.events, this.timeOfDay, this.isCheckedIn, super.dailyStatusTrackerLoadedType);
 
   @override
-  List<Object?> get props => [timeOfDay, isCheckedIn, dailyStatusTrackerLoadedType];
+  List<Object?> get props => [events, timeOfDay, isCheckedIn, dailyStatusTrackerLoadedType];
 }
 
 class DailyStatusTrackerEvents extends DailyStatusTrackerState {
 
-  final DailyTrackerEventModel events;
+  final List<DailyTrackerEventModel> events;
 
   const DailyStatusTrackerEvents(this.events, super.dailyStatusTrackerLoadedType);
 

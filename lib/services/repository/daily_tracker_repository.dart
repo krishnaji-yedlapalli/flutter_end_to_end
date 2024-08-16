@@ -7,9 +7,10 @@ import '../utils/service_enums_typedef.dart';
 
 abstract class DailyTrackerRepo {
 
-  Future<bool> isCheckedIn(String date);
+  Future<(bool, List<DailyTrackerEventModel>)> isCheckedIn(String date);
   Future<bool> checkInTheUser(Map body);
   Future<DailyTrackerEventModel> createOrEditEvent(DailyTrackerEventModel event);
+  Future<List<DailyTrackerEventModel>> fetchEventList();
 }
 
 class DailyTrackerRepository extends DailyTrackerRepo {
@@ -19,12 +20,15 @@ class DailyTrackerRepository extends DailyTrackerRepo {
   DailyTrackerRepository({BaseService? baseService}) : baseService = baseService ?? BaseService.instance;
 
   @override
-  Future<bool> isCheckedIn(String date) async {
+  Future<(bool, List<DailyTrackerEventModel>)> isCheckedIn(String date) async {
+
+    var events = <DailyTrackerEventModel>[];
+
     var response = await baseService.makeRequest(url: '${Urls.dailyCheckIns}/$date.json');
-    if(response != null && response) {
-      return response;
+    if(response != null) {
+      events = response['events'].map<DailyTrackerEventModel>((json) => DailyTrackerEventModel.fromJson(json)).toList();
     }
-    return false;
+    return ((response?['isChecked'] as bool?) ?? false, events);
   }
 
   @override
@@ -38,11 +42,28 @@ class DailyTrackerRepository extends DailyTrackerRepo {
 
   @override
   Future<DailyTrackerEventModel> createOrEditEvent(DailyTrackerEventModel event) async {
-    var response = await baseService.makeRequest(url: '${Urls.events}.json', body: event.toJson(), method: RequestType.patch);
+
+    var body = {
+      event.id : event.toJson()
+    };
+
+    var response = await baseService.makeRequest(url: '${Urls.events}.json', body: body, method: RequestType.patch);
     if(response != null && response is Map && response.keys.isNotEmpty) {
       event = DailyTrackerEventModel.fromJson(response[response.keys.first]);
     }
     return event;
+  }
+
+  @override
+  Future<List<DailyTrackerEventModel>> fetchEventList() async {
+    List<DailyTrackerEventModel> events = <DailyTrackerEventModel>[];
+    var response = await baseService.makeRequest(url: '${Urls.events}.json');
+    if(response is Map) {
+      events = response.entries.map<DailyTrackerEventModel>((json) => DailyTrackerEventModel.fromJson(json.value)).toList();
+    }else if(response is List){
+      events = response.map<DailyTrackerEventModel>((json) => DailyTrackerEventModel.fromJson(json)).toList();
+    }
+    return events;
   }
 
 

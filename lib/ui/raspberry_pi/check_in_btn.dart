@@ -54,7 +54,7 @@ class CheckInBtnState extends State<CheckInBtn>  {
                             )),
                       ),
                     )
-                  : ElevatedButton.icon(onPressed: (){}, label: Text('Events'), icon: Icon(Icons.event)));
+                  : ElevatedButton.icon(onPressed: widget.callback, label: Text('Events'), icon: Icon(Icons.event)));
         });
   }
 }
