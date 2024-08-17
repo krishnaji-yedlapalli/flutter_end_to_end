@@ -1,19 +1,49 @@
-
 import 'package:flutter/material.dart';
 import 'package:one_clock/one_clock.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
+
+import '../../utils/enums_type_def.dart';
 
 class SelectedEventView extends StatefulWidget {
   final DailyTrackerEventModel selectedEvent;
+  final ValueChanged<EventActionType> callBack;
 
-  const SelectedEventView(this.selectedEvent, {super.key});
+  const SelectedEventView(this.selectedEvent, this.callBack, {super.key});
 
   @override
   State<SelectedEventView> createState() => _SelectedEventViewState();
 }
 
 class _SelectedEventViewState extends State<SelectedEventView> {
+  late EventStatus eventStatus;
+  final StopWatchTimer _stopWatchTimer = StopWatchTimer(); // Create instance.
+
+  @override
+  void initState() {
+    eventStatus = HelperMethods.enumFromString(
+            EventStatus.values, widget.selectedEvent.status) ??
+        EventStatus.pending;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant SelectedEventView oldWidget) {
+    eventStatus = HelperMethods.enumFromString(
+        EventStatus.values, widget.selectedEvent.status) ??
+        EventStatus.pending;
+    _stopWatchTimer.clearPresetTime();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+    await _stopWatchTimer.dispose(); // Need to call dispose function.
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,56 +55,43 @@ class _SelectedEventViewState extends State<SelectedEventView> {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-        _buildDetails(),
-          _buildStartAndEnd(),
-        _buildActions()
-      ],),
+        children: [_buildDetails(), _buildStartAndEnd(), _buildActions()],
+      ),
     );
   }
 
-  Widget _buildDetails(){
+  Widget _buildDetails() {
+    var labelStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 
-    var labelStyle = TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.bold
-    );
-
-    var valueStyle = TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w300
-    );
+    var valueStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
     return Table(
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       columnWidths: {
-        0 : FlexColumnWidth(1),
-        1 : FixedColumnWidth(20),
-        2 : FlexColumnWidth(3),
+        0: FlexColumnWidth(1),
+        1: FixedColumnWidth(20),
+        2: FlexColumnWidth(3),
       },
       children: [
-        TableRow(
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text('Title' , style: labelStyle)),
-            Text(':'),
-            Text('${widget.selectedEvent.title}', style: valueStyle)
-          ]
-        ),
-        TableRow(
-            children: [
-              Text('Description', style: labelStyle),
-              Text(':'),
-              Text('${widget.selectedEvent.description}', style: valueStyle)
-            ]
-        ),
+        TableRow(children: [
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text('Title', style: labelStyle)),
+          Text(':'),
+          Text(widget.selectedEvent.title, style: valueStyle)
+        ]),
+        TableRow(children: [
+          Text('Description', style: labelStyle),
+          Text(':'),
+          Text(widget.selectedEvent.description, style: valueStyle)
+        ]),
       ],
     );
   }
 
   Widget _buildStartAndEnd() {
-    return  RippleAnimation(
+    var isCompleted = eventStatus == EventStatus.completed;
+    return RippleAnimation(
       color: Colors.lightGreenAccent,
       delay: const Duration(milliseconds: 300),
       repeat: true,
@@ -82,42 +99,83 @@ class _SelectedEventViewState extends State<SelectedEventView> {
       ripplesCount: 6,
       duration: const Duration(milliseconds: 6 * 300),
       child: InkResponse(
-        onTap: (){},
+        onTap: onTimerStartOrStop,
         child: Container(
             height: 150,
             width: 150,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: Colors.white, shape: BoxShape.circle),
+            decoration:
+                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
             child: Wrap(
               direction: Axis.vertical,
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 10,
               children: [
-                DigitalClock(
-                    showSeconds: true,
-                    isLive: true,
-                    digitalClockTextColor: Colors.black,
-                    decoration: const BoxDecoration(
-                      color: Colors.transparent,
-                    ),
-                    datetime: DateTime.now()),
-                Text('Start', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+                _buildTimer(),
+                Text(
+                    eventStatus == EventStatus.pending
+                        ? 'Start'
+                        : eventStatus == EventStatus.inProgress
+                            ? 'End'
+                            : 'Completed',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold))
               ],
-            )
-        ),
+            )),
       ),
     );
   }
 
+  Widget _buildTimer() {
+    return StreamBuilder<int>(
+        stream: _stopWatchTimer.rawTime,
+        initialData: _stopWatchTimer.rawTime.value,
+        builder: (context, snap) {
+          final value = snap.data!;
+          final displayTime =
+          StopWatchTimer.getDisplayTime(value, hours: false);
+          return Text(displayTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600));
+        });
+  }
+
   Widget _buildActions() {
+    var isCompleted = eventStatus == EventStatus.completed;
+
     return Wrap(
       spacing: 10,
       children: [
-        ElevatedButton.icon(onPressed: (){}, label : Text('Delete'), icon: Icon(Icons.delete)),
-        ElevatedButton.icon(onPressed: (){}, label : Text('Edit'), icon: Icon(Icons.edit)),
-        ElevatedButton.icon(onPressed: (){}, label : Text('Complete'), icon: Icon(Icons.disc_full)),
+        ElevatedButton.icon(
+            onPressed: isCompleted ? null : () => widget.callBack(EventActionType.skip),
+            label: const Text('Skip'),
+            icon: const Icon(Icons.delete)),
+        ElevatedButton.icon(
+            onPressed: isCompleted ? null : () => widget.callBack(EventActionType.edit),
+            label: const Text('Edit'),
+            icon: const Icon(Icons.edit)),
+        ElevatedButton.icon(
+            onPressed: isCompleted ? null : () => widget.callBack(EventActionType.completed),
+            label: const Text('Complete'),
+            icon: const Icon(Icons.disc_full)),
       ],
     );
+  }
+
+  void onTimerStartOrStop() {
+
+    if(eventStatus == EventStatus.pending) {
+      _stopWatchTimer.onStartTimer();
+      setState(() {
+        eventStatus = EventStatus.inProgress;
+        widget.selectedEvent.status = EventStatus.inProgress.name;
+      });
+      widget.callBack(EventActionType.inProgress);
+    }else{
+      _stopWatchTimer.onStopTimer();
+      setState(() {
+        eventStatus = EventStatus.completed;
+        widget.selectedEvent.status = EventStatus.completed.name;
+      });
+      widget.callBack(EventActionType.completed);
+    }
   }
 }

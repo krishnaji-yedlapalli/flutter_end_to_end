@@ -21,6 +21,9 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
 
   void getCheckInStatus() async {
     try{
+
+      todayEvents.clear();
+
       if(events.isEmpty){
         getTodayEvents();
       }
@@ -87,6 +90,24 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
     }
   }
 
+  Future<void> updateTodayEventDetails(DailyTrackerEventModel selectedEvent) async {
+
+    var index = todayEvents.indexWhere((event) => event.id == selectedEvent.id);
+
+    todayEvents[index] = selectedEvent;
+
+    var body = {
+      currentDateInFormatted : {
+        'isChecked' : true,
+        'events' : todayEvents.map((e)=> e.toJson()).toList()
+      }
+    };
+
+    bool status = await repository.checkInTheUser(body);
+  }
+
+
+
   Future<List<DailyTrackerEventModel>> getTodayEvents() async {
     try{
 
@@ -127,6 +148,8 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
     }catch(e,s){
 
     }
+
+    todayEvents.sort((a, b) => a.selectedDateTime.compareTo(b.selectedDateTime));
 
     return todayEvents;
   }

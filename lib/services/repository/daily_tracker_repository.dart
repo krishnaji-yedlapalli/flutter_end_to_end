@@ -11,7 +11,8 @@ abstract class DailyTrackerRepo {
   Future<bool> checkInTheUser(Map body);
   Future<DailyTrackerEventModel> createOrEditEvent(DailyTrackerEventModel event);
   Future<List<DailyTrackerEventModel>> fetchEventList();
-}
+  Future<bool> deleteEvent(String eventId);
+  }
 
 class DailyTrackerRepository extends DailyTrackerRepo {
 
@@ -25,7 +26,7 @@ class DailyTrackerRepository extends DailyTrackerRepo {
     var events = <DailyTrackerEventModel>[];
 
     var response = await baseService.makeRequest(url: '${Urls.dailyCheckIns}/$date.json');
-    if(response != null) {
+    if(response != null && response['events'] != null) {
       events = response['events'].map<DailyTrackerEventModel>((json) => DailyTrackerEventModel.fromJson(json)).toList();
     }
     return ((response?['isChecked'] as bool?) ?? false, events);
@@ -66,6 +67,10 @@ class DailyTrackerRepository extends DailyTrackerRepo {
     return events;
   }
 
-
+  @override
+  Future<bool> deleteEvent(String eventId) async {
+    var status = await baseService.makeRequest(url: '${Urls.events}/$eventId.json', method: RequestType.delete);
+    return true;
+  }
 
 }

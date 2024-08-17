@@ -1,5 +1,6 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
 
 part 'daily_tracker_event_model.g.dart';
 
@@ -23,6 +24,8 @@ class DailyTrackerEventModel {
   final int? updatedDate;
 
   final int selectedDateTime;
+
+  String status = EventStatus.pending.name;
 
   factory DailyTrackerEventModel.fromJson(Map<String, dynamic> json) =>
       _$DailyTrackerEventModelFromJson(json);

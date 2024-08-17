@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
+import 'package:sample_latest/mixins/dialogs.dart';
+import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
+import 'package:sample_latest/ui/raspberry_pi/create_tracker_event.dart';
 import 'package:sample_latest/ui/raspberry_pi/selected_event.dart';
+import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TodayEventsView extends StatefulWidget {
   final List<DailyTrackerEventModel> todayEvents;
@@ -12,21 +20,17 @@ class TodayEventsView extends StatefulWidget {
 }
 
 class _AnimatedListExampleState extends State<TodayEventsView>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late List<DailyTrackerEventModel> _items;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _sizeAnimation;
-  late DailyTrackerEventModel selectedEvent;
+  int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-
-    if(widget.todayEvents.isNotEmpty){
-      selectedEvent = widget.todayEvents.first;
-    }
 
     _items = [];
     _controller = AnimationController(
@@ -49,7 +53,8 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
   @override
   didUpdateWidget(state) {
-    if(_items.length < state.todayEvents.length){
+    if (_items.length < state.todayEvents.length) {
+      selectedIndex = 0;
       var index = _items.length;
       _items.insert(index, widget.todayEvents[index]);
       _listKey.currentState?.insertItem(index);
@@ -58,7 +63,6 @@ class _AnimatedListExampleState extends State<TodayEventsView>
   }
 
   Future<void> _addItemsWithDelay() async {
-
     for (var i = 0; i < widget.todayEvents.length; i++) {
       await Future.delayed(const Duration(milliseconds: 300));
       _items.insert(i, widget.todayEvents[i]);
@@ -70,39 +74,6 @@ class _AnimatedListExampleState extends State<TodayEventsView>
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  Widget _buildItem(BuildContext context, int index, Animation<double> animation) {
-    var event = _items.elementAt(index);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: FadeTransition(
-        opacity: animation,
-        child: SizeTransition(
-          sizeFactor: animation,
-          axisAlignment: 0.0,
-          child: Material(
-            color: Colors.white.withOpacity(0.8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15), // Border radius
-              child: ListTile(
-                onTap: (){},
-                enabled: true,
-                selectedTileColor: Colors.blue,
-                selectedColor: Colors.lightGreen,
-
-                horizontalTitleGap: 3,
-                isThreeLine: true,
-                title: Text(event.title),
-                leading: Icon(Icons.star),
-                trailing: Icon(Icons.accessibility),
-                subtitle: Text(event.description),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   @override
@@ -119,35 +90,139 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Today Events', style: Theme.of(context).textTheme.titleLarge),
+                  child: Text('Today Events',
+                      style: Theme.of(context).textTheme.titleLarge),
                 ),
                 Expanded(
                   flex: 1,
-                  child: AnimatedList(
-                      key: _listKey,
-                      shrinkWrap: true,
-                      initialItemCount: _items.length,
-                      itemBuilder: (context, index, animation) {
-                        return _buildItem(context, index, animation);
-                      },
-                  ),
+                  child: _items.isEmpty
+                      ? emptyMessage('No Events')
+                      : AnimatedList(
+                          key: _listKey,
+                          shrinkWrap: true,
+                          initialItemCount: _items.length,
+                          itemBuilder: (context, index, animation) {
+                            return _buildItem(context, index, animation);
+                          },
+                        ),
                 ),
               ],
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: FadeTransition(
-              opacity: _opacityAnimation,
-              child: SizeTransition(
-                sizeFactor: _sizeAnimation,
-                axisAlignment: 0.0,
-                child: SelectedEventView(selectedEvent),
+          if (_items.isNotEmpty)
+            Expanded(
+              flex: 2,
+              child: FadeTransition(
+                opacity: _opacityAnimation,
+                child: SizeTransition(
+                  sizeFactor: _sizeAnimation,
+                  axisAlignment: 0.0,
+                  child: SelectedEventView(
+                      _items.elementAt(selectedIndex),
+                      onDeleteOrEditOrComplete),
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );
+  }
+
+  Widget _buildItem(
+      BuildContext context, int index, Animation<double> animation) {
+    var event = _items.elementAt(index);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: FadeTransition(
+        opacity: animation,
+        child: SizeTransition(
+          sizeFactor: animation,
+          axisAlignment: 0.0,
+          child: Material(
+            color: Colors.white.withOpacity(0.8),
+            child: _buildListItem(event, index),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildListItem(DailyTrackerEventModel event, int index) {
+    var statusConfig = geStatus(event.status);
+    var listItem = ListTile(
+      onTap: () => onSelectionOfEvent(index),
+      enabled: true,
+      selectedTileColor: Colors.blue,
+      selectedColor: Colors.lightGreen,
+      horizontalTitleGap: 3,
+      isThreeLine: true,
+      title: Text(event.title),
+      leading: Icon(Icons.star),
+      trailing: Container(
+        padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+        decoration: BoxDecoration(
+          color: statusConfig.bgColor,
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          border: Border.all(color: statusConfig.borderColor)
+        ),
+        child: Text(statusConfig.label, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
+      ),
+      subtitle: Text(event.description),
+    );
+
+    return event.status != EventStatus.inProgress.name ? listItem : Shimmer.fromColors(
+      baseColor: Colors.red,
+      highlightColor: Colors.yellow,
+      child: listItem,
+    );
+  }
+
+  void onDeleteOrEditOrComplete(EventActionType actionType) {
+    switch (actionType) {
+      case EventActionType.edit:
+        adaptiveDialog(
+            context,
+            CreateDailyTrackerEvent(
+                event: _items.elementAt(selectedIndex)));
+      case EventActionType.completed:
+      case EventActionType.skip:
+      _items[selectedIndex].status =
+            actionType == EventActionType.completed
+                ? EventStatus.completed.name
+                : EventStatus.skip.name;
+
+        /// updating status
+        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+
+        setState(() {
+
+        });
+
+      case EventActionType.inProgress:
+        _items[selectedIndex].status = EventActionType.inProgress.name;
+
+        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+        setState(() {
+
+        });
+    }
+  }
+
+  void onSelectionOfEvent(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  ({String label, Color borderColor, Color bgColor}) geStatus(String status) {
+    EventStatus? eventStatus = HelperMethods.enumFromString(EventStatus.values, status);
+
+    return switch(eventStatus){
+       EventStatus.pending => (label : 'Pending', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3)),
+       EventStatus.inProgress  => (label : 'InProgress', borderColor : Colors.orange, bgColor : Colors.orange.withOpacity(0.3)),
+       EventStatus.completed  => (label : 'Completed', borderColor : Colors.green, bgColor : Colors.green.withOpacity(0.3)),
+       EventStatus.skip  => (label : 'Skip', borderColor : Colors.yellow, bgColor : Colors.yellow.withOpacity(0.3)),
+      _ => (label : 'Skip', borderColor : Colors.yellow, bgColor : Colors.yellow.withOpacity(0.3))
+    };
   }
 }

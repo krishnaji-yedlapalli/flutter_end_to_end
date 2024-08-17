@@ -21,3 +21,7 @@ enum PartsOfDay {allDay, morning, afternoon, evening, night, customTime}
 
 enum EventDayType {everyday, dayByDay, weekly, fortnight, quaterly, customDate}
 
+enum EventStatus {pending, inProgress, completed, skip}
+
+enum EventActionType {edit, completed, skip, inProgress}
+
