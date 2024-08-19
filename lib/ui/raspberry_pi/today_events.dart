@@ -30,6 +30,8 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
   @override
   void initState() {
+    print('## init state ${widget.todayEvents.length}');
+
     super.initState();
 
     _items = [];
@@ -48,30 +50,53 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
     _controller.forward(); // Start the animation
 
-    _addItemsWithDelay();
+    WidgetsBinding.instance.addPostFrameCallback((duration){
+      _addItemsWithDelay();
+    });
+
   }
 
   @override
   didUpdateWidget(state) {
-    if (_items.length < state.todayEvents.length) {
-      selectedIndex = 0;
-      var index = _items.length;
-      _items.insert(index, widget.todayEvents[index]);
-      _listKey.currentState?.insertItem(index);
-    }
+    print('## did update widget ${widget.todayEvents.length}');
+    addItemsNewItems();
+
+    //   if (_items.length < state.todayEvents.length) {
+    //   selectedIndex = 0;
+    //   var index = _items.length;
+    //   _items.insert(index, widget.todayEvents[index]);
+    //   _listKey.currentState?.insertItem(index);
+    // }
     super.didUpdateWidget(state);
   }
 
+  Future<void> addItemsNewItems() async {
+    for( var event in widget.todayEvents) {
+      if(!_items.contains(event)){
+        var length = _items.length;
+        _items.insert(length, event);
+        await Future.delayed(const Duration(milliseconds: 300));
+        _listKey.currentState?.insertItem(length);
+
+      }
+    }
+    print(_items.length);
+  }
+
   Future<void> _addItemsWithDelay() async {
+    print('length of items ${_items.length} ${widget.todayEvents.length}');
     for (var i = 0; i < widget.todayEvents.length; i++) {
-      await Future.delayed(const Duration(milliseconds: 300));
       _items.insert(i, widget.todayEvents[i]);
+      await Future.delayed(const Duration(milliseconds: 300));
       _listKey.currentState?.insertItem(i);
     }
+
+    print(_items.length);
   }
 
   @override
   void dispose() {
+    print('## disposed');
     _controller.dispose();
     super.dispose();
   }
@@ -95,7 +120,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                 ),
                 Expanded(
                   flex: 1,
-                  child: _items.isEmpty
+                  child: widget.todayEvents.isEmpty
                       ? emptyMessage('No Events')
                       : AnimatedList(
                           key: _listKey,
@@ -109,7 +134,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
               ],
             ),
           ),
-          if (_items.isNotEmpty)
+          if (widget.todayEvents.isNotEmpty)
             Expanded(
               flex: 2,
               child: FadeTransition(
@@ -118,7 +143,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                   sizeFactor: _sizeAnimation,
                   axisAlignment: 0.0,
                   child: SelectedEventView(
-                      _items.elementAt(selectedIndex),
+                      widget.todayEvents.elementAt(selectedIndex),
                       onDeleteOrEditOrComplete),
                 ),
               ),
@@ -148,26 +173,30 @@ class _AnimatedListExampleState extends State<TodayEventsView>
   }
 
   Widget _buildListItem(DailyTrackerEventModel event, int index) {
-    var statusConfig = geStatus(event.status);
+    bool isSelected = selectedIndex == index;
+    var statusConfig = geStatus(event.status, isSelected: isSelected);
     var listItem = ListTile(
       onTap: () => onSelectionOfEvent(index),
       enabled: true,
-      selectedTileColor: Colors.blue,
-      selectedColor: Colors.lightGreen,
+      selected: isSelected,
+      selectedTileColor: Colors.green,
+      selectedColor: Colors.black,
       horizontalTitleGap: 3,
       isThreeLine: true,
-      title: Text(event.title),
-      leading: Icon(Icons.star),
+      title: Text(event.title, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
+      leading: Container(
+           padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: const Icon(Icons.event)),
       trailing: Container(
-        padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         decoration: BoxDecoration(
           color: statusConfig.bgColor,
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           border: Border.all(color: statusConfig.borderColor)
         ),
-        child: Text(statusConfig.label, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
+        child: Text(statusConfig.label, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
       ),
-      subtitle: Text(event.description),
+      subtitle: Text(event.description, style: TextStyle(color: isSelected ? Colors.white : Colors.black)),
     );
 
     return event.status != EventStatus.inProgress.name ? listItem : Shimmer.fromColors(
@@ -214,13 +243,13 @@ class _AnimatedListExampleState extends State<TodayEventsView>
     });
   }
 
-  ({String label, Color borderColor, Color bgColor}) geStatus(String status) {
+  ({String label, Color borderColor, Color bgColor}) geStatus(String status, {bool isSelected = false}) {
     EventStatus? eventStatus = HelperMethods.enumFromString(EventStatus.values, status);
 
     return switch(eventStatus){
-       EventStatus.pending => (label : 'Pending', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3)),
-       EventStatus.inProgress  => (label : 'InProgress', borderColor : Colors.orange, bgColor : Colors.orange.withOpacity(0.3)),
-       EventStatus.completed  => (label : 'Completed', borderColor : Colors.green, bgColor : Colors.green.withOpacity(0.3)),
+       EventStatus.pending => (label : 'Pending', borderColor : isSelected ? Colors.white : Colors.blue, bgColor : Colors.blue.withOpacity(0.3)),
+       EventStatus.inProgress  => (label : 'InProgress', borderColor : isSelected ? Colors.white : Colors.orange, bgColor : Colors.orange.withOpacity(0.3)),
+       EventStatus.completed  => (label : 'Completed', borderColor : isSelected ? Colors.white : Colors.green, bgColor : isSelected ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.3)),
        EventStatus.skip  => (label : 'Skip', borderColor : Colors.yellow, bgColor : Colors.yellow.withOpacity(0.3)),
       _ => (label : 'Skip', borderColor : Colors.yellow, bgColor : Colors.yellow.withOpacity(0.3))
     };

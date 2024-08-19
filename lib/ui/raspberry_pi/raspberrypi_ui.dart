@@ -68,10 +68,15 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
   Widget _buildTimeOfDay() {
     return BlocBuilder<DailyTrackerStatusBloc, DailyStatusTrackerState>(
         buildWhen: (oldState, currentState) {
-          if (currentState is DailyStatusTrackerCheckInStatus && !isCheckedIn && currentState.isCheckedIn) {
-            isCheckedIn = currentState.isCheckedIn;
+          print('## raspberry pi ${currentState.runtimeType}');
+          if (currentState is DailyStatusTrackerCheckInStatus && currentState.isCheckedIn) {
+            print('## raspberry pi ${currentState.events.length}');
             controller.reverse();
           }
+          // if (currentState is DailyStatusTrackerCheckInStatus && !isCheckedIn && currentState.isCheckedIn) {
+          //   isCheckedIn = currentState.isCheckedIn;
+          //   controller.reverse();
+          // }
             return   currentState.dailyStatusTrackerLoadedType ==
               DailyStatusTrackerLoadedType.greeting;
         },
@@ -85,6 +90,7 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
   }
 
   Widget _buildGreetingStatus(DailyStatusTrackerCheckInStatus trackStatus, List<DailyTrackerEventModel> events) {
+    print('##** ${events.length}');
     var greetingText = greeting(trackStatus.timeOfDay);
     TextPainter textPainter = TextPainter(
       text: TextSpan(

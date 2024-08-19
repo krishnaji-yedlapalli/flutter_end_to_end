@@ -29,13 +29,17 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
       }
 
       var status = await repository.isCheckedIn(currentDateInFormatted);
+      todayEvents = status.$2;
+
+      todayEvents.sort((a, b) => EventStatus.values.indexWhere((e) => a.status == e.name).compareTo(EventStatus.values.indexWhere((e) => b.status == e.name)));
+
       emit(DailyStatusTrackerCheckInStatus(status.$2, getTimeOfDay(), status.$1, DailyStatusTrackerLoadedType.greeting));
     }catch(e,s){
 
     }
   }
 
-  Future<void> checkIn({bool ignoreEmit = false}) async {
+  Future<void> checkIn() async {
     try{
 
        todayEvents = await getTodayEvents();
@@ -46,8 +50,7 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
           'events' : todayEvents.map((e)=> e.toJson()).toList()
         }
       };
-
-     if(ignoreEmit) emit(DailyStatusTrackerCheckInStatus(todayEvents, getTimeOfDay(), true, DailyStatusTrackerLoadedType.greeting));
+     emit(DailyStatusTrackerCheckInStatus(todayEvents, getTimeOfDay(), true, DailyStatusTrackerLoadedType.greeting));
       bool status = await repository.checkInTheUser(body);
     }catch(e,s){
 
@@ -66,7 +69,7 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
         }
       }
 
-      await checkIn(ignoreEmit: true);
+      await updateTodayEventDetails(event);
       var items = <DailyTrackerEventModel>[];
       for(var item in todayEvents){
         items.add(DailyTrackerEventModel.fromJson(item.toJson()));
@@ -94,7 +97,11 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
 
     var index = todayEvents.indexWhere((event) => event.id == selectedEvent.id);
 
-    todayEvents[index] = selectedEvent;
+    if(index != -1){
+      todayEvents[index] = selectedEvent;
+    }else{
+      todayEvents.add(selectedEvent);
+    }
 
     var body = {
       currentDateInFormatted : {
@@ -149,7 +156,8 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
 
     }
 
-    todayEvents.sort((a, b) => a.selectedDateTime.compareTo(b.selectedDateTime));
+
+    todayEvents.sort((a, b) => EventStatus.values.indexWhere((e) => a.status == e.name).compareTo(EventStatus.values.indexWhere((e) => a.status == e.name)));
 
     return todayEvents;
   }
