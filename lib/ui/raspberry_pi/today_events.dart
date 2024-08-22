@@ -72,7 +72,9 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
   Future<void> addItemsNewItems() async {
     for( var event in widget.todayEvents) {
-      if(!_items.contains(event)){
+      var index = _items.indexWhere((displayedEvent) => event.id == displayedEvent.id);
+
+      if(index == -1){
         var length = _items.length;
         _items.insert(length, event);
         await Future.delayed(const Duration(milliseconds: 300));
@@ -143,6 +145,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                   sizeFactor: _sizeAnimation,
                   axisAlignment: 0.0,
                   child: SelectedEventView(
+                    key: UniqueKey(),
                       widget.todayEvents.elementAt(selectedIndex),
                       onDeleteOrEditOrComplete),
                 ),
@@ -214,6 +217,15 @@ class _AnimatedListExampleState extends State<TodayEventsView>
             CreateDailyTrackerEvent(
                 event: _items.elementAt(selectedIndex)));
       case EventActionType.completed:
+
+        _items[selectedIndex]..status = EventActionType.completed.name
+          ..endDateTime = DateTime.now().millisecondsSinceEpoch;
+
+        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+        setState(() {
+
+        });
+
       case EventActionType.skip:
       _items[selectedIndex].status =
             actionType == EventActionType.completed
@@ -228,7 +240,8 @@ class _AnimatedListExampleState extends State<TodayEventsView>
         });
 
       case EventActionType.inProgress:
-        _items[selectedIndex].status = EventActionType.inProgress.name;
+        _items[selectedIndex]..status = EventActionType.inProgress.name
+        ..startDateTime = DateTime.now().millisecondsSinceEpoch;
 
         context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
         setState(() {
@@ -250,8 +263,8 @@ class _AnimatedListExampleState extends State<TodayEventsView>
        EventStatus.pending => (label : 'Pending', borderColor : isSelected ? Colors.white : Colors.blue, bgColor : Colors.blue.withOpacity(0.3)),
        EventStatus.inProgress  => (label : 'InProgress', borderColor : isSelected ? Colors.white : Colors.orange, bgColor : Colors.orange.withOpacity(0.3)),
        EventStatus.completed  => (label : 'Completed', borderColor : isSelected ? Colors.white : Colors.green, bgColor : isSelected ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.3)),
-       EventStatus.skip  => (label : 'Skip', borderColor : Colors.yellow, bgColor : Colors.yellow.withOpacity(0.3)),
-      _ => (label : 'Skip', borderColor : Colors.yellow, bgColor : Colors.yellow.withOpacity(0.3))
+       EventStatus.skip  => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3)),
+      _ => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3))
     };
   }
 }

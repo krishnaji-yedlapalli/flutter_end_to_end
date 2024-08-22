@@ -7,7 +7,7 @@ part 'daily_tracker_event_model.g.dart';
 @JsonSerializable()
 class DailyTrackerEventModel {
 
-  DailyTrackerEventModel(this.id, this.eventType, this.title, this.description, this.createdDate, this.selectedDateTime, {this.updatedDate});
+  DailyTrackerEventModel(this.id, this.eventType, this.title, this.description, this.createdDate, this.selectedDateTime, {this.updatedDate, this.startDateTime, this.endDateTime});
 
   @JsonKey(required: true)
   final String id;
@@ -24,6 +24,10 @@ class DailyTrackerEventModel {
   final int? updatedDate;
 
   final int selectedDateTime;
+
+   int? startDateTime;
+
+   int? endDateTime;
 
   String status = EventStatus.pending.name;
 

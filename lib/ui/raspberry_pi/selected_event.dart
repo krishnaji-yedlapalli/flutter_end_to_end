@@ -19,13 +19,23 @@ class SelectedEventView extends StatefulWidget {
 
 class _SelectedEventViewState extends State<SelectedEventView> {
   late EventStatus eventStatus;
-  final StopWatchTimer _stopWatchTimer = StopWatchTimer(); // Create instance.
+  late StopWatchTimer _stopWatchTimer;
 
   @override
   void initState() {
     eventStatus = HelperMethods.enumFromString(
             EventStatus.values, widget.selectedEvent.status) ??
         EventStatus.pending;
+
+    if(eventStatus == EventStatus.inProgress && widget.selectedEvent.startDateTime != null) {
+      var milliSeconds = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.selectedEvent.startDateTime!)).inMilliseconds;
+      _stopWatchTimer = StopWatchTimer(
+          presetMillisecond : milliSeconds
+      ); // Create instance.
+      _stopWatchTimer.onStartTimer();
+    }else{
+      _stopWatchTimer = StopWatchTimer();
+    }
     super.initState();
   }
 
@@ -90,38 +100,42 @@ class _SelectedEventViewState extends State<SelectedEventView> {
   }
 
   Widget _buildStartAndEnd() {
-    var isCompleted = eventStatus == EventStatus.completed;
+    var color = rippleColor;
     return RippleAnimation(
-      color: Colors.lightGreenAccent,
+      color: color,
       delay: const Duration(milliseconds: 300),
       repeat: true,
       minRadius: 75,
       ripplesCount: 6,
       duration: const Duration(milliseconds: 6 * 300),
-      child: InkResponse(
-        onTap: onTimerStartOrStop,
-        child: Container(
-            height: 150,
-            width: 150,
-            alignment: Alignment.center,
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-            child: Wrap(
-              direction: Axis.vertical,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 10,
-              children: [
-                _buildTimer(),
-                Text(
-                    eventStatus == EventStatus.pending
-                        ? 'Start'
-                        : eventStatus == EventStatus.inProgress
-                            ? 'End'
-                            : 'Completed',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold))
-              ],
-            )),
+      child: ColoredBox(
+        color: Colors.transparent,
+        child: InkResponse(
+          onTap: onTimerStartOrStop,
+          child: Container(
+              height: 150,
+              width: 150,
+              alignment: Alignment.center,
+              decoration:
+                  BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: Container(
+                alignment: Alignment.center,
+                decoration:
+                BoxDecoration(color: color.withOpacity(0.5), shape: BoxShape.circle),
+                child: Wrap(
+                  direction: Axis.vertical,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 10,
+                  children: [
+                    _buildTimer(),
+                    Text(
+                        eventStatusTitle,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold))
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }
@@ -139,21 +153,21 @@ class _SelectedEventViewState extends State<SelectedEventView> {
   }
 
   Widget _buildActions() {
-    var isCompleted = eventStatus == EventStatus.completed;
+    var isIgnore = eventStatus == EventStatus.completed || eventStatus == EventStatus.skip;
 
     return Wrap(
       spacing: 10,
       children: [
         ElevatedButton.icon(
-            onPressed: isCompleted ? null : () => widget.callBack(EventActionType.skip),
+            onPressed: isIgnore ? null : () => widget.callBack(EventActionType.skip),
             label: const Text('Skip'),
             icon: const Icon(Icons.delete)),
         ElevatedButton.icon(
-            onPressed: isCompleted ? null : () => widget.callBack(EventActionType.edit),
+            onPressed: isIgnore ? null : () => widget.callBack(EventActionType.edit),
             label: const Text('Edit'),
             icon: const Icon(Icons.edit)),
         ElevatedButton.icon(
-            onPressed: isCompleted ? null : () => widget.callBack(EventActionType.completed),
+            onPressed: isIgnore ? null : () => widget.callBack(EventActionType.completed),
             label: const Text('Complete'),
             icon: const Icon(Icons.disc_full)),
       ],
@@ -177,5 +191,23 @@ class _SelectedEventViewState extends State<SelectedEventView> {
       });
       widget.callBack(EventActionType.completed);
     }
+  }
+
+  String get eventStatusTitle {
+    return switch(eventStatus){
+      EventStatus.inProgress => 'End',
+      EventStatus.pending => 'Start',
+      EventStatus.completed => 'Completed',
+      EventStatus.skip => 'Omitted',
+    };
+  }
+
+  Color get rippleColor {
+    return switch(eventStatus){
+      EventStatus.inProgress => Colors.orange,
+      EventStatus.pending => Colors.blue,
+      EventStatus.completed => Colors.green,
+      EventStatus.skip => Colors.red,
+    };
   }
 }
