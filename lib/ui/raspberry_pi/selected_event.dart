@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_clock/one_clock.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/models/daily_tracker/action_event.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -65,7 +66,10 @@ class _SelectedEventViewState extends State<SelectedEventView> {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [_buildDetails(), _buildStartAndEnd(), _buildActions()],
+        children: [
+          _buildDetails(),
+          widget.selectedEvent.eventType != EventDayType.action.name ? _buildStartAndEnd() : _buildActionCheckList(),
+          _buildActions()],
       ),
     );
   }
@@ -97,6 +101,25 @@ class _SelectedEventViewState extends State<SelectedEventView> {
         ]),
       ],
     );
+  }
+
+  Widget _buildActionCheckList() {
+     return LayoutBuilder(
+       builder: (context, constraints) {
+         return Align(
+           alignment: Alignment.topLeft,
+           child: Wrap(
+             crossAxisAlignment: WrapCrossAlignment.start,
+             alignment: WrapAlignment.start,
+             runSpacing: 10,
+             children: widget.selectedEvent.actionCheckList.map((e)=> SizedBox(
+                 width: constraints.maxWidth/2,
+                 child: CheckboxListTile(
+                     value: e.isSelected,title: Text(e.label), onChanged: (value) => onActionSelection(value, e)))).toList()
+           ),
+         );
+       }
+     );
   }
 
   Widget _buildStartAndEnd() {
@@ -172,6 +195,12 @@ class _SelectedEventViewState extends State<SelectedEventView> {
             icon: const Icon(Icons.disc_full)),
       ],
     );
+  }
+
+  void onActionSelection(bool? value, ActionEventModel event) {
+    setState(() {
+      event.isSelected = value ?? false;
+    });
   }
 
   void onTimerStartOrStop() {

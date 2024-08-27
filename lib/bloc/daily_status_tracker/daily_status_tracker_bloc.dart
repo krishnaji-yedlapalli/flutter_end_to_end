@@ -79,7 +79,7 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
       var createdEvent = await repository.createOrEditEvent(event);
       // emit(DailyStatusTrackerCheckInStatus(getTimeOfDay(), createdEvent, DailyStatusTrackerLoadedType.greeting));
     }catch(e,s){
-
+     print(e.toString());
     }
   }
 
@@ -149,6 +149,8 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
             if(compareDatesWithoutTime(selectedDateTime, DateTime.now())){
               todayEvents.add(event);
             }
+            case EventDayType.action:
+              todayEvents.add(event);
           }
         }
       }

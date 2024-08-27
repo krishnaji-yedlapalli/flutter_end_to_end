@@ -19,7 +19,7 @@ enum SchoolDiscoverFeatureType {create, edit, delete, sync, dumpOfflineData, set
 
 enum PartsOfDay {allDay, morning, afternoon, evening, night, customTime}
 
-enum EventDayType {everyday, dayByDay, weekly, fortnight, quaterly, customDate}
+enum EventDayType {everyday, dayByDay, weekly, fortnight, quaterly, customDate, action}
 
 enum EventStatus {inProgress, pending, completed, skip}
 

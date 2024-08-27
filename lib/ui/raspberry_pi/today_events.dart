@@ -6,6 +6,7 @@ import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 import 'package:sample_latest/ui/raspberry_pi/create_tracker_event.dart';
+import 'package:sample_latest/ui/raspberry_pi/reminders_actions_checklist.dart';
 import 'package:sample_latest/ui/raspberry_pi/selected_event.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:shimmer/shimmer.dart';
@@ -20,13 +21,16 @@ class TodayEventsView extends StatefulWidget {
 }
 
 class _AnimatedListExampleState extends State<TodayEventsView>
-    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  late List<DailyTrackerEventModel> _items;
+    with TickerProviderStateMixin, HelperWidget, CustomDialogs {
+
+  late List<DailyTrackerEventModel> _reminders;
+  late List<DailyTrackerEventModel> _actions;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _sizeAnimation;
   int selectedIndex = 0;
+  late TabController controller;
+  var tabChangeNotifier = ValueNotifier<int>(0);
 
   @override
   void initState() {
@@ -34,7 +38,15 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
     super.initState();
 
-    _items = [];
+    controller = TabController(length: 2, vsync: this);
+
+    _reminders = widget.todayEvents
+        .where((e) => e.eventType != EventDayType.action.name)
+        .toList();
+    _actions = widget.todayEvents
+        .where((e) => e.eventType == EventDayType.action.name)
+        .toList();
+
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -50,50 +62,18 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
     _controller.forward(); // Start the animation
 
-    WidgetsBinding.instance.addPostFrameCallback((duration){
-      _addItemsWithDelay();
+    controller.addListener((){
+      // if(controller.index == 0){
+      selectedIndex = 0;
+      tabChangeNotifier.value = controller.index;
+      // }
     });
-
   }
 
   @override
   didUpdateWidget(state) {
     print('## did update widget ${widget.todayEvents.length}');
-    addItemsNewItems();
-
-    //   if (_items.length < state.todayEvents.length) {
-    //   selectedIndex = 0;
-    //   var index = _items.length;
-    //   _items.insert(index, widget.todayEvents[index]);
-    //   _listKey.currentState?.insertItem(index);
-    // }
     super.didUpdateWidget(state);
-  }
-
-  Future<void> addItemsNewItems() async {
-    for( var event in widget.todayEvents) {
-      var index = _items.indexWhere((displayedEvent) => event.id == displayedEvent.id);
-
-      if(index == -1){
-        var length = _items.length;
-        _items.insert(length, event);
-        await Future.delayed(const Duration(milliseconds: 300));
-        _listKey.currentState?.insertItem(length);
-
-      }
-    }
-    print(_items.length);
-  }
-
-  Future<void> _addItemsWithDelay() async {
-    print('length of items ${_items.length} ${widget.todayEvents.length}');
-    for (var i = 0; i < widget.todayEvents.length; i++) {
-      _items.insert(i, widget.todayEvents[i]);
-      await Future.delayed(const Duration(milliseconds: 300));
-      _listKey.currentState?.insertItem(i);
-    }
-
-    print(_items.length);
   }
 
   @override
@@ -121,91 +101,52 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                       style: Theme.of(context).textTheme.titleLarge),
                 ),
                 Expanded(
-                  flex: 1,
-                  child: widget.todayEvents.isEmpty
-                      ? emptyMessage('No Events')
-                      : AnimatedList(
-                          key: _listKey,
-                          shrinkWrap: true,
-                          initialItemCount: _items.length,
-                          itemBuilder: (context, index, animation) {
-                            return _buildItem(context, index, animation);
-                          },
-                        ),
-                ),
+                    flex: 1,
+                    child: DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            TabBar(
+                              controller: controller,
+                              tabs: const [
+                                Tab(text: 'Reminders'),
+                                Tab(text: 'Action Checklist'),
+                              ],
+                            ),
+                            Expanded(
+                              child:
+                                  TabBarView(controller: controller, children: [
+                                ActionsChecklistView(
+                                    key: UniqueKey(), _reminders),
+                                ActionsChecklistView(
+                                    key: UniqueKey(), _actions),
+                              ]),
+                            ),
+                          ],
+                        ))),
               ],
             ),
           ),
           if (widget.todayEvents.isNotEmpty)
             Expanded(
               flex: 2,
-              child: FadeTransition(
-                opacity: _opacityAnimation,
-                child: SizeTransition(
-                  sizeFactor: _sizeAnimation,
-                  axisAlignment: 0.0,
-                  child: SelectedEventView(
-                    key: UniqueKey(),
-                      widget.todayEvents.elementAt(selectedIndex),
-                      onDeleteOrEditOrComplete),
+              child: ValueListenableBuilder(
+                valueListenable: tabChangeNotifier,
+                builder: (context, value, child) => FadeTransition(
+                  opacity: _opacityAnimation,
+                  child: SizeTransition(
+                    sizeFactor: _sizeAnimation,
+                    axisAlignment: 0.0,
+                    child: SelectedEventView(
+                        key: UniqueKey(),
+                        value == 0 ? _reminders.elementAt(selectedIndex) : _actions.elementAt(selectedIndex),
+                        onDeleteOrEditOrComplete),
+                  ),
                 ),
               ),
             )
         ],
       ),
-    );
-  }
-
-  Widget _buildItem(
-      BuildContext context, int index, Animation<double> animation) {
-    var event = _items.elementAt(index);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: FadeTransition(
-        opacity: animation,
-        child: SizeTransition(
-          sizeFactor: animation,
-          axisAlignment: 0.0,
-          child: Material(
-            color: Colors.white.withOpacity(0.8),
-            child: _buildListItem(event, index),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildListItem(DailyTrackerEventModel event, int index) {
-    bool isSelected = selectedIndex == index;
-    var statusConfig = geStatus(event.status, isSelected: isSelected);
-    var listItem = ListTile(
-      onTap: () => onSelectionOfEvent(index),
-      enabled: true,
-      selected: isSelected,
-      selectedTileColor: Colors.green,
-      selectedColor: Colors.black,
-      horizontalTitleGap: 3,
-      isThreeLine: true,
-      title: Text(event.title, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
-      leading: Container(
-           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: const Icon(Icons.event)),
-      trailing: Container(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        decoration: BoxDecoration(
-          color: statusConfig.bgColor,
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
-          border: Border.all(color: statusConfig.borderColor)
-        ),
-        child: Text(statusConfig.label, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
-      ),
-      subtitle: Text(event.description, style: TextStyle(color: isSelected ? Colors.white : Colors.black)),
-    );
-
-    return event.status != EventStatus.inProgress.name ? listItem : Shimmer.fromColors(
-      baseColor: Colors.red,
-      highlightColor: Colors.yellow,
-      child: listItem,
     );
   }
 
@@ -215,38 +156,39 @@ class _AnimatedListExampleState extends State<TodayEventsView>
         adaptiveDialog(
             context,
             CreateDailyTrackerEvent(
-                event: _items.elementAt(selectedIndex)));
+                event: _reminders.elementAt(selectedIndex)));
       case EventActionType.completed:
-
-        _items[selectedIndex]..status = EventActionType.completed.name
+        _reminders[selectedIndex]
+          ..status = EventActionType.completed.name
           ..endDateTime = DateTime.now().millisecondsSinceEpoch;
 
-        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
-        setState(() {
-
-        });
+        context
+            .read<DailyTrackerStatusBloc>()
+            .updateTodayEventDetails(_reminders[selectedIndex]);
+        setState(() {});
 
       case EventActionType.skip:
-      _items[selectedIndex].status =
+        _reminders[selectedIndex].status =
             actionType == EventActionType.completed
                 ? EventStatus.completed.name
                 : EventStatus.skip.name;
 
         /// updating status
-        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+        context
+            .read<DailyTrackerStatusBloc>()
+            .updateTodayEventDetails(_reminders[selectedIndex]);
 
-        setState(() {
-
-        });
+        setState(() {});
 
       case EventActionType.inProgress:
-        _items[selectedIndex]..status = EventActionType.inProgress.name
-        ..startDateTime = DateTime.now().millisecondsSinceEpoch;
+        _reminders[selectedIndex]
+          ..status = EventActionType.inProgress.name
+          ..startDateTime = DateTime.now().millisecondsSinceEpoch;
 
-        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
-        setState(() {
-
-        });
+        context
+            .read<DailyTrackerStatusBloc>()
+            .updateTodayEventDetails(_reminders[selectedIndex]);
+        setState(() {});
     }
   }
 
@@ -254,17 +196,5 @@ class _AnimatedListExampleState extends State<TodayEventsView>
     setState(() {
       selectedIndex = index;
     });
-  }
-
-  ({String label, Color borderColor, Color bgColor}) geStatus(String status, {bool isSelected = false}) {
-    EventStatus? eventStatus = HelperMethods.enumFromString(EventStatus.values, status);
-
-    return switch(eventStatus){
-       EventStatus.pending => (label : 'Pending', borderColor : isSelected ? Colors.white : Colors.blue, bgColor : Colors.blue.withOpacity(0.3)),
-       EventStatus.inProgress  => (label : 'InProgress', borderColor : isSelected ? Colors.white : Colors.orange, bgColor : Colors.orange.withOpacity(0.3)),
-       EventStatus.completed  => (label : 'Completed', borderColor : isSelected ? Colors.white : Colors.green, bgColor : isSelected ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.3)),
-       EventStatus.skip  => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3)),
-      _ => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3))
-    };
   }
 }

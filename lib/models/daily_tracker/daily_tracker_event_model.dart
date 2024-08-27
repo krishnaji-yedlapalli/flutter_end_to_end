@@ -1,5 +1,6 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sample_latest/models/daily_tracker/action_event.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 
 part 'daily_tracker_event_model.g.dart';
@@ -7,7 +8,7 @@ part 'daily_tracker_event_model.g.dart';
 @JsonSerializable()
 class DailyTrackerEventModel {
 
-  DailyTrackerEventModel(this.id, this.eventType, this.title, this.description, this.createdDate, this.selectedDateTime, {this.updatedDate, this.startDateTime, this.endDateTime});
+  DailyTrackerEventModel(this.id, this.eventType, this.title, this.description, this.createdDate, this.selectedDateTime, this.actionCheckList, {this.updatedDate, this.startDateTime, this.endDateTime});
 
   @JsonKey(required: true)
   final String id;
@@ -24,6 +25,8 @@ class DailyTrackerEventModel {
   final int? updatedDate;
 
   final int selectedDateTime;
+
+  final List<ActionEventModel> actionCheckList;
 
    int? startDateTime;
 
