@@ -8,4 +8,8 @@ class Urls {
   static const  String schoolDetails = 'schooldetails';
   static const  String todoList = 'todoList';
 
+
+  static const  String dailyCheckIns = 'daily-checkins';
+  static const  String events = 'events';
+
 }

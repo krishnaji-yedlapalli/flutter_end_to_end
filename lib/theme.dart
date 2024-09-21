@@ -56,6 +56,7 @@ class CustomTheme {
       appBarTheme: AppBarTheme(color: Environment().configuration.seedColor, shadowColor: Colors.red, elevation: 5, foregroundColor: Colors.white),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
+
           style: ButtonStyle(
               elevation: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
                 if (states.contains(MaterialState.hovered)) {
@@ -65,16 +66,18 @@ class CustomTheme {
                 }
               }),
               backgroundColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
+                if(states.contains(WidgetState.disabled)){
+                  return Colors.grey;
+                }else if (states.contains(MaterialState.hovered)) {
                   return Colors.white;
                 } else {
                   return Colors.green;
                 }
               }),
-              shadowColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-              textStyle: MaterialStateProperty.all(GoogleFonts.prompt(fontWeight: FontWeight.w600)),
-              foregroundColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
+              shadowColor: WidgetStateProperty.all<Color>(Colors.lightGreenAccent),
+              textStyle: WidgetStateProperty.all(GoogleFonts.prompt(fontWeight: FontWeight.w600)),
+              foregroundColor: WidgetStateProperty.resolveWith((Set<MaterialState> states) {
+                 if (states.contains(WidgetState.hovered)) {
                   return Colors.green;
                 } else {
                   return Colors.white;

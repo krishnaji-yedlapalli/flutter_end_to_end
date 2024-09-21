@@ -2,15 +2,19 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/environment/environment.dart';
+import 'package:sample_latest/provider/gemini_provider.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
+import 'package:sample_latest/services/repository/daily_tracker_repository.dart';
 import 'package:sample_latest/services/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
@@ -58,6 +62,7 @@ void main() async {
   await Firebase.initializeApp(
     options: PushNotificationService.currentPlatform,
   );
+  if(!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
 
   DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
@@ -115,60 +120,64 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     return MultiProvider(
       providers : [
-        ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale))
+        ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale)),
+        ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
       ],
-      child: BlocProvider<SchoolBloc>(
-        create: (BuildContext context) => SchoolBloc(widget.schoolRepository ?? SchoolRepository()),
-        child: Builder(
-          builder: (context) {
-            return OrientationBuilder(
-              builder: (context, orientation) {
-                DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
-                return GlobalLoaderOverlay(
-                  child: MaterialApp.router(
-                    debugShowCheckedModeBanner: false,
-                    title: 'Flutter End to End',
-                    localeResolutionCallback: (locale, locales) {
-                      // if(locale?.languageCode == 'es') {
-                      //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                      //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                      //   return englishLocale;
-                      // }
-                      return locale;
-                    },
-                    locale: context.watch<CommonProvider>().locale,
-                    // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                    // backButtonDispatcher: () => ,
-                    localizationsDelegates: const [
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                    ],
-                    supportedLocales: const [
-                      Locale('en'),
-                      Locale('es'),
-                      Locale('hi'),
-                      Locale('he'),
-                    ],
-                    /// text scale factor
-                    builder: (BuildContext context, Widget? child){
-                      var data = MediaQuery.of(context);
-                      return MediaQuery(data:data.copyWith(
-                        textScaler: TextScaler.linear(data.textScaleFactor),
-                      ),
-                          child: child ?? Container());
-                    },
-                    theme: CustomTheme.lightThemeData(context),
-                    darkTheme: CustomTheme.darkThemeData(),
-                    themeMode: context.watch<CommonProvider>().themeModeType,
-                    routerConfig: Routing.router,
-                  ),
-                );
-              }
-            );
-          }
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (BuildContext context) => SchoolBloc(widget.schoolRepository ?? SchoolRepository()),),
+          BlocProvider(create: (BuildContext context) => DailyTrackerStatusBloc(DailyTrackerRepository()),)
+        ],
+       child : Builder(
+         builder: (context) {
+           return OrientationBuilder(
+             builder: (context, orientation) {
+               DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
+               return GlobalLoaderOverlay(
+                 child: MaterialApp.router(
+                   debugShowCheckedModeBanner: false,
+                   title: 'Flutter End to End',
+                   localeResolutionCallback: (locale, locales) {
+                     // if(locale?.languageCode == 'es') {
+                     //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                     //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                     //   return englishLocale;
+                     // }
+                     return locale;
+                   },
+                   locale: context.watch<CommonProvider>().locale,
+                   // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                   // backButtonDispatcher: () => ,
+                   localizationsDelegates: const [
+                     AppLocalizations.delegate,
+                     GlobalMaterialLocalizations.delegate,
+                     GlobalCupertinoLocalizations.delegate,
+                     GlobalWidgetsLocalizations.delegate,
+                   ],
+                   supportedLocales: const [
+                     Locale('en'),
+                     Locale('es'),
+                     Locale('hi'),
+                     Locale('he'),
+                   ],
+                   /// text scale factor
+                   builder: (BuildContext context, Widget? child){
+                     var data = MediaQuery.of(context);
+                     return MediaQuery(data:data.copyWith(
+                       textScaler: TextScaler.linear(data.textScaleFactor),
+                     ),
+                         child: child ?? Container());
+                   },
+                   theme: CustomTheme.lightThemeData(context),
+                   darkTheme: CustomTheme.darkThemeData(),
+                   themeMode: context.watch<CommonProvider>().themeModeType,
+                   routerConfig: Routing.router,
+                 ),
+               );
+             }
+           );
+         }
+       ),
       ),
     );
   }

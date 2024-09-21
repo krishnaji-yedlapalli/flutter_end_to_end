@@ -82,7 +82,16 @@ dependencies:
   googleapis_auth: ^1.6.0
   bloc_test: ^9.1.7
   mockito: 5.4.4
+  google_generative_ai:
+  image_picker:
+  flutter_chat_ui:
+  firebase_database: ^10.5.7
+  simple_ripple_animation: ^0.0.9
+  one_clock: ^2.0.1
+  stop_watch_timer: ^3.1.1
+  shimmer: ^3.0.0
 
+#AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any
 
 dev_dependencies:
@@ -149,6 +158,9 @@ flutter:
      - asset/gifs/waiting.gif
      - asset/gifs/happy.gif
      - asset/icons/discover.png
+     - asset/daily_tracker/pre_checkin_background1.png
+     - asset/daily_tracker/
+     - asset/sound_effects/
 #     - path: asset/dart_flavor/launcher_icons/dart_desktop.png
 #       flavors:
 #         - dart

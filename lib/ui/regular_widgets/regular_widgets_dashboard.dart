@@ -22,6 +22,7 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
     (Icons.layers_outlined, 'Cards Layout', Routing.cardLayouts, null),
     (Icons.send_time_extension, 'Stepper ', Routing.stepper, 'Stepper View'),
     (Icons.model_training, 'Physical Model', Routing.cupertinoComponents, null),
+    if(DeviceConfiguration.isWeb) (Icons.html, 'Html', Routing.htmlRendering, null),
   ];
 
   @override
