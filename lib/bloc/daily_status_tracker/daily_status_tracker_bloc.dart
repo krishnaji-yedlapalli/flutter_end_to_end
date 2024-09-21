@@ -22,6 +22,8 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
   void getCheckInStatus() async {
     try{
 
+      emit(const DailyStatusTrackerLoading(DailyStatusTrackerLoadedType.greeting));
+
       todayEvents.clear();
 
       if(events.isEmpty){
@@ -69,15 +71,18 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
         }
       }
 
+      var filteredEvents = events.map((event) => DailyTrackerEventModel.fromJson(event.toJson())).toList();
+      emit(DailyStatusTrackerEvents(filteredEvents, DailyStatusTrackerLoadedType.events));
+
       await updateTodayEventDetails(event);
       var items = <DailyTrackerEventModel>[];
       for(var item in todayEvents){
         items.add(DailyTrackerEventModel.fromJson(item.toJson()));
       }
+
       emit(DailyStatusTrackerCheckInStatus(items, getTimeOfDay(), true, DailyStatusTrackerLoadedType.greeting));
 
       var createdEvent = await repository.createOrEditEvent(event);
-      // emit(DailyStatusTrackerCheckInStatus(getTimeOfDay(), createdEvent, DailyStatusTrackerLoadedType.greeting));
     }catch(e,s){
      print(e.toString());
     }
@@ -113,6 +118,12 @@ class DailyTrackerStatusBloc extends Cubit<DailyStatusTrackerState> with HelperM
     bool status = await repository.checkInTheUser(body);
   }
 
+  Future<void> deleteEvent(DailyTrackerEventModel selectedEvent) async {
+    bool status = await repository.deleteEvent(selectedEvent.id);
+    events.removeWhere((event) => event.id == selectedEvent.id);
+    var items = events.map((event)=> DailyTrackerEventModel.fromJson(event.toJson())).toList();
+    emit(DailyStatusTrackerEvents(items, DailyStatusTrackerLoadedType.events));
+  }
 
 
   Future<List<DailyTrackerEventModel>> getTodayEvents() async {

@@ -28,9 +28,10 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DailyTrackerStatusBloc, DailyStatusTrackerState>(
-        buildWhen: (oldState, currentState) =>
-        currentState.dailyStatusTrackerLoadedType ==
-            DailyStatusTrackerLoadedType.events,
+        buildWhen: (oldState, currentState) {
+          return currentState.dailyStatusTrackerLoadedType ==
+              DailyStatusTrackerLoadedType.events;
+        },
         builder: (context, DailyStatusTrackerState trackState) {
           if (trackState is DailyStatusTrackerEvents) {
             return _buildEvents(trackState.events);
@@ -76,7 +77,7 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
   }
 
   void onDelete(DailyTrackerEventModel event) {
-
+    context.read<DailyTrackerStatusBloc>().deleteEvent(event);
   }
 
   void onEdit(DailyTrackerEventModel event){

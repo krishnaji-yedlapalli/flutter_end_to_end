@@ -37,14 +37,13 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
     vsync: this,
   );
 
-  bool isCheckedIn = false;
 
   @override
   void initState() {
     controller.value = 1;
-    WidgetsBinding.instance.addPostFrameCallback((duration) {
+    // WidgetsBinding.instance.addPostFrameCallback((duration) {
       context.read<DailyTrackerStatusBloc>().getCheckInStatus();
-    });
+    // });
     super.initState();
   }
 
@@ -68,15 +67,9 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
   Widget _buildTimeOfDay() {
     return BlocBuilder<DailyTrackerStatusBloc, DailyStatusTrackerState>(
         buildWhen: (oldState, currentState) {
-          print('## raspberry pi ${currentState.runtimeType}');
           if (currentState is DailyStatusTrackerCheckInStatus && currentState.isCheckedIn) {
-            print('## raspberry pi ${currentState.events.length}');
             controller.reverse();
           }
-          // if (currentState is DailyStatusTrackerCheckInStatus && !isCheckedIn && currentState.isCheckedIn) {
-          //   isCheckedIn = currentState.isCheckedIn;
-          //   controller.reverse();
-          // }
             return   currentState.dailyStatusTrackerLoadedType ==
               DailyStatusTrackerLoadedType.greeting;
         },
@@ -137,7 +130,7 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
               top: firstItemTopPosition + timerHeight + textInHeight + 20,
               left: (size.width / 2) - (150/2)
             ),
-            callback: isCheckedIn ? showEvents : onCheckIn,
+            callback: trackStatus.isCheckedIn ? showEvents : onCheckIn,
             controller: controller,
           ),
          if(trackStatus.isCheckedIn) Positioned(
@@ -169,9 +162,6 @@ class _RaspberrypiHomeState extends State<RaspberrypiHome>
         'asset/sound_effects/check_in.mp3');
     player.play();
     await controller.reverse();
-    setState(() {
-      isCheckedIn = true;
-    });
     context.read<DailyTrackerStatusBloc>().checkIn();
   }
 

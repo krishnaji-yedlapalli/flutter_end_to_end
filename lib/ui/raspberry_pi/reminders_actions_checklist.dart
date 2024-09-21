@@ -11,15 +11,16 @@ import 'package:shimmer/shimmer.dart';
 
 class ActionsChecklistView extends StatefulWidget {
   final List<DailyTrackerEventModel> todayEvents;
+  final ValueChanged<int> callBack;
 
-  const ActionsChecklistView(this.todayEvents, {super.key});
+  const ActionsChecklistView(this.todayEvents, this.callBack, {super.key});
 
   @override
   State<ActionsChecklistView> createState() => _ActionsChecklistViewState();
 }
 
 class _ActionsChecklistViewState extends State<ActionsChecklistView>
-    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs {
+    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs, AutomaticKeepAliveClientMixin<ActionsChecklistView>{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late List<DailyTrackerEventModel> _items;
   late AnimationController _controller;
@@ -57,15 +58,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
 
   @override
   didUpdateWidget(state) {
-    print('## did update widget ${widget.todayEvents.length}');
     addItemsNewItems();
-
-    //   if (_items.length < state.todayEvents.length) {
-    //   selectedIndex = 0;
-    //   var index = _items.length;
-    //   _items.insert(index, widget.todayEvents[index]);
-    //   _listKey.currentState?.insertItem(index);
-    // }
     super.didUpdateWidget(state);
   }
 
@@ -85,7 +78,6 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
   }
 
   Future<void> _addItemsWithDelay() async {
-    print('length of items ${_items.length} ${widget.todayEvents.length}');
     for (var i = 0; i < widget.todayEvents.length; i++) {
       _items.insert(i, widget.todayEvents[i]);
       await Future.delayed(const Duration(milliseconds: 300));
@@ -97,7 +89,6 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
 
   @override
   void dispose() {
-    print('## disposed');
     _controller.dispose();
     super.dispose();
   }
@@ -216,9 +207,10 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
   }
 
   void onSelectionOfEvent(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
+    selectedIndex = index;
+    widget.callBack(index);
+    // setState(() {
+    // });
   }
 
   ({String label, Color borderColor, Color bgColor}) geStatus(String status, {bool isSelected = false}) {
@@ -232,5 +224,8 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
       _ => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3))
     };
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 

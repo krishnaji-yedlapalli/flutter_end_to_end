@@ -37,48 +37,23 @@ class _AnimatedListExampleState extends State<TodayEventsView>
     print('## init state ${widget.todayEvents.length}');
 
     super.initState();
-
-    controller = TabController(length: 2, vsync: this);
-
-    _reminders = widget.todayEvents
-        .where((e) => e.eventType != EventDayType.action.name)
-        .toList();
-    _actions = widget.todayEvents
-        .where((e) => e.eventType == EventDayType.action.name)
-        .toList();
-
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    );
-
-    _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
-
-    _sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-
-    _controller.forward(); // Start the animation
-
+    setEvents();
     controller.addListener((){
-      // if(controller.index == 0){
       selectedIndex = 0;
       tabChangeNotifier.value = controller.index;
-      // }
     });
   }
 
   @override
   didUpdateWidget(state) {
-    print('## did update widget ${widget.todayEvents.length}');
+    if(state.todayEvents.isNotEmpty && state.todayEvents.length != widget.todayEvents.length) {
+      setEvents();
+    }
     super.didUpdateWidget(state);
   }
 
   @override
   void dispose() {
-    print('## disposed');
     _controller.dispose();
     super.dispose();
   }
@@ -108,6 +83,10 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                           children: [
                             TabBar(
                               controller: controller,
+                              dividerColor: Colors.orange,
+                              indicatorColor: Colors.orange,
+                              labelColor: Colors.orange,
+                              unselectedLabelColor: Colors.white,
                               tabs: const [
                                 Tab(text: 'Reminders'),
                                 Tab(text: 'Action Checklist'),
@@ -117,9 +96,9 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                               child:
                                   TabBarView(controller: controller, children: [
                                 ActionsChecklistView(
-                                    key: UniqueKey(), _reminders),
+                                    key: const Key('0'), _reminders, onSelectionOfEvent),
                                 ActionsChecklistView(
-                                    key: UniqueKey(), _actions),
+                                    key: const Key('1'), _actions, onSelectionOfEvent),
                               ]),
                             ),
                           ],
@@ -196,5 +175,31 @@ class _AnimatedListExampleState extends State<TodayEventsView>
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  void setEvents() {
+    controller = TabController(length: 2, vsync: this);
+
+    _reminders = widget.todayEvents
+        .where((e) => e.eventType != EventDayType.action.name)
+        .toList();
+    _actions = widget.todayEvents
+        .where((e) => e.eventType == EventDayType.action.name)
+        .toList();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
+
+    _sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    _controller.forward();
   }
 }
