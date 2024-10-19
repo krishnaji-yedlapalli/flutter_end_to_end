@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_clock/one_clock.dart';
+import 'package:sample_latest/mixins/date_formats.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/models/daily_tracker/action_event.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
@@ -18,7 +19,7 @@ class SelectedEventView extends StatefulWidget {
   State<SelectedEventView> createState() => _SelectedEventViewState();
 }
 
-class _SelectedEventViewState extends State<SelectedEventView> {
+class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
   late EventStatus eventStatus;
   late StopWatchTimer _stopWatchTimer;
 
@@ -96,8 +97,13 @@ class _SelectedEventViewState extends State<SelectedEventView> {
         ]),
         TableRow(children: [
           Text('Description', style: labelStyle),
-          Text(':'),
+          const Text(':'),
           Text(widget.selectedEvent.description, style: valueStyle)
+        ]),
+        if(eventStatus == EventStatus.completed) TableRow(children: [
+          Text('Duration', style: labelStyle),
+          const Text(':'),
+          Text(durationBetweenTwoDates(widget.selectedEvent.startDateTime, widget.selectedEvent.endDateTime), style: valueStyle)
         ]),
       ],
     );
@@ -140,7 +146,7 @@ class _SelectedEventViewState extends State<SelectedEventView> {
               width: 150,
               alignment: Alignment.center,
               decoration:
-                  BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                  const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
               child: Container(
                 alignment: Alignment.center,
                 decoration:
@@ -170,7 +176,7 @@ class _SelectedEventViewState extends State<SelectedEventView> {
         builder: (context, snap) {
           final value = snap.data!;
           final displayTime =
-          StopWatchTimer.getDisplayTime(value, hours: false);
+          StopWatchTimer.getDisplayTime(value, hours: false, milliSecond: false);
           return Text(displayTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600));
         });
   }

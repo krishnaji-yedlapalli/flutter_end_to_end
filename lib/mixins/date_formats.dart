@@ -49,4 +49,23 @@ mixin DateFormats {
 
     return difference.inDays.abs();
   }
+
+  String durationBetweenTwoDates(int? start, int? end){
+
+    if(start == null || end == null) return '';
+
+    var dateTime1 = DateTime.fromMillisecondsSinceEpoch(start);
+    var dateTime2 = DateTime.fromMillisecondsSinceEpoch(end);
+
+    Duration difference = dateTime2.difference(dateTime1);
+
+    // Extracting hours, minutes, and seconds
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String hours = twoDigits(difference.inHours);
+    String minutes = twoDigits(difference.inMinutes.remainder(60));
+    String seconds = twoDigits(difference.inSeconds.remainder(60));
+
+    // Formatted output
+   return "$hours:$minutes:$seconds";
+  }
 }

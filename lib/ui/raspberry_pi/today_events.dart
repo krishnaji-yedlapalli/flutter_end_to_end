@@ -130,24 +130,25 @@ class _AnimatedListExampleState extends State<TodayEventsView>
   }
 
   void onDeleteOrEditOrComplete(EventActionType actionType) {
+    var events = controller.index == 0 ? _reminders : _actions;
     switch (actionType) {
       case EventActionType.edit:
         adaptiveDialog(
             context,
             CreateDailyTrackerEvent(
-                event: _reminders.elementAt(selectedIndex)));
+                event: events.elementAt(selectedIndex)));
       case EventActionType.completed:
-        _reminders[selectedIndex]
+        events[selectedIndex]
           ..status = EventActionType.completed.name
           ..endDateTime = DateTime.now().millisecondsSinceEpoch;
 
         context
             .read<DailyTrackerStatusBloc>()
-            .updateTodayEventDetails(_reminders[selectedIndex]);
+            .updateTodayEventDetails(events[selectedIndex]);
         setState(() {});
 
       case EventActionType.skip:
-        _reminders[selectedIndex].status =
+        events[selectedIndex].status =
             actionType == EventActionType.completed
                 ? EventStatus.completed.name
                 : EventStatus.skip.name;
@@ -155,18 +156,18 @@ class _AnimatedListExampleState extends State<TodayEventsView>
         /// updating status
         context
             .read<DailyTrackerStatusBloc>()
-            .updateTodayEventDetails(_reminders[selectedIndex]);
+            .updateTodayEventDetails(events[selectedIndex]);
 
         setState(() {});
 
       case EventActionType.inProgress:
-        _reminders[selectedIndex]
+        events[selectedIndex]
           ..status = EventActionType.inProgress.name
           ..startDateTime = DateTime.now().millisecondsSinceEpoch;
 
         context
             .read<DailyTrackerStatusBloc>()
-            .updateTodayEventDetails(_reminders[selectedIndex]);
+            .updateTodayEventDetails(events[selectedIndex]);
         setState(() {});
     }
   }

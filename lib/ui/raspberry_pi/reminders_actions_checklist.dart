@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
+import 'package:sample_latest/mixins/date_formats.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/helper_methods.dart';
 import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
@@ -20,7 +21,7 @@ class ActionsChecklistView extends StatefulWidget {
 }
 
 class _ActionsChecklistViewState extends State<ActionsChecklistView>
-    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs, AutomaticKeepAliveClientMixin<ActionsChecklistView>{
+    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs, DateFormats, AutomaticKeepAliveClientMixin<ActionsChecklistView>{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late List<DailyTrackerEventModel> _items;
   late AnimationController _controller;
@@ -134,6 +135,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
   Widget _buildListItem(DailyTrackerEventModel event, int index) {
     bool isSelected = selectedIndex == index;
     var statusConfig = geStatus(event.status, isSelected: isSelected);
+    var time = getDateFromMillisecondsSinceEpoch(event.selectedDateTime).$2.format(context);
     var listItem = ListTile(
       onTap: () => onSelectionOfEvent(index),
       enabled: true,
@@ -141,7 +143,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
       selectedTileColor: Colors.green,
       selectedColor: Colors.black,
       horizontalTitleGap: 3,
-      isThreeLine: true,
+      isThreeLine: false,
       title: Text(event.title, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
       leading: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -155,7 +157,14 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
         ),
         child: Text(statusConfig.label, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
       ),
-      subtitle: Text(event.description, style: TextStyle(color: isSelected ? Colors.white : Colors.black)),
+      subtitle: RichText(text: TextSpan(
+        style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+        children: [
+          TextSpan(text: event.description),
+          const TextSpan(text: ' - '),
+          TextSpan(text: time == '12:00 AM' ? 'All day' : time),
+        ]
+      ))
     );
 
     return event.status != EventStatus.inProgress.name ? listItem : Shimmer.fromColors(
