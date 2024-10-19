@@ -11,7 +11,7 @@ import 'package:sample_latest/ui/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/ui/push_notifcations/firebase_push_notifications.dart';
 import 'package:sample_latest/ui/push_notifcations/local_pushNotifications.dart';
 import 'package:sample_latest/ui/push_notifcations/notifications.dart';
-import 'package:sample_latest/ui/raspberry_pi/raspberrypi_ui.dart';
+import 'package:sample_latest/ui/daily_tracker/daily_tracker_home.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/explicit_animation_widgets.dart';
 import 'package:sample_latest/ui/regular_widgets/animations/implicit_animations_widgets.dart';
@@ -183,9 +183,9 @@ class Routing {
                 return const GeminiChatScreen();
               }),
           GoRoute(
-              path: 'raspberry-pi',
+              path: 'daily-tracker',
               builder: (context, state) {
-                return const RaspberrypiHome();
+                return const DailyTrackerHome();
               }),
         ]);
   }

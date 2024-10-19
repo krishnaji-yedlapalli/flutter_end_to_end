@@ -22,7 +22,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDialogs, FeatureDiscovery {
+class _HomeScreenState extends State<HomeScreen>
+    with CardWidgetsMixin, CustomDialogs, FeatureDiscovery {
   late final AppLifecycleListener _lifeCycleListener;
 
   // GlobalKey offlineBannerKey = GlobalKey();
@@ -36,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
         onExitRequested: _onExit);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
-     // if(DeviceConfiguration.isWeb) buildAlertDialog(context, title : '!!! Hey !!!', content : 'Discover how Android and iOS apps utilize Offline, background, and Isolate functionalities. Install now');
+      // if(DeviceConfiguration.isWeb) buildAlertDialog(context, title : '!!! Hey !!!', content : 'Discover how Android and iOS apps utilize Offline, background, and Isolate functionalities. Install now');
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Some features are currently on development')));
@@ -47,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
         // offlineBannerKey.currentState;
         // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
       });
-       HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
-
+      HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
     });
 
     ConnectivityHandler()
@@ -110,22 +109,22 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
         des: 'Firebase push notifications'
       ),
       (
-          'Deep Linking',
-          ScreenType.deepLinking,
-          Icons.notifications,
-          des: 'Test the deeplink in device'
+        'Deep Linking',
+        ScreenType.deepLinking,
+        Icons.notifications,
+        des: 'Test the deeplink in device'
       ),
       (
-      'Raspberry PI',
-      ScreenType.raspberrypi,
-      Icons.accessibility_sharp,
-      des: 'Here we can access different types of plugins'
+        'Daily Tracker UI',
+        ScreenType.dailyTracker,
+        Icons.accessibility_sharp,
+        des: 'We can track daily activities'
       ),
       (
-      'Gemini Generative AI',
-      ScreenType.gemini,
-      Icons.chat,
-      des: 'Chat with Gemini'
+        'Gemini Generative AI',
+        ScreenType.gemini,
+        Icons.chat,
+        des: 'Chat with Gemini'
       ),
       (
         'Automatci Keep alive',
@@ -172,14 +171,20 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
         title: Text(AppLocalizations.of(context)!.greetings('John', "Carter")),
         appBar: AppBar(),
         actions: [
-        DeviceConfiguration.isWeb ? HomeScreenFeatureDiscovery().aboutAppsDiscovery(onTapOfApps) :
-        featureDiscovery(() => HomeScreenFeatureDiscovery().startFeatureDiscovery(context, forceTour: true))
+          DeviceConfiguration.isWeb
+              ? HomeScreenFeatureDiscovery().aboutAppsDiscovery(onTapOfApps)
+              : featureDiscovery(() => HomeScreenFeatureDiscovery()
+                  .startFeatureDiscovery(context, forceTour: true))
         ],
       ),
       body: GridView.builder(
           itemCount: screenTypes.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : DeviceConfiguration.isDesktopResolution ? 8 : 6),
+              crossAxisCount: DeviceConfiguration.isMobileResolution
+                  ? 2
+                  : DeviceConfiguration.isDesktopResolution
+                      ? 8
+                      : 6),
           itemBuilder: (_, index) {
             var screenDetails = screenTypes.elementAt(index);
             var module = buildHomeCardView(
@@ -189,7 +194,11 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
                 icon: screenDetails.$3,
                 callback: () =>
                     navigateToDashboard(screenTypes.elementAt(index).$2));
-            return HomeScreenFeatureDiscovery.features.contains(screenDetails.$2.name) ? HomeScreenFeatureDiscovery().aboutModuleDiscovery(module, screenDetails.$2)  : module;
+            return HomeScreenFeatureDiscovery.features
+                    .contains(screenDetails.$2.name)
+                ? HomeScreenFeatureDiscovery()
+                    .aboutModuleDiscovery(module, screenDetails.$2)
+                : module;
           }),
     );
   }
@@ -208,10 +217,11 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
       ScreenType.plugins => '/home/plugins',
       ScreenType.scrollTypes => '/home/scrollTypes',
       ScreenType.routing => '/home/route',
-      ScreenType.pushNotifications => '/home/push-notifications/remote-notifications',
+      ScreenType.pushNotifications =>
+        '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
-      ScreenType.raspberrypi => '/home/raspberry-pi',
+      ScreenType.dailyTracker => '/home/daily-tracker',
     };
     context.go(path);
   }
@@ -297,7 +307,8 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
           return Badge(
               label: Text('$count'),
               child: TextButton(
-                  onPressed: OfflineHandler().syncData, child: const Text('Sync')));
+                  onPressed: OfflineHandler().syncData,
+                  child: const Text('Sync')));
         },
       ),
       content: const Align(alignment: Alignment.center, child: Text('Offline')),
@@ -320,11 +331,15 @@ class _HomeScreenState extends State<HomeScreen> with CardWidgetsMixin, CustomDi
   }
 
   void onTapOfApps(String val) async {
-    String url = val == 'android' ? 'https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages' : 'https://testflight.apple.com/join/UulGfVnn';
+    String url = val == 'android'
+        ? 'https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages'
+        : 'https://testflight.apple.com/join/UulGfVnn';
 
-    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication,)) {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
       print('error');
     }
-
   }
 }

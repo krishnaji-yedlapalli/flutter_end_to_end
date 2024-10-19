@@ -1,34 +1,28 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:one_clock/one_clock.dart';
 import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/mixins/loaders.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
-import 'package:sample_latest/ui/raspberry_pi/check_in_btn.dart';
-import 'package:sample_latest/ui/raspberry_pi/create_tracker_event.dart';
-import 'package:sample_latest/ui/raspberry_pi/daily_tracker_event_list.dart';
-import 'package:sample_latest/ui/raspberry_pi/digital_clock.dart';
-import 'package:sample_latest/ui/raspberry_pi/existing_events.dart';
-import 'package:sample_latest/ui/raspberry_pi/today_events.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/ui/daily_tracker/check_in_btn.dart';
+import 'package:sample_latest/ui/daily_tracker/create_tracker_event.dart';
+import 'package:sample_latest/ui/daily_tracker/digital_clock.dart';
+import 'package:sample_latest/ui/daily_tracker/existing_events.dart';
+import 'package:sample_latest/ui/daily_tracker/today_events.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
-import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 import 'time_of_day_message.dart';
 
-class RaspberrypiHome extends StatefulWidget {
-  const RaspberrypiHome({super.key});
+class DailyTrackerHome extends StatefulWidget {
+  const DailyTrackerHome({super.key});
 
   @override
-  State<RaspberrypiHome> createState() => _RaspberrypiHomeState();
+  State<DailyTrackerHome> createState() => _DailyTrackerHomeState();
 }
 
-class _RaspberrypiHomeState extends State<RaspberrypiHome>
+class _DailyTrackerHomeState extends State<DailyTrackerHome>
     with TickerProviderStateMixin, Loaders, CustomDialogs {
   final player = AudioPlayer();
 
