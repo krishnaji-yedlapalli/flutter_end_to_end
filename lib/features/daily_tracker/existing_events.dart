@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
-import 'package:sample_latest/ui/daily_tracker/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/create_tracker_event.dart';
 
 import '../../bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
 

@@ -5,9 +5,9 @@ import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
-import 'package:sample_latest/ui/daily_tracker/create_tracker_event.dart';
-import 'package:sample_latest/ui/daily_tracker/reminders_actions_checklist.dart';
-import 'package:sample_latest/ui/daily_tracker/selected_event.dart';
+import 'package:sample_latest/features/daily_tracker/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/reminders_actions_checklist.dart';
+import 'package:sample_latest/features/daily_tracker/selected_event.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:shimmer/shimmer.dart';
 

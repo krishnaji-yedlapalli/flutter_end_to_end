@@ -10,8 +10,8 @@ import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/ui/schools/add_update_school_details.dart';
-import 'package:sample_latest/ui/schools/create_update_student.dart';
+import 'package:sample_latest/features/schools/add_update_school_details.dart';
+import 'package:sample_latest/features/schools/create_update_student.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 

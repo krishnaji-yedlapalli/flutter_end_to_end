@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/models/school/student_model.dart';
 import 'package:sample_latest/services/repository/school_repository.dart';
-import 'package:sample_latest/ui/schools/create_update_student.dart';
-import 'package:sample_latest/ui/schools/school_details.dart';
+import 'package:sample_latest/features/schools/create_update_student.dart';
+import 'package:sample_latest/features/schools/school_details.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 import '../../mock_data/configuration_data.dart';

@@ -6,11 +6,11 @@ import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_blo
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
-import 'package:sample_latest/ui/daily_tracker/check_in_btn.dart';
-import 'package:sample_latest/ui/daily_tracker/create_tracker_event.dart';
-import 'package:sample_latest/ui/daily_tracker/digital_clock.dart';
-import 'package:sample_latest/ui/daily_tracker/existing_events.dart';
-import 'package:sample_latest/ui/daily_tracker/today_events.dart';
+import 'package:sample_latest/features/daily_tracker/check_in_btn.dart';
+import 'package:sample_latest/features/daily_tracker/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/digital_clock.dart';
+import 'package:sample_latest/features/daily_tracker/existing_events.dart';
+import 'package:sample_latest/features/daily_tracker/today_events.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 
 import 'time_of_day_message.dart';

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/provider/common_provider.dart';
-import 'package:sample_latest/ui/schools/student.dart';
+import 'package:sample_latest/features/schools/student.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 import '../../mock_data/configuration_data.dart';
