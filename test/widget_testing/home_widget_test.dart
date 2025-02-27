@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/ui/home_screen.dart';
-import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
+import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';

@@ -11,7 +11,7 @@ import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/services/base_service.dart';
 import 'package:sample_latest/services/utils/service_enums_typedef.dart';
-import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
+import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
 
 class FirebasePushNotifications extends StatefulWidget {

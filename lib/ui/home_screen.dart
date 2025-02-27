@@ -6,7 +6,7 @@ import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/core/mixins/cards_mixin.dart';
-import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
+import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
