@@ -15,7 +15,7 @@ import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
-import 'package:sample_latest/models/service/queue_item.dart';
+import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';

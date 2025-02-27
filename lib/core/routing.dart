@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/features/deep_linking/deep_linking.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
-import 'package:sample_latest/features/generative_ai/gemini.dart';
+import 'package:sample_latest/features/generative_ai/presentation/screen/gemini.dart';
 import 'package:sample_latest/features/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/features/push_notifcations/firebase_push_notifications.dart';
 import 'package:sample_latest/features/push_notifcations/local_pushNotifications.dart';

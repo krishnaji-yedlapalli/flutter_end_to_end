@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
-import 'package:sample_latest/provider/common_provider.dart';
+import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/features/schools/presentation/screens/create_update_school.dart';

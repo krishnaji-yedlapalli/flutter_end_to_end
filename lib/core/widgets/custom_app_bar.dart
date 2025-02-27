@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/provider/common_provider.dart';
+import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

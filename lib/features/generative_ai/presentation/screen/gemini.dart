@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 // Import the correct AI plugin classes
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:sample_latest/provider/gemini_provider.dart';
+import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 
 class GeminiChatScreen extends StatelessWidget {
 

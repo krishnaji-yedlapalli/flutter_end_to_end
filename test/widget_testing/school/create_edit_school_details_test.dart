@@ -19,7 +19,7 @@ import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/features/schools/data/model/student_model.dart';
-import 'package:sample_latest/provider/common_provider.dart';
+import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
