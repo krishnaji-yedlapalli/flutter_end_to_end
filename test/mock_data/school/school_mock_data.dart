@@ -1,6 +1,6 @@
-import 'package:sample_latest/models/school/school_details_model.dart';
-import 'package:sample_latest/models/school/school_model.dart';
-import 'package:sample_latest/models/school/student_model.dart';
+import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
+import 'package:sample_latest/features/schools/data/model/school_model.dart';
+import 'package:sample_latest/features/schools/data/model/student_model.dart';
 
 class SchoolMockData {
   static final List<SchoolModel> schools = [

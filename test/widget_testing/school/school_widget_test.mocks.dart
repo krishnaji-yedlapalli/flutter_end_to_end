@@ -6,11 +6,11 @@
 import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sample_latest/models/school/school_details_model.dart' as _i3;
-import 'package:sample_latest/models/school/school_model.dart' as _i4;
-import 'package:sample_latest/models/school/student_model.dart' as _i5;
-import 'package:sample_latest/services/base_service.dart' as _i2;
-import 'package:sample_latest/services/repository/school_repository.dart'
+import 'package:sample_latest/features/schools/data/model/school_details_model.dart' as _i3;
+import 'package:sample_latest/features/schools/data/model/school_model.dart' as _i4;
+import 'package:sample_latest/features/schools/data/model/student_model.dart' as _i5;
+import 'package:sample_latest/core/data/base_service.dart' as _i2;
+import 'package:sample_latest/features/schools/data/repository/school_repository.dart'
     as _i6;
 
 // ignore_for_file: type=lint

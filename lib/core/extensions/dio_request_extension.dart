@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sample_latest/services/utils/db_constants.dart';
+import 'package:sample_latest/core/data/utils/db_constants.dart';
 
 extension DioRequestExtension on RequestOptions {
 

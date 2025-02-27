@@ -7,8 +7,8 @@ import 'dart:async' as _i4;
 
 import 'package:dio/dio.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sample_latest/services/base_service.dart' as _i3;
-import 'package:sample_latest/services/utils/service_enums_typedef.dart' as _i5;
+import 'package:sample_latest/core/data/base_service.dart' as _i3;
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
