@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 
 class CallBackShortCutsView extends StatefulWidget {
   const CallBackShortCutsView({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/extensions/widget_extension.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
 
 class StudentModel {
   final String name;

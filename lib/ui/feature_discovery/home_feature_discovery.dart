@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:feature_discovery/feature_discovery.dart';
-import 'package:sample_latest/mixins/buttons_mixin.dart';
+import 'package:sample_latest/core/mixins/buttons_mixin.dart';
 import 'package:sample_latest/utils/constants.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';

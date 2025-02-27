@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/extensions/widget_extension.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/provider/route_provider.dart';
 import 'package:go_router/go_router.dart';
 

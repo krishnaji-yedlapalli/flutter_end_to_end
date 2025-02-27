@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/services/db/db_handler.dart';
 import 'package:sample_latest/services/utils/service_enums_typedef.dart';
 

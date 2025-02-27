@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sample_latest/mixins/validators.dart';
+import 'package:sample_latest/core/mixins/validators.dart';
 
 class ValidatorTest with Validators {}
 

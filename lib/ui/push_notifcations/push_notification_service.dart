@@ -9,9 +9,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
 import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/notifiers.dart';
-import 'package:sample_latest/routing.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/notifiers.dart';
+import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 class PushNotificationService {

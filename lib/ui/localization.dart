@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/extensions/widget_extension.dart';
-import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
+import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/provider/common_provider.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/widgets/custom_app_bar.dart';
+import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class LocalizationDatePicker extends StatefulWidget {
   const LocalizationDatePicker({Key? key}) : super(key: key);

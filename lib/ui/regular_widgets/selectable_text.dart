@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/extensions/widget_extension.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
 
 class SelectableTextSample extends StatefulWidget {
   const SelectableTextSample({Key? key}) : super(key: key);

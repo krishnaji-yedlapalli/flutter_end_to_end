@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/models/school/student_model.dart';
-import 'package:sample_latest/extensions/widget_extension.dart';
-import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
-import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
+import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/widgets/custom_app_bar.dart';
+import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class Student extends StatefulWidget {
   final String studentId;

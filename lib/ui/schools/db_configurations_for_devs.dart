@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
 
 class DbConfigurationDialog extends StatefulWidget {

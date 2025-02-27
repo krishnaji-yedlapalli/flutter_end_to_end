@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sample_latest/environment/environment.dart';
+
+import 'environment/environment.dart';
 
 class CustomTheme {
   static ThemeData lightThemeData(BuildContext context) {

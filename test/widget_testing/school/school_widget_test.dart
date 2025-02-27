@@ -15,7 +15,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/environment/environment.dart';
+import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/models/school/student_model.dart';

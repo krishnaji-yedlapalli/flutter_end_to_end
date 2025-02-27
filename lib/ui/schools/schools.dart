@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/mixins/feature_discovery_mixin.dart';
+import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/models/school/school_model.dart';
-import 'package:sample_latest/extensions/widget_extension.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
-import 'package:sample_latest/mixins/loaders.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/ui/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/ui/schools/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
@@ -16,7 +16,7 @@ import 'package:sample_latest/ui/schools/db_configurations_for_devs.dart';
 import 'package:sample_latest/ui/schools/dumping_status.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
-import 'package:sample_latest/widgets/custom_app_bar.dart';
+import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class Schools extends StatefulWidget {
   const Schools({Key? key}) : super(key: key);

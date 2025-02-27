@@ -2,7 +2,6 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
 import 'package:sample_latest/models/school/school_model.dart';
 import 'package:sample_latest/ui/deep_linking/deep_linking.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
@@ -47,7 +46,8 @@ import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/ui/regular_widgets/stepper_ui.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 
-import 'ui/plugins/local_authentication.dart';
+import 'mixins/dialogs.dart';
+import '../ui/plugins/local_authentication.dart';
 
 class Routing {
   static const String home = '/home';

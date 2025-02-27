@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_clock/one_clock.dart';
-import 'package:sample_latest/mixins/date_formats.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/core/mixins/date_formats.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/models/daily_tracker/action_event.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';

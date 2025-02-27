@@ -5,9 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
 import 'package:sample_latest/models/school/school_details_model.dart';
 import 'package:sample_latest/models/school/school_model.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/validators.dart';
-import 'package:sample_latest/widgets/text_field.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/validators.dart';
+import 'package:sample_latest/core/widgets/text_field.dart';
 
 class AddSchoolDetails extends StatefulWidget {
 

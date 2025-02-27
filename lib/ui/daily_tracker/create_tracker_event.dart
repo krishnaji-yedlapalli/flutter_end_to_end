@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/mixins/date_formats.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
-import 'package:sample_latest/mixins/validators.dart';
+import 'package:sample_latest/core/mixins/date_formats.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
+import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/models/daily_tracker/action_event.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
-import 'package:sample_latest/widgets/custom_dropdown.dart';
-import 'package:sample_latest/widgets/text_field.dart';
+import 'package:sample_latest/core/widgets/custom_dropdown.dart';
+import 'package:sample_latest/core/widgets/text_field.dart';
 
 import '../../bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
 

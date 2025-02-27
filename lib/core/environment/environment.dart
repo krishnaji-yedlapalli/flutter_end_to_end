@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:sample_latest/environment/app_configuration.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
+
+import 'app_configuration.dart';
 
 enum EnvironmentType {dash, flutter, dart}
 

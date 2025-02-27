@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sample_latest/extensions/dio_request_extension.dart';
+import 'package:sample_latest/core/extensions/dio_request_extension.dart';
 import 'package:sample_latest/services/db/db_configuration.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';

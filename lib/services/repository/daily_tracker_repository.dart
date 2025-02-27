@@ -1,4 +1,5 @@
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:sample_latest/models/daily_tracker/daily_tracker_event_model.dart';
 
 import '../base_service.dart';
@@ -17,6 +18,9 @@ abstract class DailyTrackerRepo {
 class DailyTrackerRepository extends DailyTrackerRepo {
 
   final BaseService baseService;
+
+  // DatabaseReference databaseReference =
+  // FirebaseDatabase.instance.ref().child('users');
 
   DailyTrackerRepository({BaseService? baseService}) : baseService = baseService ?? BaseService.instance;
 

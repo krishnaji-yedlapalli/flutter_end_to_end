@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/mixins/helper_widgets_mixin.dart';
+import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 class MaterialComponents extends StatefulWidget {

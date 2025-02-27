@@ -2,16 +2,16 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/feature_discovery_mixin.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/services/db/offline_handler.dart';
-import 'package:sample_latest/mixins/cards_mixin.dart';
+import 'package:sample_latest/core/mixins/cards_mixin.dart';
 import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
-import 'package:sample_latest/widgets/custom_app_bar.dart';
+import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'feature_discovery/home_feature_discovery.dart';
 

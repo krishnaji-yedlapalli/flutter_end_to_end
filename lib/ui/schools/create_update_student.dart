@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/mixins/helper_methods.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/models/school/student_model.dart';
-import 'package:sample_latest/mixins/dialogs.dart';
-import 'package:sample_latest/mixins/validators.dart';
-import 'package:sample_latest/widgets/custom_dropdown.dart';
-import 'package:sample_latest/widgets/text_field.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
+import 'package:sample_latest/core/mixins/validators.dart';
+import 'package:sample_latest/core/widgets/custom_dropdown.dart';
+import 'package:sample_latest/core/widgets/text_field.dart';
 
 class CreateStudent extends StatefulWidget {
   final String schoolId;

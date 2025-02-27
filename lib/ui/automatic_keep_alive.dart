@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:sample_latest/widgets/custom_app_bar.dart';
+import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class AutomaticKeepAliveScreen extends StatefulWidget {
   const AutomaticKeepAliveScreen({Key? key}) : super(key: key);
