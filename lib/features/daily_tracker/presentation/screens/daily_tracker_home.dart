@@ -6,14 +6,14 @@ import 'package:sample_latest/features/daily_tracker/presentation/bloc/daily_sta
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/check_in_btn.dart';
+import 'package:sample_latest/features/daily_tracker/presentation/widgets/check_in_btn.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/digital_clock.dart';
+import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/existing_events.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/today_events.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 
-import 'time_of_day_message.dart';
+import '../widgets/time_of_day_message.dart';
 
 class DailyTrackerHome extends StatefulWidget {
   const DailyTrackerHome({super.key});
