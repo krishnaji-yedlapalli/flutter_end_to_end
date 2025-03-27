@@ -83,7 +83,7 @@ dependencies:
   bloc_test: ^9.1.7
   mockito: 5.4.4
   google_generative_ai:
-  image_picker:
+  image_picker: ^1.1.2
   flutter_chat_ui:
   firebase_database: ^10.5.7
   simple_ripple_animation: ^0.0.9
