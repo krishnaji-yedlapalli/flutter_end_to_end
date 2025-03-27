@@ -9,19 +9,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/bloc/daily_status_tracker/daily_status_tracker_bloc.dart';
-import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/environment/environment.dart';
-import 'package:sample_latest/provider/gemini_provider.dart';
-import 'package:sample_latest/services/db/db_configuration.dart';
-import 'package:sample_latest/services/repository/daily_tracker_repository.dart';
-import 'package:sample_latest/services/repository/school_repository.dart';
+import 'package:sample_latest/features/daily_tracker/presentation/bloc/daily_status_tracker_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
+import 'package:sample_latest/core/data/db/db_configuration.dart';
+import 'package:sample_latest/features/daily_tracker/data/repository/daily_tracker_repository.dart';
+import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
-import 'package:sample_latest/provider/common_provider.dart';
-import 'package:sample_latest/routing.dart';
-import 'package:sample_latest/theme.dart';
-import 'package:sample_latest/ui/push_notifcations/push_notification_service.dart';
+import 'package:sample_latest/core/presentation/provider/common_provider.dart';
+import 'package:sample_latest/core/routing.dart';
+import 'package:sample_latest/core/theme.dart';
+import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/utils/connectivity_handler.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,6 +28,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/adsense_web_stub.dart'
 if (dart.library.html) 'package:sample_latest/adsense_web.dart'
 as web;
+
+import 'core/environment/environment.dart';
 
 // @pragma('vm:entry-point')
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

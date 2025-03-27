@@ -6,10 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/environment/environment.dart';
-import 'package:sample_latest/provider/common_provider.dart';
-import 'package:sample_latest/ui/schools/student.dart';
+import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/core/environment/environment.dart';
+import 'package:sample_latest/core/presentation/provider/common_provider.dart';
+import 'package:sample_latest/features/schools/presentation/screens/student.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 import '../../mock_data/configuration_data.dart';

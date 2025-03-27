@@ -2,10 +2,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:sample_latest/bloc/school/school_bloc.dart';
-import 'package:sample_latest/models/school/school_model.dart';
-import 'package:sample_latest/models/school/student_model.dart';
-import 'package:sample_latest/services/repository/school_repository.dart';
+import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/features/schools/data/model/school_model.dart';
+import 'package:sample_latest/features/schools/data/model/student_model.dart';
+import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 
 import '../../mock_data/school/school_mock_data.dart';
 import 'school_bloc_test.mocks.dart';
