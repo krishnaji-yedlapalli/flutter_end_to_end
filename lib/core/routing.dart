@@ -33,9 +33,9 @@ import 'package:sample_latest/features/routing_features/state_ful_shell_routing_
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/features/scrolling/scroll_types.dart';
 import 'package:sample_latest/features/regular_widgets/cards_list_view_grid.dart';
-import 'package:sample_latest/features/schools/presentation/screens/school_details.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools.dart';
-import 'package:sample_latest/features/schools/presentation/screens/student.dart';
+import 'package:sample_latest/features/schools/presentation/screens/school_details/school_details.dart';
+import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
+import 'package:sample_latest/features/schools/presentation/screens/student/student.dart';
 import 'package:sample_latest/features/home_screen.dart';
 import 'package:sample_latest/features/isolates/isolate_home.dart';
 import 'package:sample_latest/features/isolates/isolate_with_compute.dart';

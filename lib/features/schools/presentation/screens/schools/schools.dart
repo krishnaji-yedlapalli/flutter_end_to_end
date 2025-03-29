@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
@@ -10,13 +9,17 @@ import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:sample_latest/features/schools/presentation/screens/create_update_school.dart';
+import 'package:sample_latest/features/schools/presentation/screens/schools/create_update_school.dart';
+import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+
+import '../../blocs/schools_bloc/schools_bloc.dart';
+import '../../blocs/schools_bloc/schools_state.dart';
 
 class Schools extends StatefulWidget {
   const Schools({Key? key}) : super(key: key);
@@ -29,7 +32,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   @override
   void initState() {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        BlocProvider.of<SchoolBloc>(context).loadSchools();
+        BlocProvider.of<SchoolsBloc>(context).loadSchools();
         SchoolScreenFeatureDiscovery().startFeatureDiscovery(context);
       });
     super.initState();
@@ -46,10 +49,10 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         appBar: AppBar(),
       ),
       floatingActionButton: SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(type : SchoolDiscoverFeatureType.create ,child: FloatingActionButton.extended(onPressed: onTapOfCreateSchool, label: const Text('Create School'), icon: const Icon(Icons.add))),
-      body: BlocListener<SchoolBloc, SchoolState>(
+      body: BlocListener<SchoolsBloc, SchoolsState>(
         listener: (context, state) {
          buildAlertDialog(context, title : '!!! Welcome to School Module !!!', content : 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
-         BlocProvider.of<SchoolBloc>(context).isWelcomeMessageShowed = true;
+         BlocProvider.of<SchoolsBloc>(context).updateWelcomeMessageStatus(true);
          },
         listenWhen: (oldState, state){
           return !state.isWelcomeMessageShowed;
@@ -81,12 +84,10 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
   }
 
   Widget _buildSchoolBlocConsumer() {
-    return BlocBuilder<SchoolBloc, SchoolState>(
-        buildWhen: (context, state) {
-          return state.schoolStateType == SchoolDataLoadedType.schools;
-        },
+    return BlocBuilder<SchoolsBloc, SchoolsState>(
+
         builder: (context, state) {
-          if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
+          if (state is SchoolsInfoInitial || state is SchoolsInfoLoading) {
             return circularLoader();
           } else if (state is SchoolsInfoLoaded) {
             return _buildRegisteredSchools(state.schools);
@@ -98,7 +99,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
         });
   }
 
-  Widget _buildRegisteredSchools(List<SchoolModel> schools) {
+  Widget _buildRegisteredSchools(List<SchoolViewModel> schools) {
 
     if(schools.isEmpty) return emptyMessage('No Schools Found, Create a new School');
 
@@ -176,7 +177,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     return  ElevatedButton.icon(onPressed: OfflineHandler().eraseAllDatabaseData, icon: const Icon(Icons.refresh), label: const Text('Reset Whole Db'));
   }
 
-  onTapOfSchool(SchoolModel school) {
+  onTapOfSchool(SchoolViewModel school) {
 
     var query = {
       "schoolId" : school.id
@@ -189,12 +190,12 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     adaptiveDialog(context, const CreateSchool());
   }
 
-  onTapOfEditSchool(SchoolModel school) {
+  onTapOfEditSchool(SchoolViewModel school) {
     adaptiveDialog(context, CreateSchool(school: school));
   }
 
   onTapOfSchoolDelete(String schoolId) {
-    BlocProvider.of<SchoolBloc>(context).deleteSchool(schoolId);
+    BlocProvider.of<SchoolsBloc>(context).deleteSchool(schoolId);
   }
 
   onTapOfDumpStatus([bool isRunning = false]) {

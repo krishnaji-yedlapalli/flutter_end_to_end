@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';

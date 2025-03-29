@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/entities/school_entity.dart';
+
 part 'school_model.g.dart';
 
 @JsonSerializable()
@@ -29,6 +31,15 @@ class SchoolModel {
     json['createdDate'] = createdDate.toString();
     json['updatedDate'] = updatedDate.toString();
     return json;
+  }
+
+  SchoolEntity toSchoolEntity(){
+    return SchoolEntity(
+        schoolName, country, location, id, createdDate, updatedDate: updatedDate);
+  }
+
+  factory SchoolModel.fromEntity(SchoolEntity school) {
+    return SchoolModel(school.schoolName, school.country, school.location, school.id, school.createdDate, updatedDate: school.updatedDate);
   }
 
   factory SchoolModel.fromRouteJson(Map<String, dynamic> json) {

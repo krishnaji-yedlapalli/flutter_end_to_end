@@ -10,12 +10,12 @@ import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/schools/presentation/screens/add_update_school_details.dart';
-import 'package:sample_latest/features/schools/presentation/screens/create_update_student.dart';
+import 'package:sample_latest/features/schools/presentation/screens/school_details/add_update_school_details.dart';
+import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
-import '../bloc/school_bloc.dart';
+import '../../blocs/school_bloc.dart';
 
 class SchoolDetails extends StatefulWidget {
 
