@@ -13,7 +13,8 @@ import '../../blocs/schools_bloc/schools_bloc.dart';
 
 class CreateSchool extends StatefulWidget {
   final SchoolViewModel? school;
-  const CreateSchool({Key? key, this.school}) : super(key: key);
+  final BuildContext parentContext;
+  const CreateSchool({Key? key,  required this.parentContext, this.school}) : super(key: key);
 
   @override
   State<CreateSchool> createState() => _CreateSchoolState();
@@ -109,7 +110,7 @@ class _CreateSchoolState extends State<CreateSchool>
         break;
       case 1:
         if (formKey.currentState?.validate() ?? false) {
-          context.read<SchoolsBloc>().createOrUpdateSchool(
+          widget.parentContext.read<SchoolsBloc>().createOrUpdateSchool(
               SchoolParams(schoolNameCtrl.text.trim(), selectedCountry!,
                   locationCtrl.text.trim(), widget.school?.id),
               isCreateSchool: isCreateSchool);

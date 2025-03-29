@@ -8,13 +8,20 @@ class SchoolsInjectionModule {
 
   factory SchoolsInjectionModule() => _instance;
 
-  final GetIt getIt = GetIt.instance;
+  final GetIt injector = GetIt.instance;
 
   Future<void> registerDependencies() async {
     _registerExecutedCacheManager();
   }
 
   void _registerExecutedCacheManager() {
-    getIt.registerSingleton<SchoolExecutedTaskFlow>(SchoolExecutedTaskFlow());
+    if (!injector.isRegistered<SchoolExecutedTaskFlow>()) {
+      injector
+          .registerSingleton<SchoolExecutedTaskFlow>(SchoolExecutedTaskFlow());
+    }
+  }
+
+  void _unRegisterDependencies() async {
+    await injector.unregister(instance: SchoolExecutedTaskFlow);
   }
 }
