@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,22 +7,31 @@ import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/school_details_bloc.dart';
+
+import '../../../shared/models/school_view_model.dart';
+import '../../../shared/params/school_details_param.dart';
 
 class AddSchoolDetails extends StatefulWidget {
+  const AddSchoolDetails(
+      {Key? key,
+      required this.parentContext,
+      required this.school,
+      this.schoolDetails})
+      : super(key: key);
+
+  final BuildContext parentContext;
 
   final SchoolDetailsModel? schoolDetails;
 
-  final SchoolModel school;
-
-  const AddSchoolDetails({Key? key, required this.school, this.schoolDetails}) : super(key: key);
+  final SchoolViewModel school;
 
   @override
   State<AddSchoolDetails> createState() => _AddSchoolDetailsState();
 }
 
-class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs, Validators{
-
-
+class _AddSchoolDetailsState extends State<AddSchoolDetails>
+    with CustomDialogs, Validators {
   final TextEditingController studentStrengthCtrl = TextEditingController();
 
   final TextEditingController staffStrengthCtrl = TextEditingController();
@@ -34,10 +42,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
 
   @override
   void initState() {
-
-    if(widget.schoolDetails != null){
-
-    }
+    if (widget.schoolDetails != null) {}
 
     super.initState();
   }
@@ -46,8 +51,9 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
   Widget build(BuildContext context) {
     return dialogWithButtons(
         title: 'Add School Details',
-        content: _buildFrom(), actions: ['Cancel', widget.schoolDetails != null ? 'Update' : 'Create'], callBack: onTapOfAction
-    );
+        content: _buildFrom(),
+        actions: ['Cancel', widget.schoolDetails != null ? 'Update' : 'Create'],
+        callBack: onTapOfAction);
   }
 
   Widget _buildFrom() {
@@ -65,21 +71,25 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
               label: 'Student Strength',
               suffixIcon: const Icon(Icons.child_care),
               inputFormatter: [Validators.onlyNumerics],
-              validator: (val)=> textEmptyValidator(val, 'Strength is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Strength is required!!'),
             ),
             CustomTextField(
               controller: staffStrengthCtrl,
               label: 'Staff Strength',
               suffixIcon: const Icon(Icons.person),
               inputFormatter: [Validators.onlyNumerics],
-              validator: (val)=> textEmptyValidator(val, 'Strength is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Strength is required!!'),
             ),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               runSpacing: 5,
               children: [
                 const Text('Hostel Availability :'),
-                Switch.adaptive(value: hostelAvailability, onChanged: (val) =>  hostelAvailability = val)
+                Switch.adaptive(
+                    value: hostelAvailability,
+                    onChanged: (val) => hostelAvailability = val)
               ],
             )
           ],
@@ -88,27 +98,26 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails> with CustomDialogs,
     );
   }
 
-  void onTapOfAction(int index){
-    switch(index){
-      case 0 :
-        GoRouter.of(context).pop();
+  void onTapOfAction(int index) {
+    switch (index) {
+      case 0:
+        Navigator.of(context).pop();
         break;
-      case 1 :
-        if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().createOrEditSchoolDetails(SchoolDetailsModel(
-                  widget.school.id,
+      case 1:
+        if (formKey.currentState?.validate() ?? false) {
+          widget.parentContext
+              .read<SchoolDetailsBLoc>()
+              .createOrEditSchoolDetails(SchoolDetailsParams(
                   widget.school.schoolName,
                   widget.school.country,
                   widget.school.location,
+                  widget.school.id,
                   'https://upload.wikimedia.org/wikipedia/commons/c/ce/Monroe_Township_High_School_Front_View.jpg',
                   int.parse(studentStrengthCtrl.text.trim()),
                   int.parse(staffStrengthCtrl.text.trim()),
-              hostelAvailability,
-              widget.schoolDetails?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
-              updatedDate: DateTime.now().millisecondsSinceEpoch
-              ));
-          GoRouter.of(context).pop();
-        }
+                  hostelAvailability,
+                  widget.school.id));
+          Navigator.of(context).pop();}
         break;
     }
   }

@@ -10,16 +10,21 @@ import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
+import 'package:sample_latest/features/schools/domain/entities/school_details_entity.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/school_details_bloc.dart';
 import 'package:sample_latest/features/schools/presentation/screens/school_details/add_update_school_details.dart';
 import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
+import '../../../shared/models/school_details_view_model.dart';
+import '../../../shared/models/school_view_model.dart';
 import '../../blocs/school_bloc.dart';
+import '../../blocs/school_details_bloc/schools_details_state.dart';
 
 class SchoolDetails extends StatefulWidget {
 
-  final SchoolModel? school;
+  final SchoolViewModel? school;
 
   final String schoolId;
 
@@ -33,40 +38,34 @@ class _SchoolDetailsState extends State<SchoolDetails>
     with HelperWidget, Loaders, CustomDialogs {
   @override
   void initState() {
-    BlocProvider.of<SchoolBloc>(context)
-      ..loadSchoolDetails(widget.schoolId)
-      ..viewAllStudents = true;
+    BlocProvider.of<SchoolDetailsBLoc>(context)
+      .loadSchoolDetails(widget.schoolId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: CustomAppBar(appBar: AppBar()),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: onTapOfCreateStudent, label: const Text('Create Student')),
         body: _buildSchoolBloc());
   }
 
   Widget _buildSchoolBloc() {
-    return BlocConsumer<SchoolBloc, SchoolState>(
-      buildWhen: (context, state) {
-        return state.schoolStateType == SchoolDataLoadedType.school;
-      },
+    return BlocBuilder<SchoolDetailsBLoc, SchoolDetailsState>(
       builder: (context, state) {
-        if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
+        if (state is SchoolDetailsInitial || state is SchoolDetailsInitialLoading) {
           return circularLoader();
-        } else if (state is SchoolInfoLoaded) {
-          return _buildSchoolDetails(state.school);
-        }else if(state is SchoolDataNotFound){
+        } else if (state is SchoolDetailsInfoLoaded) {
+          return _buildSchoolDetails(state.schoolDetails);
+        }else if(state is SchoolDetailsDataNotFound){
           return _buildEmptySchoolView();
-        } else if(state is SchoolDataError) {
+        } else if(state is SchoolDetailsDataError) {
           return ExceptionView(state.errorStateType);
         }else {
           return const ExceptionView((DataErrorStateType.none, message: null));
         }
       },
-      listener: (BuildContext context, SchoolState state) {},
     );
   }
 
@@ -104,7 +103,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
     );
   }
 
-  Widget _buildSchoolDetails(SchoolDetailsModel schoolDetails) {
+  Widget _buildSchoolDetails(SchoolDetailsViewModel schoolDetails) {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -232,7 +231,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   onTapOfAddMoreDetails() {
-    adaptiveDialog(context, AddSchoolDetails(school: widget.school!));
+    adaptiveDialog(context, AddSchoolDetails(school: widget.school!, parentContext: context));
   }
 
   onTapOfCreateStudent() {

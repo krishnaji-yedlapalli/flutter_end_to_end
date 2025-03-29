@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sample_latest/features/schools/core/schools_injection_module.dart';
+import 'package:sample_latest/features/schools/data/repository/school_details_repository_impl.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/school_details_bloc.dart';
 
 import '../../../core/data/base_service.dart';
 import '../data/repository/schools_repository_impl.dart';
 import '../domain/use_cases/delete_school_usecase.dart';
+import '../domain/use_cases/school_details_usecase/school_details_modify_useCase.dart';
+import '../domain/use_cases/school_details_usecase/school_details_usecase.dart';
 import '../domain/use_cases/school_modify_usecase.dart';
 import '../domain/use_cases/school_usecase.dart';
 import '../presentation/blocs/schools_bloc/schools_bloc.dart';
@@ -43,8 +47,16 @@ class _SchoolModuleWrapperPageState extends State<SchoolModuleWrapperPage> {
               SchoolsUseCase(SchoolsRepositoryImpl(baseService), injector()),
               SchoolModifyUseCase(
                   SchoolsRepositoryImpl(baseService), injector()),
-              DeleteSchoolUseCase(SchoolsRepositoryImpl(baseService)),
+              DeleteSchoolUseCase(
+                  SchoolsRepositoryImpl(baseService), injector()),
             ),
+          ),
+          BlocProvider(
+            create: (BuildContext context) => SchoolDetailsBLoc(
+                SchoolDetailsUseCase(
+                    SchoolsDetailsRepositoryImpl(baseService), injector()),
+                SchoolDetailsModifyUseCase(
+                    SchoolsDetailsRepositoryImpl(baseService), injector())),
           ),
         ],
         child: widget

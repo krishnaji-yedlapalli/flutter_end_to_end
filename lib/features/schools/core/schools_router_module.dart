@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/schools/core/school_module_wrapper_page.dart';
+import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 
 import '../../../core/mixins/dialogs.dart';
 import '../../../core/router_helper.dart';
@@ -53,8 +54,8 @@ class SchoolRouterModule {
                 return NoTransitionPage(
                   child: SchoolDetails(
                     state.uri.queryParameters['schoolId'] ?? '',
-                    state.extra != null && state.extra is SchoolModel
-                        ? state.extra as SchoolModel
+                    state.extra != null && state.extra is SchoolViewModel
+                        ? state.extra as SchoolViewModel
                         : null,
                   ),
                 );
