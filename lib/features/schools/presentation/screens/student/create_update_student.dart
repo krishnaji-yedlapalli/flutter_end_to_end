@@ -1,19 +1,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
-import 'package:sample_latest/core/mixins/helper_methods.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/widgets/custom_dropdown.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
+import 'package:sample_latest/features/schools/shared/params/student_params.dart';
 
 class CreateStudent extends StatefulWidget {
+
+  const CreateStudent(this.parentContext, this.schoolId, {Key? key, this.student}) : super(key: key);
+
   final String schoolId;
-  final StudentModel? student;
-  const CreateStudent(this.schoolId, {Key? key, this.student}) : super(key: key);
+  final StudentViewModel? student;
+  final BuildContext parentContext;
 
   @override
   State<CreateStudent> createState() => _CreateStudentState();
@@ -108,23 +110,21 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
   void onTapOfAction(int index){
     switch(index){
       case 0 :
-        GoRouter.of(context).pop();
+        Navigator.of(context).pop();
         break;
       case 1 :
         if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().createOrEditStudent(
-              StudentModel(
-                  isCreateStudent ? HelperMethods.uuid : widget.student!.id,
+          widget.parentContext.read<StudentsBloc>().createOrEditStudent(
+              StudentParams(
+                widget.student?.id,
                 widget.schoolId,
                 studentNameCtrl.text.trim(),
                 studentLocationCtrl.text.trim(),
                 selectedStandard!,
-                widget.student?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
-                updatedDate: DateTime.now().millisecondsSinceEpoch
-              ), widget.schoolId,
+              ),
           isCreateStudent: isCreateStudent
           );
-          GoRouter.of(context).pop();
+          Navigator.of(context).pop();
         }
         break;
     }

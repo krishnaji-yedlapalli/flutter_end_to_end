@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/schools_details_state.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/schools_bloc/schools_state.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
 import 'package:sample_latest/global_variables.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
@@ -12,11 +12,12 @@ import '../../../shared/params/school_details_param.dart';
 
 class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
   SchoolDetailsBLoc(
-      this._schoolDetailsUseCase, this._schoolDetailsModifyUseCase)
+      this._schoolDetailsUseCase, this._schoolDetailsModifyUseCase, this._studentsBloc)
       : super(const SchoolDetailsInitial());
 
   final SchoolDetailsUseCase _schoolDetailsUseCase;
   final SchoolDetailsModifyUseCase _schoolDetailsModifyUseCase;
+  final StudentsBloc _studentsBloc;
 
   Future<void> loadSchoolDetails(String schoolId) async {
 
@@ -29,7 +30,6 @@ class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
         emit(SchoolDetailsInfoLoaded(schoolDetails.toViewModel()));
       } else {
         emit(const SchoolDetailsDataNotFound());
-        // loadStudents(schoolId);
       }
     } catch (e, s) {
       emit(SchoolDetailsDataError(

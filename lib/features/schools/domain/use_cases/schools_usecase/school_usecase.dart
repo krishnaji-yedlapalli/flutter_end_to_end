@@ -1,6 +1,6 @@
-import '../../shared/models/school_executed_task_model.dart';
-import '../entities/school_entity.dart';
-import '../repository/school_repository.dart';
+import '../../../shared/models/school_executed_task_model.dart';
+import '../../entities/school_entity.dart';
+import '../../repository/school_repository.dart';
 
 class SchoolsUseCase {
   SchoolsUseCase(this._repository, this._executedTask);

@@ -2,25 +2,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/schools/domain/entities/school_details_entity.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/school_details_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
 import 'package:sample_latest/features/schools/presentation/screens/school_details/add_update_school_details.dart';
 import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
+import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 
 import '../../../shared/models/school_details_view_model.dart';
 import '../../../shared/models/school_view_model.dart';
-import '../../blocs/school_bloc.dart';
 import '../../blocs/school_details_bloc/schools_details_state.dart';
+import '../../blocs/students_bloc/students_state.dart';
 
 class SchoolDetails extends StatefulWidget {
 
@@ -52,7 +50,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   Widget _buildSchoolBloc() {
-    return BlocBuilder<SchoolDetailsBLoc, SchoolDetailsState>(
+    return BlocConsumer<SchoolDetailsBLoc, SchoolDetailsState>(
       builder: (context, state) {
         if (state is SchoolDetailsInitial || state is SchoolDetailsInitialLoading) {
           return circularLoader();
@@ -65,7 +63,11 @@ class _SchoolDetailsState extends State<SchoolDetails>
         }else {
           return const ExceptionView((DataErrorStateType.none, message: null));
         }
-      },
+      }, listener: (BuildContext context, SchoolDetailsState state) {
+        if(state is SchoolDetailsInfoLoaded){
+          context.read<StudentsBloc>().loadStudents(widget.schoolId);
+        }
+    },
     );
   }
 
@@ -92,7 +94,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
                   width: 200,
                   child: ElevatedButton(onPressed: onTapOfAddMoreDetails, child: const Text('Add More details'))),
             ),
-            if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(widget.schoolId),
+            if(context.watch<StudentsBloc>().viewAllStudents) _buildViewStudentsBtn(widget.schoolId),
           ],
         )
         ),
@@ -155,8 +157,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
             //     buildLabelWithValue('Country:' , schoolDetails.country)
             //   ],
             // ),
-           if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(schoolDetails.id),
-           if(!context.watch<SchoolBloc>().viewAllStudents) Text('Students :', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.orange))
+           if(context.watch<StudentsBloc>().viewAllStudents) _buildViewStudentsBtn(schoolDetails.id),
+           if(!context.watch<StudentsBloc>().viewAllStudents) Text('Students :', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.orange))
           ],
         ).screenPadding()
         ),
@@ -170,7 +172,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   Widget _buildViewStudentsBtn(String id){
     return  ElevatedButton(
         onPressed: () => context
-            .read<SchoolBloc>()
+            .read<StudentsBloc>()
             .loadStudents(id),
         child: const Text('View Students'));
   }
@@ -183,12 +185,12 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   Widget _buildStudentsBloc() {
-    return BlocConsumer<SchoolBloc, SchoolState>(
-      buildWhen: (context, state) {
-        return state.schoolStateType == SchoolDataLoadedType.students;
-      },
+    return BlocConsumer<StudentsBloc, StudentsState>(
+    //   buildWhen: (context, state) {
+    //     return state.schoolStateType == SchoolDataLoadedType.students;
+    //   },
       builder: (context, state) {
-        if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
+        if (state is StudentsInfoInitial || state is StudentsInfoLoading) {
           return circularLoader();
         } else if (state is StudentsInfoLoaded) {
           return _buildStudents(state.students);
@@ -198,13 +200,13 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return Container();
         }
       },
-      listener: (BuildContext context, SchoolState state) {},
+      listener: (BuildContext context, StudentsState state) {},
     );
   }
 
 
   Widget _buildStudents(
-      List<StudentModel> students) {
+      List<StudentViewModel> students) {
 
     if(students.isEmpty) return emptyMessage('No Students to display, Create a New student');
 
@@ -235,11 +237,11 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   onTapOfCreateStudent() {
-    adaptiveDialog(context, CreateStudent(widget.schoolId));
+    adaptiveDialog(context, CreateStudent(context, widget.schoolId));
   }
 
-  onTapOfCreateUpdate(StudentModel student) {
-    adaptiveDialog(context, CreateStudent(widget.schoolId, student: student));
+  onTapOfCreateUpdate(StudentViewModel student) {
+    adaptiveDialog(context, CreateStudent(context, widget.schoolId, student: student));
   }
 
   onTapOfViewStudents(String id, String schoolId) {

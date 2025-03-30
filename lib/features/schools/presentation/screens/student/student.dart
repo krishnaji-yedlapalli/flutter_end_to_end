@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+
+import '../../blocs/students_bloc/students_state.dart';
 
 class Student extends StatefulWidget {
   final String studentId;
@@ -23,7 +25,7 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((val) {
-      BlocProvider.of<SchoolBloc>(context)
+      BlocProvider.of<StudentsBloc>(context)
           .loadStudent(widget.studentId, widget.schoolId);
     });
     super.initState();
@@ -36,15 +38,15 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
   }
 
   Widget _buildSchoolBloc() {
-    return BlocConsumer<SchoolBloc, SchoolState>(
+    return BlocConsumer<StudentsBloc, StudentsState>(
       // listenWhen: (context, state) {
       //   return state is DataLoaded && state.data is StudentModel;
       // },
-      buildWhen: (context, state) {
-        return state.schoolStateType == SchoolDataLoadedType.student;
-      },
+      // buildWhen: (context, state) {
+      //   return state.schoolStateType == SchoolDataLoadedType.student;
+      // },
       builder: (context, state) {
-        if (state is SchoolInfoInitial || state is SchoolInfoLoading) {
+        if (state is StudentsInfoInitial || state is StudentsInfoLoading) {
           return circularLoader();
         } else if (state is StudentInfoLoaded) {
           return _buildStudentDetails(state.student);
@@ -54,11 +56,11 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
           return Container();
         }
       },
-      listener: (BuildContext context, SchoolState state) {},
+      listener: (BuildContext context, StudentsState state) {},
     );
   }
 
-  Widget _buildStudentDetails(StudentModel student) {
+  Widget _buildStudentDetails(StudentViewModel student) {
     return Column(
       children: [
       Text('Student Details :', style: Theme.of(context).textTheme.headlineSmall?.apply(color: Colors.orange)),
@@ -71,7 +73,7 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
     ).screenPadding();
   }
 
-  Widget _buildStudent(StudentModel student) {
+  Widget _buildStudent(StudentViewModel student) {
     return Wrap(
       direction: Axis.vertical,
       spacing: 20,
@@ -85,6 +87,6 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
 
   void deleteStudent() {
     GoRouter.of(context).pop();
-    BlocProvider.of<SchoolBloc>(context).deleteStudent(widget.studentId, widget.schoolId);
+    BlocProvider.of<StudentsBloc>(context).deleteStudent(widget.studentId, widget.schoolId);
   }
 }

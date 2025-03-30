@@ -5,9 +5,9 @@ import 'package:sample_latest/global_variables.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
 
-import '../../../domain/use_cases/delete_school_usecase.dart';
-import '../../../domain/use_cases/school_modify_usecase.dart';
-import '../../../domain/use_cases/school_usecase.dart';
+import '../../../domain/use_cases/schools_usecase/delete_school_usecase.dart';
+import '../../../domain/use_cases/schools_usecase/school_modify_usecase.dart';
+import '../../../domain/use_cases/schools_usecase/school_usecase.dart';
 import '../../../shared/models/school_view_model.dart';
 import '../../../shared/params/school_params.dart';
 

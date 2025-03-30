@@ -1,8 +1,8 @@
-import '../../../../core/mixins/helper_methods.dart';
-import '../../shared/models/school_executed_task_model.dart';
-import '../../shared/params/school_params.dart';
-import '../entities/school_entity.dart';
-import '../repository/school_repository.dart';
+import '../../../../../core/mixins/helper_methods.dart';
+import '../../../shared/models/school_executed_task_model.dart';
+import '../../../shared/params/school_params.dart';
+import '../../entities/school_entity.dart';
+import '../../repository/school_repository.dart';
 
 class SchoolModifyUseCase {
   SchoolModifyUseCase(this._repository, this._executedTask);
