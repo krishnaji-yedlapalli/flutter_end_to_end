@@ -186,9 +186,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
 
   Widget _buildStudentsBloc() {
     return BlocConsumer<StudentsBloc, StudentsState>(
-    //   buildWhen: (context, state) {
-    //     return state.schoolStateType == SchoolDataLoadedType.students;
-    //   },
+      buildWhen: (context, state) {
+        return state.stateType == StudentStateType.students;
+      },
       builder: (context, state) {
         if (state is StudentsInfoInitial || state is StudentsInfoLoading) {
           return circularLoader();

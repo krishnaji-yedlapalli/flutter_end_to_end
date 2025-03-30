@@ -37,13 +37,13 @@ class StudentsBloc extends Cubit<StudentsState> {
   }
 
   Future<void> loadStudent(String studentId, String schoolId) async {
-    emit(const StudentsInfoLoading());
+    emit(const StudentsInfoLoading(stateType: StudentStateType.student));
 
     try {
       var student = await _studentUseCase.call(studentId, schoolId);
 
       if (student != null) {
-        emit(StudentInfoLoaded(student.toStudentViewModel()));
+        emit(StudentInfoLoaded(student.toStudentViewModel(), stateType: StudentStateType.student));
       } else {
         navigatorKey.currentState?.pop();
         Notifiers.toastNotifier('Invalid student details');
