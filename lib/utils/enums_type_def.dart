@@ -1,5 +1,5 @@
 
-enum ScreenType {dashboard, routing, school, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes, pushNotifications, deepLinking, gemini, dailyTracker}
+enum ScreenType {dashboard, routing, school, schoolMvc, automaticKeepAlive, localizationWithCalendar, upiPayments, isolates, shortcuts, plugins, scrollTypes, pushNotifications, deepLinking, gemini, dailyTracker}
 
 enum RouteType {shellRouting, stateFullShellRoutingWithIndexed, stateFullShellRoutingWithoutIndexed}
 

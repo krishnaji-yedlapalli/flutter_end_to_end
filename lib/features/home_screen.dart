@@ -97,10 +97,16 @@ class _HomeScreenState extends State<HomeScreen>
         des: 'This describes the routing'
       ),
       (
-        'Schools child routing',
+        'School Journey with Clean Architecture',
         ScreenType.school,
         Icons.school,
-        des: 'This describes the routing'
+        des: 'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+      ),
+      (
+      'School Journey with MVC',
+      ScreenType.schoolMvc,
+      Icons.school,
+      des: 'This Journey helps the developer to develop the small scale application with MVC architecture'
       ),
       (
         'Push Notifications',
@@ -209,6 +215,7 @@ class _HomeScreenState extends State<HomeScreen>
           ? '/home/dashboard'
           : '/home/dashboard/materialComponents',
       ScreenType.school => '/home/schools',
+      ScreenType.schoolMvc => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
       ScreenType.upiPayments => '/home/upipayments',
