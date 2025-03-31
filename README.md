@@ -30,6 +30,14 @@ A Flutter project aimed at learning app development across multiple platforms us
    * For more information follow below links
    
    **Medium post:** https://medium.com/@krishnajiyedlapalli60/creating-custom-theme-in-flutter-with-material-3-70e524a126d0  
+   **Web Reference:** https://flutter-end-to-end.web.app/#/home
+   
+# Localization:
+   * This application Localization with bir directional support.
+   * The application adapts to the system language if it is included in the localization list.
+   * For more information follow below links
+   
+   **Medium post:** https://medium.com/stackademic/flutter-localization-and-internationalization-with-ltr-and-rtl-support-3c70cb926ba5
    **Web Reference:** https://flutter-end-to-end.web.app/#/home/localization
 
 # Routing:
