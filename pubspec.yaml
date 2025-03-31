@@ -90,6 +90,7 @@ dependencies:
   one_clock: ^2.0.1
   stop_watch_timer: ^3.1.1
   shimmer: ^3.0.0
+  get_it: ^8.0.3
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any

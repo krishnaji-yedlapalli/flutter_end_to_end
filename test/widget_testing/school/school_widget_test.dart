@@ -14,7 +14,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
@@ -24,7 +24,7 @@ import 'package:sample_latest/features/schools/data/repository/school_repository
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools.dart';
+import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
 import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/features/schools_mvc/bloc/school_bloc.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';

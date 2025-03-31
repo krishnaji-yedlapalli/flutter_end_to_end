@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/presentation/bloc/school_bloc.dart';
+import 'package:sample_latest/features/schools_mvc/bloc/school_bloc.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
@@ -10,7 +10,7 @@ import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:sample_latest/features/schools/presentation/screens/create_update_school.dart';
+import 'package:sample_latest/features/schools_mvc/screens/create_update_school.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';

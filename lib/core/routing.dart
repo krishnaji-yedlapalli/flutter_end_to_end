@@ -33,9 +33,9 @@ import 'package:sample_latest/features/routing_features/state_ful_shell_routing_
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/features/scrolling/scroll_types.dart';
 import 'package:sample_latest/features/regular_widgets/cards_list_view_grid.dart';
-import 'package:sample_latest/features/schools/presentation/screens/school_details.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools.dart';
-import 'package:sample_latest/features/schools/presentation/screens/student.dart';
+import 'package:sample_latest/features/schools/presentation/screens/school_details/school_details.dart';
+import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
+import 'package:sample_latest/features/schools/presentation/screens/student/student.dart';
 import 'package:sample_latest/features/home_screen.dart';
 import 'package:sample_latest/features/isolates/isolate_home.dart';
 import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
@@ -46,6 +46,7 @@ import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 
+import '../features/schools/core/schools_router_module.dart';
 import 'mixins/dialogs.dart';
 import '../features/plugins/local_authentication.dart';
 
@@ -93,7 +94,7 @@ class Routing {
         },
         routes: [
           dashboardRoute(),
-          schoolRoute(),
+          SchoolRouterModule.schoolRoute(),
           goRoute(),
           GoRoute(
               path: 'keepalive',
@@ -282,39 +283,6 @@ class Routing {
     }
   }
 
-  static GoRoute schoolRoute() {
-    return GoRoute(
-        path: 'schools',
-        name: 'schools',
-        builder: (BuildContext context, GoRouterState state) {
-          return  const FeatureDiscovery.withProvider(
-              persistenceProvider: NoPersistenceProvider(),
-          child:  Schools());
-        },
-        onExit: (context) async{
-          bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(context, title : '!!! Alert !!!', content: 'Are you sure U want to exit?');
-          return res;
-        },
-        routes: [
-          GoRoute(
-              path: 'school-details',
-              name: 'schoolDetails',
-              redirect: (BuildContext context, GoRouterState state) => redirectWithToast(context, state : state, redirectPath: '/home/schools', paramKeys: ['schoolId'], toastMessage: 'Invalid School details'),
-              builder: (BuildContext context, GoRouterState state) {
-                return SchoolDetails(state.uri.queryParameters['schoolId'] ?? '', state.extra != null && state.extra is SchoolModel ? state.extra as SchoolModel : null);
-              },
-              routes: [
-                GoRoute(
-                    path: 'student',
-                    name: 'student',
-                    redirect: (BuildContext context, GoRouterState state) => redirectWithToast(context, state : state, redirectPath: '/home/schools', paramKeys: ['schoolId', 'studentId'], toastMessage: 'Invalid Student Details'),
-                    builder: (context, state) {
-                      return Student(studentId : state.uri.queryParameters['studentId'] ?? '', schoolId : state.uri.queryParameters['schoolId'] ?? '');
-                    })
-              ]),
-        ]);
-  }
-
   static GoRoute goRoute() {
     return GoRoute(path: 'route',
     parentNavigatorKey: navigatorKey,
@@ -393,13 +361,6 @@ static ShellRoute pushNotification() {
   static void onLocalPushNotificationOpened(String? path) {
      path ??= '/home/schools';
     if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push(path);
-  }
-
-  static String? redirectWithToast(BuildContext context,{required GoRouterState state, required String redirectPath, required List<String> paramKeys, required toastMessage}) {
-    if(paramKeys.any((key) => !state.uri.queryParameters.containsKey(key))){
-      return redirectPath;
-    }
-    return null;
   }
 
   static bool navigateToHome(BuildContext context) {

@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/entities/school_details_entity.dart';
+
 
 part 'school_details_model.g.dart';
 
@@ -48,6 +50,21 @@ class SchoolDetailsModel {
     json['updatedDate'] = int.parse(json['updatedDate']);
 
     return SchoolDetailsModel.fromJson(json);
+  }
+
+  SchoolDetailsEntity toEntity() {
+    return SchoolDetailsEntity(
+      id: id,
+      schoolName: schoolName,
+      country: country,
+      location: location,
+      image: image,
+      studentCount: studentCount,
+      employeeCount: employeeCount,
+      hostelAvailability: hostelAvailability,
+      createdDate: createdDate,
+      updatedDate: updatedDate,
+    );
   }
 }
 
