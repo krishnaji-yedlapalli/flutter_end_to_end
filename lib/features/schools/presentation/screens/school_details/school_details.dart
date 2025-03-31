@@ -64,7 +64,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return const ExceptionView((DataErrorStateType.none, message: null));
         }
       }, listener: (BuildContext context, SchoolDetailsState state) {
-        if(state is SchoolDetailsInfoLoaded){
+        if(state is SchoolDetailsInfoLoaded || state is SchoolDetailsDataNotFound){
           context.read<StudentsBloc>().loadStudents(widget.schoolId);
         }
     },
