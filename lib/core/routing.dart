@@ -46,6 +46,7 @@ import 'package:sample_latest/utils/device_configurations.dart';
 import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
 import 'package:sample_latest/utils/enums_type_def.dart';
 
+import '../features/daily_tracker/core/daily_tracker_router_module.dart';
 import '../features/schools/core/schools_router_module.dart';
 import 'mixins/dialogs.dart';
 import '../features/plugins/local_authentication.dart';
@@ -183,11 +184,7 @@ class Routing {
               builder: (context, state) {
                 return const GeminiChatScreen();
               }),
-          GoRoute(
-              path: 'daily-tracker',
-              builder: (context, state) {
-                return const DailyTrackerHome();
-              }),
+          DailyTrackerRouterModule.dailyTrackerRoute()
         ]);
   }
 
