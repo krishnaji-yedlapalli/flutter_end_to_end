@@ -228,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen>
         '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
-      ScreenType.dailyTracker => '/home/daily-tracker',
+      ScreenType.dailyTracker => '/home/login-page',
     };
     context.go(path);
   }
