@@ -7,9 +7,9 @@ import 'package:integration_test/integration_test.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/main.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/utils/connectivity_handler.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/connectivity_handler.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import '';
 
 void main() {

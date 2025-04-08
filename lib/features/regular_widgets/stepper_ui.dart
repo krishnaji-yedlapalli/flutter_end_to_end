@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 class StepperExampleApp extends StatelessWidget {
   const StepperExampleApp({super.key});

@@ -7,7 +7,7 @@ import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_ev
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
-import '../../../../utils/enums_type_def.dart';
+import '../../../../core/utils/enums_type_def.dart';
 
 class SelectedEventView extends StatefulWidget {
   final DailyTrackerEventModel selectedEvent;

@@ -5,7 +5,7 @@ import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/daily_tracker_repository.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 part 'daily_status_tracker_state.dart';
 

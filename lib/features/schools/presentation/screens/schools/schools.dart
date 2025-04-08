@@ -14,8 +14,8 @@ import 'package:sample_latest/features/schools/shared/models/school_view_model.d
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 import '../../blocs/schools_bloc/schools_bloc.dart';

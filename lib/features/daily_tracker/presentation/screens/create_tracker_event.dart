@@ -7,7 +7,7 @@ import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_dropdown.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
 

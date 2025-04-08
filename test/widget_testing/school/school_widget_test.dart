@@ -25,7 +25,7 @@ import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

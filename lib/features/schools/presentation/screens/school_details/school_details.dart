@@ -13,7 +13,7 @@ import 'package:sample_latest/features/schools/presentation/screens/school_detai
 import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
 import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 import '../../../shared/models/school_details_view_model.dart';
 import '../../../shared/models/school_view_model.dart';

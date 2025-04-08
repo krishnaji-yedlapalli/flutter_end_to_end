@@ -21,8 +21,8 @@ import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/theme.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/utils/connectivity_handler.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/utils/connectivity_handler.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:sample_latest/adsense_web_stub.dart'

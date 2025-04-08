@@ -44,7 +44,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   go_router: ^13.2.2
   workmanager: ^0.5.1
-  easy_upi_payment:
+#  easy_upi_payment:
   google_fonts: ^6.1.0
   connectivity_plus: 5.0.2
   sqflite:
@@ -91,6 +91,7 @@ dependencies:
   stop_watch_timer: ^3.1.1
   shimmer: ^3.0.0
   get_it: ^8.0.3
+  fpdart: ^1.1.1
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any
@@ -108,7 +109,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   json_serializable:
-  build_runner:
+  build_runner: 2.4.13
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -162,6 +163,7 @@ flutter:
      - asset/daily_tracker/pre_checkin_background1.png
      - asset/daily_tracker/
      - asset/sound_effects/
+     - asset/daily_tracker/auth/
 #     - path: asset/dart_flavor/launcher_icons/dart_desktop.png
 #       flavors:
 #         - dart

@@ -13,7 +13,7 @@ import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/schools_mvc/screens/add_update_school_details.dart';
 import 'package:sample_latest/features/schools_mvc/screens/create_update_student.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 import '../bloc/school_bloc.dart';
 

@@ -31,6 +31,11 @@
 
   <title>sample_latest</title>
   <link rel="manifest" href="manifest.json">
+  <script>
+    window.flutter_inappwebview = window.flutter_inappwebview || {};
+  </script>
+
+  <!--  <script type="application/javascript" src="/assets/packages/flutter_inappwebview/assets/web/web_support.js" defer></script>-->
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -44,7 +49,7 @@
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
+      _flutter.loader.load({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },

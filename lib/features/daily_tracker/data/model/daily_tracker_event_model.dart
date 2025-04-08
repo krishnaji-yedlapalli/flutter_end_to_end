@@ -1,7 +1,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 part 'daily_tracker_event_model.g.dart';
 

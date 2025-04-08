@@ -5,12 +5,6 @@ enum RouteType {shellRouting, stateFullShellRoutingWithIndexed, stateFullShellRo
 
 enum IsolateType {isolateWithWithOutLag, isolateWithSpawn}
 
-enum OperatingSystemType {ios, android, androidFolded, windows, linux, macos, web}
-
-enum DeviceResolutionType {mobile, tab, desktop}
-
-enum ApplicationType {mobile, web, desktop}
-
 enum PluginType {youtube, localAuthentication, localNotifications, sharePlus, audioPlayer, networkInfo }
 
 typedef OfflineDumpingStatus = ({String title, int percentage})?;

@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
+
+import '../enums/device_enums.dart';
+import '../utils/screen_break_points.dart';
 
 class DeviceConfiguration {
 
@@ -25,11 +28,10 @@ class DeviceConfiguration {
 
   static void updateDeviceResolutionAndOrientation(Size size, Orientation orientation) {
     _orientationType = orientation;
-    double width = size.width;
 
-    if(width < 600){
+    if(ScreenBreakPoints.isMobile(size)){
       _deviceResolutionType = DeviceResolutionType.mobile;
-    }else if(width > 1280) {
+    }else if(ScreenBreakPoints.isDesktop(size)) {
       _deviceResolutionType = DeviceResolutionType.desktop;
     }else{
       _deviceResolutionType = DeviceResolutionType.tab;
