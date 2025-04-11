@@ -128,7 +128,7 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
       }
 
       return AdaptiveContainer(tabletWidth: 0.7,
-        desktopWidth: 0.4,child: _buildSchoolListView(schools),
+        desktopWidth: 0.35,child: _buildSchoolListView(schools),
       );
     }
 

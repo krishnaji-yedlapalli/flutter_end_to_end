@@ -8,6 +8,7 @@ class AdaptiveContainer extends StatelessWidget {
   final double desktopWidth;
   final double? maxWidth;
   final EdgeInsetsGeometry padding;
+  final Alignment alignment;
 
   const AdaptiveContainer({
     Key? key,
@@ -17,6 +18,7 @@ class AdaptiveContainer extends StatelessWidget {
     this.desktopWidth = 0.5,
     this.maxWidth,
     this.padding = EdgeInsets.zero,
+    this.alignment = Alignment.centerLeft
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class AdaptiveContainer extends StatelessWidget {
             maxWidth: maxWidth ?? double.infinity,
           ),
           padding: padding,
+          alignment: alignment,
           child: child,
         );
       },
