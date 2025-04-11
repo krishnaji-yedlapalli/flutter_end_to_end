@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:easy_upi_payment/easy_upi_payment.dart';
+// import 'package:easy_upi_payment/easy_upi_payment.dart';
 
 class EasyUpiPayments extends StatefulWidget {
   const EasyUpiPayments({Key? key}) : super(key: key);
@@ -74,19 +74,19 @@ class _EasyUpiPaymentsState extends State<EasyUpiPayments> {
 
   void onPayment() async {
     try {
-      final res = await EasyUpiPaymentPlatform.instance.startPayment(
-        EasyUpiPaymentModel(
-          payeeVpa: vpaCtrl.text,
-          payeeName: vpaNameCtrl.text,
-          amount: double.parse(vpaAmountCtrl.text),
-          description: vpaDescriptionCtrl.text,
-        ),
-      );
-      if(res != null) {
-        showSuccess(res as TransactionDetailModel);
-      }else{
-        showFailure();
-      }
+      // final res = await EasyUpiPaymentPlatform.instance.startPayment(
+      //   EasyUpiPaymentModel(
+      //     payeeVpa: vpaCtrl.text,
+      //     payeeName: vpaNameCtrl.text,
+      //     amount: double.parse(vpaAmountCtrl.text),
+      //     description: vpaDescriptionCtrl.text,
+      //   ),
+      // );
+      // if(res != null) {
+      //   showSuccess(res as TransactionDetailModel);
+      // }else{
+      //   showFailure();
+      // }
     } catch(e) {
       showFailure();
     }

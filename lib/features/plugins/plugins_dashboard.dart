@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/cards_mixin.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class PluginsDashboard extends StatelessWidget with CardWidgetsMixin {

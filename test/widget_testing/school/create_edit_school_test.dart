@@ -16,7 +16,7 @@ import 'package:sample_latest/features/schools/data/repository/school_repository
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/features/schools/presentation/screens/schools/create_update_school.dart';
 import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:firebase_core_platform_interface/src/pigeon/mocks.dart';
 import '../../mock_data/configuration_data.dart';
 import 'create_edit_school_test.mocks.dart';

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/routing.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+
+import '../../core/device/enums/device_enums.dart';
+import '../../core/device/widgets/adaptive_layout_builder.dart';
 
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   final StatefulNavigationShell? navigationShell;
@@ -36,13 +39,13 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   }
 
   Widget _buildView(BuildContext context) {
-    switch (DeviceConfiguration.resolutionType) {
-      case DeviceResolutionType.mobile:
-      case DeviceResolutionType.tab:
-      case DeviceResolutionType.desktop:
-    }
-
-    return switch (DeviceConfiguration.resolutionType) { DeviceResolutionType.mobile => _buildPortraitListView(), DeviceResolutionType.tab when DeviceConfiguration.isPortrait => _buildPortraitListView(), DeviceResolutionType.tab when !DeviceConfiguration.isPortrait => _buildWebView(context), DeviceResolutionType.desktop => _buildWebView(context), _ => Container() };
+    return AdaptiveLayoutBuilder(builder: (BuildContext context, DeviceResolutionType deviceResolutionType) {
+      return switch(deviceResolutionType){
+      DeviceResolutionType.mobile => _buildPortraitListView(),
+      DeviceResolutionType.tab => _buildPortraitListView(),
+      DeviceResolutionType.desktop => _buildWebView(context),
+      };
+    },);
   }
 
   Widget _buildPortraitListView() {

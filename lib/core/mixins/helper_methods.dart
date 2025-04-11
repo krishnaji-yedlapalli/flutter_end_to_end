@@ -1,5 +1,5 @@
 
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:uuid/uuid.dart';
 
 mixin HelperMethods {

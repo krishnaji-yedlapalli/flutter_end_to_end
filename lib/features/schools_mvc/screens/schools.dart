@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/core/device/utils/screen_break_points.dart';
+import 'package:sample_latest/core/device/widgets/adaptive_layout_builder.dart';
 import 'package:sample_latest/features/schools_mvc/bloc/school_bloc.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
@@ -14,8 +17,8 @@ import 'package:sample_latest/features/schools_mvc/screens/create_update_school.
 import 'package:sample_latest/ui/exception/exception.dart';
 import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class Schools extends StatefulWidget {

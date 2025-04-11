@@ -42,9 +42,9 @@ import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
 import 'package:sample_latest/features/localization.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/features/upi_payments/easy_upi_payments.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 import '../features/daily_tracker/core/daily_tracker_router_module.dart';
 import '../features/schools/core/schools_router_module.dart';

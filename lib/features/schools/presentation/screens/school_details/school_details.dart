@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/core/device/adapative_container.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
@@ -13,7 +14,7 @@ import 'package:sample_latest/features/schools/presentation/screens/school_detai
 import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
 import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 import '../../../shared/models/school_details_view_model.dart';
 import '../../../shared/models/school_view_model.dart';
@@ -210,24 +211,28 @@ class _SchoolDetailsState extends State<SchoolDetails>
 
     if(students.isEmpty) return emptyMessage('No Students to display, Create a New student');
 
-    return SizedBox(
-      width: DeviceConfiguration.isMobileResolution ? null : MediaQuery.of(context).size.width/2,
-      child: ListView.separated(
-          itemCount: students.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            var student = students.elementAt(index);
-          return ListTile(
-            leading: const Icon(Icons.person),
-            title: Text(student.studentName),
-            subtitle: Text(student.standard),
-            trailing: IconButton(icon: const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfCreateUpdate(student)),
-            onTap:  () => onTapOfViewStudents(
-                student.id, widget.schoolId),
-          );
-      },
-      separatorBuilder: (context, index) => const Divider(),
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: AdaptiveContainer(
+        tabletWidth: 0.7,
+        desktopWidth: 0.35,
+        child: ListView.separated(
+            itemCount: students.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              var student = students.elementAt(index);
+            return ListTile(
+              leading: const Icon(Icons.person),
+              title: Text(student.studentName),
+              subtitle: Text(student.standard),
+              trailing: IconButton(icon: const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfCreateUpdate(student)),
+              onTap:  () => onTapOfViewStudents(
+                  student.id, widget.schoolId),
+            );
+        },
+        separatorBuilder: (context, index) => const Divider(),
+        ),
       ),
     );
   }

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sample_latest/core/theme/text_theme.dart';
+import 'package:sample_latest/core/theme/theme_extensions.dart';
 
-import 'environment/environment.dart';
+import '../environment/environment.dart';
 
 class CustomTheme {
   static ThemeData lightThemeData(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double baseScale = screenWidth / 375;
+    baseScale = baseScale.clamp(0.8, 1.4);
+
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: GoogleFonts.openSans().fontFamily,
@@ -32,27 +39,7 @@ class CustomTheme {
       cardTheme: CardTheme(color: Colors.white ?? Colors.green.shade50, margin: const EdgeInsets.all(16), shadowColor: Colors.greenAccent, elevation: 5, surfaceTintColor: Colors.white),
 
       /// Text Theme data
-      textTheme: TextTheme(
-        displayLarge: const TextStyle(
-          fontSize: 72,
-          fontWeight: FontWeight.bold,
-        ),
-        titleLarge: GoogleFonts.nunito(
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-        titleMedium: GoogleFonts.kanit(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        titleSmall: GoogleFonts.kanit(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        bodyMedium: GoogleFonts.dmSans(
-          color: Colors.black,
-        ),
-      ),
+      textTheme: AppTextTheme.getResponsiveTextTheme(context),
 
       appBarTheme: AppBarTheme(color: Environment().configuration.seedColor, shadowColor: Colors.red, elevation: 5, foregroundColor: Colors.white),
 
@@ -142,6 +129,13 @@ class CustomTheme {
         textStyle: TextStyle(fontWeight: FontWeight.w100)
       ),
 
+      extensions: [
+        ResponsiveThemeExtension(
+          displayScale: baseScale * 1.2,
+          headlineScale: baseScale * 1.1,
+          bodyScale: baseScale,
+        ),
+      ],
       useMaterial3: true,
     );
   }

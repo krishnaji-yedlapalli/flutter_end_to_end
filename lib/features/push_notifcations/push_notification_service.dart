@@ -12,7 +12,7 @@ import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/notifiers.dart';
 import 'package:sample_latest/core/routing.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 class PushNotificationService {
 

@@ -2,15 +2,17 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/core/device/widgets/adaptive_layout_builder.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/mixins/cards_mixin.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/utils/connectivity_handler.dart';
+import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'feature_discovery/home_feature_discovery.dart';
@@ -183,29 +185,31 @@ class _HomeScreenState extends State<HomeScreen>
                   .startFeatureDiscovery(context, forceTour: true))
         ],
       ),
-      body: GridView.builder(
-          itemCount: screenTypes.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: DeviceConfiguration.isMobileResolution
-                  ? 2
-                  : DeviceConfiguration.isDesktopResolution
-                      ? 8
-                      : 6),
-          itemBuilder: (_, index) {
-            var screenDetails = screenTypes.elementAt(index);
-            var module = buildHomeCardView(
-                key: Key(screenDetails.$2.name),
-                title: screenDetails.$1,
-                des: screenDetails.des ?? '',
-                icon: screenDetails.$3,
-                callback: () =>
-                    navigateToDashboard(screenTypes.elementAt(index).$2));
-            return HomeScreenFeatureDiscovery.features
-                    .contains(screenDetails.$2.name)
-                ? HomeScreenFeatureDiscovery()
-                    .aboutModuleDiscovery(module, screenDetails.$2)
-                : module;
-          }),
+      body: AdaptiveLayoutBuilder(
+        builder : (context, deviceType) => GridView.builder(
+            itemCount: screenTypes.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: switch(deviceType){
+                  DeviceResolutionType.mobile => 2,
+                  DeviceResolutionType.tab => 3,
+                  DeviceResolutionType.desktop => 5,
+                }),
+            itemBuilder: (_, index) {
+              var screenDetails = screenTypes.elementAt(index);
+              var module = buildHomeCardView(
+                  key: Key(screenDetails.$2.name),
+                  title: screenDetails.$1,
+                  des: screenDetails.des ?? '',
+                  icon: screenDetails.$3,
+                  callback: () =>
+                      navigateToDashboard(screenTypes.elementAt(index).$2));
+              return HomeScreenFeatureDiscovery.features
+                      .contains(screenDetails.$2.name)
+                  ? HomeScreenFeatureDiscovery()
+                      .aboutModuleDiscovery(module, screenDetails.$2)
+                  : module;
+            }),
+      ),
     );
   }
 

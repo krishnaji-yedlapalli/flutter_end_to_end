@@ -50,11 +50,11 @@ mixin CardWidgetsMixin {
                     RichText(
                       text: TextSpan(text: 'Title : ',
                           style:  Theme.of(context).textTheme.titleSmall,
-                          children: [TextSpan(text: title, style: Theme.of(context).textTheme.bodyMedium)]),
+                          children: [TextSpan(text: title, style: Theme.of(context).textTheme.bodySmall)]),
                     ),
                     RichText(softWrap: true, text: TextSpan(text: 'Des : ',
                         style:  Theme.of(context).textTheme.titleSmall,
-                        children: [TextSpan(text: des, style: Theme.of(context).textTheme.bodyMedium)]),)
+                        children: [TextSpan(text: des, style: Theme.of(context).textTheme.bodySmall?.apply(overflow: TextOverflow.ellipsis))]),)
                   ],
                 )),
           ),

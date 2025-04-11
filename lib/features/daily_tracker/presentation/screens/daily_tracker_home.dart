@@ -11,7 +11,7 @@ import 'package:sample_latest/features/daily_tracker/presentation/screens/create
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/existing_events.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/today_events.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 import '../widgets/time_of_day_message.dart';
 

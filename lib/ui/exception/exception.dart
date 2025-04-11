@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 
 class ExceptionView extends StatelessWidget {

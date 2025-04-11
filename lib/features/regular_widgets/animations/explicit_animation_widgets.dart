@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 class ExplicitAnimationsWidgets extends StatefulWidget {
   const ExplicitAnimationsWidgets({Key? key}) : super(key: key);

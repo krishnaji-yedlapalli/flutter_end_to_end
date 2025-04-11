@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sample_latest/utils/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin HelperWidget {

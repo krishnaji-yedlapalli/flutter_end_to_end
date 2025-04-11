@@ -8,7 +8,7 @@ import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_ev
 import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/reminders_actions_checklist.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/selected_event.dart';
-import 'package:sample_latest/utils/enums_type_def.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TodayEventsView extends StatefulWidget {
