@@ -18,6 +18,10 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
+import '../../../../../core/device/adapative_container.dart';
+import '../../../../../core/device/enums/device_enums.dart';
+import '../../../../../core/device/utils/screen_break_points.dart';
+import '../../../../../core/device/widgets/adaptive_layout_builder.dart';
 import '../../blocs/schools_bloc/schools_bloc.dart';
 import '../../blocs/schools_bloc/schools_state.dart';
 
@@ -119,51 +123,52 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     }
 
     Widget _buildRegisteredSchools(List<SchoolViewModel> schools) {
-      if (schools.isEmpty)
+      if (schools.isEmpty) {
         return emptyMessage('No Schools Found, Create a new School');
+      }
 
-      return SizedBox(
-        width: DeviceConfiguration.isMobileResolution ? null : MediaQuery
-            .of(context)
-            .size
-            .width / 3,
-        child: ListView.separated(
-            itemCount: schools.length,
-            itemBuilder: (context, index) {
-              var school = schools.elementAt(index);
-              return ListTile(
-                leading: const Icon(Icons.school),
-                title: Text(school.schoolName),
-                subtitle: RichText(
-                    text: TextSpan(
-                        style: const TextStyle(color: Colors.black),
-                        children: [
-                          const TextSpan(text: 'Country :',
-                              style: TextStyle(color: Colors.orange)),
-                          TextSpan(text: school.country),
-                        ]
-                    )),
-                trailing: Wrap(
-                  children: [
-                    SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-                        type: SchoolDiscoverFeatureType.edit,
-                        child: IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blue),
-                            onPressed: () => onTapOfEditSchool(school))),
-                    SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-                        type: SchoolDiscoverFeatureType.delete,
-                        child: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => onTapOfSchoolDelete(school.id)))
-                  ],
-                ),
-                onTap: () => onTapOfSchool(school),
-              );
-            },
-            separatorBuilder: (BuildContext context,
-                int index) => const Divider()),
+      return AdaptiveContainer(tabletWidth: 0.7,
+        desktopWidth: 0.4,child: _buildSchoolListView(schools),
       );
     }
+
+  Widget _buildSchoolListView(List<SchoolViewModel> schools) {
+    return ListView.separated(
+        itemCount: schools.length,
+        itemBuilder: (context, index) {
+          var school = schools.elementAt(index);
+          return ListTile(
+            leading: const Icon(Icons.school),
+            title: Text(school.schoolName),
+            subtitle: RichText(
+                text: TextSpan(
+                    style: const TextStyle(color: Colors.black),
+                    children: [
+                      const TextSpan(text: 'Country :',
+                          style: TextStyle(color: Colors.orange)),
+                      TextSpan(text: school.country),
+                    ]
+                )),
+            trailing: Wrap(
+              children: [
+                SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
+                    type: SchoolDiscoverFeatureType.edit,
+                    child: IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.blue),
+                        onPressed: () => onTapOfEditSchool(school))),
+                SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
+                    type: SchoolDiscoverFeatureType.delete,
+                    child: IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () => onTapOfSchoolDelete(school.id)))
+              ],
+            ),
+            onTap: () => onTapOfSchool(school),
+          );
+        },
+        separatorBuilder: (BuildContext context,
+            int index) => const Divider());
+  }
 
     Widget _buildSyncButton() {
       return StreamBuilder<int>(

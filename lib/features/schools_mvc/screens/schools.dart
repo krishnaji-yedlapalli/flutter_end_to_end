@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/core/device/utils/screen_break_points.dart';
+import 'package:sample_latest/core/device/widgets/adaptive_layout_builder.dart';
 import 'package:sample_latest/features/schools_mvc/bloc/school_bloc.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
