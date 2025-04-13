@@ -11,7 +11,7 @@ import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_dropdown.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
 
-import '../bloc/daily_status_tracker_bloc.dart';
+import '../../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 
 class CreateDailyTrackerEvent extends StatefulWidget {
   final DailyTrackerEventModel? event;

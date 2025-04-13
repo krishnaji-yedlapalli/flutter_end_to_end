@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/device/adapative_container.dart';
+import 'package:sample_latest/core/device/widgets/adapative_container.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/bloc/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
@@ -13,7 +12,8 @@ import 'package:sample_latest/features/daily_tracker/presentation/screens/existi
 import 'package:sample_latest/features/daily_tracker/presentation/screens/today_events.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
-import '../widgets/time_of_day_message.dart';
+import '../../../../presentation/widgets/time_of_day_message.dart';
+import '../cubit/daily_status_tracker_cubit.dart';
 
 class DailyTrackerHome extends StatefulWidget {
   const DailyTrackerHome({super.key});
@@ -35,9 +35,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
   @override
   void initState() {
     controller.value = 1;
-    // WidgetsBinding.instance.addPostFrameCallback((duration) {
       context.read<DailyTrackerStatusBloc>().getCheckInStatus();
-    // });
     super.initState();
   }
 

@@ -10,7 +10,7 @@ import 'package:sample_latest/features/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/features/push_notifcations/firebase_push_notifications.dart';
 import 'package:sample_latest/features/push_notifcations/local_pushNotifications.dart';
 import 'package:sample_latest/features/push_notifcations/notifications.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/daily_tracker_home.dart';
+import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/page/daily_tracker_home.dart';
 import 'package:sample_latest/features/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/features/regular_widgets/animations/explicit_animation_widgets.dart';
 import 'package:sample_latest/features/regular_widgets/animations/implicit_animations_widgets.dart';

@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
+import '../../domain/entities/event_entity.dart';
+
 part 'daily_tracker_event_model.g.dart';
 
 @JsonSerializable()
@@ -39,4 +41,19 @@ class DailyTrackerEventModel {
 
   Map<String, dynamic> toJson() => _$DailyTrackerEventModelToJson(this);
 
+  EventEntity toEntity() {
+    return EventEntity(
+      id: id,
+      eventType: eventType,
+      title: title,
+      description: description,
+      createdDate: createdDate,
+      updatedDate: updatedDate,
+      selectedDateTime: selectedDateTime,
+      actionCheckList: actionCheckList,
+      startDateTime: startDateTime,
+      endDateTime: endDateTime,
+      status: status,
+    );
+  }
 }

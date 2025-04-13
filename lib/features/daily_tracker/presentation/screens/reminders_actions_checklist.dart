@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/bloc/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
@@ -9,6 +8,8 @@ import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_ev
 import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 
 class ActionsChecklistView extends StatefulWidget {
   final List<DailyTrackerEventModel> todayEvents;

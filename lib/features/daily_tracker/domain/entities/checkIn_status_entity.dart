@@ -1,8 +1,11 @@
 
-class CheckInStatusEntity {
-  final String formattedDate;
-  final String greetingStatus;
-  final String assetPath;
+import 'event_entity.dart';
 
-  CheckInStatusEntity(this.formattedDate, this.greetingStatus, this.assetPath);
+class CheckInStatusEntity {
+
+  CheckInStatusEntity({this.status = false, this.events = const<EventEntity>[]});
+
+  final bool status;
+
+  final List<EventEntity> events;
 }

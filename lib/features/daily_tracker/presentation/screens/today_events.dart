@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/bloc/daily_status_tracker_bloc.dart';
+import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';

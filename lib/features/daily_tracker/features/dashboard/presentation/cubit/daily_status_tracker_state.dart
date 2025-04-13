@@ -1,6 +1,6 @@
-part of 'daily_status_tracker_bloc.dart';
+part of 'daily_status_tracker_cubit.dart';
 
-enum DailyStatusTrackerLoadedType {greeting, events, students, student, todayEvents}
+enum DailyStatusTrackerLoadedType {greeting, events, todayEvents}
 
 abstract class DailyStatusTrackerState extends Equatable {
 

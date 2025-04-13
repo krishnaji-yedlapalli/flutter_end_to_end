@@ -7,7 +7,13 @@ import 'package:sample_latest/features/schools/core/schools_injection_module.dar
 
 import '../../../core/data/base_service.dart';
 import '../data/repository/daily_tracker_repository.dart';
-import '../presentation/bloc/daily_status_tracker_bloc.dart';
+import '../data/repository/profiles_repo_impl.dart';
+import '../domain/repository/profiles_repository.dart';
+import '../domain/usecases/users_useCase.dart';
+import '../features/events/presentation/cubit/events_cubit.dart';
+import '../features/greetings/presentation/cubit/check_in_status_cubit.dart';
+import '../features/users/presentation/cubit/profiles_cubit.dart';
+import '../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 
 
 class DailyTrackerWrapperPage extends StatefulWidget {
@@ -21,6 +27,7 @@ class DailyTrackerWrapperPage extends StatefulWidget {
 }
 
 class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
+
   @override
   void initState() {
     /// Singleton class
@@ -30,14 +37,16 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
 
   @override
   Widget build(BuildContext context) {
-    var baseService = BaseService.instance;
     var injector = GetIt.instance;
 
     return FeatureDiscovery.withProvider(
       persistenceProvider: const NoPersistenceProvider(),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (BuildContext context) => DailyTrackerStatusBloc(DailyTrackerRepository()),)
+          BlocProvider(create: (BuildContext context) => DailyTrackerStatusBloc(DailyTrackerRepository()),),
+          BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
+          BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>()),
+          BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
         ],
         child: widget.child, // This ensures child routes have access to these blocs
       ),
