@@ -43,14 +43,17 @@ class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, D
 
   Future<void> checkIn() async {
 
+    var events = <EventEntity>[];
     if(eventsCubit.state is EventsStateLoaded){
       var eventsState = eventsCubit.state as EventsStateLoaded;
-      emit(CheckInStatusWithChecked(eventsState.events));
+      events = eventsState.events;
     }else{
      var res = await eventsCubit.loadEventsBasedOnTheUser();
+
     }
 
-    var status = performUserCheckInUseCase.call();
+    emit(CheckInStatusWithChecked(events));
+    var status = performUserCheckInUseCase.call(events);
 
 
 

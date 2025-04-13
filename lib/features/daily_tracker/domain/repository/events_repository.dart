@@ -4,4 +4,6 @@ import 'package:sample_latest/features/daily_tracker/domain/entities/event_entit
 abstract class EventsRepository {
 
   Future<List<EventEntity>> fetchEventsBasedOnProfile(String accountId, String id );
+
+  Future<bool> updateOrCreateEvent(EventEntity event);
 }

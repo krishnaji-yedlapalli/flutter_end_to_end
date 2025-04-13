@@ -5,14 +5,15 @@ import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
+import '../../domain/entities/event_entity.dart';
 
 class ActionsChecklistView extends StatefulWidget {
-  final List<DailyTrackerEventModel> todayEvents;
+  final List<EventEntity> todayEvents;
   final ValueChanged<int> callBack;
 
   const ActionsChecklistView(this.todayEvents, this.callBack, {super.key});
@@ -24,7 +25,7 @@ class ActionsChecklistView extends StatefulWidget {
 class _ActionsChecklistViewState extends State<ActionsChecklistView>
     with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs, DateFormats, AutomaticKeepAliveClientMixin<ActionsChecklistView>{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  late List<DailyTrackerEventModel> _items;
+  late List<EventEntity> _items;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _sizeAnimation;
@@ -133,7 +134,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
     );
   }
 
-  Widget _buildListItem(DailyTrackerEventModel event, int index) {
+  Widget _buildListItem(EventEntity event, int index) {
     bool isSelected = selectedIndex == index;
     var statusConfig = geStatus(event.status, isSelected: isSelected);
     var time = getDateFromMillisecondsSinceEpoch(event.selectedDateTime).$2.format(context);
@@ -187,7 +188,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
         _items[selectedIndex]..status = EventActionType.completed.name
           ..endDateTime = DateTime.now().millisecondsSinceEpoch;
 
-        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+        context.read<EventsCubit>().updateTodayEventDetails(_items[selectedIndex]);
         setState(() {
 
         });
@@ -199,7 +200,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
             : EventStatus.skip.name;
 
         /// updating status
-        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+        context.read<EventsCubit>().updateTodayEventDetails(_items[selectedIndex]);
 
         setState(() {
 
@@ -209,7 +210,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
         _items[selectedIndex]..status = EventActionType.inProgress.name
           ..startDateTime = DateTime.now().millisecondsSinceEpoch;
 
-        context.read<DailyTrackerStatusBloc>().updateTodayEventDetails(_items[selectedIndex]);
+        context.read<EventsCubit>().updateTodayEventDetails(_items[selectedIndex]);
         setState(() {
 
         });

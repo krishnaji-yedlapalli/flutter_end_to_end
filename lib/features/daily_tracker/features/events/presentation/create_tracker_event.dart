@@ -6,15 +6,15 @@ import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
-import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_dropdown.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 
-import '../../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
+import '../../../domain/entities/event_entity.dart';
 
 class CreateDailyTrackerEvent extends StatefulWidget {
-  final DailyTrackerEventModel? event;
+  final EventEntity? event;
   const CreateDailyTrackerEvent({this.event, super.key});
 
   @override
@@ -291,19 +291,20 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
           var selectedDateTime =
               mergeDateTimeAndTimeOfDay(selectedDate!, selectedTime!);
 
-          context.read<DailyTrackerStatusBloc>().createOrUpdateEvent(
-              DailyTrackerEventModel(
-                isCreateEvent ? HelperMethods.uuid : widget.event!.id,
-                selectedEvent.name,
-                titleCtrl.text.trim(),
-                descriptionCtrl.text.trim(),
-                widget.event?.createdDate ??
-                    DateTime.now().millisecondsSinceEpoch,
-                selectedDateTime.millisecondsSinceEpoch,
-                actions.map((action) => ActionEventModel(action.text.trim(), false)).toList(),
+          context.read<EventsCubit>().createOrUpdateEvent(
+              EventEntity(
+                id: widget.event?.id,
+                eventType: selectedEvent.name,
+                title: titleCtrl.text.trim(),
+                description: descriptionCtrl.text.trim(),
+                createdDate: widget.event?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+                selectedDateTime: selectedDateTime.millisecondsSinceEpoch,
+                actionCheckList: actions
+                    .map((action) => ActionEventModel(action.text.trim(), false))
+                    .toList(),
                 updatedDate: DateTime.now().millisecondsSinceEpoch,
-              ),
-              isCreateEvent);
+              )
+          );
           GoRouter.of(context).pop();
         }
         break;

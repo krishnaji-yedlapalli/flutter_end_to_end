@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/widgets/adapative_container.dart';
 import 'package:sample_latest/core/device/widgets/adapative_padding.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
 import 'package:sample_latest/features/daily_tracker/features/users/presentation/cubit/profiles_cubit.dart';
+
+import '../../../shared/models/profile_executed_task.dart';
+import '../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 class UsersView extends StatelessWidget with Loaders {
   const UsersView({super.key});
@@ -104,8 +108,12 @@ class UsersView extends StatelessWidget with Loaders {
                     alignment: Alignment.center,
                     width: 200,
                     child: ElevatedButton(
-                        onPressed: () =>
-                            GoRouter.of(context).go('/home/daily-tracker'),
+                        onPressed: () {
+                          final GetIt injector = GetIt.instance;
+                          final task = injector<ProfileExecutedTask>(); // No context needed
+                          task.setProfile = profile;
+                          GoRouter.of(context).go('/home/daily-tracker');
+                        },
                         child: const Text('GO')),
                   )
                 ],
@@ -127,8 +135,11 @@ class UsersView extends StatelessWidget with Loaders {
               const Text('Right you don\'s users create one'),
               ElevatedButton(onPressed: () {}, child: const Text('Create User')),
               ElevatedButton(
-                  onPressed: () =>
-                      GoRouter.of(context).go('/home/daily-tracker'),
+                  onPressed: () {
+                    GoRouter.of(context).go('/home/daily-tracker');
+                    // final GetIt injector = GetIt.instance;
+                    // injector<ProfileExecutedTask>().setProfile = pro;
+                  },
                   child: const Text('GO'))
             ],
           ),

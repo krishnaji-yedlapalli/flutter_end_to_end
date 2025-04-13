@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 
 import '../../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 
@@ -27,13 +29,9 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
   }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DailyTrackerStatusBloc, DailyStatusTrackerState>(
-        buildWhen: (oldState, currentState) {
-          return currentState.dailyStatusTrackerLoadedType ==
-              DailyStatusTrackerLoadedType.events;
-        },
-        builder: (context, DailyStatusTrackerState trackState) {
-          if (trackState is DailyStatusTrackerEvents) {
+    return BlocBuilder<EventsCubit, EventsState>(
+        builder: (context, EventsState trackState) {
+          if (trackState is EventsStateLoaded) {
             return _buildEvents(trackState.events);
           } else {
             return circularLoader();
@@ -41,14 +39,14 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
         });
   }
 
-  Widget _buildEvents(List<DailyTrackerEventModel> events) {
+  Widget _buildEvents(List<EventEntity> events) {
    return dialogWithButtons(
        title: 'Existing Events',
        content: _buildList(events), actions: ['Close', 'Create Event'], callBack: onClose
    );
   }
 
-  Widget _buildList(List<DailyTrackerEventModel> events) {
+  Widget _buildList(List<EventEntity> events) {
     return ListView.builder(
         itemCount: events.length,
         shrinkWrap: true,
@@ -76,11 +74,11 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
     }
   }
 
-  void onDelete(DailyTrackerEventModel event) {
-    context.read<DailyTrackerStatusBloc>().deleteEvent(event);
+  void onDelete(EventEntity event) {
+    context.read<EventsCubit>().deleteEvent(event);
   }
 
-  void onEdit(DailyTrackerEventModel event){
+  void onEdit(EventEntity event){
     adaptiveDialog(context, CreateDailyTrackerEvent(event: event));
   }
 

@@ -16,4 +16,10 @@ class EventRepositoryImpl implements EventsRepository {
     throw UnimplementedError();
   }
 
+  @override
+  Future<bool> updateOrCreateEvent(EventEntity event) {
+    // TODO: implement updateOrCreateEvent
+    throw UnimplementedError();
+  }
+
 }

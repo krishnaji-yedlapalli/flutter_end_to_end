@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 
+import '../../../../domain/usecases/create_update_event_usecase.dart';
 import '../../../users/presentation/cubit/profiles_cubit.dart';
 
 part 'event_cubit_state.dart';
@@ -12,10 +13,13 @@ class EventsCubit extends Cubit<EventsState> {
 
   final EventsUseCase eventsUseCase;
 
-  EventsCubit(this.profilesCubit, this.eventsUseCase)
+  final CreateUpdateEventUseCase _createUpdateEventUseCase;
+
+  EventsCubit(
+      this.profilesCubit, this.eventsUseCase, this._createUpdateEventUseCase)
       : super(EventsStateLoading());
 
- Future<void> loadEventsBasedOnTheUser() async {
+  Future<void> loadEventsBasedOnTheUser() async {
     emit(EventsStateLoading());
 
     var res = await eventsUseCase.call('0');
@@ -29,5 +33,39 @@ class EventsCubit extends Cubit<EventsState> {
         emit(EventsStateLoaded(events));
       },
     );
+  }
+
+  void createOrUpdateEvent(EventEntity event) async {
+    var res = await _createUpdateEventUseCase.call(event);
+    res.fold((failure) {}, (events) {
+      emit(EventsStateLoaded(events));
+    });
+  }
+
+  Future<void> updateTodayEventDetails(EventEntity selectedEvent) async {
+    //
+    //   var index = todayEvents.indexWhere((event) => event.id == selectedEvent.id);
+    //
+    //   if(index != -1){
+    //     todayEvents[index] = selectedEvent;
+    //   }else{
+    //     todayEvents.add(selectedEvent);
+    //   }
+    //
+    //   var body = {
+    //     currentDateInFormatted : {
+    //       'isChecked' : true,
+    //       'events' : todayEvents.map((e)=> e.toJson()).toList()
+    //     }
+    //   };
+    //
+    //   bool status = await repository.checkInTheUser(body);
+  }
+
+  Future<void> deleteEvent(EventEntity selectedEvent) async {
+    //   bool status = await repository.deleteEvent(selectedEvent.id);
+    //   events.removeWhere((event) => event.id == selectedEvent.id);
+    //   var items = events.map((event)=> DailyTrackerEventModel.fromJson(event.toJson())).toList();
+    //   emit(DailyStatusTrackerEvents(items, DailyStatusTrackerLoadedType.events));
   }
 }

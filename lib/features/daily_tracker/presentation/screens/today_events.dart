@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
-import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
-import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/reminders_actions_checklist.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/selected_event.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TodayEventsView extends StatefulWidget {
-  final List<DailyTrackerEventModel> todayEvents;
+  final List<EventEntity> todayEvents;
 
   const TodayEventsView(this.todayEvents, {super.key});
 
@@ -23,8 +22,8 @@ class TodayEventsView extends StatefulWidget {
 class _AnimatedListExampleState extends State<TodayEventsView>
     with TickerProviderStateMixin, HelperWidget, CustomDialogs {
 
-  late List<DailyTrackerEventModel> _reminders;
-  late List<DailyTrackerEventModel> _actions;
+  late List<EventEntity> _reminders;
+  late List<EventEntity> _actions;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _sizeAnimation;
@@ -143,7 +142,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
           ..endDateTime = DateTime.now().millisecondsSinceEpoch;
 
         context
-            .read<DailyTrackerStatusBloc>()
+            .read<EventsCubit>()
             .updateTodayEventDetails(events[selectedIndex]);
         setState(() {});
 
@@ -155,7 +154,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
         /// updating status
         context
-            .read<DailyTrackerStatusBloc>()
+            .read<EventsCubit>()
             .updateTodayEventDetails(events[selectedIndex]);
 
         setState(() {});
@@ -166,7 +165,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
           ..startDateTime = DateTime.now().millisecondsSinceEpoch;
 
         context
-            .read<DailyTrackerStatusBloc>()
+            .read<EventsCubit>()
             .updateTodayEventDetails(events[selectedIndex]);
         setState(() {});
     }
