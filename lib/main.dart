@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
@@ -127,7 +126,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (BuildContext context) => SchoolBloc(widget.schoolRepository ?? SchoolRepository()),),
-          BlocProvider(create: (BuildContext context) => DailyTrackerStatusBloc(DailyTrackerRepository()),)
         ],
        child : Builder(
          builder: (context) {
