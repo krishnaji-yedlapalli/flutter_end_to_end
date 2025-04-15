@@ -13,7 +13,6 @@ import '../domain/usecases/users_useCase.dart';
 import '../features/events/presentation/cubit/events_cubit.dart';
 import '../features/greetings/presentation/cubit/check_in_status_cubit.dart';
 import '../features/users/presentation/cubit/profiles_cubit.dart';
-import '../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
 
 
 class DailyTrackerWrapperPage extends StatefulWidget {
@@ -43,7 +42,6 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
       persistenceProvider: const NoPersistenceProvider(),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (BuildContext context) => DailyTrackerStatusBloc(DailyTrackerRepository()),),
           BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
           BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
           BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(

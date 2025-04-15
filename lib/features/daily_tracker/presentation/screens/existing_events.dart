@@ -9,8 +9,6 @@ import 'package:sample_latest/features/daily_tracker/domain/entities/event_entit
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 
-import '../../features/dashboard/presentation/cubit/daily_status_tracker_cubit.dart';
-
 class ExistingEventsView extends StatefulWidget {
   const ExistingEventsView({super.key});
 
@@ -23,7 +21,7 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((duration) {
-      context.read<DailyTrackerStatusBloc>().fetchExistingEvents();
+      // context.read<DailyTrackerStatusBloc>().fetchExistingEvents();
     });
     super.initState();
   }
