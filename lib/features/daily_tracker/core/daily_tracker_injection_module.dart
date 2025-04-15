@@ -52,7 +52,7 @@ class DailyTrackerInjectionModule {
 
   void _registerUseCases() {
     injector
-      ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector()))
+      ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector(), injector()))
       ..registerFactory<EventsUseCase>(
           () => EventsUseCase(injector(), injector()))
       ..registerFactory<PerformUserCheckInUseCase>(

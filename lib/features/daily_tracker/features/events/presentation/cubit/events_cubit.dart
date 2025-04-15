@@ -46,7 +46,7 @@ class EventsCubit extends Cubit<EventsState> {
   }
 
   Future<void> updateTodayEventDetails(EventEntity selectedEvent) async {
-    //
+    createOrUpdateEvent(selectedEvent);
     //   var index = todayEvents.indexWhere((event) => event.id == selectedEvent.id);
     //
     //   if(index != -1){

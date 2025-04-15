@@ -40,14 +40,14 @@ class DailyTrackerRouterModule {
           pageBuilder: (BuildContext context, GoRouterState state) {
             return const NoTransitionPage(child: DailyTrackerHome());
           },
-          onExit: (context) async {
-            bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(
-              context,
-              title: '!!! Alert !!!',
-              content: 'Are you sure you want to exit?',
-            );
-            return res;
-          },
+          // onExit: (context) async {
+            // bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(
+            //   context,
+            //   title: '!!! Alert !!!',
+            //   content: 'Are you sure you want to exit?',
+            // );
+            // return res;
+          // },
           routes: [
           ],
         ),
