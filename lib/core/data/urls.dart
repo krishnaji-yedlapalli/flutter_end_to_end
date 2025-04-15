@@ -10,6 +10,7 @@ class Urls {
 
 
   static const  String dailyCheckIns = 'daily-checkins';
+  static const  String profiles = 'profiles';
   static const  String events = 'events';
 
 }

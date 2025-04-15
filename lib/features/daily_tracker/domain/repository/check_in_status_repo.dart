@@ -1,8 +1,12 @@
 
-import '../../data/model/daily_tracker_event_model.dart';
+import '../../shared/params/user_check_in_params.dart';
+import '../entities/checkIn_status_entity.dart';
 
 abstract class CheckInStatusRepository {
 
-  Future<(bool, List<DailyTrackerEventModel>)> isCheckedIn(String date);
+  Future<CheckInStatusEntity> isCheckedIn(UserCheckInParams params);
 
+  Future<bool> submitUserCheckIn(UserCheckInParams params);
+
+  Future<bool> updateTodayEvents(UserCheckInParams params);
 }

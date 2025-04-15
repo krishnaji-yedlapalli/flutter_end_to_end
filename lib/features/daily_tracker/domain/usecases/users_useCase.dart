@@ -1,15 +1,18 @@
 
-import 'package:sample_latest/features/daily_tracker/domain/repository/users_repository.dart';
+import 'package:sample_latest/features/daily_tracker/domain/repository/profiles_repository.dart';
 
+import '../../shared/models/profile_executed_task.dart';
 import '../entities/user_entity.dart';
 
-class UsersUseCase {
+class ProfilesUseCase {
 
-  UsersUseCase(this._repository);
+  ProfilesUseCase(this._repository, this._profileExecutedTask);
 
-  final UsersRepository _repository;
+  final ProfilesRepository _repository;
 
-  Future<List<UserEntity>> call() async {
-    return await _repository.fetchExistingUsers();
+  final ProfileExecutedTask _profileExecutedTask;
+
+  Future<List<ProfileEntity>> call() async {
+    return await _repository.fetchExistingProfiles(_profileExecutedTask.accountId);
   }
 }

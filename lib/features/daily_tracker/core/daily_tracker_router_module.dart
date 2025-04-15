@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/daily_tracker/core/daily_tracker_wrapper_page.dart';
 import 'package:sample_latest/features/daily_tracker/features/authentication/login_page.dart';
-import 'package:sample_latest/features/daily_tracker/features/users/presentation/users_page.dart';
+import 'package:sample_latest/features/daily_tracker/features/users/presentation/profiles_page.dart';
 
 import '../../../core/mixins/dialogs.dart';
-import '../presentation/screens/daily_tracker_home.dart';
+import '../features/dashboard/presentation/page/daily_tracker_home.dart';
 
 class DailyTrackerRouterModule {
   static final _dailyTrackerShellNavigatorKey = GlobalKey<NavigatorState>();
@@ -40,14 +40,14 @@ class DailyTrackerRouterModule {
           pageBuilder: (BuildContext context, GoRouterState state) {
             return const NoTransitionPage(child: DailyTrackerHome());
           },
-          onExit: (context) async {
-            bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(
-              context,
-              title: '!!! Alert !!!',
-              content: 'Are you sure you want to exit?',
-            );
-            return res;
-          },
+          // onExit: (context) async {
+            // bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(
+            //   context,
+            //   title: '!!! Alert !!!',
+            //   content: 'Are you sure you want to exit?',
+            // );
+            // return res;
+          // },
           routes: [
           ],
         ),

@@ -4,13 +4,14 @@ import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 import '../../../../core/utils/enums_type_def.dart';
 
 class SelectedEventView extends StatefulWidget {
-  final DailyTrackerEventModel selectedEvent;
+  final EventEntity selectedEvent;
   final ValueChanged<EventActionType> callBack;
 
   const SelectedEventView(this.selectedEvent, this.callBack, {super.key});

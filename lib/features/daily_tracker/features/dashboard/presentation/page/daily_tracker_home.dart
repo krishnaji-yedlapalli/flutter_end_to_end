@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/bloc/daily_status_tracker_bloc.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/check_in_btn.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/create_tracker_event.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/existing_events.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/today_events.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
-import '../widgets/time_of_day_message.dart';
+import '../../../../domain/entities/event_entity.dart';
+import '../../../../presentation/widgets/time_of_day_message.dart';
+import '../../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 class DailyTrackerHome extends StatefulWidget {
   const DailyTrackerHome({super.key});
@@ -31,13 +32,12 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
     vsync: this,
   );
 
-
   @override
   void initState() {
     controller.value = 1;
-    // WidgetsBinding.instance.addPostFrameCallback((duration) {
-      context.read<DailyTrackerStatusBloc>().getCheckInStatus();
-    // });
+    // context.read<DailyTrackerStatusBloc>().getCheckInStatus();
+    context.read<CheckInStatusCubit>().getCheckInStatus();
+
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: onCreateOfEvent,
+          onPressed: () => onCreateOfEvent(context),
           label: const Text('Create Event'),
           icon: const Icon(Icons.add)),
       body: _buildTimeOfDay(),
@@ -59,26 +59,29 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
   }
 
   Widget _buildTimeOfDay() {
-    return BlocBuilder<DailyTrackerStatusBloc, DailyStatusTrackerState>(
+    return BlocBuilder<CheckInStatusCubit, CheckInStatusState>(
         buildWhen: (oldState, currentState) {
-          if (currentState is DailyStatusTrackerCheckInStatus && currentState.isCheckedIn) {
-            controller.reverse();
-          }
-            return   currentState.dailyStatusTrackerLoadedType ==
-              DailyStatusTrackerLoadedType.greeting;
-        },
-        builder: (context, DailyStatusTrackerState trackState) {
-          if (trackState is DailyStatusTrackerCheckInStatus) {
-            return _buildGreetingStatus(trackState, trackState.events);
-          } else {
-            return circularLoader();
-          }
-        });
+      if (currentState is CheckInStatusWithChecked) {
+        controller.reverse();
+      }
+      return true;
+    }, builder: (context, CheckInStatusState trackState) {
+      if (trackState is CheckInStatusWithChecked) {
+        return _buildGreetingStatus(
+            true, PartsOfDay.afternoon, trackState.events);
+      } else if (trackState is CheckInStatusNotYetChecked) {
+        return _buildGreetingStatus(
+            false, trackState.timeOfDay, <EventEntity>[]);
+      } else {
+        return circularLoader();
+      }
+    });
   }
 
-  Widget _buildGreetingStatus(DailyStatusTrackerCheckInStatus trackStatus, List<DailyTrackerEventModel> events) {
+  Widget _buildGreetingStatus(
+      bool isCheckedIn, PartsOfDay timeOfDay, List<EventEntity> events) {
     print('##** ${events.length}');
-    var greetingText = greeting(trackStatus.timeOfDay);
+    var greetingText = greeting(timeOfDay);
     TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: greetingText,
@@ -112,25 +115,31 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
       child: Stack(
         children: [
           DailyTrackerDigitalClock(
+            position: (
+              top: firstItemTopPosition,
+              left: size.width / 2 - checkInHeight / 2,
+            ),
+            controller: controller,
+          ),
+          TimeOfDayMessage(
+              title: greetingText,
               position: (
-            top: firstItemTopPosition,
-            left: size.width / 2 - checkInHeight / 2,
-          ),
-          controller: controller,
-          ),
-          TimeOfDayMessage(title: greetingText, position: (top : firstItemTopPosition + timerHeight + 10, left : size.width / 2 - textPainter.size.width / 2), callback: (){}, textSizeDetails: textPainter.size, controller: controller),
+                top: firstItemTopPosition + timerHeight + 10,
+                left: size.width / 2 - textPainter.size.width / 2
+              ),
+              callback: () {},
+              textSizeDetails: textPainter.size,
+              controller: controller),
           CheckInBtn(
             position: (
               top: firstItemTopPosition + timerHeight + textInHeight + 20,
-              left: (size.width / 2) - (150/2)
+              left: (size.width / 2) - (150 / 2)
             ),
-            callback: trackStatus.isCheckedIn ? showEvents : onCheckIn,
+            callback: isCheckedIn ? showEvents : onCheckIn,
             controller: controller,
           ),
-         if(trackStatus.isCheckedIn) Positioned(
-              top: 100,
-              left: 50,
-              child: TodayEventsView(events))
+          if (isCheckedIn)
+            Positioned(top: 100, left: 50, child: TodayEventsView(events))
         ],
       ),
     );
@@ -147,8 +156,8 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
     };
   }
 
-  void onCreateOfEvent() {
-    adaptiveDialog(context, const CreateDailyTrackerEvent());
+  void onCreateOfEvent(BuildContext context) {
+    adaptiveDialog(context, CreateDailyTrackerEvent(context));
   }
 
   void onCheckIn() async {
@@ -156,7 +165,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
         'asset/sound_effects/check_in.mp3');
     player.play();
     await controller.reverse();
-    context.read<DailyTrackerStatusBloc>().checkIn();
+    context.read<CheckInStatusCubit>().checkIn();
   }
 
   void showEvents() {
