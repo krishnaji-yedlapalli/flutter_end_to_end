@@ -70,7 +70,7 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
     if(index == 0) {
       GoRouter.of(context).pop();
     }else if(index == 1){
-      adaptiveDialog(context, const CreateDailyTrackerEvent());
+      adaptiveDialog(context, CreateDailyTrackerEvent(context));
     }
   }
 
@@ -79,7 +79,7 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
   }
 
   void onEdit(EventEntity event){
-    adaptiveDialog(context, CreateDailyTrackerEvent(event: event));
+    adaptiveDialog(context, CreateDailyTrackerEvent(context, event: event));
   }
 
 }

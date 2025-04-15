@@ -21,7 +21,7 @@ class CheckInStatusWithChecked extends CheckInStatusState {
   const CheckInStatusWithChecked(this.events);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [events];
 }
 
 class CheckInStatusNotYetChecked extends CheckInStatusState {

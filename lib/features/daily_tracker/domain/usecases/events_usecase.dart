@@ -17,13 +17,13 @@ class EventsUseCase with HelperMethods, DateFormats {
 
   final ProfileExecutedTask _profileExecutedTask;
 
-  Future<Either<ErrorDetails, List<EventEntity>>> call(String id) async {
+  Future<Either<ErrorDetails, List<EventEntity>>> call() async {
     try {
       var events = await _repository.fetchEventsBasedOnProfile(
-          'u94jTpJvOXbBVmO7rLTPf8Ew2zx2', id);
+          'u94jTpJvOXbBVmO7rLTPf8Ew2zx2', '0');
 
       var todayEvents = getTodayEvents(events);
-      _profileExecutedTask.events = todayEvents;
+      _profileExecutedTask.todayEvents = todayEvents;
       return Right(todayEvents);
     } catch (e, s) {
       return Left(ExceptionHandler().handleException(e, s));

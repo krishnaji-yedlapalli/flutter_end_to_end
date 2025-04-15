@@ -3,25 +3,29 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/update_today_event_useCase.dart';
 
 import '../../../../../../core/mixins/date_formats.dart';
 import '../../../../../../core/mixins/helper_methods.dart';
 import '../../../../../../core/utils/enums_type_def.dart';
 import '../../../../domain/usecases/check_in_status_useCase.dart';
 import '../../../../domain/usecases/check_in_usecase.dart';
+import '../../../../domain/usecases/events_usecase.dart';
 import '../../../events/presentation/cubit/events_cubit.dart';
 
 part 'check_in_status_state.dart';
 
 class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, DateFormats {
 
-  CheckInStatusCubit(this.statusUseCase, this.eventsCubit, this.performUserCheckInUseCase) : super(const CheckInStatusLoading());
+  CheckInStatusCubit(this.statusUseCase, this.performUserCheckInUseCase, this.eventsUseCase, this._todayEventUseCase) : super(const CheckInStatusLoading());
 
   final CheckInStatusUseCase statusUseCase;
 
   final PerformUserCheckInUseCase performUserCheckInUseCase;
 
-  final EventsCubit eventsCubit;
+  final EventsUseCase eventsUseCase;
+
+  final UpdateTodayEventUseCase _todayEventUseCase;
 
   void getCheckInStatus() async {
 
@@ -42,29 +46,31 @@ class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, D
   }
 
   Future<void> checkIn() async {
+     var res = await eventsUseCase.call();
 
-    var events = <EventEntity>[];
-    if(eventsCubit.state is EventsStateLoaded){
-      var eventsState = eventsCubit.state as EventsStateLoaded;
-      events = eventsState.events;
-    }else{
-     var res = await eventsCubit.loadEventsBasedOnTheUser();
-
-    }
-
-    emit(CheckInStatusWithChecked(events));
-    var status = performUserCheckInUseCase.call(events);
-
-
-
-      // var body = {
-      //   currentDateInFormatted : {
-      //     'isChecked' : true,
-      //     'events' : todayEvents.map((e)=> e.toJson()).toList()
-      //   }
-      // };
-      // emit(DailyStatusTrackerCheckInStatus(todayEvents, getTimeOfDay(), true, DailyStatusTrackerLoadedType.greeting));
-      // bool status = await repository.checkInTheUser(body);
+     res.fold((error){
+     print('error');
+     }, (events) {
+       emit(CheckInStatusWithChecked(events));
+       var status = performUserCheckInUseCase.call(events);
+     });
   }
 
+
+  void updateEvents(List<EventEntity> events) async {
+    var list = events.map<EventEntity>((e)=> EventEntity.fromJson(e.toJson())).toList();
+    emit(CheckInStatusWithChecked(list));
+    updateEventInTodayEventDetails(events);
+  }
+
+  void updateEventInTodayEventDetails(List<EventEntity> events) async {
+    var checkInStatus = await _todayEventUseCase.call(currentDateInFormatted, events);
+
+    switch (checkInStatus) {
+      case Right(value: final checkInDetails):
+
+      case Left(value: final failure):
+      // emit(CheckInStatusFailed(failure.message));
+    }
+  }
 }

@@ -45,6 +45,25 @@ class EventEntity {
     };
   }
 
+  factory EventEntity.fromJson(Map<String, dynamic> json) {
+    return EventEntity(
+      id: json['id'] as String?,
+      eventType: json['eventType'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      createdDate: json['createdDate'] as int,
+      updatedDate: json['updatedDate'] as int?,
+      selectedDateTime: json['selectedDateTime'] as int,
+      actionCheckList: (json['actionCheckList'] as List<dynamic>)
+          .map((e) => ActionEventModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      startDateTime: json['startDateTime'] as int?,
+      endDateTime: json['endDateTime'] as int?,
+      status: json['status'] as String? ?? 'pending',
+    );
+  }
+
+
   EventEntity copyWith({
     String? id,
     String? eventType,

@@ -51,4 +51,26 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
     }
     return false;
   }
+
+  @override
+  Future<bool> updateTodayEvents(UserCheckInParams params) async {
+
+    var body = {
+      params.date: {
+        params.accountId: {
+          params.profileId: params.events
+              .map<Map<String, dynamic>>((e) => e.toJson()).toList()
+        }
+      }
+    };
+
+    var response = await baseService.makeRequest(
+        url: '${Urls.dailyCheckIns}.json',
+        body: body,
+        method: RequestType.patch);
+    if (response != null) {
+      return true;
+    }
+    return false;
+  }
 }

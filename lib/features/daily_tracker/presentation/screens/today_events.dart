@@ -134,7 +134,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
       case EventActionType.edit:
         adaptiveDialog(
             context,
-            CreateDailyTrackerEvent(
+            CreateDailyTrackerEvent(context,
                 event: events.elementAt(selectedIndex)));
       case EventActionType.completed:
         events[selectedIndex]

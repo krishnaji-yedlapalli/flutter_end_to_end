@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
-import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
@@ -15,7 +15,8 @@ import '../../../domain/entities/event_entity.dart';
 
 class CreateDailyTrackerEvent extends StatefulWidget {
   final EventEntity? event;
-  const CreateDailyTrackerEvent({this.event, super.key});
+  final BuildContext parentContext;
+  const CreateDailyTrackerEvent(this.parentContext, {this.event, super.key});
 
   @override
   State<CreateDailyTrackerEvent> createState() =>
@@ -291,7 +292,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
           var selectedDateTime =
               mergeDateTimeAndTimeOfDay(selectedDate!, selectedTime!);
 
-          context.read<EventsCubit>().createOrUpdateEvent(
+          widget.parentContext.read<EventsCubit>().createOrUpdateEvent(
               EventEntity(
                 id: widget.event?.id,
                 eventType: selectedEvent.name,

@@ -182,6 +182,7 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
         adaptiveDialog(
             context,
             CreateDailyTrackerEvent(
+                context,
                 event: _items.elementAt(selectedIndex)));
       case EventActionType.completed:
 

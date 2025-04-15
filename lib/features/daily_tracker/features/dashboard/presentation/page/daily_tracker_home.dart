@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/check_in_btn.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
@@ -31,11 +32,10 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
     vsync: this,
   );
 
-
   @override
   void initState() {
     controller.value = 1;
-      // context.read<DailyTrackerStatusBloc>().getCheckInStatus();
+    // context.read<DailyTrackerStatusBloc>().getCheckInStatus();
     context.read<CheckInStatusCubit>().getCheckInStatus();
 
     super.initState();
@@ -51,7 +51,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: onCreateOfEvent,
+          onPressed: () => onCreateOfEvent(context),
           label: const Text('Create Event'),
           icon: const Icon(Icons.add)),
       body: _buildTimeOfDay(),
@@ -61,23 +61,25 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
   Widget _buildTimeOfDay() {
     return BlocBuilder<CheckInStatusCubit, CheckInStatusState>(
         buildWhen: (oldState, currentState) {
-          if (currentState is CheckInStatusWithChecked) {
-            controller.reverse();
-          }
-            return true;
-        },
-        builder: (context, CheckInStatusState trackState) {
-          if (trackState is CheckInStatusWithChecked) {
-            return _buildGreetingStatus(true, PartsOfDay.afternoon, trackState.events);
-          } else if(trackState is CheckInStatusNotYetChecked) {
-            return _buildGreetingStatus(false, trackState.timeOfDay, <EventEntity>[]);
-          }else {
-            return circularLoader();
-          }
-        });
+      if (currentState is CheckInStatusWithChecked) {
+        controller.reverse();
+      }
+      return true;
+    }, builder: (context, CheckInStatusState trackState) {
+      if (trackState is CheckInStatusWithChecked) {
+        return _buildGreetingStatus(
+            true, PartsOfDay.afternoon, trackState.events);
+      } else if (trackState is CheckInStatusNotYetChecked) {
+        return _buildGreetingStatus(
+            false, trackState.timeOfDay, <EventEntity>[]);
+      } else {
+        return circularLoader();
+      }
+    });
   }
 
-  Widget _buildGreetingStatus(bool isCheckedIn, PartsOfDay timeOfDay, List<EventEntity> events) {
+  Widget _buildGreetingStatus(
+      bool isCheckedIn, PartsOfDay timeOfDay, List<EventEntity> events) {
     print('##** ${events.length}');
     var greetingText = greeting(timeOfDay);
     TextPainter textPainter = TextPainter(
@@ -113,25 +115,31 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
       child: Stack(
         children: [
           DailyTrackerDigitalClock(
+            position: (
+              top: firstItemTopPosition,
+              left: size.width / 2 - checkInHeight / 2,
+            ),
+            controller: controller,
+          ),
+          TimeOfDayMessage(
+              title: greetingText,
               position: (
-            top: firstItemTopPosition,
-            left: size.width / 2 - checkInHeight / 2,
-          ),
-          controller: controller,
-          ),
-          TimeOfDayMessage(title: greetingText, position: (top : firstItemTopPosition + timerHeight + 10, left : size.width / 2 - textPainter.size.width / 2), callback: (){}, textSizeDetails: textPainter.size, controller: controller),
+                top: firstItemTopPosition + timerHeight + 10,
+                left: size.width / 2 - textPainter.size.width / 2
+              ),
+              callback: () {},
+              textSizeDetails: textPainter.size,
+              controller: controller),
           CheckInBtn(
             position: (
               top: firstItemTopPosition + timerHeight + textInHeight + 20,
-              left: (size.width / 2) - (150/2)
+              left: (size.width / 2) - (150 / 2)
             ),
             callback: isCheckedIn ? showEvents : onCheckIn,
             controller: controller,
           ),
-         if(isCheckedIn) Positioned(
-              top: 100,
-              left: 50,
-              child: TodayEventsView(events))
+          if (isCheckedIn)
+            Positioned(top: 100, left: 50, child: TodayEventsView(events))
         ],
       ),
     );
@@ -148,8 +156,8 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
     };
   }
 
-  void onCreateOfEvent() {
-    adaptiveDialog(context, const CreateDailyTrackerEvent());
+  void onCreateOfEvent(BuildContext context) {
+    adaptiveDialog(context, CreateDailyTrackerEvent(context));
   }
 
   void onCheckIn() async {

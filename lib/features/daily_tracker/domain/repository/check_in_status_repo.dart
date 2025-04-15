@@ -7,4 +7,6 @@ abstract class CheckInStatusRepository {
   Future<CheckInStatusEntity> isCheckedIn(UserCheckInParams params);
 
   Future<bool> submitUserCheckIn(UserCheckInParams params);
+
+  Future<bool> updateTodayEvents(UserCheckInParams params);
 }

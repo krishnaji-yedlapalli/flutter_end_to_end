@@ -4,25 +4,25 @@ import 'package:sample_latest/features/daily_tracker/domain/entities/event_entit
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 
 import '../../../../domain/usecases/create_update_event_usecase.dart';
-import '../../../users/presentation/cubit/profiles_cubit.dart';
+import '../../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 part 'event_cubit_state.dart';
 
 class EventsCubit extends Cubit<EventsState> {
-  final ProfilesCubit profilesCubit;
+
+  final CheckInStatusCubit _checkInStatusCubit;
 
   final EventsUseCase eventsUseCase;
 
   final CreateUpdateEventUseCase _createUpdateEventUseCase;
 
-  EventsCubit(
-      this.profilesCubit, this.eventsUseCase, this._createUpdateEventUseCase)
+  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase)
       : super(EventsStateLoading());
 
   Future<void> loadEventsBasedOnTheUser() async {
     emit(EventsStateLoading());
 
-    var res = await eventsUseCase.call('0');
+    var res = await eventsUseCase.call();
 
     res.fold(
       (failure) {
@@ -37,7 +37,10 @@ class EventsCubit extends Cubit<EventsState> {
 
   void createOrUpdateEvent(EventEntity event) async {
     var res = await _createUpdateEventUseCase.call(event);
-    res.fold((failure) {}, (events) {
+    res.fold((failure) {
+      print(failure);
+    }, (events) {
+      _checkInStatusCubit.updateEvents(events);
       emit(EventsStateLoaded(events));
     });
   }

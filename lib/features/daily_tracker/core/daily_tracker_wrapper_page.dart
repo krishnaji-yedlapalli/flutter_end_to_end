@@ -45,8 +45,10 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
         providers: [
           BlocProvider(create: (BuildContext context) => DailyTrackerStatusBloc(DailyTrackerRepository()),),
           BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
-          BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>()),
           BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
+          BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(
+            param1: context.read<CheckInStatusCubit>()
+          )),
         ],
         child: widget.child, // This ensures child routes have access to these blocs
       ),

@@ -6,7 +6,7 @@ class ProfileExecutedTask {
 
   late ProfileEntity _profileEntity;
 
-  var events = <EventEntity>[];
+  var todayEvents = <EventEntity>[];
 
   set setProfile(ProfileEntity profileEntity){
     _profileEntity = profileEntity;

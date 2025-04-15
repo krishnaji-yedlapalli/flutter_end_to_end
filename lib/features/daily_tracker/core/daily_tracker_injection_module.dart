@@ -6,6 +6,7 @@ import 'package:sample_latest/features/daily_tracker/domain/repository/events_re
 import 'package:sample_latest/features/daily_tracker/domain/usecases/check_in_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/create_update_event_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/update_today_event_useCase.dart';
 
 import '../../../../core/data/base_service.dart';
 import '../data/repository/checkIn_status_repo_impl.dart';
@@ -28,7 +29,7 @@ class DailyTrackerInjectionModule {
 
   final GetIt injector = GetIt.instance;
 
-  Future<void> registerDependencies() async {
+  void registerDependencies() {
     _registerExecutedCacheManager();
     _registerApiDependencies();
     _registerRepositories();
@@ -59,16 +60,20 @@ class DailyTrackerInjectionModule {
       ..registerFactory<CheckInStatusUseCase>(
           () => CheckInStatusUseCase(injector(), injector()))
       ..registerFactory<CreateUpdateEventUseCase>(
-          () => CreateUpdateEventUseCase(injector(), injector()));
+          () => CreateUpdateEventUseCase(injector(), injector()))
+      ..registerFactory<UpdateTodayEventUseCase>(
+              () => UpdateTodayEventUseCase(injector(), injector()));
   }
 
-  void _registerBlocs() async {
+  void _registerBlocs() {
     injector
+      ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector()))
       ..registerFactory<CheckInStatusCubit>(
-          () => CheckInStatusCubit(injector(), injector(), injector()))
-      ..registerFactory<EventsCubit>(
-          () => EventsCubit(injector(), injector(), injector()))
-      ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector()));
+              () => CheckInStatusCubit(injector(), injector(), injector(), injector()))
+      ..registerFactoryParam<EventsCubit, CheckInStatusCubit, void>((checkInStatusCubit, _) => EventsCubit(
+          checkInStatusCubit,
+          injector<EventsUseCase>(),
+          injector<CreateUpdateEventUseCase>()));
   }
 
   void _registerExecutedCacheManager() {
