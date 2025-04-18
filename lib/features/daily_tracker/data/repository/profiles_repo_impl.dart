@@ -1,6 +1,6 @@
 
-import 'package:sample_latest/features/daily_tracker/data/model/user_dto.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+import 'package:sample_latest/features/daily_tracker/data/model/profile_dto.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/profile_entity.dart';
 import 'package:sample_latest/features/daily_tracker/domain/repository/profiles_repository.dart';
 
 import '../../../../core/data/base_service.dart';

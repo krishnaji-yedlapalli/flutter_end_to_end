@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/widgets/adapative_container.dart';
 import 'package:sample_latest/core/device/widgets/adapative_padding.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/profile_entity.dart';
 import 'package:sample_latest/features/daily_tracker/features/users/presentation/cubit/profiles_cubit.dart';
 
 import '../../../shared/models/profile_executed_task.dart';

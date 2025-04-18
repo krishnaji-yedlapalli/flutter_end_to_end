@@ -1,6 +1,6 @@
 
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/profile_entity.dart';
 
 class ProfileExecutedTask {
 

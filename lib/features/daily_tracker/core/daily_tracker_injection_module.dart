@@ -1,14 +1,17 @@
 import 'package:get_it/get_it.dart';
 import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/features/daily_tracker/data/repository/auth_repository_impl.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/events_repos_impl.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/profiles_repo_impl.dart';
+import 'package:sample_latest/features/daily_tracker/domain/repository/AuthRepository.dart';
 import 'package:sample_latest/features/daily_tracker/domain/repository/events_repository.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/auth_use_case.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/check_in_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/create_update_event_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/update_today_event_useCase.dart';
+import 'package:sample_latest/features/daily_tracker/features/authentication/presentation/cubit/auth_cubit.dart';
 
-import '../../../../core/data/base_service.dart';
 import '../data/repository/checkIn_status_repo_impl.dart';
 import '../domain/repository/check_in_status_repo.dart';
 import '../domain/repository/profiles_repository.dart';
@@ -45,6 +48,8 @@ class DailyTrackerInjectionModule {
     injector
       ..registerFactory<ProfilesRepository>(
           () => ProfilesRepositoryImpl(injector()))
+      ..registerFactory<AuthRepository>(
+              () => AuthRepositoryImpl(injector()))
       ..registerFactory<EventsRepository>(() => EventRepositoryImpl(injector()))
       ..registerFactory<CheckInStatusRepository>(
           () => CheckInStatusRepositoryImpl(injector()));
@@ -52,6 +57,7 @@ class DailyTrackerInjectionModule {
 
   void _registerUseCases() {
     injector
+      ..registerFactory<AuthUseCase>(() => AuthUseCase(injector()))
       ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector(), injector()))
       ..registerFactory<EventsUseCase>(
           () => EventsUseCase(injector(), injector()))
@@ -67,6 +73,7 @@ class DailyTrackerInjectionModule {
 
   void _registerBlocs() {
     injector
+      ..registerFactory<AuthCubit>(() => AuthCubit(injector()))
       ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector()))
       ..registerFactory<CheckInStatusCubit>(
               () => CheckInStatusCubit(injector(), injector(), injector(), injector()))

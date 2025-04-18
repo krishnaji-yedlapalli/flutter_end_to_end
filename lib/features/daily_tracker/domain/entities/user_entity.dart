@@ -1,11 +1,10 @@
 
-class ProfileEntity {
-  ProfileEntity(this.id, this.name, {this.isSelected = false});
+class UserAuthEntity {
 
   final String id;
+  final String userEmail;
+  final String token;
+  final int expiresIn;
 
-  final String name;
-
-  bool isSelected;
-
+  UserAuthEntity(this.id, this.userEmail, this.token, this.expiresIn);
 }

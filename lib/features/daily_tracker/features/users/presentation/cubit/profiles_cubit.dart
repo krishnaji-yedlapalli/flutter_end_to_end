@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/profile_entity.dart';
 
 import '../../../../domain/usecases/users_useCase.dart';
 
