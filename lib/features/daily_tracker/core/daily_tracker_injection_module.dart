@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/features/daily_tracker/core/services/session_manager.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/auth_repository_impl.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/events_repos_impl.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/profiles_repo_impl.dart';
@@ -86,6 +87,10 @@ class DailyTrackerInjectionModule {
   void _registerExecutedCacheManager() {
     if (!injector.isRegistered<ProfileExecutedTask>()) {
       injector.registerSingleton<ProfileExecutedTask>(ProfileExecutedTask());
+    }
+
+    if (!injector.isRegistered<SessionManager>()) {
+      injector.registerSingleton<SessionManager>(SessionManager());
     }
   }
 
