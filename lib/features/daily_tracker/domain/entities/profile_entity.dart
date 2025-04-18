@@ -1,4 +1,3 @@
-
 class ProfileEntity {
   ProfileEntity(this.id, this.name, {this.isSelected = false});
 
@@ -8,4 +7,7 @@ class ProfileEntity {
 
   bool isSelected;
 
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'name': name};
+  }
 }
