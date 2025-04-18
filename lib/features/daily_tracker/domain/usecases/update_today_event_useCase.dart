@@ -20,7 +20,7 @@ class UpdateTodayEventUseCase {
 
   Future<Either<ErrorDetails, bool>> call(String date, List<EventEntity> events) async {
     try{
-      var params = UserCheckInParams(profileExecutedTask.accountId, profileExecutedTask.profileId, events, date);
+      var params = UserCheckInParams(profileExecutedTask.profileId, events, date);
       var status = await checkInStatusRepository.updateTodayEvents(params);
       return Right(status);
     }catch(e,s){

@@ -5,7 +5,7 @@ import '../../shared/params/create_update_event_param.dart';
 
 abstract class EventsRepository {
 
-  Future<List<EventEntity>> fetchEventsBasedOnProfile(String accountId, String id );
+  Future<List<EventEntity>> fetchEventsBasedOnProfile(String id );
 
   Future<bool> updateOrCreateEvent(CreateUpdateEventParams params);
 }

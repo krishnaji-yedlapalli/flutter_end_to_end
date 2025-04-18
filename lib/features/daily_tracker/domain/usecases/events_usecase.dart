@@ -19,8 +19,7 @@ class EventsUseCase with HelperMethods, DateFormats {
 
   Future<Either<ErrorDetails, List<EventEntity>>> call() async {
     try {
-      var events = await _repository.fetchEventsBasedOnProfile(
-          _profileExecutedTask.accountId, _profileExecutedTask.profileId);
+      var events = await _repository.fetchEventsBasedOnProfile(_profileExecutedTask.profileId);
 
       var todayEvents = getTodayEvents(events);
       _profileExecutedTask.todayEvents = todayEvents;

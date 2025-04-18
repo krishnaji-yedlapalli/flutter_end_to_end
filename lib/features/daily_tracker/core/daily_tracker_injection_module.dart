@@ -48,18 +48,18 @@ class DailyTrackerInjectionModule {
   void _registerRepositories() {
     injector
       ..registerFactory<ProfilesRepository>(
-          () => ProfilesRepositoryImpl(injector()))
+          () => ProfilesRepositoryImpl(injector(), injector()))
       ..registerFactory<AuthRepository>(
               () => AuthRepositoryImpl(injector()))
-      ..registerFactory<EventsRepository>(() => EventRepositoryImpl(injector()))
+      ..registerFactory<EventsRepository>(() => EventRepositoryImpl(injector(), injector()))
       ..registerFactory<CheckInStatusRepository>(
-          () => CheckInStatusRepositoryImpl(injector()));
+          () => CheckInStatusRepositoryImpl(injector(), injector()));
   }
 
   void _registerUseCases() {
     injector
-      ..registerFactory<AuthUseCase>(() => AuthUseCase(injector()))
-      ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector(), injector()))
+      ..registerFactory<AuthUseCase>(() => AuthUseCase(injector(), injector()))
+      ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector()))
       ..registerFactory<EventsUseCase>(
           () => EventsUseCase(injector(), injector()))
       ..registerFactory<PerformUserCheckInUseCase>(

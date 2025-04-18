@@ -1,5 +1,5 @@
 import '../entities/profile_entity.dart';
 
 abstract class ProfilesRepository {
-  Future<List<ProfileEntity>> fetchExistingProfiles(String accountId );
+  Future<List<ProfileEntity>> fetchExistingProfiles();
 }

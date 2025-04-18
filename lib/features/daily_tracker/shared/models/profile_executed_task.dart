@@ -13,7 +13,4 @@ class ProfileExecutedTask {
   }
 
   String get profileId => _profileEntity.id;
-
-  String get accountId => 'u94jTpJvOXbBVmO7rLTPf8Ew2zx2';
-
 }

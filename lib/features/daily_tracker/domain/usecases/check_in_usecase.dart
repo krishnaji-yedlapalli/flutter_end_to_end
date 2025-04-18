@@ -34,7 +34,7 @@ class PerformUserCheckInUseCase with DateFormats{
             ]));
       }
 
-      var params = UserCheckInParams(profileExecutedTask.accountId, profileExecutedTask.profileId, events, currentDateInFormatted);
+      var params = UserCheckInParams(profileExecutedTask.profileId, events, currentDateInFormatted);
       var res = await _checkInStatusRepository.submitUserCheckIn(params);
       return const Right(true);
     }catch(e,s){

@@ -1,23 +1,20 @@
+import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+
 class SessionManager {
-  static final SessionManager _instance = SessionManager._internal();
+  late final String userId;
+  late final String userEmail;
+  late final String token;
+  late final int expiresIn;
 
-  factory SessionManager() => _instance;
+  void initialize(UserAuthEntity userDetails) {
+    userId = userDetails.id;
+    userEmail = userDetails.userEmail;
+    token = userDetails.token;
+    expiresIn = userDetails.expiresIn;
+  }
 
-  SessionManager._internal();
-
-  // User details
-  String? userId;
-  String? userName;
-  String? token;
-  int? expiresIn;
-
-  // You can add convenience methods
-  bool get isLoggedIn => token != null;
+  String get accountId => userId;
 
   void clear() {
-    userId = null;
-    userName = null;
-    token = null;
-    expiresIn = null;
   }
 }

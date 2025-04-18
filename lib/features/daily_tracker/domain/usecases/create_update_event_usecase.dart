@@ -27,7 +27,7 @@ class CreateUpdateEventUseCase {
         event = updateEvent(event);
       }
 
-      var res = await _eventsRepository.updateOrCreateEvent(CreateUpdateEventParams(profileExecutedTask.accountId, profileExecutedTask.profileId, profileExecutedTask.todayEvents));
+      var res = await _eventsRepository.updateOrCreateEvent(CreateUpdateEventParams(profileExecutedTask.profileId, profileExecutedTask.todayEvents));
       return Right(profileExecutedTask.todayEvents);
     }catch(e,s){
       return  Left(ExceptionHandler().handleException(e, s));

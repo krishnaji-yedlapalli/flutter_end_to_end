@@ -6,13 +6,11 @@ import '../entities/profile_entity.dart';
 
 class ProfilesUseCase {
 
-  ProfilesUseCase(this._repository, this._profileExecutedTask);
+  ProfilesUseCase(this._repository);
 
   final ProfilesRepository _repository;
 
-  final ProfileExecutedTask _profileExecutedTask;
-
   Future<List<ProfileEntity>> call() async {
-    return await _repository.fetchExistingProfiles(_profileExecutedTask.accountId);
+    return await _repository.fetchExistingProfiles();
   }
 }

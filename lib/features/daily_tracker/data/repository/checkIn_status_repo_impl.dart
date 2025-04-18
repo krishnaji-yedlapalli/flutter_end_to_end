@@ -1,4 +1,5 @@
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/features/daily_tracker/core/services/session_manager.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/checkIn_status_entity.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 
@@ -10,8 +11,9 @@ import '../model/daily_tracker_event_model.dart';
 
 class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
   final BaseService baseService;
+  final SessionManager _sessionManager;
 
-  CheckInStatusRepositoryImpl(this.baseService);
+  CheckInStatusRepositoryImpl(this.baseService, this._sessionManager);
 
   @override
   Future<CheckInStatusEntity> isCheckedIn(UserCheckInParams params) async {
@@ -19,7 +21,7 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
 
     var response = await baseService.makeRequest(
         url:
-            '${Urls.dailyCheckIns}/${params.date}/${params.accountId}/${params.profileId}.json');
+            '${Urls.dailyCheckIns}/${params.date}/${_sessionManager.accountId}/${params.profileId}.json');
     if (response != null && response is List) {
       events = response
           .map<EventEntity>(
@@ -35,7 +37,7 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
   Future<bool> submitUserCheckIn(UserCheckInParams params) async {
     var body = {
       params.date: {
-        params.accountId: {
+        _sessionManager.accountId: {
           params.profileId: params.events
               .map<Map<String, dynamic>>((e) => e.toJson()).toList()
         }
@@ -57,7 +59,7 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
 
     var body = {
       params.date: {
-        params.accountId: {
+        _sessionManager.accountId: {
           params.profileId: params.events
               .map<Map<String, dynamic>>((e) => e.toJson()).toList()
         }
