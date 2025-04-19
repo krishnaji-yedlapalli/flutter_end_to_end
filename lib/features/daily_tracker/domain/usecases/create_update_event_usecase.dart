@@ -1,6 +1,5 @@
 
 import 'package:fpdart/fpdart.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 
 import '../../../../analytics_exception_handler/exception_handler.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';
@@ -8,6 +7,7 @@ import '../../../../core/mixins/helper_methods.dart';
 import '../../data/model/daily_tracker_event_model.dart';
 import '../../shared/models/profile_executed_task.dart';
 import '../../shared/params/create_update_event_param.dart';
+import '../entities/event_entity.dart';
 import '../repository/events_repository.dart';
 
 class CreateUpdateEventUseCase {
@@ -18,7 +18,7 @@ class CreateUpdateEventUseCase {
 
   final ProfileExecutedTask profileExecutedTask;
 
-  Future<Either<ErrorDetails, List<EventEntity>>> call(EventEntity event) async {
+  Future<Either<ErrorDetails, (List<EventEntity>, EventEntity)>> call(EventEntity event) async {
 
     try {
       if (event.id == null) {
@@ -27,8 +27,8 @@ class CreateUpdateEventUseCase {
         event = updateEvent(event);
       }
 
-      var res = await _eventsRepository.updateOrCreateEvent(CreateUpdateEventParams(profileExecutedTask.profileId, profileExecutedTask.todayEvents));
-      return Right(profileExecutedTask.todayEvents);
+      var res = await _eventsRepository.updateOrCreateEvent(CreateUpdateEventParams(profileExecutedTask.profileId, event));
+      return Right((profileExecutedTask.todayEvents, event));
     }catch(e,s){
       return  Left(ExceptionHandler().handleException(e, s));
     }

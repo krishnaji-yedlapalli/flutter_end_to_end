@@ -19,6 +19,7 @@ class ProfilesRepositoryImpl implements ProfilesRepository{
   Future<List<ProfileEntity>> fetchExistingProfiles() async {
     var users = <ProfileEntity>[];
 
+    await _sessionManager.getLoginStatus();
     var response = await baseService.makeRequest(url: '${Urls.profiles}/${_sessionManager.accountId}/profiles.json');
     if(response != null &&  response is Map && response.keys.isNotEmpty) {
       users = response.entries

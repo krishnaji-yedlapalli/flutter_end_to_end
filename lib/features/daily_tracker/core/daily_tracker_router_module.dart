@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/daily_tracker/core/daily_tracker_wrapper_page.dart';
+import 'package:sample_latest/features/daily_tracker/core/services/session_manager.dart';
 import 'package:sample_latest/features/daily_tracker/features/authentication/login_page.dart';
+import 'package:sample_latest/features/daily_tracker/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:sample_latest/features/daily_tracker/features/users/presentation/profiles_page.dart';
 
 import '../../../core/mixins/dialogs.dart';
@@ -24,6 +29,13 @@ class DailyTrackerRouterModule {
           parentNavigatorKey: _dailyTrackerShellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return const NoTransitionPage(child: LoginForm());
+          },
+          redirect: (context, state) async {
+            final _storage = const FlutterSecureStorage();
+            if(await _storage.containsKey(key: 'loginDetails')){
+             return '/home/users-page/';
+          }
+          return null;
           }
         ),
         GoRoute(path: 'users-page',

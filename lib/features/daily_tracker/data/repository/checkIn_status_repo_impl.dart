@@ -22,10 +22,10 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
     var response = await baseService.makeRequest(
         url:
             '${Urls.dailyCheckIns}/${params.date}/${_sessionManager.accountId}/${params.profileId}.json');
-    if (response != null && response is List) {
-      events = response
+    if (response != null && response is Map) {
+      events = response.entries
           .map<EventEntity>(
-              (json) => DailyTrackerEventModel.fromJson(json).toEntity())
+              (json) => DailyTrackerEventModel.fromJson(json.value).toEntity())
           .toList();
       return CheckInStatusEntity(events: events, status: true);
     } else {
@@ -36,38 +36,14 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
   @override
   Future<bool> submitUserCheckIn(UserCheckInParams params) async {
     var body = {
-      params.date: {
-        _sessionManager.accountId: {
-          params.profileId: params.events
-              .map<Map<String, dynamic>>((e) => e.toJson()).toList()
-        }
-      }
+      params.profileId : Map.fromEntries(
+        params.events.map((e) => MapEntry(e.id!, e.toJson())),
+      )
     };
 
     var response = await baseService.makeRequest(
-        url: '${Urls.dailyCheckIns}.json',
-        body: body,
-        method: RequestType.patch);
-    if (response != null) {
-      return true;
-    }
-    return false;
-  }
-
-  @override
-  Future<bool> updateTodayEvents(UserCheckInParams params) async {
-
-    var body = {
-      params.date: {
-        _sessionManager.accountId: {
-          params.profileId: params.events
-              .map<Map<String, dynamic>>((e) => e.toJson()).toList()
-        }
-      }
-    };
-
-    var response = await baseService.makeRequest(
-        url: '${Urls.dailyCheckIns}.json',
+        url:
+            '${Urls.dailyCheckIns}/${params.date}/${_sessionManager.accountId}.json',
         body: body,
         method: RequestType.patch);
     if (response != null) {

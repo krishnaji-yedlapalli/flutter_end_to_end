@@ -11,21 +11,18 @@ import '../../../../../../core/utils/enums_type_def.dart';
 import '../../../../domain/usecases/check_in_status_useCase.dart';
 import '../../../../domain/usecases/check_in_usecase.dart';
 import '../../../../domain/usecases/events_usecase.dart';
-import '../../../events/presentation/cubit/events_cubit.dart';
 
 part 'check_in_status_state.dart';
 
 class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, DateFormats {
 
-  CheckInStatusCubit(this.statusUseCase, this.performUserCheckInUseCase, this.eventsUseCase, this._todayEventUseCase) : super(const CheckInStatusLoading());
+  CheckInStatusCubit(this.statusUseCase, this.performUserCheckInUseCase, this.eventsUseCase) : super(const CheckInStatusLoading());
 
   final CheckInStatusUseCase statusUseCase;
 
   final PerformUserCheckInUseCase performUserCheckInUseCase;
 
   final EventsUseCase eventsUseCase;
-
-  final UpdateTodayEventUseCase _todayEventUseCase;
 
   void getCheckInStatus() async {
 
@@ -60,17 +57,5 @@ class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, D
   void updateEvents(List<EventEntity> events) async {
     var list = events.map<EventEntity>((e)=> EventEntity.fromJson(e.toJson())).toList();
     emit(CheckInStatusWithChecked(list));
-    updateEventInTodayEventDetails(events);
-  }
-
-  void updateEventInTodayEventDetails(List<EventEntity> events) async {
-    var checkInStatus = await _todayEventUseCase.call(currentDateInFormatted, events);
-
-    switch (checkInStatus) {
-      case Right(value: final checkInDetails):
-
-      case Left(value: final failure):
-      // emit(CheckInStatusFailed(failure.message));
-    }
   }
 }

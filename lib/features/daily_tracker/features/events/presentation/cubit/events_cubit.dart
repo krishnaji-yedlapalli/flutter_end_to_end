@@ -3,12 +3,14 @@ import 'package:equatable/equatable.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 
+import '../../../../../../core/mixins/date_formats.dart';
 import '../../../../domain/usecases/create_update_event_usecase.dart';
+import '../../../../domain/usecases/update_today_event_useCase.dart';
 import '../../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 part 'event_cubit_state.dart';
 
-class EventsCubit extends Cubit<EventsState> {
+class EventsCubit extends Cubit<EventsState> with DateFormats{
 
   final CheckInStatusCubit _checkInStatusCubit;
 
@@ -16,7 +18,9 @@ class EventsCubit extends Cubit<EventsState> {
 
   final CreateUpdateEventUseCase _createUpdateEventUseCase;
 
-  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase)
+  final UpdateTodayEventUseCase _todayEventUseCase;
+
+  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase, this._todayEventUseCase)
       : super(EventsStateLoading());
 
   Future<void> loadEventsBasedOnTheUser() async {
@@ -39,9 +43,10 @@ class EventsCubit extends Cubit<EventsState> {
     var res = await _createUpdateEventUseCase.call(event);
     res.fold((failure) {
       print(failure);
-    }, (events) {
-      _checkInStatusCubit.updateEvents(events);
-      emit(EventsStateLoaded(events));
+    }, (e) {
+      _checkInStatusCubit.updateEvents(e.$1);
+      _todayEventUseCase.call(currentDateInFormatted, e.$2);
+      emit(EventsStateLoaded(e.$1));
     });
   }
 

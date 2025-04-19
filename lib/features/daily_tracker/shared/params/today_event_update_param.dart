@@ -1,12 +1,12 @@
 
 
-
 import '../../domain/entities/event_entity.dart';
 
-class CreateUpdateEventParams {
+class TodayEventParam {
 
   final  String profileId;
   final EventEntity event;
+  final String date;
 
-  CreateUpdateEventParams(this.profileId, this.event);
+  TodayEventParam(this.profileId, this.event, this.date);
 }

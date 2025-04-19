@@ -81,11 +81,11 @@ class DailyTrackerInjectionModule {
       ..registerFactory<AuthCubit>(() => AuthCubit(injector()))
       ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector(), injector()))
       ..registerFactory<CheckInStatusCubit>(
-              () => CheckInStatusCubit(injector(), injector(), injector(), injector()))
+              () => CheckInStatusCubit(injector(), injector(), injector()))
       ..registerFactoryParam<EventsCubit, CheckInStatusCubit, void>((checkInStatusCubit, _) => EventsCubit(
           checkInStatusCubit,
           injector<EventsUseCase>(),
-          injector<CreateUpdateEventUseCase>()));
+          injector<CreateUpdateEventUseCase>(), injector()));
   }
 
   void _registerExecutedCacheManager() {
