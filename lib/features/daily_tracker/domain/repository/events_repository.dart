@@ -12,4 +12,6 @@ abstract class EventsRepository {
 
   Future<bool> updateTodayEvents(TodayEventParam params);
 
+  Future<bool> deleteEvent(String profileId, String eventId);
+
 }

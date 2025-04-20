@@ -60,4 +60,17 @@ class EventRepositoryImpl implements EventsRepository {
     return false;
   }
 
+  @override
+  Future<bool> deleteEvent(String profileId, String eventId) async {
+
+    var response = await _baseService.makeRequest(
+        url: '${Urls.events}/${_sessionManager.accountId}/$profileId/$eventId.json',
+        method: RequestType.delete);
+
+    if (response != null) {
+      return true;
+    }
+    return false;
+  }
+
 }

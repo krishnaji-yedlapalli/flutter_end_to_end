@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/delete_event_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 
 import '../../../../../../core/mixins/date_formats.dart';
@@ -20,7 +21,9 @@ class EventsCubit extends Cubit<EventsState> with DateFormats{
 
   final UpdateTodayEventUseCase _todayEventUseCase;
 
-  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase, this._todayEventUseCase)
+  final DeleteEventUseCase _deleteEventUseCase;
+
+  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase, this._todayEventUseCase, this._deleteEventUseCase)
       : super(EventsStateLoading());
 
   Future<void> loadEventsBasedOnTheUser() async {
@@ -71,9 +74,13 @@ class EventsCubit extends Cubit<EventsState> with DateFormats{
   }
 
   Future<void> deleteEvent(EventEntity selectedEvent) async {
-    //   bool status = await repository.deleteEvent(selectedEvent.id);
-    //   events.removeWhere((event) => event.id == selectedEvent.id);
-    //   var items = events.map((event)=> DailyTrackerEventModel.fromJson(event.toJson())).toList();
-    //   emit(DailyStatusTrackerEvents(items, DailyStatusTrackerLoadedType.events));
+   var res = await _deleteEventUseCase.call(selectedEvent.id!);
+   res.fold((events){
+     emit(EventsStateLoading());
+     Future.delayed(const Duration(seconds: 1));
+     emit(EventsStateLoaded(events));
+   }, (error){
+
+   });
   }
 }

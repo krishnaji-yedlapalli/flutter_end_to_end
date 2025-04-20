@@ -10,6 +10,7 @@ import 'package:sample_latest/features/daily_tracker/domain/usecases/auth_use_ca
 import 'package:sample_latest/features/daily_tracker/domain/usecases/check_in_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/create_edit_profile_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/create_update_event_usecase.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/delete_event_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/update_today_event_useCase.dart';
 import 'package:sample_latest/features/daily_tracker/features/authentication/presentation/cubit/auth_cubit.dart';
@@ -73,7 +74,9 @@ class DailyTrackerInjectionModule {
       ..registerFactory<UpdateTodayEventUseCase>(
               () => UpdateTodayEventUseCase(injector(), injector()))
       ..registerFactory<CreateOrEditProfileUseCase>(
-              () => CreateOrEditProfileUseCase(injector(), injector()));
+              () => CreateOrEditProfileUseCase(injector(), injector()))
+      ..registerFactory<DeleteEventUseCase>(
+              () => DeleteEventUseCase(injector(), injector()));
   }
 
   void _registerBlocs() {
@@ -85,7 +88,7 @@ class DailyTrackerInjectionModule {
       ..registerFactoryParam<EventsCubit, CheckInStatusCubit, void>((checkInStatusCubit, _) => EventsCubit(
           checkInStatusCubit,
           injector<EventsUseCase>(),
-          injector<CreateUpdateEventUseCase>(), injector()));
+          injector<CreateUpdateEventUseCase>(), injector(), injector()));
   }
 
   void _registerExecutedCacheManager() {
