@@ -8,8 +8,11 @@ class ProfileExecutedTask {
 
   var todayEvents = <EventEntity>[];
 
+  var userEvents = <EventEntity>[];
+
   set setProfile(ProfileEntity profileEntity){
     _profileEntity = profileEntity;
+
   }
 
   String get profileId => _profileEntity.id;

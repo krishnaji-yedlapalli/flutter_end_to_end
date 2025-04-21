@@ -28,8 +28,8 @@ class DeleteEventUseCase {
   }
 
   List<EventEntity> deleteEventFromList(String eventId) {
-    _profileExecutedTask.todayEvents.removeWhere((e)=> eventId == e.id);
-    return List.from(_profileExecutedTask.todayEvents.map((e)=> DailyTrackerEventModel.fromJson(e.toJson()).toEntity()).toList());
+    _profileExecutedTask.userEvents.removeWhere((e)=> eventId == e.id);
+    return List.from(_profileExecutedTask.userEvents.map((e)=> DailyTrackerEventModel.fromJson(e.toJson()).toEntity()).toList());
   }
 
 }

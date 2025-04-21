@@ -43,34 +43,19 @@ class EventsCubit extends Cubit<EventsState> with DateFormats{
   }
 
   void createOrUpdateEvent(EventEntity event) async {
+    emit(EventsStateLoading());
     var res = await _createUpdateEventUseCase.call(event);
     res.fold((failure) {
       print(failure);
     }, (e) {
-      _checkInStatusCubit.updateEvents(e.$1);
-      _todayEventUseCase.call(currentDateInFormatted, e.$2);
-      emit(EventsStateLoaded(e.$1));
+      _checkInStatusCubit.updateEvents(e.todayEvents);
+      _todayEventUseCase.call(currentDateInFormatted, e.updatedEvent);
+      emit(EventsStateLoaded(e.userEvents));
     });
   }
 
   Future<void> updateTodayEventDetails(EventEntity selectedEvent) async {
-    createOrUpdateEvent(selectedEvent);
-    //   var index = todayEvents.indexWhere((event) => event.id == selectedEvent.id);
-    //
-    //   if(index != -1){
-    //     todayEvents[index] = selectedEvent;
-    //   }else{
-    //     todayEvents.add(selectedEvent);
-    //   }
-    //
-    //   var body = {
-    //     currentDateInFormatted : {
-    //       'isChecked' : true,
-    //       'events' : todayEvents.map((e)=> e.toJson()).toList()
-    //     }
-    //   };
-    //
-    //   bool status = await repository.checkInTheUser(body);
+    _todayEventUseCase.call(currentDateInFormatted, selectedEvent);
   }
 
   Future<void> deleteEvent(EventEntity selectedEvent) async {

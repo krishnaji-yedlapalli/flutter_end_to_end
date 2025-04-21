@@ -24,6 +24,10 @@ class UpdateTodayEventUseCase {
   Future<Either<ErrorDetails, bool>> call(String date, EventEntity event) async {
     try{
       var params = TodayEventParam(profileExecutedTask.profileId, event, date);
+      var index = profileExecutedTask.todayEvents.indexWhere((e)=> e.id == event.id);
+      if(index != -1){
+        profileExecutedTask.todayEvents[index] = event;
+      }
       var status = await _eventRepositoryImpl.updateTodayEvents(params);
       return Right(status);
     }catch(e,s){

@@ -78,7 +78,7 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
     if(index == 0) {
       GoRouter.of(context).pop();
     }else if(index == 1){
-      adaptiveDialog(context, CreateDailyTrackerEvent(context));
+      adaptiveDialog(context, CreateDailyTrackerEvent(widget.parentContext));
     }
   }
 
