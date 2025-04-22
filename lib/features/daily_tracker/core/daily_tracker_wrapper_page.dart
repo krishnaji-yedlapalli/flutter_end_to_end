@@ -39,18 +39,25 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
   Widget build(BuildContext context) {
     var injector = GetIt.instance;
 
-    return FeatureDiscovery.withProvider(
-      persistenceProvider: const NoPersistenceProvider(),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
-          BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
-          BlocProvider(create: (BuildContext context) =>  injector<AuthCubit>()),
-          BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(
-            param1: context.read<CheckInStatusCubit>()
-          )),
-        ],
-        child: widget.child, // This ensures child routes have access to these blocs
+    return PopScope(
+      onPopInvokedWithResult: (status, result) {
+        if(status){
+          DailyTrackerInjectionModule().unRegisterDependencies();
+        }
+      },
+      child: FeatureDiscovery.withProvider(
+        persistenceProvider: const NoPersistenceProvider(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
+            BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
+            BlocProvider(create: (BuildContext context) =>  injector<AuthCubit>()),
+            BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(
+              param1: context.read<CheckInStatusCubit>()
+            )),
+          ],
+          child: widget.child, // This ensures child routes have access to these blocs
+        ),
       ),
     );
   }

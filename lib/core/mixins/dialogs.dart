@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 mixin CustomDialogs {
-  void adaptiveDialog(BuildContext context, Widget content) {
+  void adaptiveDialog(BuildContext context, Widget content, {bool useRootNavigator = true}) {
     showAdaptiveDialog(
         context: context,
+        useRootNavigator: useRootNavigator,
         builder: (context) {
           return Dialog(
               child: SizedBox(

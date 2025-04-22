@@ -106,7 +106,46 @@ class DailyTrackerInjectionModule {
     }
   }
 
-  void _unRegisterDependencies() async {
-    // await injector.unregister(instance: SchoolExecutedTaskFlow);
+  void unRegisterDependencies() {
+    // Unregister Blocs
+    injector
+      ..unregister<AuthCubit>()
+      ..unregister<ProfilesCubit>()
+      ..unregister<CheckInStatusCubit>()
+      ..unregister<EventsCubit>();
+
+    // Unregister Use Cases
+    injector
+      ..unregister<AuthUseCase>()
+      ..unregister<ProfilesUseCase>()
+      ..unregister<EventsUseCase>()
+      ..unregister<PerformUserCheckInUseCase>()
+      ..unregister<CheckInStatusUseCase>()
+      ..unregister<CreateUpdateEventUseCase>()
+      ..unregister<UpdateTodayEventUseCase>()
+      ..unregister<CreateOrEditProfileUseCase>()
+      ..unregister<DeleteEventUseCase>();
+
+    // Unregister Repositories
+    injector
+      ..unregister<ProfilesRepository>()
+      ..unregister<AuthRepository>()
+      ..unregister<EventsRepository>()
+      ..unregister<CheckInStatusRepository>();
+
+    // Unregister Services
+    injector.unregister<BaseService>();
+
+    // Unregister Cache Managers or other Singletons
+    if (injector.isRegistered<ProfileExecutedTask>()) {
+      injector.unregister<ProfileExecutedTask>();
+    }
+    if (injector.isRegistered<SessionManager>()) {
+      injector.unregister<SessionManager>();
+    }
+    if (injector.isRegistered<ProfilesExecutedTask>()) {
+      injector.unregister<ProfilesExecutedTask>();
+    }
   }
+
 }

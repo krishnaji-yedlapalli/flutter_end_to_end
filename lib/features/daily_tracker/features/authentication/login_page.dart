@@ -27,8 +27,8 @@ class _LoginFormState extends State<LoginForm> {
       String password = _passwordController.text.trim();
 
       var status = await context.read<AuthCubit>().validateUserCredentials(email, password);
-      if(status) {
-        GoRouter.of(context).go('/home/users-page');
+      if(status && mounted) {
+        GoRouter.of(context).replace('/home/users-page');
       }
     }
   }
