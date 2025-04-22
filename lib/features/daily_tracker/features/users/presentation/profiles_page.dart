@@ -9,6 +9,7 @@ import 'package:sample_latest/features/daily_tracker/domain/entities/profile_ent
 import 'package:sample_latest/features/daily_tracker/features/users/presentation/cubit/profiles_cubit.dart';
 
 import '../../../../../core/mixins/dialogs.dart';
+import '../../../core/daily_tracker_router_module.dart';
 import '../../../shared/models/profile_executed_task.dart';
 import 'create_profile_dialog.dart';
 
@@ -117,7 +118,7 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
                           final GetIt injector = GetIt.instance;
                           final task = injector<ProfileExecutedTask>(); // No context needed
                           task.setProfile = profile;
-                          GoRouter.of(context).go('/home/daily-tracker');
+                          GoRouter.of(context).go(DailyTrackerRouterModule.dailyTrackerDashboardPath);
                         },
                         child: const Text('GO')),
                   )
@@ -141,7 +142,7 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
               ElevatedButton(onPressed: () {}, child: const Text('Create User')),
               ElevatedButton(
                   onPressed: () {
-                    GoRouter.of(context).go('/home/daily-tracker');
+                    GoRouter.of(context).go('/home/tracker/daily-tracker');
                     // final GetIt injector = GetIt.instance;
                     // injector<ProfileExecutedTask>().setProfile = pro;
                   },

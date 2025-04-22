@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/daily_tracker/features/authentication/presentation/cubit/auth_cubit.dart';
 
 import '../../../../core/widgets/text_field.dart';
+import '../../core/daily_tracker_router_module.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -28,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
 
       var status = await context.read<AuthCubit>().validateUserCredentials(email, password);
       if(status && mounted) {
-        GoRouter.of(context).replace('/home/users-page');
+        GoRouter.of(context).go(DailyTrackerRouterModule.profilesPath);
       }
     }
   }

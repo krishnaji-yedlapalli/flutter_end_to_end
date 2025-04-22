@@ -29,7 +29,7 @@ class SchoolRouterModule {
           pageBuilder: (BuildContext context, GoRouterState state) {
             return const NoTransitionPage(child: Schools());
           },
-          onExit: (context) async {
+          onExit: (context, state) async {
             bool res = await CustomDialogs.buildAlertDialogWithYesOrNo(
               context,
               title: '!!! Alert !!!',

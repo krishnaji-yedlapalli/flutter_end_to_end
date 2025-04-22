@@ -10,12 +10,23 @@ import 'package:sample_latest/features/daily_tracker/features/authentication/pre
 import 'package:sample_latest/features/daily_tracker/features/users/presentation/profiles_page.dart';
 
 import '../../../core/mixins/dialogs.dart';
+import '../../../core/routing.dart';
 import '../features/dashboard/presentation/page/daily_tracker_home.dart';
 
 class DailyTrackerRouterModule {
   static final _dailyTrackerShellNavigatorKey = GlobalKey<NavigatorState>();
 
   static get dailyTrackerShellNavigatorKey => _dailyTrackerShellNavigatorKey;
+
+  static const _parentPath = 'tracker';
+  static const _loginPage = '$_parentPath/login-page';
+  static const _profilesPage = '$_parentPath/profiles-page';
+  static const _dailyTrackerDashboardPage = '$_parentPath/daily-tracker-dashboard';
+
+
+  static const logInPath = '${Routing.home}/$_loginPage';
+  static const profilesPath = '${Routing.home}/$_profilesPage';
+  static const dailyTrackerDashboardPath = '${Routing.home}/$_dailyTrackerDashboardPage';
 
   static ShellRoute dailyTrackerRoute() {
     return ShellRoute(
@@ -24,21 +35,21 @@ class DailyTrackerRouterModule {
         return DailyTrackerWrapperPage(child: child);
       },
       routes: [
-        GoRoute(path: 'login-page',
+        GoRoute(path: _loginPage,
           name: 'login page',
           parentNavigatorKey: _dailyTrackerShellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return const NoTransitionPage(child: LoginForm());
           },
           redirect: (context, state) async {
-            final _storage = const FlutterSecureStorage();
-            if(await _storage.containsKey(key: 'loginDetails')){
-             return '/home/users-page/';
+            const storage = FlutterSecureStorage();
+            if(await storage.containsKey(key: 'loginDetails') && (state.path?.contains(_loginPage) ?? false)){
+             return profilesPath;
           }
           return null;
           }
         ),
-        GoRoute(path: 'users-page',
+        GoRoute(path: _profilesPage,
             name: 'users page',
             parentNavigatorKey: _dailyTrackerShellNavigatorKey,
             pageBuilder: (BuildContext context, GoRouterState state) {
@@ -46,7 +57,7 @@ class DailyTrackerRouterModule {
             }
         ),
         GoRoute(
-          path: 'daily-tracker',
+          path: _dailyTrackerDashboardPage,
           name: 'daily tracker',
           parentNavigatorKey: _dailyTrackerShellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) {

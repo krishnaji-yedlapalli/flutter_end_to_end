@@ -15,6 +15,7 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'daily_tracker/core/daily_tracker_router_module.dart';
 import 'feature_discovery/home_feature_discovery.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen>
           content: Text('Some features are currently on development')));
       _buildMaterialBanner();
       Future.delayed(const Duration(seconds: 2), () {
-        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        if(mounted) ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
         // offlineBannerKey.currentState;
         // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
       });
@@ -232,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen>
         '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
-      ScreenType.dailyTracker => '/home/login-page',
+      ScreenType.dailyTracker => DailyTrackerRouterModule.logInPath,
     };
     context.go(path);
   }
