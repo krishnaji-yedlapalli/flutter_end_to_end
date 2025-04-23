@@ -1,6 +1,4 @@
-
 class UserCredentialsParams {
-
   final String userEmail;
   final String password;
 

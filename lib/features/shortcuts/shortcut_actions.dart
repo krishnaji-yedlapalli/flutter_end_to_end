@@ -1,38 +1,36 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ShortcutActions extends StatelessWidget {
-   ShortcutActions({Key? key}) : super(key: key);
+  ShortcutActions({Key? key}) : super(key: key);
 
   final controller = TextEditingController(text: 'Hello world');
 
   @override
   Widget build(BuildContext context) {
     // return Container();
-    return Shortcuts(shortcuts: <LogicalKeySet, Intent>{
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC) :  const ClearAllIntent(),
-    }, child: Actions(
-      // dispatcher: LoggingActionDispatcher(),
-      actions: <Type, Action<Intent>>{
-        ClearAllIntent : ClearAllAction(controller)
-      },
-      child:  Focus(
-        autofocus: true,
-        child: const Text('dfsd')
-        //     ??  TextField(
-        //   controller: controller,
-        //   autofocus: true,
-        //   decoration: InputDecoration(
-        //     icon: IconButton(onPressed: () => Actions.handler<ClearAllIntent>(context, const ClearAllIntent()), icon: const Icon(Icons.clear))
-        //   ),
-        // ),
-      ),
-    ));
+    return Shortcuts(
+        shortcuts: <LogicalKeySet, Intent>{
+          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC):
+              const ClearAllIntent(),
+        },
+        child: Actions(
+          // dispatcher: LoggingActionDispatcher(),
+          actions: <Type, Action<Intent>>{
+            ClearAllIntent: ClearAllAction(controller)
+          },
+          child: const Focus(autofocus: true, child: Text('dfsd')
+              //     ??  TextField(
+              //   controller: controller,
+              //   autofocus: true,
+              //   decoration: InputDecoration(
+              //     icon: IconButton(onPressed: () => Actions.handler<ClearAllIntent>(context, const ClearAllIntent()), icon: const Icon(Icons.clear))
+              //   ),
+              // ),
+              ),
+        ));
   }
 }
-
 
 class LoggingShortcutManager extends ShortcutManager {
   @override
@@ -50,7 +48,6 @@ class ClearAllIntent extends Intent {
 }
 
 class ClearAllAction extends Action<ClearAllIntent> {
-
   ClearAllAction(this.controller);
 
   final TextEditingController controller;

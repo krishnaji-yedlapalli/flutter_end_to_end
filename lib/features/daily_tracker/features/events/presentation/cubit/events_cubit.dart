@@ -11,8 +11,7 @@ import '../../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 part 'event_cubit_state.dart';
 
-class EventsCubit extends Cubit<EventsState> with DateFormats{
-
+class EventsCubit extends Cubit<EventsState> with DateFormats {
   final CheckInStatusCubit _checkInStatusCubit;
 
   final EventsUseCase eventsUseCase;
@@ -23,7 +22,12 @@ class EventsCubit extends Cubit<EventsState> with DateFormats{
 
   final DeleteEventUseCase _deleteEventUseCase;
 
-  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase, this._todayEventUseCase, this._deleteEventUseCase)
+  EventsCubit(
+      this._checkInStatusCubit,
+      this.eventsUseCase,
+      this._createUpdateEventUseCase,
+      this._todayEventUseCase,
+      this._deleteEventUseCase)
       : super(EventsStateLoading());
 
   Future<void> loadEventsBasedOnTheUser() async {
@@ -59,13 +63,11 @@ class EventsCubit extends Cubit<EventsState> with DateFormats{
   }
 
   Future<void> deleteEvent(EventEntity selectedEvent) async {
-   var res = await _deleteEventUseCase.call(selectedEvent.id!);
-   res.fold((events){
-     emit(EventsStateLoading());
-     Future.delayed(const Duration(seconds: 1));
-     emit(EventsStateLoaded(events));
-   }, (error){
-
-   });
+    var res = await _deleteEventUseCase.call(selectedEvent.id!);
+    res.fold((events) {
+      emit(EventsStateLoading());
+      Future.delayed(const Duration(seconds: 1));
+      emit(EventsStateLoaded(events));
+    }, (error) {});
   }
 }

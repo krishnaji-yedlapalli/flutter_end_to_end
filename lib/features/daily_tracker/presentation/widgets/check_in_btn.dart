@@ -6,17 +6,18 @@ class CheckInBtn extends StatefulWidget {
   final VoidCallback callback;
   final AnimationController controller;
 
-
-  const CheckInBtn({super.key, required this.position, required this.callback, required this.controller});
+  const CheckInBtn(
+      {super.key,
+      required this.position,
+      required this.callback,
+      required this.controller});
 
   @override
   State<CheckInBtn> createState() => CheckInBtnState();
 }
 
-class CheckInBtnState extends State<CheckInBtn>  {
-
+class CheckInBtnState extends State<CheckInBtn> {
   late Animation<Rect?> _rectAnimation;
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class CheckInBtnState extends State<CheckInBtn>  {
                       child: InkResponse(
                         onTap: widget.callback,
                         child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.white, shape: BoxShape.circle),
                             child: Image.asset(
                               'asset/daily_tracker/daily_tracker_check_in.png',
@@ -54,7 +55,10 @@ class CheckInBtnState extends State<CheckInBtn>  {
                             )),
                       ),
                     )
-                  : ElevatedButton.icon(onPressed: widget.callback, label: Text('Events'), icon: Icon(Icons.event)));
+                  : ElevatedButton.icon(
+                      onPressed: widget.callback,
+                      label: const Text('Events'),
+                      icon: const Icon(Icons.event)));
         });
   }
 }

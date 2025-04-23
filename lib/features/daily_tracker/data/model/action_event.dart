@@ -1,11 +1,9 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'action_event.g.dart';
 
 @JsonSerializable()
 class ActionEventModel {
-
   ActionEventModel(this.label, this.isSelected);
 
   @JsonKey(required: true)
@@ -18,5 +16,4 @@ class ActionEventModel {
       _$ActionEventModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ActionEventModelToJson(this);
-
 }

@@ -1,6 +1,4 @@
-
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
-
 
 class EventEntity {
   final String? id;
@@ -63,7 +61,6 @@ class EventEntity {
     );
   }
 
-
   EventEntity copyWith({
     String? id,
     String? eventType,
@@ -91,5 +88,4 @@ class EventEntity {
       status: status ?? this.status,
     );
   }
-
 }

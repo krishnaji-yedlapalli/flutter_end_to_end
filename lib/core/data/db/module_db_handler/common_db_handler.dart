@@ -1,4 +1,3 @@
-
 part of 'package:sample_latest/core/data/db/offline_handler.dart';
 
 class _CommonDbHandler extends DbHandler {
@@ -10,7 +9,11 @@ class _CommonDbHandler extends DbHandler {
     return _singleton;
   }
 
-  final DbInfo dbInfo = (dbName: 'common', dbVersion: 5, queryFileName: 'create_common_tables_queries');
+  final DbInfo dbInfo = (
+    dbName: 'common',
+    dbVersion: 5,
+    queryFileName: 'create_common_tables_queries'
+  );
 
   @override
   Future<bool> initializeDbIfNot() async {
@@ -19,7 +22,6 @@ class _CommonDbHandler extends DbHandler {
 
   @override
   Future<Response> performCrudOperation(RequestOptions options) async {
-
     await super.initializeDb(dbInfo);
 
     var response;
@@ -51,11 +53,11 @@ class _CommonDbHandler extends DbHandler {
 
   @override
   Future<Response> performDeleteOperation(RequestOptions options) async {
-
-    if(options.path.contains(DbConstants.queueItems)) {
-
+    if (options.path.contains(DbConstants.queueItems)) {
       int recordId = await dbHandler.deleteRecord(
-          tableName: DbConstants.queueItems, columnName: DbConstants.idColumnName, ids: [options.queryParameters['id']]);
+          tableName: DbConstants.queueItems,
+          columnName: DbConstants.idColumnName,
+          ids: [options.queryParameters['id']]);
     }
     return Response(requestOptions: options, statusCode: 200);
   }
@@ -78,18 +80,20 @@ class _CommonDbHandler extends DbHandler {
 
   @override
   Future<Response> performPatchOperation(RequestOptions options) async {
-
     if (options.isFromQueueItem) {
-
       /// storing in queue items
       var queueItem = QueueItem(options.path, options.method,
           body: options.data,
-          id: options.data is Map && options.data.keys.isNotEmpty ? options.data.keys.first : null,
+          id: options.data is Map && options.data.keys.isNotEmpty
+              ? options.data.keys.first
+              : null,
           queryParams: options.queryParameters,
           priority: options.priority);
 
       var queueItemBody = queueItem.toJson();
-      if(queueItem.body != null) queueItemBody['body'] = jsonEncode(queueItem.body);
+      if (queueItem.body != null) {
+        queueItemBody['body'] = jsonEncode(queueItem.body);
+      }
       queueItemBody['queryParams'] = jsonEncode(queueItem.queryParams);
 
       var res =
@@ -111,15 +115,14 @@ class _CommonDbHandler extends DbHandler {
   }
 
   Future<int> queueItemsCount() async {
-
     await super.initializeDb(dbInfo);
 
-    var result = await dbHandler.rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
+    var result = await dbHandler
+        .rawQueryWithParams('SELECT COUNT(*) FROM ${DbConstants.queueItems}');
     return result;
   }
 
   Future<int> insertQueueItem(RequestOptions options) async {
-
     await super.initializeDb(dbInfo);
 
     options.isFromQueueItem = true;
@@ -127,19 +130,19 @@ class _CommonDbHandler extends DbHandler {
     return 1;
   }
 
-
   Future<int> deleteQueueItem(int id) async {
-
     await super.initializeDb(dbInfo);
 
     int recordId = await dbHandler.deleteRecord(
-        tableName: DbConstants.queueItems, columnName: DbConstants.queueColumnName, ids: [id]);
-  return recordId;
+        tableName: DbConstants.queueItems,
+        columnName: DbConstants.queueColumnName,
+        ids: [id]);
+    return recordId;
   }
 
   @override
-  Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) async {
-
+  Future<Response> performBulkLocalDataStoreOperation(
+      RequestOptions options) async {
     await super.initializeDb(dbInfo);
 
     // TODO: implement _performBulkStoreOperation

@@ -1,7 +1,14 @@
-
 class SchoolDetailsParams {
-
-  SchoolDetailsParams(this.schoolName, this.country, this.location, this.id, this.image, this.studentCount, this.employeeCount, this.hostelAvailability, this.schoolId);
+  SchoolDetailsParams(
+      this.schoolName,
+      this.country,
+      this.location,
+      this.id,
+      this.image,
+      this.studentCount,
+      this.employeeCount,
+      this.hostelAvailability,
+      this.schoolId);
 
   final String schoolName;
 
@@ -20,6 +27,4 @@ class SchoolDetailsParams {
   final int employeeCount;
 
   final bool hostelAvailability;
-
-
 }

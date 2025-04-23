@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/check_in_btn.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
@@ -165,7 +164,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
         'asset/sound_effects/check_in.mp3');
     player.play();
     await controller.reverse();
-    if(mounted) context.read<CheckInStatusCubit>().checkIn();
+    if (mounted) context.read<CheckInStatusCubit>().checkIn();
   }
 
   void showEvents() {

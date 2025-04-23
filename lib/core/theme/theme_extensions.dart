@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class ResponsiveThemeExtension extends ThemeExtension<ResponsiveThemeExtension> {
+class ResponsiveThemeExtension
+    extends ThemeExtension<ResponsiveThemeExtension> {
   final double displayScale;
   final double headlineScale;
   final double bodyScale;
@@ -28,9 +29,9 @@ class ResponsiveThemeExtension extends ThemeExtension<ResponsiveThemeExtension> 
 
   @override
   ThemeExtension<ResponsiveThemeExtension> lerp(
-      ThemeExtension<ResponsiveThemeExtension>? other,
-      double t,
-      ) {
+    ThemeExtension<ResponsiveThemeExtension>? other,
+    double t,
+  ) {
     if (other is! ResponsiveThemeExtension) return this;
 
     return ResponsiveThemeExtension(

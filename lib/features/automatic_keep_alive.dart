@@ -44,9 +44,13 @@ class _AutomaticKeepAliveScreenState extends State<AutomaticKeepAliveScreen> {
             const Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                    "Scroll the list items and then switch between the Tabs, List items still persists in the same location,"
-                    " this is due to AutomaticKeepAlive, when you set the wantKeepAlive status to true, it will kept the widget alive", style: TextStyle(fontSize: 16, color: Colors.purple, fontWeight: FontWeight.w600
-                ),)),
+                  "Scroll the list items and then switch between the Tabs, List items still persists in the same location,"
+                  " this is due to AutomaticKeepAlive, when you set the wantKeepAlive status to true, it will kept the widget alive",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.purple,
+                      fontWeight: FontWeight.w600),
+                )),
             // Switch(
             //     value: keepAliveStatus,
             //     onChanged: (value) {
@@ -84,7 +88,6 @@ class ListData extends StatefulWidget {
 
 class _ListDataState extends State<ListData>
     with AutomaticKeepAliveClientMixin<ListData> {
-
   @override
   bool get wantKeepAlive => widget.keepAliveStatus;
 
@@ -95,18 +98,19 @@ class _ListDataState extends State<ListData>
       var random = Random().nextInt(40000);
       return ListTile(
         title: Text('$index Data $random'),
-        leading: Icon(getRandomIcon(), color: Theme.of(context).iconTheme.color),
+        leading:
+            Icon(getRandomIcon(), color: Theme.of(context).iconTheme.color),
       );
     }));
   }
 
-  IconData getRandomIcon(){
+  IconData getRandomIcon() {
     final List<int> points = <int>[0xe0b0, 0xe0b1, 0xe0b2, 0xe0b3, 0xe0b4];
     final Random random = Random();
     const String chars = '0123456789ABCDEF';
     int length = 3;
     String hex = '0xe';
-    while(length-- > 0) {
+    while (length-- > 0) {
       hex += chars[(random.nextInt(16)) | 0];
     }
     return IconData(int.parse(hex), fontFamily: 'MaterialIcons');

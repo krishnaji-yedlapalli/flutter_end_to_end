@@ -13,18 +13,22 @@ class CreateOrEditProfileUseCase {
 
   final ProfilesExecutedTask _profilesExecutedTask;
 
-  CreateOrEditProfileUseCase(this._profilesRepository, this._profilesExecutedTask);
+  CreateOrEditProfileUseCase(
+      this._profilesRepository, this._profilesExecutedTask);
 
-  Future<Either<List<ProfileEntity>, ErrorDetails>> call(ProfileParams params) async {
+  Future<Either<List<ProfileEntity>, ErrorDetails>> call(
+      ProfileParams params) async {
     try {
-      var profiles = await (params.id != null ? _editProfile(params) : _createProfile(params));
+      var profiles = await (params.id != null
+          ? _editProfile(params)
+          : _createProfile(params));
       return Left(profiles);
     } catch (e, s) {
       return Right(ExceptionHandler().handleException(e, s));
     }
   }
 
-  Future<List<ProfileEntity>> _createProfile(ProfileParams params) async{
+  Future<List<ProfileEntity>> _createProfile(ProfileParams params) async {
     var profile = ProfileEntity(HelperMethods.uuid, params.name);
     profile = await _profilesRepository.createOrEditProfile(profile);
     _profilesExecutedTask.addProfile = profile;

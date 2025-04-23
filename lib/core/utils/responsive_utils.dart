@@ -12,8 +12,11 @@ class ResponsiveUtils {
           .clamp(ThemeConstants.minScaleFactor, 1.0);
     } else if (screenWidth <= ThemeConstants.tabletBreakpoint) {
       // Tablets
-      double scale = 1.0 + (((screenWidth - ThemeConstants.mobileBreakpoint) /
-          (ThemeConstants.tabletBreakpoint - ThemeConstants.mobileBreakpoint)) * 0.1);
+      double scale = 1.0 +
+          (((screenWidth - ThemeConstants.mobileBreakpoint) /
+                  (ThemeConstants.tabletBreakpoint -
+                      ThemeConstants.mobileBreakpoint)) *
+              0.1);
       return scale.clamp(1.0, 1.1);
     } else {
       // Larger screens

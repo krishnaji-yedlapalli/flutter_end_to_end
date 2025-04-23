@@ -52,9 +52,9 @@ class DailyTrackerInjectionModule {
     injector
       ..registerFactory<ProfilesRepository>(
           () => ProfilesRepositoryImpl(injector(), injector()))
-      ..registerFactory<AuthRepository>(
-              () => AuthRepositoryImpl(injector()))
-      ..registerFactory<EventsRepository>(() => EventRepositoryImpl(injector(), injector()))
+      ..registerFactory<AuthRepository>(() => AuthRepositoryImpl(injector()))
+      ..registerFactory<EventsRepository>(
+          () => EventRepositoryImpl(injector(), injector()))
       ..registerFactory<CheckInStatusRepository>(
           () => CheckInStatusRepositoryImpl(injector(), injector()));
   }
@@ -62,7 +62,8 @@ class DailyTrackerInjectionModule {
   void _registerUseCases() {
     injector
       ..registerFactory<AuthUseCase>(() => AuthUseCase(injector(), injector()))
-      ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector(), injector()))
+      ..registerFactory<ProfilesUseCase>(
+          () => ProfilesUseCase(injector(), injector()))
       ..registerFactory<EventsUseCase>(
           () => EventsUseCase(injector(), injector()))
       ..registerFactory<PerformUserCheckInUseCase>(
@@ -72,23 +73,27 @@ class DailyTrackerInjectionModule {
       ..registerFactory<CreateUpdateEventUseCase>(
           () => CreateUpdateEventUseCase(injector(), injector()))
       ..registerFactory<UpdateTodayEventUseCase>(
-              () => UpdateTodayEventUseCase(injector(), injector()))
+          () => UpdateTodayEventUseCase(injector(), injector()))
       ..registerFactory<CreateOrEditProfileUseCase>(
-              () => CreateOrEditProfileUseCase(injector(), injector()))
+          () => CreateOrEditProfileUseCase(injector(), injector()))
       ..registerFactory<DeleteEventUseCase>(
-              () => DeleteEventUseCase(injector(), injector()));
+          () => DeleteEventUseCase(injector(), injector()));
   }
 
   void _registerBlocs() {
     injector
       ..registerFactory<AuthCubit>(() => AuthCubit(injector()))
-      ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector(), injector()))
+      ..registerFactory<ProfilesCubit>(
+          () => ProfilesCubit(injector(), injector()))
       ..registerFactory<CheckInStatusCubit>(
-              () => CheckInStatusCubit(injector(), injector(), injector()))
-      ..registerFactoryParam<EventsCubit, CheckInStatusCubit, void>((checkInStatusCubit, _) => EventsCubit(
-          checkInStatusCubit,
-          injector<EventsUseCase>(),
-          injector<CreateUpdateEventUseCase>(), injector(), injector()));
+          () => CheckInStatusCubit(injector(), injector(), injector()))
+      ..registerFactoryParam<EventsCubit, CheckInStatusCubit, void>(
+          (checkInStatusCubit, _) => EventsCubit(
+              checkInStatusCubit,
+              injector<EventsUseCase>(),
+              injector<CreateUpdateEventUseCase>(),
+              injector(),
+              injector()));
   }
 
   void _registerExecutedCacheManager() {
@@ -101,8 +106,7 @@ class DailyTrackerInjectionModule {
     }
 
     if (!injector.isRegistered<ProfilesExecutedTask>()) {
-      injector.registerSingleton<ProfilesExecutedTask>(
-          ProfilesExecutedTask());
+      injector.registerSingleton<ProfilesExecutedTask>(ProfilesExecutedTask());
     }
   }
 
@@ -147,5 +151,4 @@ class DailyTrackerInjectionModule {
       injector.unregister<ProfilesExecutedTask>();
     }
   }
-
 }

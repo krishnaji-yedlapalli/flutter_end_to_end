@@ -1,8 +1,6 @@
-
 part of 'package:sample_latest/core/data/db/offline_handler.dart';
 
 class _SchoolsDbHandler extends DbHandler {
-
   _SchoolsDbHandler._internal();
 
   static final _SchoolsDbHandler _singleton = _SchoolsDbHandler._internal();
@@ -11,7 +9,11 @@ class _SchoolsDbHandler extends DbHandler {
     return _singleton;
   }
 
-  final DbInfo dbInfo = (dbName: 'school', dbVersion: 5, queryFileName: 'create_school_table_queries');
+  final DbInfo dbInfo = (
+    dbName: 'school',
+    dbVersion: 5,
+    queryFileName: 'create_school_table_queries'
+  );
 
   @override
   Future<bool> initializeDbIfNot() async {
@@ -20,37 +22,35 @@ class _SchoolsDbHandler extends DbHandler {
 
   @override
   Future<Response> performCrudOperation(RequestOptions options) async {
-
     await initializeDbIfNot();
 
-      switch (requestType(options.method)) {
-        case RequestType.get:
-          return performGetOperation(options);
-        case RequestType.post:
-        case RequestType.patch:
-        case RequestType.put:
-          return performPatchOperation(options);
-        case RequestType.delete:
-          return performDeleteOperation(options);
-        case RequestType.store:
-          return performBulkLocalDataStoreOperation(options);
-        default:
-          throw DioException(
-              requestOptions: options,
-              error:  OfflineException(),
-              type: DioExceptionType.unknown,
-              message : DbConstants.notSupportedOfflineErrorMsg);
-      }
+    switch (requestType(options.method)) {
+      case RequestType.get:
+        return performGetOperation(options);
+      case RequestType.post:
+      case RequestType.patch:
+      case RequestType.put:
+        return performPatchOperation(options);
+      case RequestType.delete:
+        return performDeleteOperation(options);
+      case RequestType.store:
+        return performBulkLocalDataStoreOperation(options);
+      default:
+        throw DioException(
+            requestOptions: options,
+            error: OfflineException(),
+            type: DioExceptionType.unknown,
+            message: DbConstants.notSupportedOfflineErrorMsg);
+    }
   }
 
   @override
   Future<Response> performDeleteOperation(RequestOptions options) async {
-
     dynamic id;
-    if(options.queryParameters.containsKey(DbConstants.idColumnName)){
+    if (options.queryParameters.containsKey(DbConstants.idColumnName)) {
       id = options.queryParameters[DbConstants.idColumnName];
-    }else{
-     id = options.path.split('/').last.split('.').first;
+    } else {
+      id = options.path.split('/').last.split('.').first;
     }
 
     String? dbName;
@@ -68,15 +68,15 @@ class _SchoolsDbHandler extends DbHandler {
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
 
       /// Storing the data locally
-      if(!options.notRequiredToStoreInQueue) {
+      if (!options.notRequiredToStoreInQueue) {
         await _CommonDbHandler().insertQueueItem(options);
       }
     } else {
       throw DioException(
           requestOptions: options,
-          error:  OfflineException(),
+          error: OfflineException(),
           type: DioExceptionType.unknown,
-          message : DbConstants.notSupportedOfflineErrorMsg);
+          message: DbConstants.notSupportedOfflineErrorMsg);
     }
 
     return Response(requestOptions: options, data: true, statusCode: 200);
@@ -129,9 +129,9 @@ class _SchoolsDbHandler extends DbHandler {
 
     throw DioException(
         requestOptions: options,
-        error:  OfflineException(),
+        error: OfflineException(),
         type: DioExceptionType.unknown,
-        message : DbConstants.notSupportedOfflineErrorMsg);
+        message: DbConstants.notSupportedOfflineErrorMsg);
   }
 
   @override
@@ -154,17 +154,18 @@ class _SchoolsDbHandler extends DbHandler {
       var response = await dbHandler.insertData(tableName, body);
 
       /// Storing the data locally
-      if(!(options.notRequiredToStoreInQueue)) {
+      if (!(options.notRequiredToStoreInQueue)) {
         await _CommonDbHandler().insertQueueItem(options);
       }
-      return Response(requestOptions: options, data: options.data, statusCode: 200);
+      return Response(
+          requestOptions: options, data: options.data, statusCode: 200);
     }
 
     throw DioException(
         requestOptions: options,
-        error:  OfflineException(),
+        error: OfflineException(),
         type: DioExceptionType.unknown,
-        message : DbConstants.notSupportedOfflineErrorMsg);
+        message: DbConstants.notSupportedOfflineErrorMsg);
   }
 
   @override
@@ -174,7 +175,8 @@ class _SchoolsDbHandler extends DbHandler {
   }
 
   @override
-  Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) async {
+  Future<Response> performBulkLocalDataStoreOperation(
+      RequestOptions options) async {
     String? tableName;
 
     if (options.path.contains(Urls.schools)) {
@@ -189,14 +191,16 @@ class _SchoolsDbHandler extends DbHandler {
       List<Map<String, dynamic>> items = <Map<String, dynamic>>[];
       await dbHandler.deleteTableData(tableName);
 
-        items = (options.data as Map<String, dynamic>).entries.map<
-            Map<String, dynamic>>((e) => e.value).toList();
+      items = (options.data as Map<String, dynamic>)
+          .entries
+          .map<Map<String, dynamic>>((e) => e.value)
+          .toList();
 
-      if(tableName == Urls.students) {
+      if (tableName == Urls.students) {
         var innerList = <Map<String, dynamic>>[];
         for (var value in items) {
-          innerList.addAll(value.entries.map<
-              Map<String, dynamic>>((e) => e.value).toList());
+          innerList.addAll(
+              value.entries.map<Map<String, dynamic>>((e) => e.value).toList());
         }
         items = innerList;
       }
@@ -207,9 +211,9 @@ class _SchoolsDbHandler extends DbHandler {
 
     throw DioException(
         requestOptions: options,
-        error:  OfflineException(),
+        error: OfflineException(),
         type: DioExceptionType.unknown,
-        message : DbConstants.notSupportedOfflineErrorMsg);
+        message: DbConstants.notSupportedOfflineErrorMsg);
   }
 
   @override

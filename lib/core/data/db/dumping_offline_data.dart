@@ -22,7 +22,8 @@ class _DumpingOfflineData {
 
     /// Zip information
     ByteData value = await args[2];
-    Uint8List zipData = value.buffer.asUint8List(value.offsetInBytes, value.lengthInBytes);
+    Uint8List zipData =
+        value.buffer.asUint8List(value.offsetInBytes, value.lengthInBytes);
     InputStream ifs = InputStream(zipData);
     final archive = ZipDecoder().decodeBuffer(ifs);
 
@@ -52,19 +53,20 @@ class _DumpingOfflineData {
       var data = jsonDecode(await file.readAsString());
 
       if (file.path.contains('schools')) {
-
-        port.send((title: 'Dumping Schools into Local Data base', percentage: 70));
+        port.send(
+            (title: 'Dumping Schools into Local Data base', percentage: 70));
 
         if (data != null) {
-          await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.schools, method: RequestType.store.name, data: data));
+          await _SchoolsDbHandler().performCrudOperation(RequestOptions(
+              path: Urls.schools, method: RequestType.store.name, data: data));
         }
-
       } else if (file.path.contains('students')) {
-
-        port.send((title: 'Dumping Schools into Local Data base', percentage: 80));
+        port.send(
+            (title: 'Dumping Schools into Local Data base', percentage: 80));
 
         if (data != null) {
-          await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: Urls.students, method: RequestType.store.name, data: data));
+          await _SchoolsDbHandler().performCrudOperation(RequestOptions(
+              path: Urls.students, method: RequestType.store.name, data: data));
         }
       }
     }

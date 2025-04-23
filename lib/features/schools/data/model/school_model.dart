@@ -6,7 +6,9 @@ part 'school_model.g.dart';
 
 @JsonSerializable()
 class SchoolModel {
-  SchoolModel(this.schoolName, this.country, this.location, this.id, this.createdDate, {this.updatedDate});
+  SchoolModel(
+      this.schoolName, this.country, this.location, this.id, this.createdDate,
+      {this.updatedDate});
 
   @JsonKey(required: true)
   final String schoolName;
@@ -33,13 +35,15 @@ class SchoolModel {
     return json;
   }
 
-  SchoolEntity toSchoolEntity(){
-    return SchoolEntity(
-        schoolName, country, location, id, createdDate, updatedDate: updatedDate);
+  SchoolEntity toSchoolEntity() {
+    return SchoolEntity(schoolName, country, location, id, createdDate,
+        updatedDate: updatedDate);
   }
 
   factory SchoolModel.fromEntity(SchoolEntity school) {
-    return SchoolModel(school.schoolName, school.country, school.location, school.id, school.createdDate, updatedDate: school.updatedDate);
+    return SchoolModel(school.schoolName, school.country, school.location,
+        school.id, school.createdDate,
+        updatedDate: school.updatedDate);
   }
 
   factory SchoolModel.fromRouteJson(Map<String, dynamic> json) {

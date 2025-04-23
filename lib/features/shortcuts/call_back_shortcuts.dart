@@ -9,7 +9,8 @@ class CallBackShortCutsView extends StatefulWidget {
   State<CallBackShortCutsView> createState() => _CallBackShortCutsViewState();
 }
 
-class _CallBackShortCutsViewState extends State<CallBackShortCutsView> with HelperWidget{
+class _CallBackShortCutsViewState extends State<CallBackShortCutsView>
+    with HelperWidget {
   var i = 0;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class _CallBackShortCutsViewState extends State<CallBackShortCutsView> with Help
         },
       },
       child: CallbackShortcuts(
-        bindings: <CharacterActivator, VoidCallback> {
+        bindings: <CharacterActivator, VoidCallback>{
           const CharacterActivator('c', control: true): () {
             setState(() {
               i = 0;
@@ -47,11 +48,16 @@ class _CallBackShortCutsViewState extends State<CallBackShortCutsView> with Help
                   direction: Axis.vertical,
                   spacing: 10,
                   children: [
-                    Text('We can control the below count using below keyboard shortcuts : ', style: Theme.of(context).textTheme.titleSmall),
+                    Text(
+                        'We can control the below count using below keyboard shortcuts : ',
+                        style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: 10),
-                    iconWithText('Up Arrow', Icons.arrow_upward_outlined, 'Increment the value'),
-                    iconWithText('Down Arrow', Icons.arrow_downward, 'Decrement the value'),
-                    iconWithText('Ctrl + delete/backspace', Icons.clear, 'Reset the value to Zero')
+                    iconWithText('Up Arrow', Icons.arrow_upward_outlined,
+                        'Increment the value'),
+                    iconWithText('Down Arrow', Icons.arrow_downward,
+                        'Decrement the value'),
+                    iconWithText('Ctrl + delete/backspace', Icons.clear,
+                        'Reset the value to Zero')
                   ],
                 ),
               ),
@@ -60,8 +66,10 @@ class _CallBackShortCutsViewState extends State<CallBackShortCutsView> with Help
               child: Focus(
                 autofocus: true,
                 canRequestFocus: true,
-                child: Container(alignment: Alignment.topCenter,
-                    child: Text('Count : $i', style: Theme.of(context).textTheme.displaySmall)),
+                child: Container(
+                    alignment: Alignment.topCenter,
+                    child: Text('Count : $i',
+                        style: Theme.of(context).textTheme.displaySmall)),
               ),
             ),
           ],

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
@@ -10,8 +9,9 @@ import 'package:sample_latest/features/schools/shared/models/student_view_model.
 import 'package:sample_latest/features/schools/shared/params/student_params.dart';
 
 class CreateStudent extends StatefulWidget {
-
-  const CreateStudent(this.parentContext, this.schoolId, {Key? key, this.student}) : super(key: key);
+  const CreateStudent(this.parentContext, this.schoolId,
+      {Key? key, this.student})
+      : super(key: key);
 
   final String schoolId;
   final StudentViewModel? student;
@@ -21,8 +21,8 @@ class CreateStudent extends StatefulWidget {
   State<CreateStudent> createState() => _CreateStudentState();
 }
 
-class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Validators{
-
+class _CreateStudentState extends State<CreateStudent>
+    with CustomDialogs, Validators {
   final TextEditingController studentNameCtrl = TextEditingController();
 
   final TextEditingController staffStrengthCtrl = TextEditingController();
@@ -52,7 +52,7 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
 
   @override
   void initState() {
-    if(widget.student != null){
+    if (widget.student != null) {
       studentNameCtrl.text = widget.student?.studentName ?? '';
       studentLocationCtrl.text = widget.student?.studentLocation ?? '';
       selectedStandard = widget.student?.standard;
@@ -66,8 +66,9 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
   Widget build(BuildContext context) {
     return dialogWithButtons(
         title: 'Create Student',
-        content: _buildFrom(), actions: ['Cancel', widget.student != null ? 'Update' : 'Create'], callBack: onTapOfAction
-    );
+        content: _buildFrom(),
+        actions: ['Cancel', widget.student != null ? 'Update' : 'Create'],
+        callBack: onTapOfAction);
   }
 
   Widget _buildFrom() {
@@ -84,7 +85,8 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
               controller: studentNameCtrl,
               label: 'Student Name',
               suffixIcon: const Icon(Icons.school),
-              validator: (val)=> textEmptyValidator(val, 'Student name is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Student name is required!!'),
             ),
             CustomDropDown(
               items: standard
@@ -93,13 +95,15 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
               onChanged: (val) => selectedStandard = val,
               value: selectedStandard,
               hint: 'Standard',
-              validator: (val)=> textEmptyValidator(val, 'Standard is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Standard is required!!'),
             ),
             CustomTextField(
               controller: studentLocationCtrl,
               label: 'Location of Student',
               suffixIcon: const Icon(Icons.location_on),
-              validator: (val)=> textEmptyValidator(val, 'Location is required!!'),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Location is required!!'),
             ),
           ],
         ),
@@ -107,13 +111,13 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
     );
   }
 
-  void onTapOfAction(int index){
-    switch(index){
-      case 0 :
+  void onTapOfAction(int index) {
+    switch (index) {
+      case 0:
         Navigator.of(context).pop();
         break;
-      case 1 :
-        if(formKey.currentState?.validate() ?? false) {
+      case 1:
+        if (formKey.currentState?.validate() ?? false) {
           widget.parentContext.read<StudentsBloc>().createOrEditStudent(
               StudentParams(
                 widget.student?.id,
@@ -122,8 +126,7 @@ class _CreateStudentState extends State<CreateStudent> with CustomDialogs, Valid
                 studentLocationCtrl.text.trim(),
                 selectedStandard!,
               ),
-          isCreateStudent: isCreateStudent
-          );
+              isCreateStudent: isCreateStudent);
           Navigator.of(context).pop();
         }
         break;

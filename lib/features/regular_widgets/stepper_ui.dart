@@ -10,8 +10,7 @@ class StepperExampleApp extends StatelessWidget {
   }
 }
 
-class StepperExample extends StatefulWidget
-{
+class StepperExample extends StatefulWidget {
   const StepperExample({super.key});
 
   @override
@@ -87,14 +86,14 @@ class _StepperExampleState extends State<StepperExample> {
   Widget build(BuildContext context) {
     return DeviceConfiguration.isMobileResolution
         ? SingleChildScrollView(
-          child: Column(
+            child: Column(
               children: [
                 _stepperWithoutAction(),
                 const Divider(),
                 _stepperWithTapAction()
               ],
             ),
-        )
+          )
         : Row(
             children: [
               Expanded(child: _stepperWithoutAction()),
@@ -172,8 +171,13 @@ class _StepperExampleState extends State<StepperExample> {
                         child: Wrap(
                           direction: Axis.vertical,
                           children: [
-                            Text(stepper.content ?? '', style: const TextStyle(color: Colors.orange)),
-                            Text(DateTime.now().subtract(Duration(days: _index)).toString(), style: const TextStyle(color: Colors.purple))
+                            Text(stepper.content ?? '',
+                                style: const TextStyle(color: Colors.orange)),
+                            Text(
+                                DateTime.now()
+                                    .subtract(Duration(days: _index))
+                                    .toString(),
+                                style: const TextStyle(color: Colors.purple))
                           ],
                         ),
                       ),
@@ -185,5 +189,6 @@ class _StepperExampleState extends State<StepperExample> {
     );
   }
 
-  Text title(String title) => Text(title, style: Theme.of(context).textTheme.headlineSmall);
+  Text title(String title) =>
+      Text(title, style: Theme.of(context).textTheme.headlineSmall);
 }

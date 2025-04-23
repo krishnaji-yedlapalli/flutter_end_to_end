@@ -15,8 +15,8 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'daily_tracker/core/daily_tracker_router_module.dart';
-import 'feature_discovery/home_feature_discovery.dart';
+import '../daily_tracker/core/daily_tracker_router_module.dart';
+import '../feature_discovery/home_feature_discovery.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen>
           content: Text('Some features are currently on development')));
       _buildMaterialBanner();
       Future.delayed(const Duration(seconds: 2), () {
-        if(mounted) ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        if (mounted) ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
         // offlineBannerKey.currentState;
         // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
       });
@@ -103,13 +103,15 @@ class _HomeScreenState extends State<HomeScreen>
         'School Journey with Clean Architecture',
         ScreenType.school,
         Icons.school,
-        des: 'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+        des:
+            'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
       ),
       (
-      'School Journey with MVC',
-      ScreenType.schoolMvc,
-      Icons.school,
-      des: 'This Journey helps the developer to develop the small scale application with MVC architecture'
+        'School Journey with MVC',
+        ScreenType.schoolMvc,
+        Icons.school,
+        des:
+            'This Journey helps the developer to develop the small scale application with MVC architecture'
       ),
       (
         'Push Notifications',
@@ -141,12 +143,6 @@ class _HomeScreenState extends State<HomeScreen>
         Icons.tab,
         des:
             'This makes the screen alive if we navigated to another tab as well'
-      ),
-      (
-        'Upi payments',
-        ScreenType.upiPayments,
-        Icons.payment,
-        des: 'Make the upi payments, Supports Android only'
       ),
       (
         'Isolates',
@@ -187,14 +183,14 @@ class _HomeScreenState extends State<HomeScreen>
         ],
       ),
       body: AdaptiveLayoutBuilder(
-        builder : (context, deviceType) => GridView.builder(
+        builder: (context, deviceType) => GridView.builder(
             itemCount: screenTypes.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: switch(deviceType){
-                  DeviceResolutionType.mobile => 2,
-                  DeviceResolutionType.tab => 3,
-                  DeviceResolutionType.desktop => 5,
-                }),
+                crossAxisCount: switch (deviceType) {
+              DeviceResolutionType.mobile => 2,
+              DeviceResolutionType.tab => 3,
+              DeviceResolutionType.desktop => 5,
+            }),
             itemBuilder: (_, index) {
               var screenDetails = screenTypes.elementAt(index);
               var module = buildHomeCardView(
@@ -223,7 +219,6 @@ class _HomeScreenState extends State<HomeScreen>
       ScreenType.schoolMvc => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
-      ScreenType.upiPayments => '/home/upipayments',
       ScreenType.isolates => '/home/isolates',
       ScreenType.shortcuts => '/home/actionShortcuts',
       ScreenType.plugins => '/home/plugins',

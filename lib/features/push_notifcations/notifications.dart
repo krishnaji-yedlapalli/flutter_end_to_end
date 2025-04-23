@@ -3,16 +3,17 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 class NotificationWithRemoteAndLocal extends StatefulWidget {
-
   final Widget child;
 
   const NotificationWithRemoteAndLocal(this.child, {super.key});
 
   @override
-  State<NotificationWithRemoteAndLocal> createState() => _NotificationWithRemoteAndLocalState();
+  State<NotificationWithRemoteAndLocal> createState() =>
+      _NotificationWithRemoteAndLocalState();
 }
 
-class _NotificationWithRemoteAndLocalState extends State<NotificationWithRemoteAndLocal> {
+class _NotificationWithRemoteAndLocalState
+    extends State<NotificationWithRemoteAndLocal> {
   int selectedIndex = 0;
 
   @override
@@ -29,25 +30,27 @@ class _NotificationWithRemoteAndLocalState extends State<NotificationWithRemoteA
                 height: 100,
                 child: BottomNavigationBar(
                     currentIndex: selectedIndex,
-                    onTap: (index){
-                     setState(() {
-                       selectedIndex = index;
-                     });
-        
-                     if(selectedIndex == 0) {
-                       GoRouter.of(context).push(
-                           '/home/push-notifications/remote-notifications');
-                     }else{
-                       GoRouter.of(context).push(
-                           '/home/push-notifications/local-notifications');
-                     }
+                    onTap: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+
+                      if (selectedIndex == 0) {
+                        GoRouter.of(context).push(
+                            '/home/push-notifications/remote-notifications');
+                      } else {
+                        GoRouter.of(context).push(
+                            '/home/push-notifications/local-notifications');
+                      }
                     },
                     items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.notification_add), label: 'Remote Notifications'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.notification_add_outlined), label: 'Local Notifications')
-                ])),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.notification_add),
+                          label: 'Remote Notifications'),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.notification_add_outlined),
+                          label: 'Local Notifications')
+                    ])),
             Expanded(child: widget.child)
           ],
         ),

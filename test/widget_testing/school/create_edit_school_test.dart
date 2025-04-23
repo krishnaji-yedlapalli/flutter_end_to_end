@@ -1,15 +1,11 @@
 import 'package:feature_discovery/feature_discovery.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
-import 'package:sample_latest/main.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
@@ -17,9 +13,7 @@ import 'package:sample_latest/features/feature_discovery/school_feature_discover
 import 'package:sample_latest/features/schools/presentation/screens/schools/create_update_school.dart';
 import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:firebase_core_platform_interface/src/pigeon/mocks.dart';
 import '../../mock_data/configuration_data.dart';
-import 'create_edit_school_test.mocks.dart';
 
 @GenerateMocks([SchoolRepository])
 void main() async {
@@ -108,13 +102,13 @@ void main() async {
                   data: MediaQueryData(size: size),
                   child: ChangeNotifierProvider(
                     create: (context) =>
-                        CommonProvider(ThemeMode.dark, Locale('en')),
+                        CommonProvider(ThemeMode.dark, const Locale('en')),
                     child: BlocProvider(
                         create: (context) => schoolBloc,
                         child: FeatureDiscovery.withProvider(
-                            persistenceProvider: NoPersistenceProvider(),
+                            persistenceProvider: const NoPersistenceProvider(),
                             child: Builder(builder: (context) {
-                              return Schools();
+                              return const Schools();
                             }))),
                   )), // Replace with your actual widget
             ),

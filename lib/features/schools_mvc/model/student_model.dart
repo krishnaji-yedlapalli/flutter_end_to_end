@@ -1,14 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'student_model.g.dart';
 
 @JsonSerializable()
 class StudentModel {
+  StudentModel(this.id, this.schoolId, this.studentName, this.studentLocation,
+      this.standard, this.createdDate,
+      {this.updatedDate});
 
-  StudentModel(this.id, this.schoolId, this.studentName, this.studentLocation, this.standard, this.createdDate, {this.updatedDate});
-
-  @JsonKey(required: true,)
+  @JsonKey(
+    required: true,
+  )
   final String id;
   final String schoolId;
   final String studentName;
@@ -19,7 +21,8 @@ class StudentModel {
 
   final int? updatedDate;
 
-  factory StudentModel.fromJson(Map<String, dynamic> json) => _$StudentModelFromJson(json);
+  factory StudentModel.fromJson(Map<String, dynamic> json) =>
+      _$StudentModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$StudentModelToJson(this);
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -20,23 +19,32 @@ class ShellChildOneChildOne extends StatelessWidget {
           Wrap(
             spacing: 5,
             children: [
-              IconButton.filledTonal(onPressed: context.read<RouteProvider>().decrease, icon: const Icon(Icons.remove)),
-              Text('${context.watch<RouteProvider>().value}', style: Theme.of(context).textTheme.displaySmall),
-              IconButton.filledTonal(onPressed: context.read<RouteProvider>().increase, icon: const Icon(Icons.add)),
+              IconButton.filledTonal(
+                  onPressed: context.read<RouteProvider>().decrease,
+                  icon: const Icon(Icons.remove)),
+              Text('${context.watch<RouteProvider>().value}',
+                  style: Theme.of(context).textTheme.displaySmall),
+              IconButton.filledTonal(
+                  onPressed: context.read<RouteProvider>().increase,
+                  icon: const Icon(Icons.add)),
             ],
           ),
-          ElevatedButton(onPressed: () => onTap(context), child: const Text('Navigate to Child 2')),
-          ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('pop'))
+          ElevatedButton(
+              onPressed: () => onTap(context),
+              child: const Text('Navigate to Child 2')),
+          ElevatedButton(
+              onPressed: () => Navigator.pop(context), child: const Text('pop'))
         ],
       ),
     );
   }
 
-
   void onTap(BuildContext context) {
     // var query = {
     //   'id' : 123
     // };
-    context.push('/home/route/parent/child1/child2', );
+    context.push(
+      '/home/route/parent/child1/child2',
+    );
   }
 }

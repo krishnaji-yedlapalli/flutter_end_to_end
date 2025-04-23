@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class IsolateWithCompute extends StatelessWidget {
-   IsolateWithCompute({Key? key}) : super(key: key);
+  IsolateWithCompute({Key? key}) : super(key: key);
 
   final stream = StreamController();
-   final int iteration = 7000000000;
+  final int iteration = 7000000000;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,17 @@ class IsolateWithCompute extends StatelessWidget {
                 direction: Axis.vertical,
                 spacing: 20,
                 children: [
-                  ElevatedButton(onPressed: withoutCompute, child: const Text('Without Isolate')),
-                  ElevatedButton(onPressed: withCompute, child: const Text('With Isolate')),
-                  ElevatedButton(onPressed: runHeavyTaskWithIsolated, child: const Text('With Spawan')),
-                  ElevatedButton(onPressed: refresh, child: const Text('Refresh')),
+                  ElevatedButton(
+                      onPressed: withoutCompute,
+                      child: const Text('Without Isolate')),
+                  ElevatedButton(
+                      onPressed: withCompute,
+                      child: const Text('With Isolate')),
+                  ElevatedButton(
+                      onPressed: runHeavyTaskWithIsolated,
+                      child: const Text('With Spawan')),
+                  ElevatedButton(
+                      onPressed: refresh, child: const Text('Refresh')),
                 ],
               ),
             ),
@@ -35,7 +42,9 @@ class IsolateWithCompute extends StatelessWidget {
                   stream: stream.stream,
                   builder: (context, snapShotData) {
                     if (snapShotData.hasData) {
-                      return Text(snapShotData.data.toString(), style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold));
+                      return Text(snapShotData.data.toString(),
+                          style: const TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold));
                     }
                     return const CircularProgressIndicator();
                   }),
@@ -49,25 +58,26 @@ class IsolateWithCompute extends StatelessWidget {
   void refresh() => stream.add(null);
 
   void withoutCompute() async {
-      var count = complexOperation(iteration);
-      stream.add(count);
+    var count = complexOperation(iteration);
+    stream.add(count);
   }
 
-   void withCompute() async {
+  void withCompute() async {
     var count = await compute(complexOperation, iteration);
     stream.add(count);
   }
 
   void runHeavyTaskWithIsolated() async {
     final receivePort = ReceivePort();
-    try{
-      await Isolate.spawn(spawnComplexOperation, [receivePort.sendPort, iteration]);
+    try {
+      await Isolate.spawn(
+          spawnComplexOperation, [receivePort.sendPort, iteration]);
       // receivePort.listen((message) {
       //
       // });
       var filteredCount = receivePort.first;
       stream.add(filteredCount);
-    }catch(e){
+    } catch (e) {
       receivePort.close();
       debugPrint('Isolate spwan error');
     }
@@ -81,13 +91,9 @@ class IsolateWithCompute extends StatelessWidget {
 
   static int complexOperation(int count) {
     var value = 0;
-    for(int i = 0; i < count; i++){
+    for (int i = 0; i < count; i++) {
       value += i;
     }
     return value;
   }
-
-
 }
-
-

@@ -6,13 +6,17 @@ import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 class StateFulShellRoutingWithIndexed extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
 
-  const StateFulShellRoutingWithIndexed({Key? key, required this.navigationShell}) : super(key: key);
+  const StateFulShellRoutingWithIndexed(
+      {Key? key, required this.navigationShell})
+      : super(key: key);
 
   @override
-  State<StateFulShellRoutingWithIndexed> createState() => _StateFulShellRoutingWithIndexedState();
+  State<StateFulShellRoutingWithIndexed> createState() =>
+      _StateFulShellRoutingWithIndexedState();
 }
 
-class _StateFulShellRoutingWithIndexedState extends State<StateFulShellRoutingWithIndexed> {
+class _StateFulShellRoutingWithIndexedState
+    extends State<StateFulShellRoutingWithIndexed> {
   static const List<String> items = ['Hi', 'Hello', 'Hola'];
 
   int selectedIndex = 0;
@@ -27,7 +31,11 @@ class _StateFulShellRoutingWithIndexedState extends State<StateFulShellRoutingWi
       body: Column(
         children: [
           SegmentedButton<int>(
-              segments: List.generate(items.length, (index) => ButtonSegment(value: index, label: Text(items.elementAt(index)))).toList(),
+              segments: List.generate(
+                  items.length,
+                  (index) => ButtonSegment(
+                      value: index,
+                      label: Text(items.elementAt(index)))).toList(),
               selected: <int>{selectedIndex},
               onSelectionChanged: (Set<int> newSelection) {
                 widget.navigationShell.goBranch(selectedIndex);
@@ -35,10 +43,13 @@ class _StateFulShellRoutingWithIndexedState extends State<StateFulShellRoutingWi
                   selectedIndex = newSelection.first;
                 });
               }),
-          Expanded(child: Container(
+          Expanded(
+              child: Container(
             margin: const EdgeInsets.all(16),
             alignment: Alignment.center,
-            color: [Colors.blue, Colors.lightGreen, Colors.lightBlueAccent].elementAt(selectedIndex).withOpacity(0.2),
+            color: [Colors.blue, Colors.lightGreen, Colors.lightBlueAccent]
+                .elementAt(selectedIndex)
+                .withOpacity(0.2),
             child: widget.navigationShell,
           ))
         ],

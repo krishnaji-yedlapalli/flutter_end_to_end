@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -30,30 +28,30 @@ class ConnectivityHandler {
   }
 
   void initialize() async {
+    assert(_subscription == null, 'Already connectivity handler initialized');
 
-     assert(_subscription == null, 'Already connectivity handler initialized');
-
-     if(await _connectivity.checkConnectivity() !=  ConnectivityResult.none){
-       _isConnected = true;
-     }
-     _connectivityListener();
+    if (await _connectivity.checkConnectivity() != ConnectivityResult.none) {
+      _isConnected = true;
+    }
+    _connectivityListener();
   }
 
   void _connectivityListener() {
-     _subscription = _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
-       late bool currentState;
-       if(result == ConnectivityResult.none){
-          currentState = false;
-        }else{
-          currentState = true;
-        }
+    _subscription =
+        _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+      late bool currentState;
+      if (result == ConnectivityResult.none) {
+        currentState = false;
+      } else {
+        currentState = true;
+      }
 
-       if(currentState != _isConnected) {
-         _isConnected = currentState;
-          connectionChangeStatusController.add(_isConnected);
+      if (currentState != _isConnected) {
+        _isConnected = currentState;
+        connectionChangeStatusController.add(_isConnected);
 
-          if(_isConnected) OfflineHandler().syncData();
-        }
+        if (_isConnected) OfflineHandler().syncData();
+      }
     });
   }
 }

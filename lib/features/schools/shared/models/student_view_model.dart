@@ -1,4 +1,3 @@
-
 import '../../domain/entities/student_entity.dart';
 
 class StudentViewModel {
@@ -26,5 +25,4 @@ class StudentViewModel {
       standard: entity.standard,
     );
   }
-
 }

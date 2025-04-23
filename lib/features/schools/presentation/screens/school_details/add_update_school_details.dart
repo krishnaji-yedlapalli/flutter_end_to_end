@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
@@ -117,7 +114,8 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails>
                   int.parse(staffStrengthCtrl.text.trim()),
                   hostelAvailability,
                   widget.school.id));
-          Navigator.of(context).pop();}
+          Navigator.of(context).pop();
+        }
         break;
     }
   }

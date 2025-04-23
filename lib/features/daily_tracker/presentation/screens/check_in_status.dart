@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserCheckInStatus extends StatefulWidget {
   const UserCheckInStatus({super.key});
@@ -28,4 +26,3 @@ class _UserCheckInStatusState extends State<UserCheckInStatus> {
     //     });
   }
 }
-

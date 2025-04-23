@@ -5,7 +5,6 @@ import 'package:sample_latest/features/schools/shared/models/school_view_model.d
 
 import '../../../core/mixins/dialogs.dart';
 import '../../../core/router_helper.dart';
-import '../data/model/school_model.dart';
 import '../presentation/screens/school_details/school_details.dart';
 import '../presentation/screens/schools/schools.dart';
 import '../presentation/screens/student/student.dart';

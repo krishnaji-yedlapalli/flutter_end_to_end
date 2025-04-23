@@ -19,7 +19,7 @@ class Student extends StatefulWidget {
   State<Student> createState() => _ChildListState();
 }
 
-class _ChildListState extends State<Student> with HelperWidget, Loaders{
+class _ChildListState extends State<Student> with HelperWidget, Loaders {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((val) {
@@ -48,9 +48,9 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
           return circularLoader();
         } else if (state is StudentInfoLoaded) {
           return _buildStudentDetails(state.student);
-        }  else if(state is SchoolDataError) {
+        } else if (state is SchoolDataError) {
           return ExceptionView(state.errorStateType);
-        }else {
+        } else {
           return Container();
         }
       },
@@ -61,11 +61,19 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
   Widget _buildStudentDetails(StudentModel student) {
     return Column(
       children: [
-      Text('Student Details :', style: Theme.of(context).textTheme.headlineSmall?.apply(color: Colors.orange)),
+        Text('Student Details :',
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.apply(color: Colors.orange)),
         _buildStudent(student),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton.icon(onPressed: deleteStudent, icon: const Icon(Icons.delete), label : const Text('Delete Student'), style: ElevatedButton.styleFrom(backgroundColor: Colors.red)),
+          child: ElevatedButton.icon(
+              onPressed: deleteStudent,
+              icon: const Icon(Icons.delete),
+              label: const Text('Delete Student'),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red)),
         )
       ],
     ).screenPadding();
@@ -85,6 +93,7 @@ class _ChildListState extends State<Student> with HelperWidget, Loaders{
 
   void deleteStudent() {
     GoRouter.of(context).pop();
-    BlocProvider.of<SchoolBloc>(context).deleteStudent(widget.studentId, widget.schoolId);
+    BlocProvider.of<SchoolBloc>(context)
+        .deleteStudent(widget.studentId, widget.schoolId);
   }
 }

@@ -10,7 +10,8 @@ class DeleteStudentUseCase {
 
   final SchoolExecutedTaskFlow _executedTask;
 
-  Future<List<StudentEntity>> call({required String studentId, required String schoolId}) async {
+  Future<List<StudentEntity>> call(
+      {required String studentId, required String schoolId}) async {
     await _repository.deleteStudent(studentId, schoolId);
     _executedTask.students.removeWhere((s) => s.id == studentId);
 

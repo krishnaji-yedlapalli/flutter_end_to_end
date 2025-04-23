@@ -70,14 +70,14 @@ void main() async {
                     DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
                     return ChangeNotifierProvider(
                     create: (context) =>
-                        CommonProvider(ThemeMode.dark, Locale('en')),
+                        CommonProvider(ThemeMode.dark, const Locale('en')),
                     child: BlocProvider(
                       key: UniqueKey(),
                         create: (context) => schoolBloc,
                         child: FeatureDiscovery.withProvider(
-                            persistenceProvider: NoPersistenceProvider(),
+                            persistenceProvider: const NoPersistenceProvider(),
                             child: Builder(builder: (context) {
-                              return Schools();
+                              return const Schools();
                             }))),
                   );
     }

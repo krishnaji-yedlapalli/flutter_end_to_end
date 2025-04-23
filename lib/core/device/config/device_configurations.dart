@@ -1,44 +1,41 @@
-
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 import '../enums/device_enums.dart';
 import '../utils/screen_break_points.dart';
 
 class DeviceConfiguration {
-
   DeviceConfiguration.initiate() {
-
-    if(kIsWeb){
+    if (kIsWeb) {
       _operatingType = OperatingSystemType.web;
       _applicationType = ApplicationType.web;
-    }else {
-      _operatingType = OperatingSystemType.values.firstWhere((operatingType) => operatingType.toString() == 'OperatingSystemType.${Platform.operatingSystem}');
+    } else {
+      _operatingType = OperatingSystemType.values.firstWhere((operatingType) =>
+          operatingType.toString() ==
+          'OperatingSystemType.${Platform.operatingSystem}');
 
-      if(Platform.isIOS || Platform.isAndroid){
+      if (Platform.isIOS || Platform.isAndroid) {
         _applicationType = ApplicationType.mobile;
-      }else if(Platform.isMacOS || Platform.isLinux || Platform.isWindows){
+      } else if (Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
         _applicationType = ApplicationType.desktop;
       }
     }
   }
 
-  static void updateDeviceResolutionAndOrientation(Size size, Orientation orientation) {
+  static void updateDeviceResolutionAndOrientation(
+      Size size, Orientation orientation) {
     _orientationType = orientation;
 
-    if(ScreenBreakPoints.isMobile(size)){
+    if (ScreenBreakPoints.isMobile(size)) {
       _deviceResolutionType = DeviceResolutionType.mobile;
-    }else if(ScreenBreakPoints.isDesktop(size)) {
+    } else if (ScreenBreakPoints.isDesktop(size)) {
       _deviceResolutionType = DeviceResolutionType.desktop;
-    }else{
+    } else {
       _deviceResolutionType = DeviceResolutionType.tab;
     }
   }
-
-
 
   /// Device types =>  mobile, foldedMobile, tab, desktop, watch, tv
   static late OperatingSystemType _operatingType;
@@ -52,24 +49,27 @@ class DeviceConfiguration {
   ///
   static late Orientation _orientationType;
 
-  static bool get isMobileResolution =>  _deviceResolutionType == DeviceResolutionType.mobile;
+  static bool get isMobileResolution =>
+      _deviceResolutionType == DeviceResolutionType.mobile;
 
-  static bool get isDesktopResolution =>  _deviceResolutionType == DeviceResolutionType.desktop;
+  static bool get isDesktopResolution =>
+      _deviceResolutionType == DeviceResolutionType.desktop;
 
-  static bool get isTabResolution =>  _deviceResolutionType == DeviceResolutionType.tab;
+  static bool get isTabResolution =>
+      _deviceResolutionType == DeviceResolutionType.tab;
 
-  static DeviceResolutionType get resolutionType =>  _deviceResolutionType;
+  static DeviceResolutionType get resolutionType => _deviceResolutionType;
 
-  static bool get isPortrait =>  _orientationType == Orientation.portrait;
+  static bool get isPortrait => _orientationType == Orientation.portrait;
 
-  static bool get isWeb =>  _applicationType == ApplicationType.web;
+  static bool get isWeb => _applicationType == ApplicationType.web;
 
-  static OperatingSystemType get operatingSystemType =>  _operatingType;
+  static OperatingSystemType get operatingSystemType => _operatingType;
 
-  static bool get isiPhone =>  _operatingType == OperatingSystemType.ios;
+  static bool get isiPhone => _operatingType == OperatingSystemType.ios;
 
   static bool get isOfflineSupportedDevice {
-    if(kIsWeb) return false;
+    if (kIsWeb) return false;
     return Platform.isIOS || Platform.isMacOS || Platform.isAndroid;
   }
 }

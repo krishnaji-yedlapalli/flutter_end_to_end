@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 
 import 'urls.dart';
@@ -9,12 +8,11 @@ import 'utils/service_enums_typedef.dart';
 import 'package:sample_latest/core/data/interceptors/interceptor.dart';
 
 class BaseService {
-
   static BaseService instance = BaseService._internal();
   final Dio dio = Dio();
 
-    BaseService._internal(){
-     dio.interceptors.add(RequestBypassInterceptor());
+  BaseService._internal() {
+    dio.interceptors.add(RequestBypassInterceptor());
   }
 
   Future<dynamic> makeRequest<T>(
@@ -25,8 +23,9 @@ class BaseService {
       Map<String, dynamic>? queryParameters,
       Map<String, String>? headers,
       RequestType method = RequestType.get,
-      Map<String, dynamic> extras = const {}, bool isOfflineApi = true, bool isFromQueue = false}) async {
-
+      Map<String, dynamic> extras = const {},
+      bool isOfflineApi = true,
+      bool isFromQueue = false}) async {
     dio.options.baseUrl = baseUrl ?? Urls.baseUrl;
     dio.options.extra.addAll(extras);
     dio.options.extra[DbConstants.isOfflineApi] = isOfflineApi;
@@ -68,7 +67,7 @@ class BaseService {
           data: body,
         );
       case RequestType.store:
-       throw UnsupportedError('');
+        throw UnsupportedError('');
     }
     return response.data;
   }

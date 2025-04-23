@@ -36,7 +36,7 @@ class CheckInStatusRepositoryImpl implements CheckInStatusRepository {
   @override
   Future<bool> submitUserCheckIn(UserCheckInParams params) async {
     var body = {
-      params.profileId : Map.fromEntries(
+      params.profileId: Map.fromEntries(
         params.events.map((e) => MapEntry(e.id!, e.toJson())),
       )
     };

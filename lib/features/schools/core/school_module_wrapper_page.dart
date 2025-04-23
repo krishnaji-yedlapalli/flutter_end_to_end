@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:sample_latest/features/schools/core/schools_injection_module.dart';
 import 'package:sample_latest/features/schools/data/repository/school_details_repository_impl.dart';
 import 'package:sample_latest/features/schools/data/repository/students_repository_impl.dart';
-import 'package:sample_latest/features/schools/domain/repository/students_repository.dart';
 import 'package:sample_latest/features/schools/domain/use_cases/student_usecases/delete_student_usecase.dart';
 import 'package:sample_latest/features/schools/domain/use_cases/student_usecases/student_modify_usecase.dart';
 import 'package:sample_latest/features/schools/domain/use_cases/student_usecases/student_usecase.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/widgets/custom_dropdown.dart';
@@ -14,7 +13,8 @@ import '../../blocs/schools_bloc/schools_bloc.dart';
 class CreateSchool extends StatefulWidget {
   final SchoolViewModel? school;
   final BuildContext parentContext;
-  const CreateSchool({Key? key,  required this.parentContext, this.school}) : super(key: key);
+  const CreateSchool({Key? key, required this.parentContext, this.school})
+      : super(key: key);
 
   @override
   State<CreateSchool> createState() => _CreateSchoolState();

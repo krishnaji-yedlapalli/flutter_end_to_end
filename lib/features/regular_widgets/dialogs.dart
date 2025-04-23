@@ -55,32 +55,37 @@ class Dialogs extends StatelessWidget {
   }
 
   Widget fullScreenDialog() {
-    return Builder(
-      builder: (context) {
-        return Dialog.fullscreen(
-             insetAnimationCurve: Curves.bounceIn,
-            insetAnimationDuration: const Duration(seconds: 3),
-            child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(),
-                Text('Full Screen Dialog', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.purple)),
-                IconButton(onPressed: () =>  GoRouter.of(context).pop(), icon: const Icon(Icons.close, size: 30, color: Colors.red))
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Divider(),
-            ),
-            sampleText,
-            const Expanded(child: FlutterLogo(size: 200)),
-            sampleText
-          ],
-        ).screenPadding());
-      }
-    );
+    return Builder(builder: (context) {
+      return Dialog.fullscreen(
+          insetAnimationCurve: Curves.bounceIn,
+          insetAnimationDuration: const Duration(seconds: 3),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Text('Full Screen Dialog',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.apply(color: Colors.purple)),
+                  IconButton(
+                      onPressed: () => GoRouter.of(context).pop(),
+                      icon:
+                          const Icon(Icons.close, size: 30, color: Colors.red))
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Divider(),
+              ),
+              sampleText,
+              const Expanded(child: FlutterLogo(size: 200)),
+              sampleText
+            ],
+          ).screenPadding());
+    });
   }
 
   Widget alertDialog(BuildContext context) {
@@ -88,7 +93,8 @@ class Dialogs extends StatelessWidget {
       title: const Text('Alert Dialog'),
       content: sampleText,
       actions: [
-        IconButton(onPressed: () => navigator(context), icon: const Icon(Icons.close))
+        IconButton(
+            onPressed: () => navigator(context), icon: const Icon(Icons.close))
       ],
       // insetPadding: ,
     );
@@ -96,11 +102,11 @@ class Dialogs extends StatelessWidget {
 
   Widget simpleDialog(BuildContext context) {
     return SimpleDialog(
-      title: const Text('Simple Dialog'),
-      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      // insetPadding:  EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-      children: sampleText.children
-    );
+        title: const Text('Simple Dialog'),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        // insetPadding:  EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        children: sampleText.children);
   }
 
   Widget simpleDialogWithOptions(BuildContext context) {
@@ -111,16 +117,16 @@ class Dialogs extends StatelessWidget {
   }
 
   Wrap get sampleText => const Wrap(
-    spacing: 10,
-    children: [
-      Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm"),
-      Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm"),
-      Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm")
-    ],
-  );
+        spacing: 10,
+        children: [
+          Text(
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm"),
+          Text(
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm"),
+          Text(
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm")
+        ],
+      );
 
   void navigator(BuildContext context) {
     GoRouter.of(context).pop();

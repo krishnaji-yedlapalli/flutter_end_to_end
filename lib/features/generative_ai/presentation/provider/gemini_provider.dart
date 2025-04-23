@@ -1,14 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:image_picker/image_picker.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-
 class GeminiChatProvider extends ChangeNotifier {
   final List<types.Message> _messages = [];
-  final types.User _user = types.User(id: 'user-id');
+   final types.User _user = types.User(id: 'user-id');
   final ImagePicker _picker = ImagePicker();
 
   final model = GenerativeModel(
@@ -27,24 +24,25 @@ class GeminiChatProvider extends ChangeNotifier {
       text: message.text,
     );
 
-    _messages.insert(0, textMessage); // Insert at the beginning for latest message at the bottom
+    _messages.insert(0,
+        textMessage); // Insert at the beginning for latest message at the bottom
     notifyListeners();
 
     // Generate AI response using Google Generative AI
     final response = await generateAIResponse(message.text);
     final aiMessage = types.TextMessage(
-      author: types.User(id: 'ai-id'),
+      author: const types.User(id: 'ai-id'),
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: 'msg-${DateTime.now().millisecondsSinceEpoch + 1}',
       text: response,
     );
 
-    _messages.insert(0, aiMessage); // Insert at the beginning for latest message at the bottom
+    _messages.insert(0,
+        aiMessage); // Insert at the beginning for latest message at the bottom
     notifyListeners();
   }
 
   Future<String> generateAIResponse(String userInput) async {
-
     final content = [Content.text(userInput)];
     final response = await model.generateContent(content);
 
@@ -64,7 +62,8 @@ class GeminiChatProvider extends ChangeNotifier {
         uri: pickedFile.path,
       );
 
-      _messages.insert(0, imageMessage); // Insert at the beginning for latest message at the bottom
+      _messages.insert(0,
+          imageMessage); // Insert at the beginning for latest message at the bottom
       notifyListeners();
     }
   }

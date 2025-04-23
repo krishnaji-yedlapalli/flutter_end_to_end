@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mockito/mockito.dart';
@@ -15,7 +14,6 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';
 import 'create_edit_school_test.mocks.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
 
@@ -43,7 +41,7 @@ void main() {
                     DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
                     return ChangeNotifierProvider(
                       create: (context) =>
-                          CommonProvider(ThemeMode.dark, Locale('en')),
+                          CommonProvider(ThemeMode.dark, const Locale('en')),
                       child: BlocProvider(
                           key: UniqueKey(),
                           create: (context) => schoolBloc,
@@ -74,7 +72,7 @@ void main() {
       when(mockSchoolRepo.fetchStudent(any, any)).thenAnswer((value) => Future.value(SchoolMockData.students.first));
 
       await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
-      await tester.pumpAndSettle(Duration(seconds: 1));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Student Details :'), findsOneWidget);
 

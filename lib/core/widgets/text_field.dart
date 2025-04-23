@@ -1,11 +1,18 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
-
-  const CustomTextField({Key? key, required this.controller, required this.label, this.suffixIcon, this.validator, this.inputFormatter, this.prefix, this.maxLines, this.onChange}) : super(key: key);
+  const CustomTextField(
+      {Key? key,
+      required this.controller,
+      required this.label,
+      this.suffixIcon,
+      this.validator,
+      this.inputFormatter,
+      this.prefix,
+      this.maxLines,
+      this.onChange})
+      : super(key: key);
 
   final TextEditingController controller;
 
@@ -37,10 +44,9 @@ class CustomTextField extends StatelessWidget {
 
   InputDecoration outlineDecoration() {
     return InputDecoration(
-      label: Text(label),
-      suffixIcon: suffixIcon,
-      prefixText: prefix,
-      border: const OutlineInputBorder()
-    );
+        label: Text(label),
+        suffixIcon: suffixIcon,
+        prefixText: prefix,
+        border: const OutlineInputBorder());
   }
 }

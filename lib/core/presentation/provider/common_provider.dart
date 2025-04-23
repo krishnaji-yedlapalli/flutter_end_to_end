@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommonProvider with ChangeNotifier {
-  CommonProvider(this.themeModeType, Locale locale) : _selectedLocale = locale, _selectedOverridingLocale = locale;
+  CommonProvider(this.themeModeType, Locale locale)
+      : _selectedLocale = locale,
+        _selectedOverridingLocale = locale;
 
   ThemeMode themeModeType = ThemeMode.system;
   Locale? _selectedLocale;
@@ -26,9 +28,9 @@ class CommonProvider with ChangeNotifier {
               locale.languageCode == existingLocale.languageCode,
           orElse: () => AppLocalizations.supportedLocales.first);
       _selectedLocale = filteredLocale;
-      if (!ignoreNotify){
+      if (!ignoreNotify) {
         notifyListeners();
-      } else{
+      } else {
         onChangeOfOverrideLanguage(filteredLocale, ignoreNotify: ignoreNotify);
       }
     }

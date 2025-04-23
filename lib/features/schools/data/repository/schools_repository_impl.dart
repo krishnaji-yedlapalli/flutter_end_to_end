@@ -13,7 +13,6 @@ class SchoolsRepositoryImpl implements SchoolRepository {
 
   @override
   Future<SchoolEntity> createOrEditSchool(SchoolEntity school) async {
-
     /// Creating object
     Map<String, dynamic> body = {school.id: school.toJson()};
 
@@ -55,7 +54,8 @@ class SchoolsRepositoryImpl implements SchoolRepository {
     }
 
     /// Converting DTO to entities
-    List<SchoolEntity> schoolEntities = schools.map((school) => school.toSchoolEntity()).toList();
+    List<SchoolEntity> schoolEntities =
+        schools.map((school) => school.toSchoolEntity()).toList();
 
     return schoolEntities;
   }

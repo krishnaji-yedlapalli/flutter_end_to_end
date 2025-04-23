@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
@@ -81,8 +80,10 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
       titleCtrl.text = widget.event?.title ?? '';
       descriptionCtrl.text = widget.event?.description ?? '';
       selectedDateCtrl.text = formatDateToDDMMYY(selectedDate!);
-      
-      actions = widget.event!.actionCheckList.map((action)=> TextEditingController(text: action.label)).toList();
+
+      actions = widget.event!.actionCheckList
+          .map((action) => TextEditingController(text: action.label))
+          .toList();
       WidgetsBinding.instance.addPostFrameCallback((duration) {
         selectedTimeCtrl.text = selectedTime?.format(context) ?? '';
       });
@@ -92,7 +93,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
       selectedTime = const TimeOfDay(hour: 00, minute: 00);
     }
 
-    if(actions.isEmpty) {
+    if (actions.isEmpty) {
       actions.add(TextEditingController());
     }
 
@@ -156,7 +157,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
                       validator: (val) =>
                           textEmptyValidator(val, 'Date is required!!'),
                       suffixIcon: IconButton(
-                          icon: Icon(Icons.calendar_month),
+                          icon: const Icon(Icons.calendar_month),
                           onPressed: onSelectionOfDate),
                     ),
                   ),
@@ -175,18 +176,19 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
     return Column(
       children: [
         Wrap(
-          runSpacing: 10,
-        children : actions
-            .map((element) => CustomTextField(
-                  controller: element,
-                  label: 'Action',
-                  validator: (val) =>
-                      textEmptyValidator(val, 'Action is required!!'),
-                ))
-            .toList()),
+            runSpacing: 10,
+            children: actions
+                .map((element) => CustomTextField(
+                      controller: element,
+                      label: 'Action',
+                      validator: (val) =>
+                          textEmptyValidator(val, 'Action is required!!'),
+                    ))
+                .toList()),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton.icon(onPressed: onAddOfAction, label: Text('Add Action')),
+          child: ElevatedButton.icon(
+              onPressed: onAddOfAction, label: const Text('Add Action')),
         )
       ],
     );
@@ -208,7 +210,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
                 val?.toString(), 'Time of day is required!!'),
           ),
         ),
-        if (selectedPartOfDay == PartsOfDay.customTime) SizedBox(width: 5),
+        if (selectedPartOfDay == PartsOfDay.customTime) const SizedBox(width: 5),
         if (selectedPartOfDay == PartsOfDay.customTime)
           Expanded(
             child: CustomTextField(
@@ -216,7 +218,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
               label: 'Select Time',
               validator: (val) => textEmptyValidator(val, 'Time is required!!'),
               suffixIcon: IconButton(
-                  icon: Icon(Icons.timer), onPressed: onSelectionOfTime),
+                  icon: const Icon(Icons.timer), onPressed: onSelectionOfTime),
             ),
           )
       ],
@@ -292,20 +294,22 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
           var selectedDateTime =
               mergeDateTimeAndTimeOfDay(selectedDate!, selectedTime!);
 
-          widget.parentContext.read<EventsCubit>().createOrUpdateEvent(
-              EventEntity(
+          widget.parentContext
+              .read<EventsCubit>()
+              .createOrUpdateEvent(EventEntity(
                 id: widget.event?.id,
                 eventType: selectedEvent.name,
                 title: titleCtrl.text.trim(),
                 description: descriptionCtrl.text.trim(),
-                createdDate: widget.event?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+                createdDate: widget.event?.createdDate ??
+                    DateTime.now().millisecondsSinceEpoch,
                 selectedDateTime: selectedDateTime.millisecondsSinceEpoch,
                 actionCheckList: actions
-                    .map((action) => ActionEventModel(action.text.trim(), false))
+                    .map(
+                        (action) => ActionEventModel(action.text.trim(), false))
                     .toList(),
                 updatedDate: DateTime.now().millisecondsSinceEpoch,
-              )
-          );
+              ));
           GoRouter.of(context).pop();
         }
         break;

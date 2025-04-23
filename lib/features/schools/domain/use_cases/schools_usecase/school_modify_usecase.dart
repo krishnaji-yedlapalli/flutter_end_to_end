@@ -29,11 +29,12 @@ class SchoolModifyUseCase {
         params.schoolName,
         params.country,
         params.location,
+
         /// Adding unique id
         HelperMethods.uuid,
+
         /// created date
-        DateTime.now().millisecondsSinceEpoch
-        );
+        DateTime.now().millisecondsSinceEpoch);
 
     var createdSchool = await _repository.createOrEditSchool(school);
 

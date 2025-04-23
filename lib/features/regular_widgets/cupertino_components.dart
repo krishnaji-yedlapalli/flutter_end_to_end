@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,9 +10,9 @@ class CupertinoComponents extends StatefulWidget {
   State<CupertinoComponents> createState() => _CupertinoComponentsState();
 }
 
-class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWidget  {
-
-   final List<String> _fruitNames = <String>[
+class _CupertinoComponentsState extends State<CupertinoComponents>
+    with HelperWidget {
+  final List<String> _fruitNames = <String>[
     'Apple',
     'Mango',
     'Banana',
@@ -21,11 +20,10 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
     'Pineapple',
     'Strawberry',
   ];
-   final double _kItemExtent = 32.0;
-   int _selectedFruit = 0;
+  final double _kItemExtent = 32.0;
+  int _selectedFruit = 0;
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -50,14 +48,15 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
   Widget _buildActivityIndicator() {
     return buildTitleWithContent(
       title: 'Cupertino Activity Indicator',
-      content:const CupertinoActivityIndicator(),
+      content: const CupertinoActivityIndicator(),
     );
   }
 
   Widget _buildCupertinoAlertDialog() {
     return buildTitleWithContent(
       title: 'Cupertino Alert Dialog',
-      content: CupertinoButton(onPressed: _showAlertDialog, child: const Text('Alert Dialog')),
+      content: CupertinoButton(
+          onPressed: _showAlertDialog, child: const Text('Alert Dialog')),
     );
   }
 
@@ -87,60 +86,65 @@ class _CupertinoComponentsState extends State<CupertinoComponents> with HelperWi
     );
   }
 
-
   Widget _cupertinoContextMenu() {
-    return  buildTitleWithContent(
-      title: 'Cupertino Text Menu action',
-      content:  CupertinoContextMenu(actions: [
-        CupertinoContextMenuAction(child: const Text('Copy'), onPressed: () => GoRouter.of(context).pop()),
-        CupertinoContextMenuAction(child: const Text('Paste'), onPressed: () => GoRouter.of(context).pop()),
-      ],
-       enableHapticFeedback: true,
-          child: RichText(text: const TextSpan(text: 'Menu Item')))
-    );
+    return buildTitleWithContent(
+        title: 'Cupertino Text Menu action',
+        content: CupertinoContextMenu(
+            actions: [
+              CupertinoContextMenuAction(
+                  child: const Text('Copy'),
+                  onPressed: () => GoRouter.of(context).pop()),
+              CupertinoContextMenuAction(
+                  child: const Text('Paste'),
+                  onPressed: () => GoRouter.of(context).pop()),
+            ],
+            enableHapticFeedback: true,
+            child: RichText(text: const TextSpan(text: 'Menu Item'))));
   }
 
   Widget _cupertinoPicker() {
-    return  buildTitleWithContent(
+    return buildTitleWithContent(
         title: 'Cupertino Picker',
         content: Wrap(
           spacing: 10,
           direction: Axis.vertical,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            CupertinoButton(onPressed: _showCupertinoPicker, child: const Text('Open cupertino Picker')),
-            Text(_fruitNames.elementAt(_selectedFruit), style: Theme.of(context).textTheme.titleSmall)
+            CupertinoButton(
+                onPressed: _showCupertinoPicker,
+                child: const Text('Open cupertino Picker')),
+            Text(_fruitNames.elementAt(_selectedFruit),
+                style: Theme.of(context).textTheme.titleSmall)
           ],
-        )
-    );
+        ));
   }
 
   void _showCupertinoPicker() {
-    showCupertinoModalPopup(context: context, builder: (context) {
-      return SizedBox(
-        height: 216,
-        child: CupertinoPicker(
-          magnification: 1.22,
-          squeeze: 1.2,
-          useMagnifier: true,
-          itemExtent: _kItemExtent,
-          // This sets the initial item.
-          scrollController: FixedExtentScrollController(
-            initialItem: _selectedFruit,
-          ),
-          // This is called when selected item is changed.
-          onSelectedItemChanged: (int selectedItem) {
-            setState(() {
-              _selectedFruit = selectedItem;
-            });
-          },
-          children:
-          List<Widget>.generate(_fruitNames.length, (int index) {
-            return Center(child: Text(_fruitNames[index]));
-          }),
-        ),
-      );
-    });
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: 216,
+            child: CupertinoPicker(
+              magnification: 1.22,
+              squeeze: 1.2,
+              useMagnifier: true,
+              itemExtent: _kItemExtent,
+              // This sets the initial item.
+              scrollController: FixedExtentScrollController(
+                initialItem: _selectedFruit,
+              ),
+              // This is called when selected item is changed.
+              onSelectedItemChanged: (int selectedItem) {
+                setState(() {
+                  _selectedFruit = selectedItem;
+                });
+              },
+              children: List<Widget>.generate(_fruitNames.length, (int index) {
+                return Center(child: Text(_fruitNames[index]));
+              }),
+            ),
+          );
+        });
   }
-
 }

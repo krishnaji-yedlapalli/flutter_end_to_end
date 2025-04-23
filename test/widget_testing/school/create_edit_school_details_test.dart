@@ -67,7 +67,7 @@ void main() async {
                       DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
                       return ChangeNotifierProvider(
                         create: (context) =>
-                            CommonProvider(ThemeMode.dark, Locale('en')),
+                            CommonProvider(ThemeMode.dark, const Locale('en')),
                         child: BlocProvider(
                             key: UniqueKey(),
                             create: (context) => schoolBloc,

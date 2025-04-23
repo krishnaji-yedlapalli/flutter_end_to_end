@@ -43,7 +43,8 @@ class StudentsBloc extends Cubit<StudentsState> {
       var student = await _studentUseCase.call(studentId, schoolId);
 
       if (student != null) {
-        emit(StudentInfoLoaded(student.toStudentViewModel(), stateType: StudentStateType.student));
+        emit(StudentInfoLoaded(student.toStudentViewModel(),
+            stateType: StudentStateType.student));
       } else {
         navigatorKey.currentState?.pop();
         Notifiers.toastNotifier('Invalid student details');
@@ -63,7 +64,8 @@ class StudentsBloc extends Cubit<StudentsState> {
       // _viewAllStudents = true;
 
       emit(StudentsInfoLoaded(
-          students.map((s) => s.toStudentViewModel()).toList(), params.schoolId));
+          students.map((s) => s.toStudentViewModel()).toList(),
+          params.schoolId));
     } catch (e, s) {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s,
@@ -81,7 +83,8 @@ class StudentsBloc extends Cubit<StudentsState> {
     try {
       navigatorKey.currentContext?.loaderOverlay.show();
 
-      var students = await _deleteStudentUseCase.call(studentId: studentId, schoolId: schoolId);
+      var students = await _deleteStudentUseCase.call(
+          studentId: studentId, schoolId: schoolId);
 
       emit(StudentsInfoLoaded(
           students.map((s) => s.toStudentViewModel()).toList(), schoolId));

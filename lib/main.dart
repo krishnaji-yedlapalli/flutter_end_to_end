@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
-import 'package:sample_latest/features/daily_tracker/data/repository/daily_tracker_repository.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
@@ -25,8 +24,7 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:sample_latest/adsense_web_stub.dart'
-if (dart.library.html) 'package:sample_latest/adsense_web.dart'
-as web;
+    if (dart.library.html) 'package:sample_latest/adsense_web.dart' as web;
 
 import 'core/environment/environment.dart';
 
@@ -42,7 +40,7 @@ import 'core/environment/environment.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
- if(kIsWeb) web.executeWebDependencies();
+  if (kIsWeb) web.executeWebDependencies();
 
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
@@ -52,7 +50,7 @@ void main() async {
     if (kReleaseMode) exit(1);
   };
 
- /// Listen to the method channel kind of errors
+  /// Listen to the method channel kind of errors
   PlatformDispatcher.instance.onError = (error, stack) {
     print(error);
     return true;
@@ -62,28 +60,26 @@ void main() async {
   await Firebase.initializeApp(
     options: PushNotificationService.currentPlatform,
   );
-  if(!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
+  if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
 
   DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
   Environment().configure();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
   final SchoolRepository? schoolRepository;
 
-   MyApp({super.key, this.schoolRepository});
+  const MyApp({super.key, this.schoolRepository});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -93,95 +89,99 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeLocales(List<Locale>? locales) {
     final currentLocale = locales?.first;
-    navigatorKey.currentContext?.read<CommonProvider>().onChangeOfLanguage(currentLocale);
+    navigatorKey.currentContext
+        ?.read<CommonProvider>()
+        .onChangeOfLanguage(currentLocale);
     super.didChangeLocales(locales);
   }
 
   @override
   void didChangePlatformBrightness() {
     var brightness = View.of(context).platformDispatcher.platformBrightness;
-    navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
+    navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(
+        brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
     super.didChangePlatformBrightness();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     var systemLocale = View.of(context).platformDispatcher.locale;
 
-    ThemeMode mode = brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
+    ThemeMode mode =
+        brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
 
     systemLocale = AppLocalizations.supportedLocales.firstWhere(
-            (existingLocale) =>
+        (existingLocale) =>
             systemLocale.languageCode == existingLocale.languageCode,
         orElse: () => AppLocalizations.supportedLocales.first);
 
     return MultiProvider(
-      providers : [
-        ChangeNotifierProvider(create: (context) => CommonProvider(mode, systemLocale)),
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => CommonProvider(mode, systemLocale)),
         ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (BuildContext context) => SchoolBloc(widget.schoolRepository ?? SchoolRepository()),),
+          BlocProvider(
+            create: (BuildContext context) =>
+                SchoolBloc(widget.schoolRepository ?? SchoolRepository()),
+          ),
         ],
-       child : Builder(
-         builder: (context) {
-           return OrientationBuilder(
-             builder: (context, orientation) {
-               DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
-               return GlobalLoaderOverlay(
-                 child: MaterialApp.router(
-                   debugShowCheckedModeBanner: false,
-                   title: 'Flutter End to End',
-                   localeResolutionCallback: (locale, locales) {
-                     // if(locale?.languageCode == 'es') {
-                     //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                     //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                     //   return englishLocale;
-                     // }
-                     return locale;
-                   },
-                   locale: context.watch<CommonProvider>().locale,
-                   // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                   // backButtonDispatcher: () => ,
-                   localizationsDelegates: const [
-                     AppLocalizations.delegate,
-                     GlobalMaterialLocalizations.delegate,
-                     GlobalCupertinoLocalizations.delegate,
-                     GlobalWidgetsLocalizations.delegate,
-                   ],
-                   supportedLocales: const [
-                     Locale('en'),
-                     Locale('es'),
-                     Locale('hi'),
-                     Locale('he'),
-                   ],
-                   /// text scale factor
-                   builder: (BuildContext context, Widget? child){
-                     var data = MediaQuery.of(context);
-                     return MediaQuery(data:data.copyWith(
-                       textScaler: TextScaler.linear(data.textScaleFactor),
-                     ),
-                         child: child ?? Container());
-                   },
-                   theme: CustomTheme.lightThemeData(context),
-                   darkTheme: CustomTheme.darkThemeData(),
-                   themeMode: context.watch<CommonProvider>().themeModeType,
-                   routerConfig: Routing.router,
-                 ),
-               );
-             }
-           );
-         }
-       ),
+        child: Builder(builder: (context) {
+          return OrientationBuilder(builder: (context, orientation) {
+            DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                MediaQuery.of(context).size, orientation);
+            return GlobalLoaderOverlay(
+              child: MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter End to End',
+                localeResolutionCallback: (locale, locales) {
+                  // if(locale?.languageCode == 'es') {
+                  //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                  //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                  //   return englishLocale;
+                  // }
+                  return locale;
+                },
+                locale: context.watch<CommonProvider>().locale,
+                // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                // backButtonDispatcher: () => ,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('es'),
+                  Locale('hi'),
+                  Locale('he'),
+                ],
+
+                /// text scale factor
+                builder: (BuildContext context, Widget? child) {
+                  var data = MediaQuery.of(context);
+                  return MediaQuery(
+                      data: data.copyWith(
+                        textScaler: TextScaler.linear(data.textScaleFactor),
+                      ),
+                      child: child ?? Container());
+                },
+                theme: CustomTheme.lightThemeData(context),
+                darkTheme: CustomTheme.darkThemeData(),
+                themeMode: context.watch<CommonProvider>().themeModeType,
+                routerConfig: Routing.router,
+              ),
+            );
+          });
+        }),
       ),
     );
   }
 }
-
 
 // @pragma(
 //     'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+

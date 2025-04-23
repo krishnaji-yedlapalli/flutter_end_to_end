@@ -15,7 +15,8 @@ class ExceptionHandler {
 
   ExceptionHandler._internal();
 
-  void handleExceptionWithToastNotifier(Object exception, {StackTrace? stackTrace, String? toastMessage}) {
+  void handleExceptionWithToastNotifier(Object exception,
+      {StackTrace? stackTrace, String? toastMessage}) {
     ErrorDetails errorStateType = handleException(exception, stackTrace);
     late String notifierText;
 
@@ -30,11 +31,13 @@ class ExceptionHandler {
       case DataErrorStateType.unauthorized:
         notifierText = 'Not Authorized!!!';
       case DataErrorStateType.none:
-        notifierText =  toastMessage ?? 'Unknown Exception occurred!!!';
+        notifierText = toastMessage ?? 'Unknown Exception occurred!!!';
       case DataErrorStateType.timeoutException:
         notifierText = 'Timeout Exception!!!';
       case DataErrorStateType.offlineError:
-        notifierText = exception is DioException ? exception.message ?? '' : 'Unknown Exception occurred!!!';
+        notifierText = exception is DioException
+            ? exception.message ?? ''
+            : 'Unknown Exception occurred!!!';
     }
 
     Notifiers.toastNotifier(notifierText);
@@ -45,14 +48,13 @@ class ExceptionHandler {
 
     if (exception is DioException) {
       errorStateType = handleServerException(exception, stackTrace);
-    } else {
-
-    }
+    } else {}
 
     return errorStateType;
   }
 
-  ErrorDetails handleServerException(DioException exception, StackTrace? stackTrace) {
+  ErrorDetails handleServerException(
+      DioException exception, StackTrace? stackTrace) {
     var errorStateType = DataErrorStateType.none;
     String? message;
 
@@ -74,15 +76,16 @@ class ExceptionHandler {
           case 403:
             errorStateType = DataErrorStateType.unauthorized;
             break;
-          case 500:case 502:
+          case 500:
+          case 502:
             errorStateType = DataErrorStateType.serverNotFound;
             break;
         }
       case DioExceptionType.unknown:
-        if(exception.error is OfflineException) {
+        if (exception.error is OfflineException) {
           errorStateType = DataErrorStateType.offlineError;
           message = exception.message;
-        }else{
+        } else {
           errorStateType = DataErrorStateType.somethingWentWrong;
           ReportError.errorLog(exception);
         }
@@ -92,7 +95,8 @@ class ExceptionHandler {
     return (errorStateType, message: message);
   }
 
-  DataErrorStateType handleNetworkExceptions(Exception exception, StackTrace? stackTrace) {
+  DataErrorStateType handleNetworkExceptions(
+      Exception exception, StackTrace? stackTrace) {
     var errorStateType = DataErrorStateType.none;
 
     switch (exception.runtimeType) {

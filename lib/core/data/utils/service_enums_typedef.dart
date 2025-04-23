@@ -1,7 +1,15 @@
+enum DataErrorStateType {
+  noInternet,
+  timeoutException,
+  serverNotFound,
+  somethingWentWrong,
+  fetchData,
+  unauthorized,
+  none,
+  offlineError
+}
 
-enum DataErrorStateType {noInternet, timeoutException, serverNotFound, somethingWentWrong, fetchData, unauthorized, none, offlineError}
-
-enum RequestType { get, put, post, delete, patch, store}
+enum RequestType { get, put, post, delete, patch, store }
 
 typedef DbInfo = ({String dbName, String queryFileName, int dbVersion});
 
