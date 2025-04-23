@@ -7,7 +7,6 @@ import 'package:sample_latest/features/daily_tracker/features/users/presentation
 import '../../../../../core/mixins/date_formats.dart';
 import '../../../../../core/mixins/dialogs.dart';
 import '../../../../../core/mixins/validators.dart';
-import '../../../../../core/widgets/custom_dropdown.dart';
 import '../../../../../core/widgets/text_field.dart';
 import '../../../shared/params/profile_params.dart';
 

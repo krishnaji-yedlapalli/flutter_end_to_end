@@ -91,8 +91,9 @@ class _CommonDbHandler extends DbHandler {
           priority: options.priority);
 
       var queueItemBody = queueItem.toJson();
-      if (queueItem.body != null)
+      if (queueItem.body != null) {
         queueItemBody['body'] = jsonEncode(queueItem.body);
+      }
       queueItemBody['queryParams'] = jsonEncode(queueItem.queryParams);
 
       var res =

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:one_clock/one_clock.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
-import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -64,11 +62,11 @@ class _SelectedEventViewState extends State<SelectedEventView>
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 20),
-      padding: EdgeInsets.all(12),
+      margin: const EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.8),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -84,13 +82,13 @@ class _SelectedEventViewState extends State<SelectedEventView>
   }
 
   Widget _buildDetails() {
-    var labelStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+    var labelStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 
-    var valueStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
+    var valueStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
     return Table(
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      columnWidths: {
+      columnWidths: const {
         0: FlexColumnWidth(1),
         1: FixedColumnWidth(20),
         2: FlexColumnWidth(3),
@@ -98,9 +96,9 @@ class _SelectedEventViewState extends State<SelectedEventView>
       children: [
         TableRow(children: [
           Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text('Title', style: labelStyle)),
-          Text(':'),
+          const Text(':'),
           Text(widget.selectedEvent.title, style: valueStyle)
         ]),
         TableRow(children: [

@@ -29,7 +29,7 @@ class SessionManager {
             jsonDecode((await _storage.read(key: 'loginDetails'))!);
         initialize(UserAuthEntity.fromJson(loginDetails));
       }
-    } catch (e, s) {}
+    } catch (e) {}
     return status;
   }
 
@@ -37,7 +37,7 @@ class SessionManager {
     try {
       _storage.write(
           key: 'loginDetails', value: jsonEncode(userDetails.toJson()));
-    } catch (e, s) {}
+    } catch (e) {}
   }
 
   String get accountId => userId;

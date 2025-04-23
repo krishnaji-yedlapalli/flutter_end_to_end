@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
@@ -64,9 +63,9 @@ class _ExistingEventsViewState extends State<ExistingEventsView>
             trailing: Wrap(
               children: [
                 IconButton(
-                    icon: Icon(Icons.edit), onPressed: () => onEdit(event)),
+                    icon: const Icon(Icons.edit), onPressed: () => onEdit(event)),
                 IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () => onDelete(context, event)),
               ],
             ),

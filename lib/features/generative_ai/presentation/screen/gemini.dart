@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 // Import the correct AI plugin classes
-import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 
 class GeminiChatScreen extends StatelessWidget {
@@ -16,7 +13,7 @@ class GeminiChatScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: const Text('Chat'),
       ),
       body: Chat(
         messages: chatProvider.messages,
@@ -29,9 +26,9 @@ class GeminiChatScreen extends StatelessWidget {
             IconButton(onPressed: () {}, icon: const Icon(Icons.attach_file))
           ],
         ),
-        scrollPhysics: AlwaysScrollableScrollPhysics(),
+        scrollPhysics: const AlwaysScrollableScrollPhysics(),
       ),
-      floatingActionButton: Column(
+      floatingActionButton: const Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           // FloatingActionButton(

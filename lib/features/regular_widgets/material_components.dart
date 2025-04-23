@@ -239,8 +239,8 @@ class _MaterialComponentsState extends State<MaterialComponents>
           },
           emptySelectionAllowed: true,
           style: ButtonStyle(
-              elevation: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) {
+              elevation: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
               return 5;
             }
             return 0;

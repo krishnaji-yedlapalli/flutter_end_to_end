@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -85,7 +84,7 @@ main() {
                 data: MediaQueryData(size: size),
                 child:  BlocProvider(
                     create: (context) => SchoolBloc(SchoolRepository()),
-                    child: SchoolDetails('123', null)))));
+                    child: const SchoolDetails('123', null)))));
         await tester.pumpAndSettle();
 
         await tester.tap(find.byType(FloatingActionButton));

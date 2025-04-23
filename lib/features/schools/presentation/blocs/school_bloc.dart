@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:meta/meta.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
@@ -27,7 +26,7 @@ class SchoolBloc extends Cubit<SchoolState> {
   bool isWelcomeMessageShowed = false;
 
   SchoolBloc(this.repository)
-      : super(const SchoolInfoInitial(SchoolDataLoadedType.schools)) {}
+      : super(const SchoolInfoInitial(SchoolDataLoadedType.schools));
 
   Future<void> loadSchools() async {
     const schoolState = SchoolDataLoadedType.schools;

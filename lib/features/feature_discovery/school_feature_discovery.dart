@@ -1,5 +1,4 @@
 import 'package:feature_discovery/feature_discovery.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/mixins/buttons_mixin.dart';
 import 'package:sample_latest/core/utils/constants.dart';

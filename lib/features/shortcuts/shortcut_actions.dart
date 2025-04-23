@@ -19,7 +19,7 @@ class ShortcutActions extends StatelessWidget {
           actions: <Type, Action<Intent>>{
             ClearAllIntent: ClearAllAction(controller)
           },
-          child: Focus(autofocus: true, child: const Text('dfsd')
+          child: const Focus(autofocus: true, child: Text('dfsd')
               //     ??  TextField(
               //   controller: controller,
               //   autofocus: true,

@@ -1,14 +1,10 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart'
     show TargetPlatform, debugPrint, defaultTargetPlatform, kIsWeb;
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:go_router/go_router.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
 import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/notifiers.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';

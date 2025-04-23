@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
-import 'dart:typed_data';
 
 import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
@@ -28,7 +27,6 @@ import 'package:sample_latest/core/utils/enums_type_def.dart';
 import '../utils/abstract_db_handler.dart';
 
 export 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 part 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
 part 'package:sample_latest/core/data/db/module_db_handler/schools_db_handler.dart';
@@ -100,8 +98,9 @@ class OfflineHandler {
 
     for (var a in queueItemsResponse.data) {
       var queueItem = Map<String, dynamic>.from(a);
-      if (queueItem['body'] != null)
+      if (queueItem['body'] != null) {
         queueItem['body'] = jsonDecode(queueItem['body']);
+      }
       queueItem['queryParams'] = jsonDecode(queueItem['queryParams']);
       queueItems.add(QueueItem.fromJson(queueItem));
     }
@@ -130,11 +129,12 @@ class OfflineHandler {
             isFromQueue: true);
 
         /// Deleting item from queue table
-        if (queueItem.queueId != null)
+        if (queueItem.queueId != null) {
           await _CommonDbHandler().deleteQueueItem(queueItem.queueId!);
+        }
 
         /// Deleting items from school db
-        if (DbConfigurationsByDev.deleteOfflineDataOnceSuccess)
+        if (DbConfigurationsByDev.deleteOfflineDataOnceSuccess) {
           await _SchoolsDbHandler().performCrudOperation(RequestOptions(
               path: queueItem.path,
               method: RequestType.delete.name,
@@ -144,6 +144,7 @@ class OfflineHandler {
               extra: {
                 DbConstants.notRequiredToStoreInQueue: true
               }));
+        }
       } catch (e, s) {
         ExceptionHandler().handleException(e, s);
       } finally {

@@ -7,7 +7,6 @@ import '../../core/services/session_manager.dart';
 import '../../domain/repository/events_repository.dart';
 import '../../shared/params/create_update_event_param.dart';
 import '../../shared/params/today_event_update_param.dart';
-import '../../shared/params/user_check_in_params.dart';
 import '../model/daily_tracker_event_model.dart';
 
 class EventRepositoryImpl implements EventsRepository {

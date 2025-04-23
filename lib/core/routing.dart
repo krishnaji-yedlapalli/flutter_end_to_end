@@ -2,50 +2,47 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:sample_latest/features/automatic_keep_alive.dart';
+import 'package:sample_latest/features/dashboard/home_screen.dart';
 import 'package:sample_latest/features/deep_linking/deep_linking.dart';
-import 'package:sample_latest/ui/exception/page_not_found.dart';
 import 'package:sample_latest/features/generative_ai/presentation/screen/gemini.dart';
+import 'package:sample_latest/features/isolates/isolate_home.dart';
+import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
+import 'package:sample_latest/features/localization.dart';
 import 'package:sample_latest/features/plugins/plugins_dashboard.dart';
+import 'package:sample_latest/features/plugins/youtube.dart';
 import 'package:sample_latest/features/push_notifcations/firebase_push_notifications.dart';
 import 'package:sample_latest/features/push_notifcations/local_pushNotifications.dart';
 import 'package:sample_latest/features/push_notifcations/notifications.dart';
-import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/page/daily_tracker_home.dart';
 import 'package:sample_latest/features/regular_widgets/animations/custom_implicit_animation_widgets.dart';
 import 'package:sample_latest/features/regular_widgets/animations/explicit_animation_widgets.dart';
 import 'package:sample_latest/features/regular_widgets/animations/implicit_animations_widgets.dart';
-import 'package:sample_latest/features/plugins/youtube.dart';
+import 'package:sample_latest/features/regular_widgets/cards_list_view_grid.dart';
 import 'package:sample_latest/features/regular_widgets/cupertino_components.dart';
-import 'package:sample_latest/features/regular_widgets/material_components.dart';
 import 'package:sample_latest/features/regular_widgets/dialogs.dart';
+import 'package:sample_latest/features/regular_widgets/material_components.dart';
 import 'package:sample_latest/features/regular_widgets/regular_widgets_dashboard.dart';
-import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/features/automatic_keep_alive.dart';
 import 'package:sample_latest/features/regular_widgets/selectable_text.dart';
+import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
 import 'package:sample_latest/features/regular_widgets/tables.dart';
 import 'package:sample_latest/features/routing_features/route_dashboard.dart';
-import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_parent.dart';
 import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_child_one.dart';
 import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_child_three.dart';
 import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_child_two.dart';
+import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_parent.dart';
 import 'package:sample_latest/features/routing_features/shell_route/shell_routing.dart';
 import 'package:sample_latest/features/routing_features/state_ful_shell_routing_with_indexed.dart';
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/features/scrolling/scroll_types.dart';
-import 'package:sample_latest/features/regular_widgets/cards_list_view_grid.dart';
-import 'package:sample_latest/features/dashboard/home_screen.dart';
-import 'package:sample_latest/features/isolates/isolate_home.dart';
-import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
-import 'package:sample_latest/features/localization.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/ui/exception/page_not_found.dart';
 
 import '../features/daily_tracker/core/daily_tracker_router_module.dart';
-import '../features/schools/core/schools_router_module.dart';
-import 'mixins/dialogs.dart';
 import '../features/plugins/local_authentication.dart';
+import '../features/schools/core/schools_router_module.dart';
 
 class Routing {
   static const String home = '/home';
@@ -375,14 +372,16 @@ class Routing {
   static void onPushNotificationOpened(RemoteMessage? message) {
     String path = '/home/schools';
     if (message?.data['path'] != null) path = message?.data['path'];
-    if (navigatorKey.currentContext != null)
+    if (navigatorKey.currentContext != null) {
       GoRouter.of(navigatorKey.currentContext!).push(path);
+    }
   }
 
   static void onLocalPushNotificationOpened(String? path) {
     path ??= '/home/schools';
-    if (navigatorKey.currentContext != null)
+    if (navigatorKey.currentContext != null) {
       GoRouter.of(navigatorKey.currentContext!).push(path);
+    }
   }
 
   static bool navigateToHome(BuildContext context) {

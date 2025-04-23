@@ -225,8 +225,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   Widget _buildStudents(List<StudentModel> students) {
-    if (students.isEmpty)
+    if (students.isEmpty) {
       return emptyMessage('No Students to display, Create a New student');
+    }
 
     return SizedBox(
       width: DeviceConfiguration.isMobileResolution

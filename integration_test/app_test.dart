@@ -9,8 +9,6 @@ import 'package:sample_latest/main.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
-import '';
 
 void main() {
 
@@ -29,7 +27,7 @@ void main() {
   group('end to end test', (){
     testWidgets('end to end test', (tester) async {
 
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(const MyApp());
 
       bool homeOverlayDismissed = false;
       for (int i = 0; i < 100; i++) {
@@ -48,7 +46,7 @@ void main() {
       // await Future.delayed(Duration(seconds: 4));
       await tester.pumpAndSettle();
 
-      var school = find.byKey(Key('school'));
+      var school = find.byKey(const Key('school'));
       await tester.tap(school);
 
       bool schoolOverlayDismissed = false;
@@ -97,7 +95,7 @@ void main() {
       await tester.pump();
 
       await tester.tap(find.text('Create'));
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       var createdSchool = find.byType(ListTile);
 

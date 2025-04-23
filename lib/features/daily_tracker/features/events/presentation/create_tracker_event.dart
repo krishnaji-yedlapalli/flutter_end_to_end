@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
@@ -158,7 +157,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
                       validator: (val) =>
                           textEmptyValidator(val, 'Date is required!!'),
                       suffixIcon: IconButton(
-                          icon: Icon(Icons.calendar_month),
+                          icon: const Icon(Icons.calendar_month),
                           onPressed: onSelectionOfDate),
                     ),
                   ),
@@ -189,7 +188,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton.icon(
-              onPressed: onAddOfAction, label: Text('Add Action')),
+              onPressed: onAddOfAction, label: const Text('Add Action')),
         )
       ],
     );
@@ -211,7 +210,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
                 val?.toString(), 'Time of day is required!!'),
           ),
         ),
-        if (selectedPartOfDay == PartsOfDay.customTime) SizedBox(width: 5),
+        if (selectedPartOfDay == PartsOfDay.customTime) const SizedBox(width: 5),
         if (selectedPartOfDay == PartsOfDay.customTime)
           Expanded(
             child: CustomTextField(
@@ -219,7 +218,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
               label: 'Select Time',
               validator: (val) => textEmptyValidator(val, 'Time is required!!'),
               suffixIcon: IconButton(
-                  icon: Icon(Icons.timer), onPressed: onSelectionOfTime),
+                  icon: const Icon(Icons.timer), onPressed: onSelectionOfTime),
             ),
           )
       ],

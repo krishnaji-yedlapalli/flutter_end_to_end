@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 
 import 'urls.dart';

@@ -39,7 +39,7 @@ class EventSortHelper with HelperMethods, DateFormats {
           }
         }
       }
-    } catch (e, s) {}
+    } catch (e) {}
 
     todayEvents.sort((a, b) => EventStatus.values
         .indexWhere((e) => a.status == e.name)

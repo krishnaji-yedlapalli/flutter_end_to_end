@@ -3,7 +3,6 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../analytics_exception_handler/exception_handler.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';
 import '../../../../core/mixins/helper_methods.dart';
-import '../../data/model/daily_tracker_event_model.dart';
 import '../../shared/models/profile_executed_task.dart';
 import '../../shared/params/create_update_event_param.dart';
 import '../../shared/utils/event_sorter_converter.dart';

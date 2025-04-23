@@ -3,13 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sample_latest/features/daily_tracker/core/daily_tracker_injection_module.dart';
-import 'package:sample_latest/features/schools/core/schools_injection_module.dart';
 
-import '../../../core/data/base_service.dart';
-import '../data/repository/daily_tracker_repository.dart';
-import '../data/repository/profiles_repo_impl.dart';
-import '../domain/repository/profiles_repository.dart';
-import '../domain/usecases/users_useCase.dart';
 import '../features/authentication/presentation/cubit/auth_cubit.dart';
 import '../features/events/presentation/cubit/events_cubit.dart';
 import '../features/greetings/presentation/cubit/check_in_status_cubit.dart';

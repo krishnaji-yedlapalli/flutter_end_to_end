@@ -29,10 +29,6 @@ class _TimeOfDayMessageState extends State<TimeOfDayMessage>
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +58,8 @@ class _TimeOfDayMessageState extends State<TimeOfDayMessage>
                       alignment: Alignment.center,
                       child: ElevatedButton.icon(
                           onPressed: () {},
-                          label: Text('Events'),
-                          icon: Icon(Icons.event))));
+                          label: const Text('Events'),
+                          icon: const Icon(Icons.event))));
         });
   }
 }

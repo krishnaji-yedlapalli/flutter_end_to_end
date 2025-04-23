@@ -23,9 +23,7 @@ class CustomTheme {
               primaryContainer: Colors.green,
               secondary: Colors.white,
               secondaryContainer: Colors.white,
-              background: Colors.white,
               surface: Colors.green,
-              onBackground: Colors.white,
               onSurface: Colors.white,
               onError: Colors.white,
               onPrimary: Colors.white,
@@ -71,19 +69,19 @@ class CustomTheme {
 
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              elevation: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
+              elevation: WidgetStateProperty.resolveWith(
+                  (Set<WidgetState> states) {
+                if (states.contains(WidgetState.hovered)) {
                   return 5.0;
                 } else {
                   return 3.0;
                 }
               }),
-              backgroundColor: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
+              backgroundColor: WidgetStateProperty.resolveWith(
+                  (Set<WidgetState> states) {
                 if (states.contains(WidgetState.disabled)) {
                   return Colors.grey;
-                } else if (states.contains(MaterialState.hovered)) {
+                } else if (states.contains(WidgetState.hovered)) {
                   return Colors.white;
                 } else {
                   return Colors.green;
@@ -94,7 +92,7 @@ class CustomTheme {
               textStyle: WidgetStateProperty.all(
                   GoogleFonts.prompt(fontWeight: FontWeight.w600)),
               foregroundColor:
-                  WidgetStateProperty.resolveWith((Set<MaterialState> states) {
+                  WidgetStateProperty.resolveWith((Set<WidgetState> states) {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.green;
                 } else {
@@ -105,8 +103,8 @@ class CustomTheme {
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
               shadowColor:
-                  MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-              foregroundColor: MaterialStateProperty.all(Colors.white))),
+                  WidgetStateProperty.all<Color>(Colors.lightGreenAccent),
+              foregroundColor: WidgetStateProperty.all(Colors.white))),
 
       navigationRailTheme: NavigationRailThemeData(
         elevation: 5,
@@ -149,9 +147,9 @@ class CustomTheme {
           color: Colors.grey.withOpacity(0.1),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        dataRowColor: MaterialStateProperty.resolveWith(
+        dataRowColor: WidgetStateProperty.resolveWith(
           (states) {
-            if (states.contains(MaterialState.hovered)) {
+            if (states.contains(WidgetState.hovered)) {
               return Colors.green;
             } else {
               return Colors.white;
@@ -165,9 +163,9 @@ class CustomTheme {
         dataTextStyle: GoogleFonts.abhayaLibre(
           color: Colors.black,
         ),
-        headingRowColor: MaterialStateProperty.resolveWith(
+        headingRowColor: WidgetStateProperty.resolveWith(
           (states) {
-            if (states.contains(MaterialState.hovered)) {
+            if (states.contains(WidgetState.hovered)) {
               return Colors.green;
             } else {
               return Colors.blueAccent.withOpacity(0.5);

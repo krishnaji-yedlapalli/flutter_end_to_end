@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
-import 'package:sample_latest/features/daily_tracker/data/repository/daily_tracker_repository.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/latest_3.0.dart';
@@ -68,13 +67,13 @@ void main() async {
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
   Environment().configure();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
   final SchoolRepository? schoolRepository;
 
-  MyApp({super.key, this.schoolRepository});
+  const MyApp({super.key, this.schoolRepository});
 
   @override
   State<MyApp> createState() => _MyAppState();

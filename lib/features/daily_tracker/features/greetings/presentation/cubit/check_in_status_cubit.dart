@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
-import 'package:sample_latest/features/daily_tracker/domain/usecases/update_today_event_useCase.dart';
 
 import '../../../../../../core/mixins/date_formats.dart';
 import '../../../../../../core/mixins/helper_methods.dart';

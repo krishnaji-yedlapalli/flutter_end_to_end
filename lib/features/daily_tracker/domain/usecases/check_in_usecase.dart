@@ -1,6 +1,5 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
-import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/action_event.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/features/daily_tracker/domain/repository/check_in_status_repo.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
                   controller: _emailController,
                   label: 'Email',
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 CustomTextField(
                   controller: _passwordController,
                   label: 'Password',
@@ -79,7 +78,7 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _login,
-                  child: Text("Login"),
+                  child: const Text("Login"),
                 ),
               ],
             ),

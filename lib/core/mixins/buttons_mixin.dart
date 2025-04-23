@@ -6,14 +6,14 @@ mixin ButtonMixin {
       return TextButton(
         onPressed: callback,
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.hovered)) {
+            backgroundColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
                 return Colors.orange;
               } else {
                 return Colors.lightGreen;
               }
             }),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            shape: WidgetStateProperty.all(const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5))))),
         child: Text(
           label,

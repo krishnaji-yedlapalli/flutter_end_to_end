@@ -3,12 +3,8 @@ import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:sample_latest/features/daily_tracker/shared/models/profile_executed_task.dart';
 
 import '../../../../analytics_exception_handler/exception_handler.dart';
-import '../../data/repository/events_repos_impl.dart';
 import '../../shared/params/today_event_update_param.dart';
-import '../../shared/params/user_check_in_params.dart';
-import '../entities/checkIn_status_entity.dart';
 import '../entities/event_entity.dart';
-import '../repository/check_in_status_repo.dart';
 import '../repository/events_repository.dart';
 
 class UpdateTodayEventUseCase {

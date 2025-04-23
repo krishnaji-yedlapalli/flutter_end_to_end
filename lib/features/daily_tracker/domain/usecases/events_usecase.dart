@@ -4,9 +4,6 @@ import 'package:sample_latest/features/daily_tracker/domain/repository/events_re
 
 import '../../../../analytics_exception_handler/exception_handler.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';
-import '../../../../core/mixins/date_formats.dart';
-import '../../../../core/mixins/helper_methods.dart';
-import '../../../../core/utils/enums_type_def.dart';
 import '../../shared/models/profile_executed_task.dart';
 import '../../shared/utils/event_sorter_converter.dart';
 

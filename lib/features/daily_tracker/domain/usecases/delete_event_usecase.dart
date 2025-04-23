@@ -2,7 +2,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/features/daily_tracker/data/model/daily_tracker_event_model.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/features/daily_tracker/domain/repository/events_repository.dart';
-import 'package:sample_latest/features/daily_tracker/shared/models/profiles_executed_task.dart';
 
 import '../../../../analytics_exception_handler/exception_handler.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';

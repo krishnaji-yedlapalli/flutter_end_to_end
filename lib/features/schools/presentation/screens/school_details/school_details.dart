@@ -230,8 +230,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   Widget _buildStudents(List<StudentViewModel> students) {
-    if (students.isEmpty)
+    if (students.isEmpty) {
       return emptyMessage('No Students to display, Create a New student');
+    }
 
     return Align(
       alignment: Alignment.centerLeft,

@@ -30,10 +30,6 @@ class DailyTrackerDigitalClockState extends State<DailyTrackerDigitalClock>
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

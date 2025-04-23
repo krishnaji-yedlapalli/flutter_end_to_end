@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
@@ -19,9 +18,6 @@ import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 
 import '../../../../../core/device/widgets/adapative_container.dart';
-import '../../../../../core/device/enums/device_enums.dart';
-import '../../../../../core/device/utils/screen_break_points.dart';
-import '../../../../../core/device/widgets/adaptive_layout_builder.dart';
 import '../../blocs/schools_bloc/schools_bloc.dart';
 import '../../blocs/schools_bloc/schools_state.dart';
 
