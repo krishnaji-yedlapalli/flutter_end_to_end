@@ -15,7 +15,6 @@ import '../features/events/presentation/cubit/events_cubit.dart';
 import '../features/greetings/presentation/cubit/check_in_status_cubit.dart';
 import '../features/users/presentation/cubit/profiles_cubit.dart';
 
-
 class DailyTrackerWrapperPage extends StatefulWidget {
   const DailyTrackerWrapperPage({super.key, required this.child});
 
@@ -27,7 +26,6 @@ class DailyTrackerWrapperPage extends StatefulWidget {
 }
 
 class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
-
   @override
   void initState() {
     /// Singleton class
@@ -41,7 +39,7 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
 
     return PopScope(
       onPopInvokedWithResult: (status, result) {
-        if(status){
+        if (status) {
           DailyTrackerInjectionModule().unRegisterDependencies();
         }
       },
@@ -49,14 +47,19 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
         persistenceProvider: const NoPersistenceProvider(),
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
-            BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
-            BlocProvider(create: (BuildContext context) =>  injector<AuthCubit>()),
-            BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(
-              param1: context.read<CheckInStatusCubit>()
-            )),
+            BlocProvider(
+                create: (BuildContext context) => injector<ProfilesCubit>()),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    injector<CheckInStatusCubit>()),
+            BlocProvider(
+                create: (BuildContext context) => injector<AuthCubit>()),
+            BlocProvider(
+                create: (BuildContext context) => injector<EventsCubit>(
+                    param1: context.read<CheckInStatusCubit>())),
           ],
-          child: widget.child, // This ensures child routes have access to these blocs
+          child: widget
+              .child, // This ensures child routes have access to these blocs
         ),
       ),
     );

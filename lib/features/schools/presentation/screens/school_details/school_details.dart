@@ -22,7 +22,6 @@ import '../../blocs/school_details_bloc/schools_details_state.dart';
 import '../../blocs/students_bloc/students_state.dart';
 
 class SchoolDetails extends StatefulWidget {
-
   final SchoolViewModel? school;
 
   final String schoolId;
@@ -38,7 +37,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   @override
   void initState() {
     BlocProvider.of<SchoolDetailsBLoc>(context)
-      .loadSchoolDetails(widget.schoolId);
+        .loadSchoolDetails(widget.schoolId);
     super.initState();
   }
 
@@ -46,29 +45,33 @@ class _SchoolDetailsState extends State<SchoolDetails>
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: onTapOfCreateStudent, label: const Text('Create Student')),
+            onPressed: onTapOfCreateStudent,
+            label: const Text('Create Student')),
         body: _buildSchoolBloc());
   }
 
   Widget _buildSchoolBloc() {
     return BlocConsumer<SchoolDetailsBLoc, SchoolDetailsState>(
       builder: (context, state) {
-        if (state is SchoolDetailsInitial || state is SchoolDetailsInitialLoading) {
+        if (state is SchoolDetailsInitial ||
+            state is SchoolDetailsInitialLoading) {
           return circularLoader();
         } else if (state is SchoolDetailsInfoLoaded) {
           return _buildSchoolDetails(state.schoolDetails);
-        }else if(state is SchoolDetailsDataNotFound){
+        } else if (state is SchoolDetailsDataNotFound) {
           return _buildEmptySchoolView();
-        } else if(state is SchoolDetailsDataError) {
+        } else if (state is SchoolDetailsDataError) {
           return ExceptionView(state.errorStateType);
-        }else {
+        } else {
           return const ExceptionView((DataErrorStateType.none, message: null));
         }
-      }, listener: (BuildContext context, SchoolDetailsState state) {
-        if(state is SchoolDetailsInfoLoaded || state is SchoolDetailsDataNotFound){
+      },
+      listener: (BuildContext context, SchoolDetailsState state) {
+        if (state is SchoolDetailsInfoLoaded ||
+            state is SchoolDetailsDataNotFound) {
           context.read<StudentsBloc>().loadStudents(widget.schoolId);
         }
-    },
+      },
     );
   }
 
@@ -80,25 +83,36 @@ class _SchoolDetailsState extends State<SchoolDetails>
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-                widget.school?.schoolName ?? '',
+              widget.school?.schoolName ?? '',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: 'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill, placeholder: (context, error) {return const Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
+            background: CachedNetworkImage(
+              imageUrl:
+                  'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg',
+              fit: BoxFit.fill,
+              placeholder: (context, error) {
+                return const Icon(Icons.image);
+              },
+              errorWidget: (context, error, o) => const Icon(Icons.image),
+            ),
           ),
         ),
-    SliverToBoxAdapter(
-        child: Column(
+        SliverToBoxAdapter(
+            child: Column(
           children: [
-            if(widget.school != null) Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: SizedBox(
-                  width: 200,
-                  child: ElevatedButton(onPressed: onTapOfAddMoreDetails, child: const Text('Add More details'))),
-            ),
-            if(context.watch<StudentsBloc>().viewAllStudents) _buildViewStudentsBtn(widget.schoolId),
+            if (widget.school != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                        onPressed: onTapOfAddMoreDetails,
+                        child: const Text('Add More details'))),
+              ),
+            if (context.watch<StudentsBloc>().viewAllStudents)
+              _buildViewStudentsBtn(widget.schoolId),
           ],
-        )
-        ),
+        )),
         SliverToBoxAdapter(
           child: _buildStudentsBloc(),
         )
@@ -118,7 +132,14 @@ class _SchoolDetailsState extends State<SchoolDetails>
               schoolDetails.schoolName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: schoolDetails.image, fit: BoxFit.fill, placeholder: (context, error) {return const Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
+            background: CachedNetworkImage(
+              imageUrl: schoolDetails.image,
+              fit: BoxFit.fill,
+              placeholder: (context, error) {
+                return const Icon(Icons.image);
+              },
+              errorWidget: (context, error, o) => const Icon(Icons.image),
+            ),
           ),
         ),
         SliverToBoxAdapter(
@@ -158,11 +179,16 @@ class _SchoolDetailsState extends State<SchoolDetails>
             //     buildLabelWithValue('Country:' , schoolDetails.country)
             //   ],
             // ),
-           if(context.watch<StudentsBloc>().viewAllStudents) _buildViewStudentsBtn(schoolDetails.id),
-           if(!context.watch<StudentsBloc>().viewAllStudents) Text('Students :', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.orange))
+            if (context.watch<StudentsBloc>().viewAllStudents)
+              _buildViewStudentsBtn(schoolDetails.id),
+            if (!context.watch<StudentsBloc>().viewAllStudents)
+              Text('Students :',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.apply(color: Colors.orange))
           ],
-        ).screenPadding()
-        ),
+        ).screenPadding()),
         SliverToBoxAdapter(
           child: _buildStudentsBloc(),
         ),
@@ -170,11 +196,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
     );
   }
 
-  Widget _buildViewStudentsBtn(String id){
-    return  ElevatedButton(
-        onPressed: () => context
-            .read<StudentsBloc>()
-            .loadStudents(id),
+  Widget _buildViewStudentsBtn(String id) {
+    return ElevatedButton(
+        onPressed: () => context.read<StudentsBloc>().loadStudents(id),
         child: const Text('View Students'));
   }
 
@@ -195,7 +219,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return circularLoader();
         } else if (state is StudentsInfoLoaded) {
           return _buildStudents(state.students);
-        } else if(state is SchoolDataError) {
+        } else if (state is SchoolDataError) {
           return ExceptionView(state.errorStateType);
         } else {
           return Container();
@@ -205,11 +229,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
     );
   }
 
-
-  Widget _buildStudents(
-      List<StudentViewModel> students) {
-
-    if(students.isEmpty) return emptyMessage('No Students to display, Create a New student');
+  Widget _buildStudents(List<StudentViewModel> students) {
+    if (students.isEmpty)
+      return emptyMessage('No Students to display, Create a New student');
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -217,28 +239,30 @@ class _SchoolDetailsState extends State<SchoolDetails>
         tabletWidth: 0.7,
         desktopWidth: 0.35,
         child: ListView.separated(
-            itemCount: students.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              var student = students.elementAt(index);
+          itemCount: students.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            var student = students.elementAt(index);
             return ListTile(
               leading: const Icon(Icons.person),
               title: Text(student.studentName),
               subtitle: Text(student.standard),
-              trailing: IconButton(icon: const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfCreateUpdate(student)),
-              onTap:  () => onTapOfViewStudents(
-                  student.id, widget.schoolId),
+              trailing: IconButton(
+                  icon: const Icon(Icons.edit, color: Colors.blue),
+                  onPressed: () => onTapOfCreateUpdate(student)),
+              onTap: () => onTapOfViewStudents(student.id, widget.schoolId),
             );
-        },
-        separatorBuilder: (context, index) => const Divider(),
+          },
+          separatorBuilder: (context, index) => const Divider(),
         ),
       ),
     );
   }
 
   onTapOfAddMoreDetails() {
-    adaptiveDialog(context, AddSchoolDetails(school: widget.school!, parentContext: context));
+    adaptiveDialog(context,
+        AddSchoolDetails(school: widget.school!, parentContext: context));
   }
 
   onTapOfCreateStudent() {
@@ -246,7 +270,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   onTapOfCreateUpdate(StudentViewModel student) {
-    adaptiveDialog(context, CreateStudent(context, widget.schoolId, student: student));
+    adaptiveDialog(
+        context, CreateStudent(context, widget.schoolId, student: student));
   }
 
   onTapOfViewStudents(String id, String schoolId) {
@@ -254,6 +279,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
     query['studentId'] = id;
     query['schoolId'] = widget.schoolId;
     context.go(Uri(
-        path: '/home/schools/school-details/student', queryParameters: query).toString());
+            path: '/home/schools/school-details/student',
+            queryParameters: query)
+        .toString());
   }
 }

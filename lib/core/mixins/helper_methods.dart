@@ -1,13 +1,12 @@
-
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:uuid/uuid.dart';
 
 mixin HelperMethods {
-
   static const _uuid = Uuid();
 
   static K? enumFromString<K>(Iterable<K> values, String value) {
-    return values.firstWhere((type) => type.toString().split(".").last == value);
+    return values
+        .firstWhere((type) => type.toString().split(".").last == value);
   }
 
   static String get uuid {

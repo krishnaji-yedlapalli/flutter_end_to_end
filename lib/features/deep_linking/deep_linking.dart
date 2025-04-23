@@ -28,7 +28,16 @@ class DeepLinkingTesting extends StatelessWidget with Validators {
               'Install the application and paste the copied URL into the browser/notes/messages app on the same device.\nUpon tapping the URL, it will automatically open the application instead of the device browser',
               textAlign: TextAlign.center,
             ),
-            CustomTextField(controller: urlCtrl, label: 'Enter path', prefix: '/home/', suffixIcon: IconButton(icon: const Icon(Icons.clear), onPressed: () => urlCtrl.clear()), onChange: (val) => textListener.value = baseUrl + (val ?? '').trim(), maxLines: 2),
+            CustomTextField(
+                controller: urlCtrl,
+                label: 'Enter path',
+                prefix: '/home/',
+                suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () => urlCtrl.clear()),
+                onChange: (val) =>
+                    textListener.value = baseUrl + (val ?? '').trim(),
+                maxLines: 2),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
@@ -40,7 +49,8 @@ class DeepLinkingTesting extends StatelessWidget with Validators {
                 ),
                 IconButton(
                     onPressed: () async {
-                      await Clipboard.setData(ClipboardData(text: textListener.value.trim()));
+                      await Clipboard.setData(
+                          ClipboardData(text: textListener.value.trim()));
                       var snack = const SnackBar(content: Text('Path Copied'));
                       ScaffoldMessenger.of(context).showSnackBar(snack);
                     },

@@ -7,7 +7,7 @@ import '../../../data/model/school_details_model.dart';
 
 abstract class SchoolDetailsState extends Equatable {
   final bool viewAllStudents;
-   const SchoolDetailsState({this.viewAllStudents = false});
+  const SchoolDetailsState({this.viewAllStudents = false});
 }
 
 class SchoolDetailsInitial extends SchoolDetailsState {
@@ -27,35 +27,33 @@ class SchoolDetailsInitialLoading extends SchoolDetailsState {
 class SchoolDetailsInfoLoaded extends SchoolDetailsState {
   final SchoolDetailsViewModel schoolDetails;
 
-  const SchoolDetailsInfoLoaded(this.schoolDetails, {bool viewAllStudents = false}) : super(viewAllStudents: viewAllStudents);
+  const SchoolDetailsInfoLoaded(this.schoolDetails,
+      {bool viewAllStudents = false})
+      : super(viewAllStudents: viewAllStudents);
 
-  SchoolDetailsInfoLoaded copyWith({SchoolDetailsViewModel? schoolDetails, bool? viewAllStudents}){
-    return SchoolDetailsInfoLoaded(
-      schoolDetails ?? this.schoolDetails,
-      viewAllStudents: viewAllStudents ?? super.viewAllStudents
-    );
+  SchoolDetailsInfoLoaded copyWith(
+      {SchoolDetailsViewModel? schoolDetails, bool? viewAllStudents}) {
+    return SchoolDetailsInfoLoaded(schoolDetails ?? this.schoolDetails,
+        viewAllStudents: viewAllStudents ?? super.viewAllStudents);
   }
+
   @override
   // TODO: implement props
   List<Object?> get props => [SchoolDetailsViewModel, viewAllStudents];
 }
 
 class SchoolDetailsDataNotFound extends SchoolDetailsState {
-
   const SchoolDetailsDataNotFound();
 
   @override
   List<Object?> get props => [];
-
 }
 
 class SchoolDetailsDataError extends SchoolDetailsState {
-
   final ErrorDetails errorStateType;
 
   const SchoolDetailsDataError(this.errorStateType);
 
   @override
   List<Object?> get props => [errorStateType];
-
 }

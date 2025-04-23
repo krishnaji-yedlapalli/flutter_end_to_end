@@ -8,7 +8,8 @@ import '../../../../shared/params/profile_params.dart';
 part 'profiles_cubit_state.dart';
 
 class ProfilesCubit extends Cubit<ProfilesState> {
-  ProfilesCubit(this._useCase, this._createOrEditProfileUseCase) : super(const ProfilesStateInitial());
+  ProfilesCubit(this._useCase, this._createOrEditProfileUseCase)
+      : super(const ProfilesStateInitial());
 
   final ProfilesUseCase _useCase;
 
@@ -29,16 +30,16 @@ class ProfilesCubit extends Cubit<ProfilesState> {
         p.isSelected = false;
       }
       final profile = loadedState.profiles.firstWhere((p) => p.id == id);
-        profile.isSelected = true;
-        emit(ProfilesStateLoaded(loadedState.profiles, selectedProfile : profile));
+      profile.isSelected = true;
+      emit(ProfilesStateLoaded(loadedState.profiles, selectedProfile: profile));
     }
   }
 
   Future<void> createOrEditProfile(ProfileParams params) async {
-     var res = await _createOrEditProfileUseCase.call(params);
+    var res = await _createOrEditProfileUseCase.call(params);
 
-     res.fold((profiles){
-       emit(ProfilesStateLoaded(profiles));
-     }, (error){});
+    res.fold((profiles) {
+      emit(ProfilesStateLoaded(profiles));
+    }, (error) {});
   }
 }

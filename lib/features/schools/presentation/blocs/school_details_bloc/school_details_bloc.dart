@@ -11,8 +11,8 @@ import '../../../domain/use_cases/school_details_usecase/school_details_usecase.
 import '../../../shared/params/school_details_param.dart';
 
 class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
-  SchoolDetailsBLoc(
-      this._schoolDetailsUseCase, this._schoolDetailsModifyUseCase, this._studentsBloc)
+  SchoolDetailsBLoc(this._schoolDetailsUseCase,
+      this._schoolDetailsModifyUseCase, this._studentsBloc)
       : super(const SchoolDetailsInitial());
 
   final SchoolDetailsUseCase _schoolDetailsUseCase;
@@ -20,7 +20,6 @@ class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
   final StudentsBloc _studentsBloc;
 
   Future<void> loadSchoolDetails(String schoolId) async {
-
     emit(const SchoolDetailsInitialLoading());
 
     try {
@@ -32,22 +31,19 @@ class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
         emit(const SchoolDetailsDataNotFound());
       }
     } catch (e, s) {
-      emit(SchoolDetailsDataError(
-          ExceptionHandler().handleException(e, s)));
+      emit(SchoolDetailsDataError(ExceptionHandler().handleException(e, s)));
     }
   }
 
-
-  Future<void> createOrEditSchoolDetails(SchoolDetailsParams schoolDetails) async {
-
+  Future<void> createOrEditSchoolDetails(
+      SchoolDetailsParams schoolDetails) async {
     try {
       navigatorKey.currentContext?.loaderOverlay.show();
 
       var createdOrEditSchoolDetails =
-      await _schoolDetailsModifyUseCase.call(schoolDetails);
+          await _schoolDetailsModifyUseCase.call(schoolDetails);
 
       emit(SchoolDetailsInfoLoaded(createdOrEditSchoolDetails.toViewModel()));
-
     } catch (e, s) {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Unable to create the School Details');
@@ -55,5 +51,4 @@ class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
       navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
-
 }

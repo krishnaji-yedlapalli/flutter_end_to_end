@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sample_latest/features/shortcuts/call_back_shortcuts.dart';
@@ -13,8 +11,8 @@ class ShortcutsTabView extends StatefulWidget {
   State<ShortcutsTabView> createState() => _ShortcutsTabViewState();
 }
 
-class _ShortcutsTabViewState extends State<ShortcutsTabView> with SingleTickerProviderStateMixin {
-
+class _ShortcutsTabViewState extends State<ShortcutsTabView>
+    with SingleTickerProviderStateMixin {
   late TabController tabCtrl;
 
   @override
@@ -37,33 +35,30 @@ class _ShortcutsTabViewState extends State<ShortcutsTabView> with SingleTickerPr
         //   }
         // },
         shortcuts: <LogicalKeySet, Intent>{
-        LogicalKeySet(LogicalKeyboardKey.arrowRight) : const TabChangeRightIntent(),
-        LogicalKeySet(LogicalKeyboardKey.arrowLeft) : const TabChangeLeftIntent()
+          LogicalKeySet(LogicalKeyboardKey.arrowRight):
+              const TabChangeRightIntent(),
+          LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+              const TabChangeLeftIntent()
         },
         child: Actions(
           actions: <Type, Action>{
-            TabChangeRightIntent : TabChangeRightAction(tabCtrl),
-            TabChangeLeftIntent : TabChangeLeftAction(tabCtrl),
+            TabChangeRightIntent: TabChangeRightAction(tabCtrl),
+            TabChangeLeftIntent: TabChangeLeftAction(tabCtrl),
           },
           child: Column(
-              children: [
-                TabBar(
-                    controller: tabCtrl,
-                    isScrollable: true,
-                    tabs: const [
-                  Tab(text: 'Call Back Shortcuts'),
-                  Tab(text: 'Action Shortcuts'),
+            children: [
+              TabBar(controller: tabCtrl, isScrollable: true, tabs: const [
+                Tab(text: 'Call Back Shortcuts'),
+                Tab(text: 'Action Shortcuts'),
+              ]),
+              Expanded(
+                child: TabBarView(controller: tabCtrl, children: [
+                  const CallBackShortCutsView(),
+                  ShortcutActions()
                 ]),
-                Expanded(
-                  child: TabBarView(
-                      controller: tabCtrl,
-                      children: [
-                    const CallBackShortCutsView(),
-                    ShortcutActions()
-                  ]),
-                )
-              ],
-            ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -75,7 +70,6 @@ class TabChangeRightIntent extends Intent {
 }
 
 class TabChangeRightAction extends Action<TabChangeRightIntent> {
-
   TabChangeRightAction(this.tabController);
 
   final TabController tabController;
@@ -91,7 +85,6 @@ class TabChangeLeftIntent extends Intent {
 }
 
 class TabChangeLeftAction extends Action<TabChangeLeftIntent> {
-
   TabChangeLeftAction(this.tabController);
 
   final TabController tabController;

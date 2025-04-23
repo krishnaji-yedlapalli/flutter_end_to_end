@@ -179,7 +179,6 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker>
           des:
               'By default dart consider interpolation as a place holder, In below string we are escaping it using single quotation'),
       Text(AppLocalizations.of(context)!.pluralSampleOne(3)),
-
       Text(AppLocalizations.of(context)!.selectSample('other')),
     ];
   }

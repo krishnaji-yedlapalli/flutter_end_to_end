@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 mixin CustomDialogs {
-  void adaptiveDialog(BuildContext context, Widget content, {bool useRootNavigator = true}) {
+  void adaptiveDialog(BuildContext context, Widget content,
+      {bool useRootNavigator = true}) {
     showAdaptiveDialog(
         context: context,
         useRootNavigator: useRootNavigator,
@@ -13,7 +14,9 @@ mixin CustomDialogs {
               child: SizedBox(
             width: DeviceConfiguration.isMobileResolution
                 ? null
-                : DeviceConfiguration.isTabResolution ? MediaQuery.of(context).size.width / 2 : MediaQuery.of(context).size.width / 3,
+                : DeviceConfiguration.isTabResolution
+                    ? MediaQuery.of(context).size.width / 2
+                    : MediaQuery.of(context).size.width / 3,
             child: content,
           ));
         });
@@ -24,25 +27,22 @@ mixin CustomDialogs {
       required Widget content,
       required List<String> actions,
       required ValueChanged<int> callBack}) {
-    return Builder(
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-              child: Text(title, style: Theme.of(context).textTheme.headlineSmall),
-            ),
-            const Divider(),
-            Flexible(
-                fit: FlexFit.loose,
-                child: content),
-            const Divider(),
-            _buildButtons(actions, callBack)
-          ],
-        );
-      }
-    );
+    return Builder(builder: (context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+            child:
+                Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          ),
+          const Divider(),
+          Flexible(fit: FlexFit.loose, child: content),
+          const Divider(),
+          _buildButtons(actions, callBack)
+        ],
+      );
+    });
   }
 
   Widget _buildButtons(List<String> actions, ValueChanged<int> callBack) {
@@ -63,33 +63,45 @@ mixin CustomDialogs {
         ));
   }
 
-  Future<bool?> buildAlertDialog(BuildContext context, {required String title, required String content}) async {
-    return await showAdaptiveDialog<bool?>(barrierDismissible: true,
-       context: context,
-       builder: (context) {
-         return CupertinoAlertDialog(
-       title: Text(title),
-       content: Text(content),
-       actions: [
-         IconButton(onPressed: () => GoRouter.of(context).pop(true), icon: const Icon(Icons.thumb_up))
-       ],
-     );
-   });
-  }
-
-  static Future<bool> buildAlertDialogWithYesOrNo(BuildContext context, {required String title, required String content}) async {
-    var style = const TextStyle(color: Colors.orange, fontWeight: FontWeight.w600);
-    return await showAdaptiveDialog<bool>(barrierDismissible: true,
+  Future<bool?> buildAlertDialog(BuildContext context,
+      {required String title, required String content}) async {
+    return await showAdaptiveDialog<bool?>(
+        barrierDismissible: true,
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
             title: Text(title),
             content: Text(content),
             actions: [
-              TextButton(onPressed: ()=> GoRouter.of(context).pop(false), child: Text('No', style: style)),
-              TextButton(onPressed: ()=> GoRouter.of(context).pop(true), child: Text('Yes', style: style)),
+              IconButton(
+                  onPressed: () => GoRouter.of(context).pop(true),
+                  icon: const Icon(Icons.thumb_up))
             ],
           );
-        }) ?? false;
+        });
+  }
+
+  static Future<bool> buildAlertDialogWithYesOrNo(BuildContext context,
+      {required String title, required String content}) async {
+    var style =
+        const TextStyle(color: Colors.orange, fontWeight: FontWeight.w600);
+    return await showAdaptiveDialog<bool>(
+            barrierDismissible: true,
+            context: context,
+            builder: (context) {
+              return CupertinoAlertDialog(
+                title: Text(title),
+                content: Text(content),
+                actions: [
+                  TextButton(
+                      onPressed: () => GoRouter.of(context).pop(false),
+                      child: Text('No', style: style)),
+                  TextButton(
+                      onPressed: () => GoRouter.of(context).pop(true),
+                      child: Text('Yes', style: style)),
+                ],
+              );
+            }) ??
+        false;
   }
 }

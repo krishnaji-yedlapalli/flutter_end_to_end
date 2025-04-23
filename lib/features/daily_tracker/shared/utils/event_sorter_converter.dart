@@ -1,22 +1,20 @@
-
 import '../../../../core/mixins/date_formats.dart';
 import '../../../../core/mixins/helper_methods.dart';
 import '../../../../core/utils/enums_type_def.dart';
 import '../../domain/entities/event_entity.dart';
 
 class EventSortHelper with HelperMethods, DateFormats {
-
-   List<EventEntity> getTodaySortedEvent(List<EventEntity> events) {
+  List<EventEntity> getTodaySortedEvent(List<EventEntity> events) {
     var todayEvents = <EventEntity>[];
 
     try {
       if (events.isNotEmpty) {
         for (var event in events) {
           EventDayType eventType = HelperMethods.enumFromString(
-              EventDayType.values, event.eventType) ??
+                  EventDayType.values, event.eventType) ??
               EventDayType.everyday;
           var selectedDateTime =
-          DateTime.fromMillisecondsSinceEpoch(event.selectedDateTime);
+              DateTime.fromMillisecondsSinceEpoch(event.selectedDateTime);
 
           switch (eventType) {
             case EventDayType.everyday:
@@ -49,5 +47,4 @@ class EventSortHelper with HelperMethods, DateFormats {
 
     return todayEvents;
   }
-
 }

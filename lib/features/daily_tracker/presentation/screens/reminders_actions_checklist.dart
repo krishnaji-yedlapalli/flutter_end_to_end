@@ -23,7 +23,12 @@ class ActionsChecklistView extends StatefulWidget {
 }
 
 class _ActionsChecklistViewState extends State<ActionsChecklistView>
-    with SingleTickerProviderStateMixin, HelperWidget, CustomDialogs, DateFormats, AutomaticKeepAliveClientMixin<ActionsChecklistView>{
+    with
+        SingleTickerProviderStateMixin,
+        HelperWidget,
+        CustomDialogs,
+        DateFormats,
+        AutomaticKeepAliveClientMixin<ActionsChecklistView> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late List<EventEntity> _items;
   late AnimationController _controller;
@@ -53,10 +58,9 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
 
     _controller.forward(); // Start the animation
 
-    WidgetsBinding.instance.addPostFrameCallback((duration){
+    WidgetsBinding.instance.addPostFrameCallback((duration) {
       _addItemsWithDelay();
     });
-
   }
 
   @override
@@ -66,15 +70,15 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
   }
 
   Future<void> addItemsNewItems() async {
-    for( var event in widget.todayEvents) {
-      var index = _items.indexWhere((displayedEvent) => event.id == displayedEvent.id);
+    for (var event in widget.todayEvents) {
+      var index =
+          _items.indexWhere((displayedEvent) => event.id == displayedEvent.id);
 
-      if(index == -1){
+      if (index == -1) {
         var length = _items.length;
         _items.insert(length, event);
         await Future.delayed(const Duration(milliseconds: 300));
         _listKey.currentState?.insertItem(length);
-
       }
     }
     print(_items.length);
@@ -105,13 +109,13 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
       child: widget.todayEvents.isEmpty
           ? emptyMessage('No Events')
           : AnimatedList(
-        key: _listKey,
-        shrinkWrap: true,
-        initialItemCount: _items.length,
-        itemBuilder: (context, index, animation) {
-          return _buildItem(context, index, animation);
-        },
-      ),
+              key: _listKey,
+              shrinkWrap: true,
+              initialItemCount: _items.length,
+              itemBuilder: (context, index, animation) {
+                return _buildItem(context, index, animation);
+              },
+            ),
     );
   }
 
@@ -137,43 +141,52 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
   Widget _buildListItem(EventEntity event, int index) {
     bool isSelected = selectedIndex == index;
     var statusConfig = geStatus(event.status, isSelected: isSelected);
-    var time = getDateFromMillisecondsSinceEpoch(event.selectedDateTime).$2.format(context);
+    var time = getDateFromMillisecondsSinceEpoch(event.selectedDateTime)
+        .$2
+        .format(context);
     var listItem = ListTile(
-      onTap: () => onSelectionOfEvent(index),
-      enabled: true,
-      selected: isSelected,
-      selectedTileColor: Colors.green,
-      selectedColor: Colors.black,
-      horizontalTitleGap: 3,
-      isThreeLine: false,
-      title: Text(event.title, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
-      leading: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: const Icon(Icons.event)),
-      trailing: Container(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        decoration: BoxDecoration(
-            color: statusConfig.bgColor,
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
-            border: Border.all(color: statusConfig.borderColor)
+        onTap: () => onSelectionOfEvent(index),
+        enabled: true,
+        selected: isSelected,
+        selectedTileColor: Colors.green,
+        selectedColor: Colors.black,
+        horizontalTitleGap: 3,
+        isThreeLine: false,
+        title: Text(event.title,
+            style: TextStyle(
+                color: isSelected ? Colors.white : Colors.black,
+                fontWeight: FontWeight.w600)),
+        leading: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: const Icon(Icons.event)),
+        trailing: Container(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          decoration: BoxDecoration(
+              color: statusConfig.bgColor,
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              border: Border.all(color: statusConfig.borderColor)),
+          child: Text(statusConfig.label,
+              style: TextStyle(
+                  color: isSelected ? Colors.white : Colors.black,
+                  fontWeight: FontWeight.w600)),
         ),
-        child: Text(statusConfig.label, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w600)),
-      ),
-      subtitle: RichText(text: TextSpan(
-        style: TextStyle(color: isSelected ? Colors.white : Colors.black),
-        children: [
-          TextSpan(text: event.description),
-          const TextSpan(text: ' - '),
-          TextSpan(text: time == '12:00 AM' ? 'All day' : time),
-        ]
-      ))
-    );
+        subtitle: RichText(
+            text: TextSpan(
+                style:
+                    TextStyle(color: isSelected ? Colors.white : Colors.black),
+                children: [
+              TextSpan(text: event.description),
+              const TextSpan(text: ' - '),
+              TextSpan(text: time == '12:00 AM' ? 'All day' : time),
+            ])));
 
-    return event.status != EventStatus.inProgress.name ? listItem : Shimmer.fromColors(
-      baseColor: Colors.red,
-      highlightColor: Colors.yellow,
-      child: listItem,
-    );
+    return event.status != EventStatus.inProgress.name
+        ? listItem
+        : Shimmer.fromColors(
+            baseColor: Colors.red,
+            highlightColor: Colors.yellow,
+            child: listItem,
+          );
   }
 
   void onDeleteOrEditOrComplete(EventActionType actionType) {
@@ -181,40 +194,39 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
       case EventActionType.edit:
         adaptiveDialog(
             context,
-            CreateDailyTrackerEvent(
-                context,
+            CreateDailyTrackerEvent(context,
                 event: _items.elementAt(selectedIndex)));
       case EventActionType.completed:
-
-        _items[selectedIndex]..status = EventActionType.completed.name
+        _items[selectedIndex]
+          ..status = EventActionType.completed.name
           ..endDateTime = DateTime.now().millisecondsSinceEpoch;
 
-        context.read<EventsCubit>().updateTodayEventDetails(_items[selectedIndex]);
-        setState(() {
-
-        });
+        context
+            .read<EventsCubit>()
+            .updateTodayEventDetails(_items[selectedIndex]);
+        setState(() {});
 
       case EventActionType.skip:
-        _items[selectedIndex].status =
-        actionType == EventActionType.completed
+        _items[selectedIndex].status = actionType == EventActionType.completed
             ? EventStatus.completed.name
             : EventStatus.skip.name;
 
         /// updating status
-        context.read<EventsCubit>().updateTodayEventDetails(_items[selectedIndex]);
+        context
+            .read<EventsCubit>()
+            .updateTodayEventDetails(_items[selectedIndex]);
 
-        setState(() {
-
-        });
+        setState(() {});
 
       case EventActionType.inProgress:
-        _items[selectedIndex]..status = EventActionType.inProgress.name
+        _items[selectedIndex]
+          ..status = EventActionType.inProgress.name
           ..startDateTime = DateTime.now().millisecondsSinceEpoch;
 
-        context.read<EventsCubit>().updateTodayEventDetails(_items[selectedIndex]);
-        setState(() {
-
-        });
+        context
+            .read<EventsCubit>()
+            .updateTodayEventDetails(_items[selectedIndex]);
+        setState(() {});
     }
   }
 
@@ -225,19 +237,42 @@ class _ActionsChecklistViewState extends State<ActionsChecklistView>
     // });
   }
 
-  ({String label, Color borderColor, Color bgColor}) geStatus(String status, {bool isSelected = false}) {
-    EventStatus? eventStatus = HelperMethods.enumFromString(EventStatus.values, status);
+  ({String label, Color borderColor, Color bgColor}) geStatus(String status,
+      {bool isSelected = false}) {
+    EventStatus? eventStatus =
+        HelperMethods.enumFromString(EventStatus.values, status);
 
-    return switch(eventStatus){
-      EventStatus.pending => (label : 'Pending', borderColor : isSelected ? Colors.white : Colors.blue, bgColor : Colors.blue.withOpacity(0.3)),
-      EventStatus.inProgress  => (label : 'InProgress', borderColor : isSelected ? Colors.white : Colors.orange, bgColor : Colors.orange.withOpacity(0.3)),
-      EventStatus.completed  => (label : 'Completed', borderColor : isSelected ? Colors.white : Colors.green, bgColor : isSelected ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.3)),
-      EventStatus.skip  => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3)),
-      _ => (label : 'Omitted', borderColor : Colors.red, bgColor : Colors.red.withOpacity(0.3))
+    return switch (eventStatus) {
+      EventStatus.pending => (
+          label: 'Pending',
+          borderColor: isSelected ? Colors.white : Colors.blue,
+          bgColor: Colors.blue.withOpacity(0.3)
+        ),
+      EventStatus.inProgress => (
+          label: 'InProgress',
+          borderColor: isSelected ? Colors.white : Colors.orange,
+          bgColor: Colors.orange.withOpacity(0.3)
+        ),
+      EventStatus.completed => (
+          label: 'Completed',
+          borderColor: isSelected ? Colors.white : Colors.green,
+          bgColor: isSelected
+              ? Colors.red.withOpacity(0.1)
+              : Colors.green.withOpacity(0.3)
+        ),
+      EventStatus.skip => (
+          label: 'Omitted',
+          borderColor: Colors.red,
+          bgColor: Colors.red.withOpacity(0.3)
+        ),
+      _ => (
+          label: 'Omitted',
+          borderColor: Colors.red,
+          bgColor: Colors.red.withOpacity(0.3)
+        )
     };
   }
 
   @override
   bool get wantKeepAlive => true;
 }
-

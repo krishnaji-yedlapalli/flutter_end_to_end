@@ -1,4 +1,3 @@
-
 import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/features/daily_tracker/core/services/session_manager.dart';
 
@@ -8,7 +7,6 @@ import '../../shared/params/user_credentails.dart';
 import '../repository/AuthRepository.dart';
 
 class AuthUseCase {
-
   final AuthRepository _authRepository;
   final SessionManager _sessionManager;
 
@@ -16,16 +14,12 @@ class AuthUseCase {
 
   Future<Either<bool, ErrorDetails>> call(String email, String pwd) async {
     try {
-      var params = UserCredentialsParams(
-        email,
-        pwd
-      );
+      var params = UserCredentialsParams(email, pwd);
       var res = await _authRepository.validateTheUserLoginCredentials(params);
       _sessionManager.initialize(res);
       return const Left(true);
-    }catch(e,s){
+    } catch (e, s) {
       return Right(ExceptionHandler().handleException(e, s));
     }
   }
-
 }

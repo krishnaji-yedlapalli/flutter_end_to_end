@@ -19,7 +19,6 @@ class Tables extends StatefulWidget {
 }
 
 class _TablesState extends State<Tables> {
-
   late final List<StudentModel> paginatedDataTableRows;
 
   late final List<StudentModel> dataTableRows;
@@ -28,11 +27,15 @@ class _TablesState extends State<Tables> {
 
   @override
   void initState() {
-    paginatedDataTableRows = List.generate(40, (index) =>
-      StudentModel('John', index+1, 14, "New york", "Cambridge High school"));
+    paginatedDataTableRows = List.generate(
+        40,
+        (index) => StudentModel(
+            'John', index + 1, 14, "New york", "Cambridge High school"));
 
-    dataTableRows = List.generate(10, (index) =>
-        StudentModel('Joseph', index+1, 18, "New york", "Cambridge High school"));
+    dataTableRows = List.generate(
+        10,
+        (index) => StudentModel(
+            'Joseph', index + 1, 18, "New york", "Cambridge High school"));
     super.initState();
   }
 
@@ -63,11 +66,11 @@ class _TablesState extends State<Tables> {
             columns: buildColumns,
             header: const Text('Sample Header'),
             showFirstLastButtons: true,
-            availableRowsPerPage: const [5, 15,25, 35, 40, 50],
+            availableRowsPerPage: const [5, 15, 25, 35, 40, 50],
             rowsPerPage: rowsPerPage,
-            onRowsPerPageChanged: (val){
+            onRowsPerPageChanged: (val) {
               setState(() {
-                if(val != null) rowsPerPage = val;
+                if (val != null) rowsPerPage = val;
               });
             },
             showCheckboxColumn: true,
@@ -76,8 +79,8 @@ class _TablesState extends State<Tables> {
             // },
 
             // initialFirstRowIndex: ,
-            onPageChanged: (val){
-             print('$val');
+            onPageChanged: (val) {
+              print('$val');
             },
             source: TableData(paginatedDataTableRows, onPaginatedRowSelection),
           ),
@@ -96,11 +99,7 @@ class _TablesState extends State<Tables> {
         toolTipDes: 'Student School name',
         isNumeric: false
       ),
-      (
-          label: 'Location',
-      toolTipDes: 'Student location',
-          isNumeric: false
-      ),
+      (label: 'Location', toolTipDes: 'Student location', isNumeric: false),
       (label: 'Edit', toolTipDes: 'Edit the student details', isNumeric: false)
     ];
 
@@ -138,13 +137,13 @@ class _TablesState extends State<Tables> {
 
   void onPaginatedRowSelection((int index, bool? status) rowDetails) {
     setState(() {
-      paginatedDataTableRows.elementAt(rowDetails.$1).isSelected = rowDetails.$2 ?? false;
+      paginatedDataTableRows.elementAt(rowDetails.$1).isSelected =
+          rowDetails.$2 ?? false;
     });
   }
 }
 
 class TableData extends DataTableSource {
-
   final List<StudentModel> paginatedDataTableRows;
 
   final ValueChanged<(int index, bool? status)> onRowSelection;
@@ -156,20 +155,20 @@ class TableData extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    if(index < paginatedDataTableRows.length){
+    if (index < paginatedDataTableRows.length) {
       var student = paginatedDataTableRows.elementAt(index);
-          return DataRow(
-            onSelectChanged: (status) => onRowSelection((index, status)),
-            selected: student.isSelected,
-            cells: <DataCell>[
-              DataCell(Text(student.id.toString())),
-              DataCell(Text(student.name)),
-              DataCell(Text('${student.age}')),
-              DataCell(Text(student.schoolName)),
-              DataCell(Text(student.location)),
-              const DataCell(Text('Edit '), showEditIcon: true)
-            ],
-          );
+      return DataRow(
+        onSelectChanged: (status) => onRowSelection((index, status)),
+        selected: student.isSelected,
+        cells: <DataCell>[
+          DataCell(Text(student.id.toString())),
+          DataCell(Text(student.name)),
+          DataCell(Text('${student.age}')),
+          DataCell(Text(student.schoolName)),
+          DataCell(Text(student.location)),
+          const DataCell(Text('Edit '), showEditIcon: true)
+        ],
+      );
     }
     return null;
   }

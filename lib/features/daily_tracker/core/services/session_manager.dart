@@ -22,28 +22,25 @@ class SessionManager {
 
   Future<bool> getLoginStatus() async {
     var status = false;
-    try{
+    try {
       status = await _storage.containsKey(key: 'loginDetails');
-      if(status){
-        var loginDetails = jsonDecode((await _storage.read(key: 'loginDetails'))!);
+      if (status) {
+        var loginDetails =
+            jsonDecode((await _storage.read(key: 'loginDetails'))!);
         initialize(UserAuthEntity.fromJson(loginDetails));
       }
-    }catch(e,s){
-
-    }
+    } catch (e, s) {}
     return status;
   }
 
   Future<void> storeLoginDetails(UserAuthEntity userDetails) async {
-    try{
-    _storage.write(key: 'loginDetails', value: jsonEncode(userDetails.toJson()));
-    }catch(e,s){
-
-    }
+    try {
+      _storage.write(
+          key: 'loginDetails', value: jsonEncode(userDetails.toJson()));
+    } catch (e, s) {}
   }
 
   String get accountId => userId;
 
-  void clear() {
-  }
+  void clear() {}
 }

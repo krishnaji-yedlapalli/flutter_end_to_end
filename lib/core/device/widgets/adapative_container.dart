@@ -10,16 +10,16 @@ class AdaptiveContainer extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Alignment alignment;
 
-  const AdaptiveContainer({
-    Key? key,
-    required this.child,
-    this.mobileWidth = 1,
-    this.tabletWidth = 0.7,
-    this.desktopWidth = 0.5,
-    this.maxWidth,
-    this.padding = EdgeInsets.zero,
-    this.alignment = Alignment.centerLeft
-  }) : super(key: key);
+  const AdaptiveContainer(
+      {Key? key,
+      required this.child,
+      this.mobileWidth = 1,
+      this.tabletWidth = 0.7,
+      this.desktopWidth = 0.5,
+      this.maxWidth,
+      this.padding = EdgeInsets.zero,
+      this.alignment = Alignment.centerLeft})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,8 @@ class AdaptiveContainer extends StatelessWidget {
 
     if (screenWidth < ScreenBreakPoints.mobileBreakPoint) {
       return screenWidth * mobileWidth;
-    } else if (screenWidth > ScreenBreakPoints.mobileBreakPoint && screenWidth < ScreenBreakPoints.desktopBreakPoint) {
+    } else if (screenWidth > ScreenBreakPoints.mobileBreakPoint &&
+        screenWidth < ScreenBreakPoints.desktopBreakPoint) {
       return screenWidth * tabletWidth;
     } else {
       return screenWidth * desktopWidth;

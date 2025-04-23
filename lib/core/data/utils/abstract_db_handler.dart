@@ -4,7 +4,6 @@ import 'package:sample_latest/core/data/db/db_handler.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 
 abstract class DbHandler {
-
   bool isDbInitialized = false;
 
   late SqfLiteDbHandler _dbHandler;
@@ -14,7 +13,7 @@ abstract class DbHandler {
   }
 
   Future<bool> initializeDb(DbInfo dbInfo) async {
-    if(!isDbInitialized) {
+    if (!isDbInitialized) {
       _dbHandler = await SqfLiteDbHandler.initializeDb(dbInfo);
       isDbInitialized = true;
     }
@@ -23,7 +22,8 @@ abstract class DbHandler {
 
   RequestType requestType(String requestType) {
     return HelperMethods.enumFromString(
-        RequestType.values, requestType.toLowerCase()) ?? RequestType.get;
+            RequestType.values, requestType.toLowerCase()) ??
+        RequestType.get;
   }
 
   Future<bool> initializeDbIfNot();

@@ -1,8 +1,6 @@
-
 import '../../domain/entities/school_entity.dart';
 
 class SchoolViewModel {
-
   SchoolViewModel(this.schoolName, this.country, this.location, this.id);
 
   final String schoolName;
@@ -15,8 +13,6 @@ class SchoolViewModel {
 
   factory SchoolViewModel.fromEntity(SchoolEntity school) {
     return SchoolViewModel(
-        school.schoolName, school.country, school.location, school.id
-    );
+        school.schoolName, school.country, school.location, school.id);
   }
-
 }

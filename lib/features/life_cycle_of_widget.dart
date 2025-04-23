@@ -13,12 +13,9 @@ class LifeCycleWidget1 extends StatefulWidget {
 }
 
 class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
-
   String randomName = 'Krishna';
   @override
-  void initState() {
-
-  }
+  void initState() {}
 
   @override
   void didChangeDependencies() {
@@ -46,15 +43,18 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton(onPressed: updateRandomName, child: const Text('pass random button')),
+          ElevatedButton(
+              onPressed: updateRandomName,
+              child: const Text('pass random button')),
           ElevatedButton(onPressed: isolate, child: const Text('isolates')),
-          ElevatedButton(onPressed: workManger, child: const Text('work manger')),
-           LifeCycleChildWidget(randomName)
+          ElevatedButton(
+              onPressed: workManger, child: const Text('work manger')),
+          LifeCycleChildWidget(randomName)
         ],
       ),
     );
@@ -67,19 +67,15 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
 
   void workManger() {
     var si = 'be.tramckrijte.workmanagerExample.simpleTask';
-    Workmanager().registerOneOffTask(
-        si,
-        si,
+    Workmanager().registerOneOffTask(si, si,
         initialDelay: const Duration(seconds: 10),
-        inputData: <String, dynamic>{
-          'int': 1 }
-    );
+        inputData: <String, dynamic>{'int': 1});
   }
 
-  static Future<int>  runTimer(int a) async {
+  static Future<int> runTimer(int a) async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     int i = 0;
-    while(i < a) {
+    while (i < a) {
       await Future.delayed(const Duration(seconds: 1));
       // prefs.setInt('getTime', i);
       i++;
@@ -89,8 +85,9 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
 
   void updateRandomName() {
     setState(() {
-     var r = Random();
-     randomName = String.fromCharCodes(List.generate(10, (index) => r.nextInt(33) + 89));
+      var r = Random();
+      randomName = String.fromCharCodes(
+          List.generate(10, (index) => r.nextInt(33) + 89));
     });
   }
 }
@@ -103,21 +100,36 @@ class LifeCycleChildWidget extends StatefulWidget {
   State<LifeCycleChildWidget> createState() => _LifeCycleChildWidgetState();
 }
 
-class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget> with SingleTickerProviderStateMixin {
-
+class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController ctrl;
   @override
   void initState() {
-    print('idle phase 1 : ${SchedulerBinding.instance.schedulerPhase}'); /// SchedulerPhase.idle
+    print('idle phase 1 : ${SchedulerBinding.instance.schedulerPhase}');
 
-    ctrl = AnimationController(vsync: this, duration: const Duration(seconds: 1))..addListener(() {
-      print('Animation started phase : ${SchedulerBinding.instance.schedulerPhase}'); /// transient callbacks
-    })..forward();
+    /// SchedulerPhase.idle
+
+    ctrl =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..addListener(() {
+            print(
+                'Animation started phase : ${SchedulerBinding.instance.schedulerPhase}');
+
+            /// transient callbacks
+          })
+          ..forward();
+
     /// this will be executed one frame is constructed only.
-    Future.delayed(const Duration(seconds: 2), () {
-      print('shceduler phase 2 : ${SchedulerBinding.instance.schedulerPhase}');
-      someAsyncronusTask();
-    },); ///
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        print(
+            'shceduler phase 2 : ${SchedulerBinding.instance.schedulerPhase}');
+        someAsyncronusTask();
+      },
+    );
+
+    ///
     super.initState();
   }
 
@@ -128,7 +140,9 @@ class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget> with Single
 
   @override
   void didUpdateWidget(covariant LifeCycleChildWidget oldWidget) {
-    var a = List.generate(1000000, (index) => 1000000/2).toList();  /// this line of code creates junk
+    var a = List.generate(1000000, (index) => 1000000 / 2).toList();
+
+    /// this line of code creates junk
     super.didUpdateWidget(oldWidget);
   }
 
@@ -146,7 +160,6 @@ class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget> with Single
     );
   }
 
-
   String performSomeArthmaticOperations() {
     return widget.randomName;
   }
@@ -156,4 +169,3 @@ class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget> with Single
     await Future.delayed(const Duration(seconds: 1));
   }
 }
-

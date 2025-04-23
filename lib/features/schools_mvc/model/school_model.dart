@@ -4,7 +4,9 @@ part 'school_model.g.dart';
 
 @JsonSerializable()
 class SchoolModel {
-  SchoolModel(this.schoolName, this.country, this.location, this.id, this.createdDate, {this.updatedDate});
+  SchoolModel(
+      this.schoolName, this.country, this.location, this.id, this.createdDate,
+      {this.updatedDate});
 
   @JsonKey(required: true)
   final String schoolName;

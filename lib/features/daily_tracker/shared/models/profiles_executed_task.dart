@@ -9,13 +9,13 @@ class ProfilesExecutedTask {
     }
   }
 
-  set addProfile(ProfileEntity profile){
+  set addProfile(ProfileEntity profile) {
     _profiles.add(profile);
   }
 
-  set updateProfile(ProfileEntity profile){
-   var index = _profiles.indexWhere((p)=> p.id == profile.id);
-    if(index != -1){
+  set updateProfile(ProfileEntity profile) {
+    var index = _profiles.indexWhere((p) => p.id == profile.id);
+    if (index != -1) {
       _profiles[index] = profile;
     }
   }

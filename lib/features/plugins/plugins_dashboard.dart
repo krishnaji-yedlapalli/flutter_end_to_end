@@ -9,8 +9,13 @@ class PluginsDashboard extends StatelessWidget with CardWidgetsMixin {
 
   List<({String name, String des, IconData icon, PluginType type})> pluginList =
       [
-        (name: 'Youtube', des: '', icon: Icons.tv, type: PluginType.youtube),
-        (name: 'Local Auth', des: 'On local device authentication', icon: Icons.lock, type: PluginType.localAuthentication),
+    (name: 'Youtube', des: '', icon: Icons.tv, type: PluginType.youtube),
+    (
+      name: 'Local Auth',
+      des: 'On local device authentication',
+      icon: Icons.lock,
+      type: PluginType.localAuthentication
+    ),
   ];
 
   @override
@@ -43,6 +48,6 @@ class PluginsDashboard extends StatelessWidget with CardWidgetsMixin {
       PluginType.audioPlayer => 'audioPlayer',
       PluginType.networkInfo => 'networkInfo',
     };
-      context.go('/home/plugins/$path');
+    context.go('/home/plugins/$path');
   }
 }

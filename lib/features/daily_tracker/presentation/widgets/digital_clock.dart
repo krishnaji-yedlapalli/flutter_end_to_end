@@ -5,7 +5,8 @@ class DailyTrackerDigitalClock extends StatefulWidget {
   final ({double top, double left}) position;
   final AnimationController controller;
 
-  const DailyTrackerDigitalClock({super.key, required this.position, required this.controller});
+  const DailyTrackerDigitalClock(
+      {super.key, required this.position, required this.controller});
 
   @override
   State<DailyTrackerDigitalClock> createState() =>
@@ -14,7 +15,6 @@ class DailyTrackerDigitalClock extends StatefulWidget {
 
 class DailyTrackerDigitalClockState extends State<DailyTrackerDigitalClock>
     with TickerProviderStateMixin {
-
   late Animation<Rect?> _rectAnimation;
 
   @override

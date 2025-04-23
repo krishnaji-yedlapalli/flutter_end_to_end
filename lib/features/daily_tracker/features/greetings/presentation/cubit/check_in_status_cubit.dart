@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
@@ -14,9 +13,11 @@ import '../../../../domain/usecases/events_usecase.dart';
 
 part 'check_in_status_state.dart';
 
-class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, DateFormats {
-
-  CheckInStatusCubit(this.statusUseCase, this.performUserCheckInUseCase, this.eventsUseCase) : super(const CheckInStatusLoading());
+class CheckInStatusCubit extends Cubit<CheckInStatusState>
+    with HelperMethods, DateFormats {
+  CheckInStatusCubit(
+      this.statusUseCase, this.performUserCheckInUseCase, this.eventsUseCase)
+      : super(const CheckInStatusLoading());
 
   final CheckInStatusUseCase statusUseCase;
 
@@ -25,37 +26,37 @@ class CheckInStatusCubit extends Cubit<CheckInStatusState> with HelperMethods, D
   final EventsUseCase eventsUseCase;
 
   void getCheckInStatus() async {
+    emit(const CheckInStatusLoading());
 
-      emit(const CheckInStatusLoading());
+    var checkInStatus = await statusUseCase.call(currentDateInFormatted);
 
-      var checkInStatus = await statusUseCase.call(currentDateInFormatted);
-
-      switch (checkInStatus) {
-        case Right(value: final checkInDetails):
-          if (checkInDetails.status) {
-            emit(CheckInStatusWithChecked(checkInDetails.events));
-          } else {
-            emit(CheckInStatusNotYetChecked(getTimeOfDay()));
-          }
-        case Left(value: final failure):
-          // emit(CheckInStatusFailed(failure.message));
-      }
+    switch (checkInStatus) {
+      case Right(value: final checkInDetails):
+        if (checkInDetails.status) {
+          emit(CheckInStatusWithChecked(checkInDetails.events));
+        } else {
+          emit(CheckInStatusNotYetChecked(getTimeOfDay()));
+        }
+      case Left(value: final failure):
+      // emit(CheckInStatusFailed(failure.message));
+    }
   }
 
   Future<void> checkIn() async {
-     var res = await eventsUseCase.call();
+    var res = await eventsUseCase.call();
 
-     res.fold((error){
-     print('error');
-     }, (events) {
-       emit(CheckInStatusWithChecked(events));
-       var status = performUserCheckInUseCase.call(events);
-     });
+    res.fold((error) {
+      print('error');
+    }, (events) {
+      emit(CheckInStatusWithChecked(events));
+      var status = performUserCheckInUseCase.call(events);
+    });
   }
 
-
   void updateEvents(List<EventEntity> events) async {
-    var list = events.map<EventEntity>((e)=> EventEntity.fromJson(e.toJson())).toList();
+    var list = events
+        .map<EventEntity>((e) => EventEntity.fromJson(e.toJson()))
+        .toList();
     emit(CheckInStatusWithChecked(list));
   }
 }

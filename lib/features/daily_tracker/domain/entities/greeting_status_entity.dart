@@ -1,5 +1,3 @@
-
-
 class CheckInStatusEntity {
   final String formattedDate;
   final String greetingStatus;

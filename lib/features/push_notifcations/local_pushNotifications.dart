@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 
 class LocalPushNotifications extends StatefulWidget {
-
   const LocalPushNotifications({super.key});
 
   @override
@@ -10,14 +8,11 @@ class LocalPushNotifications extends StatefulWidget {
 }
 
 class _LocalPushNotificationsState extends State<LocalPushNotifications> {
-
   @override
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
       child: Column(
-        children: [
-
-        ],
+        children: [],
       ),
     );
   }

@@ -14,17 +14,16 @@ import '../../../shared/params/profile_params.dart';
 class CreateOrEditProfile extends StatefulWidget {
   final BuildContext parentContext;
   final ProfileEntity? profileEntity;
-  const CreateOrEditProfile(this.parentContext, {this.profileEntity, super.key});
+  const CreateOrEditProfile(this.parentContext,
+      {this.profileEntity, super.key});
 
   @override
-  State<CreateOrEditProfile> createState() =>
-      _CreateOrEditProfileState();
+  State<CreateOrEditProfile> createState() => _CreateOrEditProfileState();
 }
 
 class _CreateOrEditProfileState extends State<CreateOrEditProfile>
     with CustomDialogs, Validators, DateFormats {
   final TextEditingController nameCtrl = TextEditingController();
-
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -34,7 +33,6 @@ class _CreateOrEditProfileState extends State<CreateOrEditProfile>
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -77,11 +75,11 @@ class _CreateOrEditProfileState extends State<CreateOrEditProfile>
         break;
       case 1:
         if (formKey.currentState?.validate() ?? false) {
-          var params = ProfileParams(
-            nameCtrl.text.trim(),
-            id: widget.profileEntity?.id
-          );
-          widget.parentContext.read<ProfilesCubit>().createOrEditProfile(params);
+          var params =
+              ProfileParams(nameCtrl.text.trim(), id: widget.profileEntity?.id);
+          widget.parentContext
+              .read<ProfilesCubit>()
+              .createOrEditProfile(params);
           GoRouter.of(context).pop();
         }
         break;

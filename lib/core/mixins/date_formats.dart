@@ -50,9 +50,8 @@ mixin DateFormats {
     return difference.inDays.abs();
   }
 
-  String durationBetweenTwoDates(int? start, int? end){
-
-    if(start == null || end == null) return '';
+  String durationBetweenTwoDates(int? start, int? end) {
+    if (start == null || end == null) return '';
 
     var dateTime1 = DateTime.fromMillisecondsSinceEpoch(start);
     var dateTime2 = DateTime.fromMillisecondsSinceEpoch(end);
@@ -66,6 +65,6 @@ mixin DateFormats {
     String seconds = twoDigits(difference.inSeconds.remainder(60));
 
     // Formatted output
-   return "$hours:$minutes:$seconds";
+    return "$hours:$minutes:$seconds";
   }
 }

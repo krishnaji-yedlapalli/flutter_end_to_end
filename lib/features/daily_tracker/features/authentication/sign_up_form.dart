@@ -1,10 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 
 class SignUpForm extends StatefulWidget {
-
   const SignUpForm({super.key});
 
   @override
@@ -47,7 +45,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 if (value == null || value.isEmpty) {
                   return "Please enter your email";
                 }
-                if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                    .hasMatch(value)) {
                   return "Enter a valid email";
                 }
                 return null;

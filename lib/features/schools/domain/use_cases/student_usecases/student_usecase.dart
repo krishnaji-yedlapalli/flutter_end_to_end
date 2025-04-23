@@ -1,4 +1,3 @@
-
 import 'package:sample_latest/features/schools/domain/entities/student_entity.dart';
 
 import '../../../shared/models/school_executed_task_model.dart';

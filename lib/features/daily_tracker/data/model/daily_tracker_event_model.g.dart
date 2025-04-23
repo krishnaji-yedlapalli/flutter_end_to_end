@@ -38,7 +38,8 @@ Map<String, dynamic> _$DailyTrackerEventModelToJson(
       'createdDate': instance.createdDate,
       'updatedDate': instance.updatedDate,
       'selectedDateTime': instance.selectedDateTime,
-      'actionCheckList': instance.actionCheckList.map((action) => action.toJson()).toList(),
+      'actionCheckList':
+          instance.actionCheckList.map((action) => action.toJson()).toList(),
       'startDateTime': instance.startDateTime,
       'endDateTime': instance.endDateTime,
       'status': instance.status,

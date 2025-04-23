@@ -14,7 +14,8 @@ import '../../blocs/schools_bloc/schools_bloc.dart';
 class CreateSchool extends StatefulWidget {
   final SchoolViewModel? school;
   final BuildContext parentContext;
-  const CreateSchool({Key? key,  required this.parentContext, this.school}) : super(key: key);
+  const CreateSchool({Key? key, required this.parentContext, this.school})
+      : super(key: key);
 
   @override
   State<CreateSchool> createState() => _CreateSchoolState();

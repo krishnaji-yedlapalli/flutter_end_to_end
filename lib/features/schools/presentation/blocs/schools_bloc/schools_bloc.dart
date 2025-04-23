@@ -22,7 +22,7 @@ class SchoolsBloc extends Cubit<SchoolsState> {
 
   bool _isWelcomeMessageShowed = false;
 
-  void updateWelcomeMessageStatus(bool status){
+  void updateWelcomeMessageStatus(bool status) {
     _isWelcomeMessageShowed = status;
   }
 

@@ -18,7 +18,6 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import '../bloc/school_bloc.dart';
 
 class SchoolDetails extends StatefulWidget {
-
   final SchoolModel? school;
 
   final String schoolId;
@@ -44,7 +43,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
     return Scaffold(
         // appBar: CustomAppBar(appBar: AppBar()),
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: onTapOfCreateStudent, label: const Text('Create Student')),
+            onPressed: onTapOfCreateStudent,
+            label: const Text('Create Student')),
         body: _buildSchoolBloc());
   }
 
@@ -58,11 +58,11 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return circularLoader();
         } else if (state is SchoolInfoLoaded) {
           return _buildSchoolDetails(state.school);
-        }else if(state is SchoolDataNotFound){
+        } else if (state is SchoolDataNotFound) {
           return _buildEmptySchoolView();
-        } else if(state is SchoolDataError) {
+        } else if (state is SchoolDataError) {
           return ExceptionView(state.errorStateType);
-        }else {
+        } else {
           return const ExceptionView((DataErrorStateType.none, message: null));
         }
       },
@@ -78,25 +78,36 @@ class _SchoolDetailsState extends State<SchoolDetails>
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-                widget.school?.schoolName ?? '',
+              widget.school?.schoolName ?? '',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: 'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg', fit: BoxFit.fill, placeholder: (context, error) {return const Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
+            background: CachedNetworkImage(
+              imageUrl:
+                  'https://www.shutterstock.com/image-photo/student-creative-desk-mock-colorful-260nw-2128291856.jpg',
+              fit: BoxFit.fill,
+              placeholder: (context, error) {
+                return const Icon(Icons.image);
+              },
+              errorWidget: (context, error, o) => const Icon(Icons.image),
+            ),
           ),
         ),
-    SliverToBoxAdapter(
-        child: Column(
+        SliverToBoxAdapter(
+            child: Column(
           children: [
-            if(widget.school != null) Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: SizedBox(
-                  width: 200,
-                  child: ElevatedButton(onPressed: onTapOfAddMoreDetails, child: const Text('Add More details'))),
-            ),
-            if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(widget.schoolId),
+            if (widget.school != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                        onPressed: onTapOfAddMoreDetails,
+                        child: const Text('Add More details'))),
+              ),
+            if (context.watch<SchoolBloc>().viewAllStudents)
+              _buildViewStudentsBtn(widget.schoolId),
           ],
-        )
-        ),
+        )),
         SliverToBoxAdapter(
           child: _buildStudentsBloc(),
         )
@@ -116,7 +127,14 @@ class _SchoolDetailsState extends State<SchoolDetails>
               schoolDetails.schoolName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
-            background: CachedNetworkImage(imageUrl: schoolDetails.image, fit: BoxFit.fill, placeholder: (context, error) {return const Icon(Icons.image);}, errorWidget: (context, error, o)=> const Icon(Icons.image), ),
+            background: CachedNetworkImage(
+              imageUrl: schoolDetails.image,
+              fit: BoxFit.fill,
+              placeholder: (context, error) {
+                return const Icon(Icons.image);
+              },
+              errorWidget: (context, error, o) => const Icon(Icons.image),
+            ),
           ),
         ),
         SliverToBoxAdapter(
@@ -156,11 +174,16 @@ class _SchoolDetailsState extends State<SchoolDetails>
             //     buildLabelWithValue('Country:' , schoolDetails.country)
             //   ],
             // ),
-           if(context.watch<SchoolBloc>().viewAllStudents) _buildViewStudentsBtn(schoolDetails.id),
-           if(!context.watch<SchoolBloc>().viewAllStudents) Text('Students :', style: Theme.of(context).textTheme.headlineMedium?.apply(color: Colors.orange))
+            if (context.watch<SchoolBloc>().viewAllStudents)
+              _buildViewStudentsBtn(schoolDetails.id),
+            if (!context.watch<SchoolBloc>().viewAllStudents)
+              Text('Students :',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.apply(color: Colors.orange))
           ],
-        ).screenPadding()
-        ),
+        ).screenPadding()),
         SliverToBoxAdapter(
           child: _buildStudentsBloc(),
         ),
@@ -168,11 +191,9 @@ class _SchoolDetailsState extends State<SchoolDetails>
     );
   }
 
-  Widget _buildViewStudentsBtn(String id){
-    return  ElevatedButton(
-        onPressed: () => context
-            .read<SchoolBloc>()
-            .loadStudents(id),
+  Widget _buildViewStudentsBtn(String id) {
+    return ElevatedButton(
+        onPressed: () => context.read<SchoolBloc>().loadStudents(id),
         child: const Text('View Students'));
   }
 
@@ -193,7 +214,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
           return circularLoader();
         } else if (state is StudentsInfoLoaded) {
           return _buildStudents(state.students);
-        } else if(state is SchoolDataError) {
+        } else if (state is SchoolDataError) {
           return ExceptionView(state.errorStateType);
         } else {
           return Container();
@@ -203,30 +224,31 @@ class _SchoolDetailsState extends State<SchoolDetails>
     );
   }
 
-
-  Widget _buildStudents(
-      List<StudentModel> students) {
-
-    if(students.isEmpty) return emptyMessage('No Students to display, Create a New student');
+  Widget _buildStudents(List<StudentModel> students) {
+    if (students.isEmpty)
+      return emptyMessage('No Students to display, Create a New student');
 
     return SizedBox(
-      width: DeviceConfiguration.isMobileResolution ? null : MediaQuery.of(context).size.width/2,
+      width: DeviceConfiguration.isMobileResolution
+          ? null
+          : MediaQuery.of(context).size.width / 2,
       child: ListView.separated(
-          itemCount: students.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            var student = students.elementAt(index);
+        itemCount: students.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          var student = students.elementAt(index);
           return ListTile(
             leading: const Icon(Icons.person),
             title: Text(student.studentName),
             subtitle: Text(student.standard),
-            trailing: IconButton(icon: const Icon(Icons.edit, color: Colors.blue), onPressed: () => onTapOfCreateUpdate(student)),
-            onTap:  () => onTapOfViewStudents(
-                student.id, widget.schoolId),
+            trailing: IconButton(
+                icon: const Icon(Icons.edit, color: Colors.blue),
+                onPressed: () => onTapOfCreateUpdate(student)),
+            onTap: () => onTapOfViewStudents(student.id, widget.schoolId),
           );
-      },
-      separatorBuilder: (context, index) => const Divider(),
+        },
+        separatorBuilder: (context, index) => const Divider(),
       ),
     );
   }
@@ -248,6 +270,8 @@ class _SchoolDetailsState extends State<SchoolDetails>
     query['studentId'] = id;
     query['schoolId'] = widget.schoolId;
     context.go(Uri(
-        path: '/home/schools/school-details/student', queryParameters: query).toString());
+            path: '/home/schools/school-details/student',
+            queryParameters: query)
+        .toString());
   }
 }

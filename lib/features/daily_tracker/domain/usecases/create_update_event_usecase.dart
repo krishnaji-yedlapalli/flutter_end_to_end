@@ -36,7 +36,8 @@ class CreateUpdateEventUseCase {
           CreateUpdateEventParams(profileExecutedTask.profileId, event));
       return Right((
         userEvents: profileExecutedTask.userEvents,
-        todayEvents: EventSortHelper().getTodaySortedEvent(profileExecutedTask.todayEvents),
+        todayEvents: EventSortHelper()
+            .getTodaySortedEvent(profileExecutedTask.todayEvents),
         updatedEvent: event
       ));
     } catch (e, s) {

@@ -34,7 +34,8 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
         child: BlocBuilder<ProfilesCubit, ProfilesState>(
             builder: (context, ProfilesState profilesState) {
           if (profilesState is ProfilesStateLoaded) {
-            return _buildView(context, profilesState.profiles, profilesState.selectedProfile);
+            return _buildView(
+                context, profilesState.profiles, profilesState.selectedProfile);
           } else {
             return circularLoader();
           }
@@ -43,7 +44,8 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
     );
   }
 
-  Widget _buildView(BuildContext context, List<ProfileEntity> profiles, ProfileEntity? profile) {
+  Widget _buildView(BuildContext context, List<ProfileEntity> profiles,
+      ProfileEntity? profile) {
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -54,12 +56,15 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
               opacity: 0.1,
               fit: BoxFit.cover)),
       child: AdaptiveContainer(
-        child: profiles.isEmpty ? _buildCreateUser() : _buildProfiles(profiles, profile),
+        child: profiles.isEmpty
+            ? _buildCreateUser()
+            : _buildProfiles(profiles, profile),
       ),
     );
   }
 
-  Widget _buildProfiles(List<ProfileEntity> profiles, ProfileEntity? selectedProfile) {
+  Widget _buildProfiles(
+      List<ProfileEntity> profiles, ProfileEntity? selectedProfile) {
     return Builder(builder: (context) {
       return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +91,9 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
                           title: Text(profile.name),
                           selected: profile.isSelected,
                           selectedTileColor: Colors.green,
-                          onTap: () => context.read<ProfilesCubit>().onSelectionOfProfile(profile.id),
+                          onTap: () => context
+                              .read<ProfilesCubit>()
+                              .onSelectionOfProfile(profile.id),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) =>
@@ -94,41 +101,40 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
                 ],
               ),
             ),
-           if(selectedProfile != null) _buildProfileDetails(selectedProfile)
+            if (selectedProfile != null) _buildProfileDetails(selectedProfile)
           ]);
     });
   }
 
   Widget _buildProfileDetails(ProfileEntity profile) {
-    return  Builder(
-      builder: (context) {
-        return Flexible(
-          flex: 2,
-          child: Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   Text('Text : ${profile.name}'),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 200,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          final GetIt injector = GetIt.instance;
-                          final task = injector<ProfileExecutedTask>(); // No context needed
-                          task.setProfile = profile;
-                          GoRouter.of(context).go(DailyTrackerRouterModule.dailyTrackerDashboardPath);
-                        },
-                        child: const Text('GO')),
-                  )
-                ],
-              )),
-        );
-      }
-    );
+    return Builder(builder: (context) {
+      return Flexible(
+        flex: 2,
+        child: Card(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Text : ${profile.name}'),
+            Container(
+              alignment: Alignment.center,
+              width: 200,
+              child: ElevatedButton(
+                  onPressed: () {
+                    final GetIt injector = GetIt.instance;
+                    final task =
+                        injector<ProfileExecutedTask>(); // No context needed
+                    task.setProfile = profile;
+                    GoRouter.of(context)
+                        .go(DailyTrackerRouterModule.dailyTrackerDashboardPath);
+                  },
+                  child: const Text('GO')),
+            )
+          ],
+        )),
+      );
+    });
   }
-
 
   Widget _buildCreateUser() {
     return Builder(builder: (context) {
@@ -139,7 +145,8 @@ class UsersView extends StatelessWidget with Loaders, CustomDialogs {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('Right you don\'s users create one'),
-              ElevatedButton(onPressed: () {}, child: const Text('Create User')),
+              ElevatedButton(
+                  onPressed: () {}, child: const Text('Create User')),
               ElevatedButton(
                   onPressed: () {
                     GoRouter.of(context).go('/home/tracker/daily-tracker');

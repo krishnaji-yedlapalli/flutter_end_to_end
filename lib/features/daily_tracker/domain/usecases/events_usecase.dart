@@ -11,7 +11,6 @@ import '../../shared/models/profile_executed_task.dart';
 import '../../shared/utils/event_sorter_converter.dart';
 
 class EventsUseCase {
-
   EventsUseCase(this._repository, this._profileExecutedTask);
 
   final EventsRepository _repository;
@@ -20,7 +19,8 @@ class EventsUseCase {
 
   Future<Either<ErrorDetails, List<EventEntity>>> call() async {
     try {
-      var events = await _repository.fetchEventsBasedOnProfile(_profileExecutedTask.profileId);
+      var events = await _repository
+          .fetchEventsBasedOnProfile(_profileExecutedTask.profileId);
 
       var todayEvents = EventSortHelper().getTodaySortedEvent(events);
       _profileExecutedTask.userEvents = todayEvents;
@@ -29,5 +29,4 @@ class EventsUseCase {
       return Left(ExceptionHandler().handleException(e, s));
     }
   }
-
 }

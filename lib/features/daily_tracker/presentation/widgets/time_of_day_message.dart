@@ -1,23 +1,27 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TimeOfDayMessage extends StatefulWidget {
-
   final String title;
   final ({double top, double left}) position;
   final VoidCallback callback;
   final Size textSizeDetails;
   final AnimationController controller;
 
-  const TimeOfDayMessage({super.key, required this.title, required this.position, required this.callback, required this.textSizeDetails, required this.controller});
+  const TimeOfDayMessage(
+      {super.key,
+      required this.title,
+      required this.position,
+      required this.callback,
+      required this.textSizeDetails,
+      required this.controller});
 
   @override
   State<TimeOfDayMessage> createState() => _TimeOfDayMessageState();
 }
 
-class _TimeOfDayMessageState extends State<TimeOfDayMessage> with TickerProviderStateMixin {
-
+class _TimeOfDayMessageState extends State<TimeOfDayMessage>
+    with TickerProviderStateMixin {
   late Animation<Rect?> _rectAnimation;
 
   @override
@@ -32,18 +36,15 @@ class _TimeOfDayMessageState extends State<TimeOfDayMessage> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-
-
     Size size = MediaQuery.of(context).size;
     _rectAnimation = RectTween(
-      begin: Rect.fromLTWH(size.width/2 - 100, 20, 300, 50),
-      end: Rect.fromLTWH(widget.position.left, widget.position.top, widget.textSizeDetails.width, widget.textSizeDetails.height),
+      begin: Rect.fromLTWH(size.width / 2 - 100, 20, 300, 50),
+      end: Rect.fromLTWH(widget.position.left, widget.position.top,
+          widget.textSizeDetails.width, widget.textSizeDetails.height),
     ).animate(CurvedAnimation(
       parent: widget.controller,
       curve: Curves.easeInOut,
     ));
-
-
 
     return AnimatedBuilder(
         animation: widget.controller,
@@ -57,9 +58,12 @@ class _TimeOfDayMessageState extends State<TimeOfDayMessage> with TickerProvider
                           color: Colors.white,
                           fontFamily: GoogleFonts.notoSerif().fontFamily))
                   : Container(
-                  width: 200,
-                  alignment: Alignment.center,
-                  child: ElevatedButton.icon(onPressed: (){}, label: Text('Events'), icon: Icon(Icons.event))));
+                      width: 200,
+                      alignment: Alignment.center,
+                      child: ElevatedButton.icon(
+                          onPressed: () {},
+                          label: Text('Events'),
+                          icon: Icon(Icons.event))));
         });
   }
 }

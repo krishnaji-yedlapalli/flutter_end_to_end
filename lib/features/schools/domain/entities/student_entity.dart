@@ -43,7 +43,6 @@ class StudentEntity {
     );
   }
 
-
   StudentEntity copyWith({
     String? id,
     String? schoolId,

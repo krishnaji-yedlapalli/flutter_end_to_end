@@ -32,7 +32,8 @@ class Schools extends StatefulWidget {
   State<Schools> createState() => _SchoolsState();
 }
 
-class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWidget, FeatureDiscovery {
+class _SchoolsState extends State<Schools>
+    with Loaders, CustomDialogs, HelperWidget, FeatureDiscovery {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -48,23 +49,25 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
       appBar: CustomAppBar(
         title: const Text('Schools'),
         actions: [
-          featureDiscovery(() =>
-              SchoolScreenFeatureDiscovery().startFeatureDiscovery(
-                  context, forceTour: true))
+          featureDiscovery(() => SchoolScreenFeatureDiscovery()
+              .startFeatureDiscovery(context, forceTour: true))
         ],
         appBar: AppBar(),
       ),
       floatingActionButton: SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
           type: SchoolDiscoverFeatureType.create,
-          child: FloatingActionButton.extended(onPressed: onTapOfCreateSchool,
+          child: FloatingActionButton.extended(
+              onPressed: onTapOfCreateSchool,
               label: const Text('Create School'),
               icon: const Icon(Icons.add))),
       body: BlocListener<SchoolsBloc, SchoolsState>(
         listener: (context, state) {
-          buildAlertDialog(context, title: '!!! Welcome to School Module !!!',
-              content: 'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
-          BlocProvider.of<SchoolsBloc>(context).updateWelcomeMessageStatus(
-              true);
+          buildAlertDialog(context,
+              title: '!!! Welcome to School Module !!!',
+              content:
+                  'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
+          BlocProvider.of<SchoolsBloc>(context)
+              .updateWelcomeMessageStatus(true);
         },
         listenWhen: (oldState, state) {
           return !state.isWelcomeMessageShowed;
@@ -76,27 +79,27 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
               spacing: 10,
               alignment: WrapAlignment.spaceBetween,
               crossAxisAlignment: WrapCrossAlignment.center,
-              children: [Text('Registered Schools:', style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleMedium),
-                if(DeviceConfiguration.isOfflineSupportedDevice) Wrap(
-                  spacing: 10,
-                  children: [
-                    SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-                        type: SchoolDiscoverFeatureType.sync,
-                        child: _buildSyncButton()),
-                    SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-                        type: SchoolDiscoverFeatureType.dumpOfflineData,
-                        child: _buildDumpOfflineButton()),
-                    SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-                        type: SchoolDiscoverFeatureType.setDdConfig,
-                        child: _buildDbConfigurationsButtonForDevelopment()),
-                    SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-                        type: SchoolDiscoverFeatureType.resetDb,
-                        child: _buildDbClearButton())
-                  ],
-                )
+              children: [
+                Text('Registered Schools:',
+                    style: Theme.of(context).textTheme.titleMedium),
+                if (DeviceConfiguration.isOfflineSupportedDevice)
+                  Wrap(
+                    spacing: 10,
+                    children: [
+                      SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
+                          type: SchoolDiscoverFeatureType.sync,
+                          child: _buildSyncButton()),
+                      SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
+                          type: SchoolDiscoverFeatureType.dumpOfflineData,
+                          child: _buildDumpOfflineButton()),
+                      SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
+                          type: SchoolDiscoverFeatureType.setDdConfig,
+                          child: _buildDbConfigurationsButtonForDevelopment()),
+                      SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
+                          type: SchoolDiscoverFeatureType.resetDb,
+                          child: _buildDbClearButton())
+                    ],
+                  )
               ],
             ),
             Expanded(child: _buildSchoolBlocConsumer()),
@@ -106,31 +109,31 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
     );
   }
 
-    Widget _buildSchoolBlocConsumer() {
-      return BlocBuilder<SchoolsBloc, SchoolsState>(
-
-          builder: (context, state) {
-            if (state is SchoolsInfoInitial || state is SchoolsInfoLoading) {
-              return circularLoader();
-            } else if (state is SchoolsInfoLoaded) {
-              return _buildRegisteredSchools(state.schools);
-            } else if (state is SchoolDataError) {
-              return ExceptionView(state.errorStateType);
-            } else {
-              return Container();
-            }
-          });
-    }
-
-    Widget _buildRegisteredSchools(List<SchoolViewModel> schools) {
-      if (schools.isEmpty) {
-        return emptyMessage('No Schools Found, Create a new School');
+  Widget _buildSchoolBlocConsumer() {
+    return BlocBuilder<SchoolsBloc, SchoolsState>(builder: (context, state) {
+      if (state is SchoolsInfoInitial || state is SchoolsInfoLoading) {
+        return circularLoader();
+      } else if (state is SchoolsInfoLoaded) {
+        return _buildRegisteredSchools(state.schools);
+      } else if (state is SchoolDataError) {
+        return ExceptionView(state.errorStateType);
+      } else {
+        return Container();
       }
+    });
+  }
 
-      return AdaptiveContainer(tabletWidth: 0.7,
-        desktopWidth: 0.35,child: _buildSchoolListView(schools),
-      );
+  Widget _buildRegisteredSchools(List<SchoolViewModel> schools) {
+    if (schools.isEmpty) {
+      return emptyMessage('No Schools Found, Create a new School');
     }
+
+    return AdaptiveContainer(
+      tabletWidth: 0.7,
+      desktopWidth: 0.35,
+      child: _buildSchoolListView(schools),
+    );
+  }
 
   Widget _buildSchoolListView(List<SchoolViewModel> schools) {
     return ListView.separated(
@@ -144,11 +147,11 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
                 text: TextSpan(
                     style: const TextStyle(color: Colors.black),
                     children: [
-                      const TextSpan(text: 'Country :',
-                          style: TextStyle(color: Colors.orange)),
-                      TextSpan(text: school.country),
-                    ]
-                )),
+                  const TextSpan(
+                      text: 'Country :',
+                      style: TextStyle(color: Colors.orange)),
+                  TextSpan(text: school.country),
+                ])),
             trailing: Wrap(
               children: [
                 SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
@@ -166,85 +169,87 @@ class _SchoolsState extends State<Schools> with Loaders, CustomDialogs, HelperWi
             onTap: () => onTapOfSchool(school),
           );
         },
-        separatorBuilder: (BuildContext context,
-            int index) => const Divider());
+        separatorBuilder: (BuildContext context, int index) => const Divider());
   }
 
-    Widget _buildSyncButton() {
-      return StreamBuilder<int>(
-        stream: OfflineHandler().queueItemsCount.stream,
-        initialData: 0,
-        builder: (context, snapshot) {
-          var count = 0;
-          if (snapshot.hasData) {
-            count = snapshot.data ?? 0;
-          }
-          return Badge(
-              label: Text('$count'),
-              child: ElevatedButton(onPressed: OfflineHandler().syncData,
-                  child: const Text('Sync')));
-        },
-      );
-    }
-
-    Widget _buildDbConfigurationsButtonForDevelopment() {
-      return ElevatedButton(onPressed: () {
-        adaptiveDialog(context, const DbConfigurationDialog());
-      }, child: const Text('Set Db Configurations'));
-    }
-
-    Widget _buildDumpOfflineButton() {
-      return StreamBuilder<OfflineDumpingStatus>(
-        stream: OfflineHandler().dumpingOfflineDataStatus.stream,
-        builder: (context, snapshot) {
-          Widget child;
-          OfflineDumpingStatus status = snapshot.data;
-          if (status != null) {
-            child = Wrap(children: [
-              Text(status.title),
-              Text('${status.percentage}%')
-            ]);
-          } else {
-            child = const Text('Dump Offline Data');
-          }
-          return ElevatedButton(
-              onPressed: status == null ? onTapOfDumpStatus : () =>
-                  onTapOfDumpStatus(true), child: child);
-        },
-      );
-    }
-
-    Widget _buildDbClearButton() {
-      return ElevatedButton.icon(
-          onPressed: OfflineHandler().eraseAllDatabaseData,
-          icon: const Icon(Icons.refresh),
-          label: const Text('Reset Whole Db'));
-    }
-
-    onTapOfSchool(SchoolViewModel school) {
-      var query = {
-        "schoolId": school.id
-      };
-
-      context.go(
-          Uri(path: '/home/schools/school-details', queryParameters: query)
-              .toString(), extra: school);
-    }
-
-    onTapOfCreateSchool() {
-      adaptiveDialog(context, CreateSchool(parentContext: context));
-    }
-
-    onTapOfEditSchool(SchoolViewModel school) {
-      adaptiveDialog(context, CreateSchool(parentContext: context, school: school));
-    }
-
-    onTapOfSchoolDelete(String schoolId) {
-      BlocProvider.of<SchoolsBloc>(context).deleteSchool(schoolId);
-    }
-
-    onTapOfDumpStatus([bool isRunning = false]) {
-      if (!isRunning) OfflineHandler().dumpOfflineData();
-      adaptiveDialog(context, const DumpingStatusView());
-    }
+  Widget _buildSyncButton() {
+    return StreamBuilder<int>(
+      stream: OfflineHandler().queueItemsCount.stream,
+      initialData: 0,
+      builder: (context, snapshot) {
+        var count = 0;
+        if (snapshot.hasData) {
+          count = snapshot.data ?? 0;
+        }
+        return Badge(
+            label: Text('$count'),
+            child: ElevatedButton(
+                onPressed: OfflineHandler().syncData,
+                child: const Text('Sync')));
+      },
+    );
   }
+
+  Widget _buildDbConfigurationsButtonForDevelopment() {
+    return ElevatedButton(
+        onPressed: () {
+          adaptiveDialog(context, const DbConfigurationDialog());
+        },
+        child: const Text('Set Db Configurations'));
+  }
+
+  Widget _buildDumpOfflineButton() {
+    return StreamBuilder<OfflineDumpingStatus>(
+      stream: OfflineHandler().dumpingOfflineDataStatus.stream,
+      builder: (context, snapshot) {
+        Widget child;
+        OfflineDumpingStatus status = snapshot.data;
+        if (status != null) {
+          child = Wrap(
+              children: [Text(status.title), Text('${status.percentage}%')]);
+        } else {
+          child = const Text('Dump Offline Data');
+        }
+        return ElevatedButton(
+            onPressed: status == null
+                ? onTapOfDumpStatus
+                : () => onTapOfDumpStatus(true),
+            child: child);
+      },
+    );
+  }
+
+  Widget _buildDbClearButton() {
+    return ElevatedButton.icon(
+        onPressed: OfflineHandler().eraseAllDatabaseData,
+        icon: const Icon(Icons.refresh),
+        label: const Text('Reset Whole Db'));
+  }
+
+  onTapOfSchool(SchoolViewModel school) {
+    var query = {"schoolId": school.id};
+
+    context.go(
+        Uri(path: '/home/schools/school-details', queryParameters: query)
+            .toString(),
+        extra: school);
+  }
+
+  onTapOfCreateSchool() {
+    adaptiveDialog(context, CreateSchool(parentContext: context));
+  }
+
+  onTapOfEditSchool(SchoolViewModel school) {
+    adaptiveDialog(
+        context, CreateSchool(parentContext: context, school: school));
+  }
+
+  onTapOfSchoolDelete(String schoolId) {
+    BlocProvider.of<SchoolsBloc>(context).deleteSchool(schoolId);
+  }
+
+  onTapOfDumpStatus([bool isRunning = false]) {
+    if (!isRunning) OfflineHandler().dumpOfflineData();
+    adaptiveDialog(context, const DumpingStatusView());
+  }
+}

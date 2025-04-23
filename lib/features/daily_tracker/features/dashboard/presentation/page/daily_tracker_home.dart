@@ -165,7 +165,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
         'asset/sound_effects/check_in.mp3');
     player.play();
     await controller.reverse();
-    if(mounted) context.read<CheckInStatusCubit>().checkIn();
+    if (mounted) context.read<CheckInStatusCubit>().checkIn();
   }
 
   void showEvents() {

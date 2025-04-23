@@ -8,7 +8,6 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 
 class GeminiChatScreen extends StatelessWidget {
-
   const GeminiChatScreen({super.key});
 
   @override
@@ -27,7 +26,7 @@ class GeminiChatScreen extends StatelessWidget {
         showUserNames: true,
         listBottomWidget: Wrap(
           children: [
-            IconButton(onPressed: (){}, icon: const Icon(Icons.attach_file))
+            IconButton(onPressed: () {}, icon: const Icon(Icons.attach_file))
           ],
         ),
         scrollPhysics: AlwaysScrollableScrollPhysics(),
@@ -49,4 +48,3 @@ class GeminiChatScreen extends StatelessWidget {
     );
   }
 }
-

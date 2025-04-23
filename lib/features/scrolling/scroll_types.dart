@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/mixins/cards_mixin.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
@@ -8,40 +7,54 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
   const ScrollTypes({Key? key}) : super(key: key);
 
   final List<({String name, String link})> animationList = const [
-  (name: 'Scroll Bar', link : ''),
-  (name: 'List View', link : ''),
-  (name: 'Animated List', link : ''),
-  (name: 'Grid View', link : ''),
-  (name: 'List Wheel Scroll View', link : 'https://api.flutter.dev/flutter/widgets/ListWheelScrollView-class.html'),
-  (name: 'Draggable Scrollable sheet', link : ''),
-  (name: 'Silver App Bar', link : ''),
-  (name: 'Silver List', link : ''),
-  (name: 'Silver Grid', link : ''),
-  (name: 'Custom Scroll view', link : 'https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html'),
-  (name: 'Two Dimensional Scrolling', link : 'https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html'),
-  (name: 'Scrolling Parallax effect', link : 'https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html'),
+    (name: 'Scroll Bar', link: ''),
+    (name: 'List View', link: ''),
+    (name: 'Animated List', link: ''),
+    (name: 'Grid View', link: ''),
+    (
+      name: 'List Wheel Scroll View',
+      link:
+          'https://api.flutter.dev/flutter/widgets/ListWheelScrollView-class.html'
+    ),
+    (name: 'Draggable Scrollable sheet', link: ''),
+    (name: 'Silver App Bar', link: ''),
+    (name: 'Silver List', link: ''),
+    (name: 'Silver Grid', link: ''),
+    (
+      name: 'Custom Scroll view',
+      link:
+          'https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html'
+    ),
+    (
+      name: 'Two Dimensional Scrolling',
+      link:
+          'https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html'
+    ),
+    (
+      name: 'Scrolling Parallax effect',
+      link:
+          'https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html'
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-    title: const Text('Scroll Types'),
-    appBar: AppBar()),
+      appBar: CustomAppBar(title: const Text('Scroll Types'), appBar: AppBar()),
       body: GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:  DeviceConfiguration.isMobileResolution ? 2 : 6),
-     itemCount: animationList.length,
-     itemBuilder: (context, index) {
-      var item = animationList.elementAt(index);
-      return buildHomeCardView(title: item.name,
-       des: '',
-       callback: nav, icon: Icons.roller_shades
-      );
-  }),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 6),
+          itemCount: animationList.length,
+          itemBuilder: (context, index) {
+            var item = animationList.elementAt(index);
+            return buildHomeCardView(
+                title: item.name,
+                des: '',
+                callback: nav,
+                icon: Icons.roller_shades);
+          }),
     );
   }
-  
-  void nav() {
-    
-  }
+
+  void nav() {}
 }

@@ -5,9 +5,9 @@ import '../utils/screen_break_points.dart';
 
 /// Signature for the builder callback
 typedef DeviceResolutionBuilderCallback = Widget Function(
-    BuildContext context,
-    DeviceResolutionType deviceResolutionType,
-    );
+  BuildContext context,
+  DeviceResolutionType deviceResolutionType,
+);
 
 /// A widget that builds different layouts based on screen width
 class AdaptiveLayoutBuilder extends StatelessWidget {
@@ -31,7 +31,8 @@ class AdaptiveLayoutBuilder extends StatelessWidget {
   DeviceResolutionType _getDeviceType(double width) {
     if (width < mobileBreakpoint) {
       return DeviceResolutionType.mobile;
-    } else if (width > mobileBreakpoint && width < ScreenBreakPoints.desktopBreakPoint) {
+    } else if (width > mobileBreakpoint &&
+        width < ScreenBreakPoints.desktopBreakPoint) {
       return DeviceResolutionType.tab;
     } else {
       return DeviceResolutionType.desktop;

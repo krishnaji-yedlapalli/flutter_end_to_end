@@ -18,5 +18,4 @@ class SchoolDetailsViewModel {
     required this.employeeCount,
     required this.hostelAvailability,
   });
-
 }

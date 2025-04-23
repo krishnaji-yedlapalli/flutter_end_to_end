@@ -17,8 +17,8 @@ class CreateSchool extends StatefulWidget {
   State<CreateSchool> createState() => _CreateSchoolState();
 }
 
-class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validators{
-
+class _CreateSchoolState extends State<CreateSchool>
+    with CustomDialogs, Validators {
   final TextEditingController schoolNameCtrl = TextEditingController();
 
   final TextEditingController locationCtrl = TextEditingController();
@@ -41,7 +41,7 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
 
   @override
   void initState() {
-    if(widget.school != null) {
+    if (widget.school != null) {
       schoolNameCtrl.text = widget.school?.schoolName ?? '';
       locationCtrl.text = widget.school?.location ?? '';
       selectedCountry = widget.school?.country;
@@ -54,9 +54,10 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
   @override
   Widget build(BuildContext context) {
     return dialogWithButtons(
-      title: 'Create School',
-      content: _buildFrom(), actions: ['Cancel', isCreateSchool ? 'Create' : 'Update'], callBack: onTapOfAction
-    );
+        title: 'Create School',
+        content: _buildFrom(),
+        actions: ['Cancel', isCreateSchool ? 'Create' : 'Update'],
+        callBack: onTapOfAction);
   }
 
   Widget _buildFrom() {
@@ -70,25 +71,28 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
           runSpacing: 20,
           children: [
             CustomTextField(
-                controller: schoolNameCtrl,
-                label: 'School Name',
-                suffixIcon: const Icon(Icons.school),
-                validator: (val)=> textEmptyValidator(val, 'School name is required!!'),
+              controller: schoolNameCtrl,
+              label: 'School Name',
+              suffixIcon: const Icon(Icons.school),
+              validator: (val) =>
+                  textEmptyValidator(val, 'School name is required!!'),
             ),
             CustomDropDown(
-                items: countries
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
-                onChanged: (val) => selectedCountry = val,
-                value: selectedCountry,
-                hint: 'Select Country',
-              validator: (val)=> textEmptyValidator(val, 'Country is required!!'),
+              items: countries
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                  .toList(),
+              onChanged: (val) => selectedCountry = val,
+              value: selectedCountry,
+              hint: 'Select Country',
+              validator: (val) =>
+                  textEmptyValidator(val, 'Country is required!!'),
             ),
             CustomTextField(
-                controller: locationCtrl,
-                label: 'Location Name',
-                suffixIcon: const Icon(Icons.location_on),
-              validator: (val)=> textEmptyValidator(val, 'Location is required!!'),
+              controller: locationCtrl,
+              label: 'Location Name',
+              suffixIcon: const Icon(Icons.location_on),
+              validator: (val) =>
+                  textEmptyValidator(val, 'Location is required!!'),
             ),
           ],
         ),
@@ -96,23 +100,23 @@ class _CreateSchoolState extends State<CreateSchool> with CustomDialogs, Validat
     );
   }
 
-  void onTapOfAction(int index){
-    switch(index){
-      case 0 :
+  void onTapOfAction(int index) {
+    switch (index) {
+      case 0:
         GoRouter.of(context).pop();
         break;
-      case 1 :
-        if(formKey.currentState?.validate() ?? false) {
-          context.read<SchoolBloc>().createOrUpdateSchool(SchoolModel(
-              schoolNameCtrl.text.trim(),
-              selectedCountry!,
-              locationCtrl.text.trim(),
-              isCreateSchool ? HelperMethods.uuid : widget.school!.id,
-              widget.school?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
-              updatedDate: DateTime.now().millisecondsSinceEpoch
-          ),
-              isCreateSchool : isCreateSchool
-          );
+      case 1:
+        if (formKey.currentState?.validate() ?? false) {
+          context.read<SchoolBloc>().createOrUpdateSchool(
+              SchoolModel(
+                  schoolNameCtrl.text.trim(),
+                  selectedCountry!,
+                  locationCtrl.text.trim(),
+                  isCreateSchool ? HelperMethods.uuid : widget.school!.id,
+                  widget.school?.createdDate ??
+                      DateTime.now().millisecondsSinceEpoch,
+                  updatedDate: DateTime.now().millisecondsSinceEpoch),
+              isCreateSchool: isCreateSchool);
           GoRouter.of(context).pop();
         }
         break;

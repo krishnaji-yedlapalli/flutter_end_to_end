@@ -117,7 +117,8 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails>
                   int.parse(staffStrengthCtrl.text.trim()),
                   hostelAvailability,
                   widget.school.id));
-          Navigator.of(context).pop();}
+          Navigator.of(context).pop();
+        }
         break;
     }
   }

@@ -1,4 +1,3 @@
-
 import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/core/mixins/date_formats.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
@@ -11,9 +10,9 @@ import '../../../../core/data/utils/service_enums_typedef.dart';
 import '../../shared/models/profile_executed_task.dart';
 import '../../shared/params/user_check_in_params.dart';
 
-class PerformUserCheckInUseCase with DateFormats{
-
-  PerformUserCheckInUseCase(this._checkInStatusRepository, this.profileExecutedTask);
+class PerformUserCheckInUseCase with DateFormats {
+  PerformUserCheckInUseCase(
+      this._checkInStatusRepository, this.profileExecutedTask);
 
   final CheckInStatusRepository _checkInStatusRepository;
 
@@ -22,23 +21,23 @@ class PerformUserCheckInUseCase with DateFormats{
   Future<Either<ErrorDetails, bool>> call(List<EventEntity> events) async {
     try {
       /// If events is Empty
-      if(events.isEmpty){
-        events.add(EventEntity(id: "63a5d8007d04111490757feeb082f05f",
+      if (events.isEmpty) {
+        events.add(EventEntity(
+            id: "63a5d8007d04111490757feeb082f05f",
             eventType: "everyday",
             title: "Gym",
             description: "ready",
             createdDate: 1724945419249,
             selectedDateTime: 1724869800000,
-            actionCheckList: [
-              ActionEventModel('chec', true)
-            ]));
+            actionCheckList: [ActionEventModel('chec', true)]));
       }
 
-      var params = UserCheckInParams(profileExecutedTask.profileId, events, currentDateInFormatted);
+      var params = UserCheckInParams(
+          profileExecutedTask.profileId, events, currentDateInFormatted);
       var res = await _checkInStatusRepository.submitUserCheckIn(params);
       return const Right(true);
-    }catch(e,s){
-      return  Left(ExceptionHandler().handleException(e, s));
+    } catch (e, s) {
+      return Left(ExceptionHandler().handleException(e, s));
     }
   }
 }

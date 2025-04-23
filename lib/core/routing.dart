@@ -33,15 +33,11 @@ import 'package:sample_latest/features/routing_features/state_ful_shell_routing_
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/features/scrolling/scroll_types.dart';
 import 'package:sample_latest/features/regular_widgets/cards_list_view_grid.dart';
-import 'package:sample_latest/features/schools/presentation/screens/school_details/school_details.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
-import 'package:sample_latest/features/schools/presentation/screens/student/student.dart';
-import 'package:sample_latest/features/home_screen.dart';
+import 'package:sample_latest/features/dashboard/home_screen.dart';
 import 'package:sample_latest/features/isolates/isolate_home.dart';
 import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
 import 'package:sample_latest/features/localization.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
-import 'package:sample_latest/features/upi_payments/easy_upi_payments.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
@@ -70,7 +66,6 @@ class Routing {
 
   static final shellNavigatorKey = GlobalKey<NavigatorState>();
 
-
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: home,
@@ -91,7 +86,7 @@ class Routing {
         builder: (BuildContext context, GoRouterState state) {
           return const FeatureDiscovery.withProvider(
               persistenceProvider: NoPersistenceProvider(),
-          child: HomeScreen());
+              child: HomeScreen());
         },
         routes: [
           dashboardRoute(),
@@ -110,12 +105,6 @@ class Routing {
                 return const LocalizationDatePicker();
               }),
           GoRoute(
-              path: 'upipayments',
-              name: 'Upi Payments',
-              builder: (context, state) {
-                return const EasyUpiPayments();
-              }),
-          GoRoute(
               path: 'isolates',
               name: 'Isolates',
               builder: (context, state) {
@@ -127,12 +116,6 @@ class Routing {
                     name: 'Isolates With without Lag',
                     builder: (context, state) {
                       return IsolateWithCompute();
-                    }),
-                GoRoute(
-                    path: 'isolateWithSpawn',
-                    name: 'Isolateds With Spwan',
-                    builder: (context, state) {
-                      return const EasyUpiPayments();
                     }),
               ]),
           GoRoute(
@@ -190,7 +173,12 @@ class Routing {
 
   /// Dashboard Routes
   static RouteBase dashboardRoute() {
-    List<({String path, String name, Widget Function(BuildContext context, GoRouterState state) builder})> dashboardChildRouteList = [
+    List<
+        ({
+          String path,
+          String name,
+          Widget Function(BuildContext context, GoRouterState state) builder
+        })> dashboardChildRouteList = [
       (
         path: materialComponents,
         name: 'Material Components',
@@ -270,101 +258,138 @@ class Routing {
           builder: (BuildContext context, GoRouterState state) {
             return RegularlyUsedWidgetsDashboard();
           },
-          routes: dashboardChildRouteList.map((e) => GoRoute(path: e.path, name: e.name, builder: (context, state) => Scaffold(appBar: AppBar(title: Text(e.name)), body: e.builder(context, state)))).toList());
+          routes: dashboardChildRouteList
+              .map((e) => GoRoute(
+                  path: e.path,
+                  name: e.name,
+                  builder: (context, state) => Scaffold(
+                      appBar: AppBar(title: Text(e.name)),
+                      body: e.builder(context, state))))
+              .toList());
     } else {
       return StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
-            return RegularlyUsedWidgetsDashboard(navigationShell: navigationShell);
+            return RegularlyUsedWidgetsDashboard(
+                navigationShell: navigationShell);
           },
-          branches: dashboardChildRouteList.map((e) => StatefulShellBranch(routes: [GoRoute(path: '$dashboard/${e.path}', name: e.name, builder: e.builder)])).toList());
+          branches: dashboardChildRouteList
+              .map((e) => StatefulShellBranch(routes: [
+                    GoRoute(
+                        path: '$dashboard/${e.path}',
+                        name: e.name,
+                        builder: e.builder)
+                  ]))
+              .toList());
     }
   }
 
   static GoRoute goRoute() {
-    return GoRoute(path: 'route',
-    parentNavigatorKey: navigatorKey,
-    builder: (BuildContext context, GoRouterState state){
-      return RoutingDashboard();
-    },
-    routes: [
-      ShellRoute(
-          navigatorKey: shellNavigatorKey,
-          builder: (context, state, child) => ShellRouting(child),
-          routes: [
-            GoRoute(
-              path: 'parent',
-              parentNavigatorKey: shellNavigatorKey,
-              builder: (context, state) =>  const ShellChildOne(),
+    return GoRoute(
+        path: 'route',
+        parentNavigatorKey: navigatorKey,
+        builder: (BuildContext context, GoRouterState state) {
+          return RoutingDashboard();
+        },
+        routes: [
+          ShellRoute(
+              navigatorKey: shellNavigatorKey,
+              builder: (context, state, child) => ShellRouting(child),
               routes: [
                 GoRoute(
-                  path: 'child1',
-                  parentNavigatorKey: shellNavigatorKey,
-                  builder: (context, state) =>  const ShellChildOneChildOne(),
-                  routes: [
-                    GoRoute(
-                        path: 'child2',
-                        parentNavigatorKey: shellNavigatorKey,
-                        builder: (context, state) =>  const ShellChildOneChildTwo(),
-                      routes: [
-                        GoRoute(
-                            path: 'child3',
-                            parentNavigatorKey: shellNavigatorKey,
-                            builder: (context, state) =>  const ShellChildOneChildThree())
-                      ]
-                    )
-                  ]
-                )
-              ]
-            ),
-         ]),
-      StatefulShellRoute.indexedStack(builder: (context, state, navigationShell) => StateFulShellRoutingWithIndexed(navigationShell: navigationShell),
-          branches: [
-            StatefulShellBranch(routes: [
-              GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hi', builder: (context, state) => const Text('Hi'),),]),
-            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hello', builder: (context, state) => const Text('Heloo'))]),
-            StatefulShellBranch(routes: [GoRoute(path: '${RouteType.stateFullShellRoutingWithIndexed.name}/hola', builder: (context, state) => const Text('Hola'))]),
-          ]
-      ),
-      GoRoute(path: RouteType.stateFullShellRoutingWithoutIndexed.name,
-          builder: (BuildContext context, GoRouterState state) => const StateFulShellRoutingWithoutIndexed()
-      )
-      ]);
-}
+                    path: 'parent',
+                    parentNavigatorKey: shellNavigatorKey,
+                    builder: (context, state) => const ShellChildOne(),
+                    routes: [
+                      GoRoute(
+                          path: 'child1',
+                          parentNavigatorKey: shellNavigatorKey,
+                          builder: (context, state) =>
+                              const ShellChildOneChildOne(),
+                          routes: [
+                            GoRoute(
+                                path: 'child2',
+                                parentNavigatorKey: shellNavigatorKey,
+                                builder: (context, state) =>
+                                    const ShellChildOneChildTwo(),
+                                routes: [
+                                  GoRoute(
+                                      path: 'child3',
+                                      parentNavigatorKey: shellNavigatorKey,
+                                      builder: (context, state) =>
+                                          const ShellChildOneChildThree())
+                                ])
+                          ])
+                    ]),
+              ]),
+          StatefulShellRoute.indexedStack(
+              builder: (context, state, navigationShell) =>
+                  StateFulShellRoutingWithIndexed(
+                      navigationShell: navigationShell),
+              branches: [
+                StatefulShellBranch(routes: [
+                  GoRoute(
+                    path:
+                        '${RouteType.stateFullShellRoutingWithIndexed.name}/hi',
+                    builder: (context, state) => const Text('Hi'),
+                  ),
+                ]),
+                StatefulShellBranch(routes: [
+                  GoRoute(
+                      path:
+                          '${RouteType.stateFullShellRoutingWithIndexed.name}/hello',
+                      builder: (context, state) => const Text('Heloo'))
+                ]),
+                StatefulShellBranch(routes: [
+                  GoRoute(
+                      path:
+                          '${RouteType.stateFullShellRoutingWithIndexed.name}/hola',
+                      builder: (context, state) => const Text('Hola'))
+                ]),
+              ]),
+          GoRoute(
+              path: RouteType.stateFullShellRoutingWithoutIndexed.name,
+              builder: (BuildContext context, GoRouterState state) =>
+                  const StateFulShellRoutingWithoutIndexed())
+        ]);
+  }
 
-static ShellRoute pushNotification() {
-    return  ShellRoute(
+  static ShellRoute pushNotification() {
+    return ShellRoute(
         navigatorKey: shellNavigatorKey,
-        builder: (context, state, child) => NotificationWithRemoteAndLocal(child),
+        builder: (context, state, child) =>
+            NotificationWithRemoteAndLocal(child),
         routes: [
           GoRoute(
             path: 'push-notifications/remote-notifications',
             parentNavigatorKey: shellNavigatorKey,
-            builder: (context, state) =>  const FirebasePushNotifications(),
+            builder: (context, state) => const FirebasePushNotifications(),
           ),
           GoRoute(
             path: 'push-notifications/local-notifications',
             parentNavigatorKey: shellNavigatorKey,
-            builder: (context, state) =>  const LocalPushNotifications(),
+            builder: (context, state) => const LocalPushNotifications(),
           ),
         ]);
-}
+  }
 
- static void onPushNotificationOpened(RemoteMessage? message) {
+  static void onPushNotificationOpened(RemoteMessage? message) {
     String path = '/home/schools';
-    if(message?.data['path'] != null) path = message?.data['path'];
-   if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push(path);
- }
+    if (message?.data['path'] != null) path = message?.data['path'];
+    if (navigatorKey.currentContext != null)
+      GoRouter.of(navigatorKey.currentContext!).push(path);
+  }
 
   static void onLocalPushNotificationOpened(String? path) {
-     path ??= '/home/schools';
-    if(navigatorKey.currentContext != null) GoRouter.of(navigatorKey.currentContext!).push(path);
+    path ??= '/home/schools';
+    if (navigatorKey.currentContext != null)
+      GoRouter.of(navigatorKey.currentContext!).push(path);
   }
 
   static bool navigateToHome(BuildContext context) {
-
-   var route = GoRouter.of(context);
+    var route = GoRouter.of(context);
     while (route.canPop()) {
-      if(route.routerDelegate.currentConfiguration.uri.path == '/home/schools'){
+      if (route.routerDelegate.currentConfiguration.uri.path ==
+          '/home/schools') {
         route.pop();
         break;
       }

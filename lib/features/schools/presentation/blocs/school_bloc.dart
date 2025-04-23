@@ -13,14 +13,12 @@ import 'package:sample_latest/global_variables.dart';
 
 import 'package:sample_latest/core/mixins/notifiers.dart';
 
-
 import '../../data/repository/school_repository.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 part 'school_state.dart';
 
 class SchoolBloc extends Cubit<SchoolState> {
-
   final SchoolRepository repository;
   bool viewAllStudents = true;
   var schools = <SchoolModel>[];
@@ -29,14 +27,13 @@ class SchoolBloc extends Cubit<SchoolState> {
   bool isWelcomeMessageShowed = false;
 
   SchoolBloc(this.repository)
-      : super(const SchoolInfoInitial(SchoolDataLoadedType.schools)) {
-  }
+      : super(const SchoolInfoInitial(SchoolDataLoadedType.schools)) {}
 
   Future<void> loadSchools() async {
-
     const schoolState = SchoolDataLoadedType.schools;
 
-    emit(SchoolInfoLoading(schoolState, showedWelcomeMessage: isWelcomeMessageShowed));
+    emit(SchoolInfoLoading(schoolState,
+        showedWelcomeMessage: isWelcomeMessageShowed));
 
     try {
       schools.clear();
@@ -49,7 +46,6 @@ class SchoolBloc extends Cubit<SchoolState> {
   }
 
   Future<void> loadSchoolDetails(String schoolId) async {
-
     const schoolState = SchoolDataLoadedType.school;
 
     students.clear();
@@ -70,7 +66,6 @@ class SchoolBloc extends Cubit<SchoolState> {
   }
 
   Future<void> loadStudents(String schoolId) async {
-
     const schoolState = SchoolDataLoadedType.students;
 
     emit(const SchoolInfoLoading(schoolState));
@@ -91,12 +86,11 @@ class SchoolBloc extends Cubit<SchoolState> {
     emit(const SchoolInfoLoading(schoolState));
 
     try {
-      var student =
-          await repository.fetchStudent(studentId, schoolId);
+      var student = await repository.fetchStudent(studentId, schoolId);
 
-      if(student != null){
+      if (student != null) {
         emit(StudentInfoLoaded(schoolState, student, schoolId));
-      }else{
+      } else {
         navigatorKey.currentState?.pop();
         Notifiers.toastNotifier('Invalid student details');
       }
@@ -106,9 +100,8 @@ class SchoolBloc extends Cubit<SchoolState> {
     }
   }
 
-  Future<void> createOrUpdateSchool(
-      SchoolModel school, {bool isCreateSchool = false}) async {
-
+  Future<void> createOrUpdateSchool(SchoolModel school,
+      {bool isCreateSchool = false}) async {
     const schoolState = SchoolDataLoadedType.schools;
 
     try {
@@ -120,8 +113,7 @@ class SchoolBloc extends Cubit<SchoolState> {
       schools = List.from(schools);
 
       if (!isCreateSchool) {
-        var index =
-        schools.indexWhere((school) => school.id == school.id);
+        var index = schools.indexWhere((school) => school.id == school.id);
         if (index != -1) {
           schools[index] = createdOrUpdatedSchool;
         }
@@ -132,14 +124,17 @@ class SchoolBloc extends Cubit<SchoolState> {
       emit(SchoolsInfoLoaded(schoolState, schools));
     } catch (e, s) {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
-          stackTrace: s, toastMessage: isCreateSchool ? 'Unable to create the School' : 'Unable to update the school');
+          stackTrace: s,
+          toastMessage: isCreateSchool
+              ? 'Unable to create the School'
+              : 'Unable to update the school');
     } finally {
       navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
-  Future<void> createOrEditSchoolDetails(SchoolDetailsModel schoolDetails) async {
-
+  Future<void> createOrEditSchoolDetails(
+      SchoolDetailsModel schoolDetails) async {
     const schoolState = SchoolDataLoadedType.school;
 
     try {
@@ -149,7 +144,6 @@ class SchoolBloc extends Cubit<SchoolState> {
           await repository.addOrEditSchoolDetails(schoolDetails);
 
       emit(SchoolInfoLoaded(schoolState, createdOrEditSchoolDetails));
-
     } catch (e, s) {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Unable to create the School Details');
@@ -158,21 +152,21 @@ class SchoolBloc extends Cubit<SchoolState> {
     }
   }
 
-  Future<void> createOrEditStudent(StudentModel student, String schoolId, {bool isCreateStudent = false}) async {
+  Future<void> createOrEditStudent(StudentModel student, String schoolId,
+      {bool isCreateStudent = false}) async {
     const schoolState = SchoolDataLoadedType.students;
 
     try {
-
       navigatorKey.currentContext?.loaderOverlay.show();
 
-      var createdStudent = await repository.createOrEditStudent(schoolId, student);
+      var createdStudent =
+          await repository.createOrEditStudent(schoolId, student);
 
       viewAllStudents = true;
 
       students = List.from(students);
       if (!isCreateStudent) {
-        var index =
-        students.indexWhere((student) => student.id == student.id);
+        var index = students.indexWhere((student) => student.id == student.id);
         if (index != -1) {
           students[index] = createdStudent;
         }
@@ -181,7 +175,6 @@ class SchoolBloc extends Cubit<SchoolState> {
       }
 
       emit(StudentsInfoLoaded(schoolState, students, schoolId));
-
     } catch (e, s) {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s,
@@ -194,7 +187,6 @@ class SchoolBloc extends Cubit<SchoolState> {
   }
 
   Future<void> deleteSchool(String schoolId) async {
-
     const schoolState = SchoolDataLoadedType.schools;
 
     try {
@@ -215,17 +207,14 @@ class SchoolBloc extends Cubit<SchoolState> {
   }
 
   Future<void> deleteStudent(String studentId, String schoolId) async {
-
     const schoolState = SchoolDataLoadedType.students;
 
     emit(const SchoolInfoLoading(schoolState));
 
     try {
-
       navigatorKey.currentContext?.loaderOverlay.show();
 
-      var status =
-          await repository.deleteStudent(studentId, schoolId);
+      var status = await repository.deleteStudent(studentId, schoolId);
 
       if (status) {
         students = List.from(students);

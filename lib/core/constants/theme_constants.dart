@@ -1,4 +1,3 @@
-
 abstract class ThemeConstants {
   // Base width (iPhone X)
   static const double baseWidth = 375.0;

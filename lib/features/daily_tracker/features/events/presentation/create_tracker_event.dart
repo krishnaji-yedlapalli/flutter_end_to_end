@@ -81,8 +81,10 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
       titleCtrl.text = widget.event?.title ?? '';
       descriptionCtrl.text = widget.event?.description ?? '';
       selectedDateCtrl.text = formatDateToDDMMYY(selectedDate!);
-      
-      actions = widget.event!.actionCheckList.map((action)=> TextEditingController(text: action.label)).toList();
+
+      actions = widget.event!.actionCheckList
+          .map((action) => TextEditingController(text: action.label))
+          .toList();
       WidgetsBinding.instance.addPostFrameCallback((duration) {
         selectedTimeCtrl.text = selectedTime?.format(context) ?? '';
       });
@@ -92,7 +94,7 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
       selectedTime = const TimeOfDay(hour: 00, minute: 00);
     }
 
-    if(actions.isEmpty) {
+    if (actions.isEmpty) {
       actions.add(TextEditingController());
     }
 
@@ -175,18 +177,19 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
     return Column(
       children: [
         Wrap(
-          runSpacing: 10,
-        children : actions
-            .map((element) => CustomTextField(
-                  controller: element,
-                  label: 'Action',
-                  validator: (val) =>
-                      textEmptyValidator(val, 'Action is required!!'),
-                ))
-            .toList()),
+            runSpacing: 10,
+            children: actions
+                .map((element) => CustomTextField(
+                      controller: element,
+                      label: 'Action',
+                      validator: (val) =>
+                          textEmptyValidator(val, 'Action is required!!'),
+                    ))
+                .toList()),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton.icon(onPressed: onAddOfAction, label: Text('Add Action')),
+          child: ElevatedButton.icon(
+              onPressed: onAddOfAction, label: Text('Add Action')),
         )
       ],
     );
@@ -292,20 +295,22 @@ class _CreateDailyTrackerEventState extends State<CreateDailyTrackerEvent>
           var selectedDateTime =
               mergeDateTimeAndTimeOfDay(selectedDate!, selectedTime!);
 
-          widget.parentContext.read<EventsCubit>().createOrUpdateEvent(
-              EventEntity(
+          widget.parentContext
+              .read<EventsCubit>()
+              .createOrUpdateEvent(EventEntity(
                 id: widget.event?.id,
                 eventType: selectedEvent.name,
                 title: titleCtrl.text.trim(),
                 description: descriptionCtrl.text.trim(),
-                createdDate: widget.event?.createdDate ?? DateTime.now().millisecondsSinceEpoch,
+                createdDate: widget.event?.createdDate ??
+                    DateTime.now().millisecondsSinceEpoch,
                 selectedDateTime: selectedDateTime.millisecondsSinceEpoch,
                 actionCheckList: actions
-                    .map((action) => ActionEventModel(action.text.trim(), false))
+                    .map(
+                        (action) => ActionEventModel(action.text.trim(), false))
                     .toList(),
                 updatedDate: DateTime.now().millisecondsSinceEpoch,
-              )
-          );
+              ));
           GoRouter.of(context).pop();
         }
         break;

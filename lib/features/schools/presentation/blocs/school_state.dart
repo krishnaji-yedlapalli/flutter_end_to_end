@@ -1,9 +1,8 @@
 part of 'school_bloc.dart';
 
-enum SchoolDataLoadedType {schools, school, students, student}
+enum SchoolDataLoadedType { schools, school, students, student }
 
-abstract class SchoolState extends Equatable{
-
+abstract class SchoolState extends Equatable {
   final SchoolDataLoadedType schoolStateType;
 
   final bool isWelcomeMessageShowed;
@@ -11,37 +10,33 @@ abstract class SchoolState extends Equatable{
   const SchoolState(this.schoolStateType, {this.isWelcomeMessageShowed = true});
 }
 
-
 class SchoolInfoInitial extends SchoolState {
-
   const SchoolInfoInitial(super.schoolStateType);
 
   @override
   List<Object?> get props => [];
-
 }
 
 class SchoolInfoLoading extends SchoolState {
-
-  const SchoolInfoLoading(super.schoolStateType, {bool showedWelcomeMessage = true}) : super(isWelcomeMessageShowed: showedWelcomeMessage);
+  const SchoolInfoLoading(super.schoolStateType,
+      {bool showedWelcomeMessage = true})
+      : super(isWelcomeMessageShowed: showedWelcomeMessage);
 
   @override
   List<Object?> get props => [];
-
 }
 
 class SchoolsInfoLoaded extends SchoolState {
+  final List<SchoolModel> schools;
 
-   final List<SchoolModel> schools;
-
-   const SchoolsInfoLoaded(SchoolDataLoadedType schoolStateType, this.schools) : super(schoolStateType);
+  const SchoolsInfoLoaded(SchoolDataLoadedType schoolStateType, this.schools)
+      : super(schoolStateType);
 
   @override
   List<Object?> get props => [super.schoolStateType, schools];
 }
 
 class SchoolInfoLoaded extends SchoolState {
-
   final SchoolDetailsModel school;
 
   const SchoolInfoLoaded(super.schoolStateType, this.school);
@@ -52,7 +47,6 @@ class SchoolInfoLoaded extends SchoolState {
 }
 
 class StudentInfoLoaded extends SchoolState {
-
   final StudentModel student;
 
   final String schoolId;
@@ -65,7 +59,6 @@ class StudentInfoLoaded extends SchoolState {
 }
 
 class StudentsInfoLoaded extends SchoolState {
-
   final List<StudentModel> students;
 
   final String schoolId;
@@ -80,25 +73,17 @@ class StudentsInfoLoaded extends SchoolState {
 }
 
 class SchoolDataNotFound extends SchoolState {
-
   const SchoolDataNotFound(super.schoolStateType);
 
   @override
   List<Object?> get props => [super.schoolStateType];
-
 }
 
 class SchoolDataError extends SchoolState {
-
   final ErrorDetails errorStateType;
 
   const SchoolDataError(super.schoolStateType, this.errorStateType);
 
   @override
   List<Object?> get props => [schoolStateType, errorStateType];
-
 }
-
-
-
-

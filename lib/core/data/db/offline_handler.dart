@@ -30,13 +30,12 @@ import '../utils/abstract_db_handler.dart';
 export 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-part  'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
-part  'package:sample_latest/core/data/db/module_db_handler/schools_db_handler.dart';
-part  'package:sample_latest/core/data/db/module_db_handler/todo_list_db_handler.dart';
+part 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
+part 'package:sample_latest/core/data/db/module_db_handler/schools_db_handler.dart';
+part 'package:sample_latest/core/data/db/module_db_handler/todo_list_db_handler.dart';
 part 'dumping_offline_data.dart';
 
 class OfflineHandler {
-
   factory OfflineHandler() {
     return _singleton;
   }
@@ -46,7 +45,8 @@ class OfflineHandler {
   OfflineHandler._internal();
 
   var queueItemsCount = BehaviorSubject<int>.seeded(0);
-  var dumpingOfflineDataStatus = BehaviorSubject<OfflineDumpingStatus>.seeded(null);
+  var dumpingOfflineDataStatus =
+      BehaviorSubject<OfflineDumpingStatus>.seeded(null);
 
   /// Handle the request which is from the interceptor
   Future<void> handleRequest(RequestOptions options, dynamic handler) async {
@@ -54,18 +54,27 @@ class OfflineHandler {
     Response? response;
 
     try {
-      if (path.contains(Urls.schools) || path.contains(Urls.schoolDetails) || path.contains(Urls.students)) {
-         handler.resolve(await _SchoolsDbHandler().performCrudOperation(options));
+      if (path.contains(Urls.schools) ||
+          path.contains(Urls.schoolDetails) ||
+          path.contains(Urls.students)) {
+        handler
+            .resolve(await _SchoolsDbHandler().performCrudOperation(options));
       } else if (path.contains(Urls.todoList)) {
-         handler.resolve(await _TodoListDbHandler().performCrudOperation(options));
+        handler
+            .resolve(await _TodoListDbHandler().performCrudOperation(options));
       } else {
-         handler.reject(DioException(requestOptions: options, type: DioExceptionType.unknown, error:  OfflineException(), message: DbConstants.notSupportedOfflineErrorMsg));
+        handler.reject(DioException(
+            requestOptions: options,
+            type: DioExceptionType.unknown,
+            error: OfflineException(),
+            message: DbConstants.notSupportedOfflineErrorMsg));
       }
     } catch (e, s) {
-      if(e is DioException){
+      if (e is DioException) {
         handler.reject(e);
-      }else {
-        handler.reject(DioException(requestOptions: options,
+      } else {
+        handler.reject(DioException(
+            requestOptions: options,
             type: DioExceptionType.unknown,
             message: DbConstants.failedToProcessInOfflineErrorMsg,
             error: OfflineException(error: e, stackTrace: s)));
@@ -85,11 +94,14 @@ class OfflineHandler {
     var queueItems = <QueueItem>[];
 
     /// Fetching queue items from local DB
-    Response queueItemsResponse = await _CommonDbHandler().performCrudOperation(RequestOptions(method: RequestType.get.name, path: DbConstants.queueItems));
+    Response queueItemsResponse = await _CommonDbHandler().performCrudOperation(
+        RequestOptions(
+            method: RequestType.get.name, path: DbConstants.queueItems));
 
     for (var a in queueItemsResponse.data) {
       var queueItem = Map<String, dynamic>.from(a);
-      if (queueItem['body'] != null) queueItem['body'] = jsonDecode(queueItem['body']);
+      if (queueItem['body'] != null)
+        queueItem['body'] = jsonDecode(queueItem['body']);
       queueItem['queryParams'] = jsonDecode(queueItem['queryParams']);
       queueItems.add(QueueItem.fromJson(queueItem));
     }
@@ -106,17 +118,32 @@ class OfflineHandler {
 
     /// Uploading the queue items one by one to the server
     for (var queueItem in queueItems) {
-      var requestType = HelperMethods.enumFromString(RequestType.values, queueItem.methodType.toLowerCase());
+      var requestType = HelperMethods.enumFromString(
+          RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        var result = await BaseService.instance.makeRequest(url: queueItem.path, method: requestType ?? RequestType.get, body: queueItem.body, queryParameters: queueItem.queryParams, isFromQueue: true);
+        var result = await BaseService.instance.makeRequest(
+            url: queueItem.path,
+            method: requestType ?? RequestType.get,
+            body: queueItem.body,
+            queryParameters: queueItem.queryParams,
+            isFromQueue: true);
 
         /// Deleting item from queue table
-        if (queueItem.queueId != null) await _CommonDbHandler().deleteQueueItem(queueItem.queueId!);
+        if (queueItem.queueId != null)
+          await _CommonDbHandler().deleteQueueItem(queueItem.queueId!);
 
         /// Deleting items from school db
-       if(DbConfigurationsByDev.deleteOfflineDataOnceSuccess) await _SchoolsDbHandler().performCrudOperation(RequestOptions(path: queueItem.path, method: RequestType.delete.name, queryParameters: {DbConstants.idColumnName: queueItem.id.toString()}, extra: {DbConstants.notRequiredToStoreInQueue: true}));
-
+        if (DbConfigurationsByDev.deleteOfflineDataOnceSuccess)
+          await _SchoolsDbHandler().performCrudOperation(RequestOptions(
+              path: queueItem.path,
+              method: RequestType.delete.name,
+              queryParameters: {
+                DbConstants.idColumnName: queueItem.id.toString()
+              },
+              extra: {
+                DbConstants.notRequiredToStoreInQueue: true
+              }));
       } catch (e, s) {
         ExceptionHandler().handleException(e, s);
       } finally {
@@ -135,11 +162,13 @@ class OfflineHandler {
 
     try {
       dumpingOfflineDataStatus.asBroadcastStream();
-      dumpingOfflineDataStatus.add((title: 'Checking for Existing Sync Data...', percentage: 0));
+      dumpingOfflineDataStatus
+          .add((title: 'Checking for Existing Sync Data...', percentage: 0));
 
       if ((await updateQueueItemsCount()) > 0) await syncData();
 
-      dumpingOfflineDataStatus.add((title: 'Loading Zip File.......', percentage: 10));
+      dumpingOfflineDataStatus
+          .add((title: 'Loading Zip File.......', percentage: 10));
 
       RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
       _SchoolsDbHandler().initializeDbIfNot();
@@ -148,24 +177,27 @@ class OfflineHandler {
       /// Loading Zip Data
       ByteData byteData = await rootBundle.load("asset/school_data.zip");
 
-
-      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData, [receivePort.sendPort, rootIsolateToken, byteData]);
+      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData,
+          [receivePort.sendPort, rootIsolateToken, byteData]);
 
       /// Listening to the Dumping status
       receivePort.listen((message) {
-        if(message == 'success'){
+        if (message == 'success') {
           completer.complete();
-        }else {
-          dumpingOfflineDataStatus.add(
-              (title: message.title, percentage: message.percentage));
+        } else {
+          dumpingOfflineDataStatus
+              .add((title: message.title, percentage: message.percentage));
         }
       });
 
       /// Once data dumping is success or failure this future is completed
       await completer.future;
 
-      dumpingOfflineDataStatus.add((title: 'Successfully Dumped.......', percentage: 100));
-      await Future.delayed(const Duration(seconds: 1)); /// Delay is added for better experience
+      dumpingOfflineDataStatus
+          .add((title: 'Successfully Dumped.......', percentage: 100));
+      await Future.delayed(const Duration(seconds: 1));
+
+      /// Delay is added for better experience
       status = true;
     } catch (e) {
       status = false;
@@ -185,30 +217,37 @@ class OfflineHandler {
       queueItemsCount.add(count);
     } catch (e, s) {
       ReportError.errorLog(e, s);
-    }finally{
+    } finally {
       deleteOutDatedData();
     }
     return count;
   }
 
   Future<void> deleteOutDatedData() async {
-
-    if(DbConfigurationsByDev.isOutDatedDataNeedsToBeDeleted && (DbConfigurationsByDev.lastDeletedOutDataDate == null ||
-        DateTime.now().difference(DbConfigurationsByDev.lastDeletedOutDataDate!).inDays > DbConfigurationsByDev.howLongDataShouldPersist)){
-      var date = DateTime.now().subtract(Duration(days: DbConfigurationsByDev.howLongDataShouldPersist)).millisecondsSinceEpoch;
+    if (DbConfigurationsByDev.isOutDatedDataNeedsToBeDeleted &&
+        (DbConfigurationsByDev.lastDeletedOutDataDate == null ||
+            DateTime.now()
+                    .difference(DbConfigurationsByDev.lastDeletedOutDataDate!)
+                    .inDays >
+                DbConfigurationsByDev.howLongDataShouldPersist)) {
+      var date = DateTime.now()
+          .subtract(
+              Duration(days: DbConfigurationsByDev.howLongDataShouldPersist))
+          .millisecondsSinceEpoch;
       await _SchoolsDbHandler().deleteOutdatedData(date);
       // await _TodoListDbHandler().deleteOutdatedData(date);
       DbConfigurationsByDev.lastDeletedOutDataDate = DateTime.now();
-      await DbConfigurationsByDev.set(DbConfigurationsByDev.lastDeletedOutDataDate!);
+      await DbConfigurationsByDev.set(
+          DbConfigurationsByDev.lastDeletedOutDataDate!);
       debugPrint('Deleted outdated data');
     }
   }
 
   ///
- Future<void> eraseAllDatabaseData() async {
-   await  _SchoolsDbHandler().resetDataBase();
-   await _CommonDbHandler().resetDataBase();
-   await _TodoListDbHandler().resetDataBase();
-   debugPrint('Erased all the data');
- }
+  Future<void> eraseAllDatabaseData() async {
+    await _SchoolsDbHandler().resetDataBase();
+    await _CommonDbHandler().resetDataBase();
+    await _TodoListDbHandler().resetDataBase();
+    debugPrint('Erased all the data');
+  }
 }

@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,9 +14,8 @@ import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 class PushNotificationService {
-
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -86,7 +84,6 @@ class PushNotificationService {
   static AuthClient? credentials;
 
   static void initiateTheFirebaseListeners() async {
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       // if (kDebugMode) {
       print('Handling a foreground message: ${message.messageId}');
@@ -95,23 +92,25 @@ class PushNotificationService {
       print('Message notification: ${message.notification?.body}');
       print('Message notification: ${message.data}');
 
-      showNotification(title: '${message.notification?.title}', body: '${message.notification?.body}', payLoad: message.data);
-
+      showNotification(
+          title: '${message.notification?.title}',
+          body: '${message.notification?.body}',
+          payLoad: message.data);
     }).onError((e) => debugPrint('Failed to on omessage ${e.toString()}'));
 
     FirebaseMessaging.onMessageOpenedApp
         .listen(Routing.onPushNotificationOpened);
 
     RemoteMessage? initialMessage =
-    await FirebaseMessaging.instance.getInitialMessage();
-    if(initialMessage != null){
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
       Routing.onPushNotificationOpened(initialMessage);
     }
   }
 
   static void initializeLocalPushNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('dash_desktop');
+        AndroidInitializationSettings('dash_desktop');
 
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
@@ -121,7 +120,9 @@ class PushNotificationService {
             (int id, String? title, String? body, String? payload) async {});
 
     var initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: initializationSettingsIOS);
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsIOS,
+        macOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: handleLocalPushNotification);
   }
@@ -133,28 +134,34 @@ class PushNotificationService {
         iOS: DarwinNotificationDetails());
   }
 
-  static handleLocalPushNotification(NotificationResponse notificationResponse) async {
-    if(notificationResponse.payload != null){
+  static handleLocalPushNotification(
+      NotificationResponse notificationResponse) async {
+    if (notificationResponse.payload != null) {
       Routing.onLocalPushNotificationOpened(notificationResponse.payload);
     }
   }
 
   static Future showNotification(
-      {int id = 0, String? title, String? body, Map<dynamic, dynamic>? payLoad}) async {
-
-    if(DeviceConfiguration.isWeb && navigatorKey.currentState?.context != null){
-      Notifiers.toastNotifier('${title ?? 'Title Missing'} \n ${body ?? 'No Body'}');
-    }else {
+      {int id = 0,
+      String? title,
+      String? body,
+      Map<dynamic, dynamic>? payLoad}) async {
+    if (DeviceConfiguration.isWeb &&
+        navigatorKey.currentState?.context != null) {
+      Notifiers.toastNotifier(
+          '${title ?? 'Title Missing'} \n ${body ?? 'No Body'}');
+    } else {
       await flutterLocalNotificationsPlugin.show(
           id, title, body, await notificationDetails(),
           payload: payLoad?['path']);
 
-      if(DeviceConfiguration.isiPhone) {
-        Future.delayed(const Duration(milliseconds: 800), () => flutterLocalNotificationsPlugin.cancel(0));
+      if (DeviceConfiguration.isiPhone) {
+        Future.delayed(const Duration(milliseconds: 800),
+            () => flutterLocalNotificationsPlugin.cancel(0));
       }
     }
-
   }
 
-  static void deleteToken() async => await FirebaseMessaging.instance.deleteToken();
+  static void deleteToken() async =>
+      await FirebaseMessaging.instance.deleteToken();
 }

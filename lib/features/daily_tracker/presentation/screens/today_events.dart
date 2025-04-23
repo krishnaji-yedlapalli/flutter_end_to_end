@@ -21,7 +21,6 @@ class TodayEventsView extends StatefulWidget {
 
 class _AnimatedListExampleState extends State<TodayEventsView>
     with TickerProviderStateMixin, HelperWidget, CustomDialogs {
-
   late List<EventEntity> _reminders;
   late List<EventEntity> _actions;
   late AnimationController _controller;
@@ -37,7 +36,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
     super.initState();
     setEvents();
-    controller.addListener((){
+    controller.addListener(() {
       selectedIndex = 0;
       tabChangeNotifier.value = controller.index;
     });
@@ -45,7 +44,8 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
   @override
   didUpdateWidget(state) {
-    if(state.todayEvents.isNotEmpty && state.todayEvents.length != widget.todayEvents.length) {
+    if (state.todayEvents.isNotEmpty &&
+        state.todayEvents.length != widget.todayEvents.length) {
       setEvents();
     }
     super.didUpdateWidget(state);
@@ -95,9 +95,13 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                               child:
                                   TabBarView(controller: controller, children: [
                                 ActionsChecklistView(
-                                    key: const Key('0'), _reminders, onSelectionOfEvent),
+                                    key: const Key('0'),
+                                    _reminders,
+                                    onSelectionOfEvent),
                                 ActionsChecklistView(
-                                    key: const Key('1'), _actions, onSelectionOfEvent),
+                                    key: const Key('1'),
+                                    _actions,
+                                    onSelectionOfEvent),
                               ]),
                             ),
                           ],
@@ -117,7 +121,9 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                     axisAlignment: 0.0,
                     child: SelectedEventView(
                         key: UniqueKey(),
-                        value == 0 ? _reminders.elementAt(selectedIndex) : _actions.elementAt(selectedIndex),
+                        value == 0
+                            ? _reminders.elementAt(selectedIndex)
+                            : _actions.elementAt(selectedIndex),
                         onDeleteOrEditOrComplete),
                   ),
                 ),
@@ -147,10 +153,9 @@ class _AnimatedListExampleState extends State<TodayEventsView>
         setState(() {});
 
       case EventActionType.skip:
-        events[selectedIndex].status =
-            actionType == EventActionType.completed
-                ? EventStatus.completed.name
-                : EventStatus.skip.name;
+        events[selectedIndex].status = actionType == EventActionType.completed
+            ? EventStatus.completed.name
+            : EventStatus.skip.name;
 
         /// updating status
         context

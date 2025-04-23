@@ -1,10 +1,9 @@
-
-
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 
 class SchoolEntity {
-
-  SchoolEntity(this.schoolName, this.country, this.location, this.id, this.createdDate, {this.updatedDate});
+  SchoolEntity(
+      this.schoolName, this.country, this.location, this.id, this.createdDate,
+      {this.updatedDate});
 
   final String schoolName;
 
@@ -36,6 +35,7 @@ class SchoolEntity {
   }
 
   SchoolModel toJson() {
-    return SchoolModel(schoolName, country, location, id, createdDate, updatedDate: updatedDate);
+    return SchoolModel(schoolName, country, location, id, createdDate,
+        updatedDate: updatedDate);
   }
 }

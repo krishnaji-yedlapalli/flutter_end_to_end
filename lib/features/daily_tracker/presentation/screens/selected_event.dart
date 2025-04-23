@@ -20,7 +20,8 @@ class SelectedEventView extends StatefulWidget {
   State<SelectedEventView> createState() => _SelectedEventViewState();
 }
 
-class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
+class _SelectedEventViewState extends State<SelectedEventView>
+    with DateFormats {
   late EventStatus eventStatus;
   late StopWatchTimer _stopWatchTimer;
 
@@ -30,13 +31,16 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
             EventStatus.values, widget.selectedEvent.status) ??
         EventStatus.pending;
 
-    if(eventStatus == EventStatus.inProgress && widget.selectedEvent.startDateTime != null) {
-      var milliSeconds = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(widget.selectedEvent.startDateTime!)).inMilliseconds;
-      _stopWatchTimer = StopWatchTimer(
-          presetMillisecond : milliSeconds
-      ); // Create instance.
+    if (eventStatus == EventStatus.inProgress &&
+        widget.selectedEvent.startDateTime != null) {
+      var milliSeconds = DateTime.now()
+          .difference(DateTime.fromMillisecondsSinceEpoch(
+              widget.selectedEvent.startDateTime!))
+          .inMilliseconds;
+      _stopWatchTimer =
+          StopWatchTimer(presetMillisecond: milliSeconds); // Create instance.
       _stopWatchTimer.onStartTimer();
-    }else{
+    } else {
       _stopWatchTimer = StopWatchTimer();
     }
     super.initState();
@@ -45,7 +49,7 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
   @override
   void didUpdateWidget(covariant SelectedEventView oldWidget) {
     eventStatus = HelperMethods.enumFromString(
-        EventStatus.values, widget.selectedEvent.status) ??
+            EventStatus.values, widget.selectedEvent.status) ??
         EventStatus.pending;
     _stopWatchTimer.clearPresetTime();
     super.didUpdateWidget(oldWidget);
@@ -70,8 +74,11 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildDetails(),
-          widget.selectedEvent.eventType != EventDayType.action.name ? _buildStartAndEnd() : _buildActionCheckList(),
-          _buildActions()],
+          widget.selectedEvent.eventType != EventDayType.action.name
+              ? _buildStartAndEnd()
+              : _buildActionCheckList(),
+          _buildActions()
+        ],
       ),
     );
   }
@@ -101,32 +108,37 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
           const Text(':'),
           Text(widget.selectedEvent.description, style: valueStyle)
         ]),
-        if(eventStatus == EventStatus.completed) TableRow(children: [
-          Text('Duration', style: labelStyle),
-          const Text(':'),
-          Text(durationBetweenTwoDates(widget.selectedEvent.startDateTime, widget.selectedEvent.endDateTime), style: valueStyle)
-        ]),
+        if (eventStatus == EventStatus.completed)
+          TableRow(children: [
+            Text('Duration', style: labelStyle),
+            const Text(':'),
+            Text(
+                durationBetweenTwoDates(widget.selectedEvent.startDateTime,
+                    widget.selectedEvent.endDateTime),
+                style: valueStyle)
+          ]),
       ],
     );
   }
 
   Widget _buildActionCheckList() {
-     return LayoutBuilder(
-       builder: (context, constraints) {
-         return Align(
-           alignment: Alignment.topLeft,
-           child: Wrap(
-             crossAxisAlignment: WrapCrossAlignment.start,
-             alignment: WrapAlignment.start,
-             runSpacing: 10,
-             children: widget.selectedEvent.actionCheckList.map((e)=> SizedBox(
-                 width: constraints.maxWidth/2,
-                 child: CheckboxListTile(
-                     value: e.isSelected,title: Text(e.label), onChanged: (value) => onActionSelection(value, e)))).toList()
-           ),
-         );
-       }
-     );
+    return LayoutBuilder(builder: (context, constraints) {
+      return Align(
+        alignment: Alignment.topLeft,
+        child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            alignment: WrapAlignment.start,
+            runSpacing: 10,
+            children: widget.selectedEvent.actionCheckList
+                .map((e) => SizedBox(
+                    width: constraints.maxWidth / 2,
+                    child: CheckboxListTile(
+                        value: e.isSelected,
+                        title: Text(e.label),
+                        onChanged: (value) => onActionSelection(value, e))))
+                .toList()),
+      );
+    });
   }
 
   Widget _buildStartAndEnd() {
@@ -146,20 +158,19 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
               height: 150,
               width: 150,
               alignment: Alignment.center,
-              decoration:
-                  const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                  color: Colors.white, shape: BoxShape.circle),
               child: Container(
                 alignment: Alignment.center,
-                decoration:
-                BoxDecoration(color: color.withOpacity(0.5), shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                    color: color.withOpacity(0.5), shape: BoxShape.circle),
                 child: Wrap(
                   direction: Axis.vertical,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 10,
                   children: [
                     _buildTimer(),
-                    Text(
-                        eventStatusTitle,
+                    Text(eventStatusTitle,
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold))
                   ],
@@ -176,28 +187,35 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
         initialData: _stopWatchTimer.rawTime.value,
         builder: (context, snap) {
           final value = snap.data!;
-          final displayTime =
-          StopWatchTimer.getDisplayTime(value, hours: false, milliSecond: false);
-          return Text(displayTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600));
+          final displayTime = StopWatchTimer.getDisplayTime(value,
+              hours: false, milliSecond: false);
+          return Text(displayTime,
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600));
         });
   }
 
   Widget _buildActions() {
-    var isIgnore = eventStatus == EventStatus.completed || eventStatus == EventStatus.skip;
+    var isIgnore =
+        eventStatus == EventStatus.completed || eventStatus == EventStatus.skip;
 
     return Wrap(
       spacing: 10,
       children: [
         ElevatedButton.icon(
-            onPressed: isIgnore ? null : () => widget.callBack(EventActionType.skip),
+            onPressed:
+                isIgnore ? null : () => widget.callBack(EventActionType.skip),
             label: const Text('Skip'),
             icon: const Icon(Icons.delete)),
         ElevatedButton.icon(
-            onPressed: isIgnore ? null : () => widget.callBack(EventActionType.edit),
+            onPressed:
+                isIgnore ? null : () => widget.callBack(EventActionType.edit),
             label: const Text('Edit'),
             icon: const Icon(Icons.edit)),
         ElevatedButton.icon(
-            onPressed: isIgnore ? null : () => widget.callBack(EventActionType.completed),
+            onPressed: isIgnore
+                ? null
+                : () => widget.callBack(EventActionType.completed),
             label: const Text('Complete'),
             icon: const Icon(Icons.disc_full)),
       ],
@@ -211,15 +229,14 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
   }
 
   void onTimerStartOrStop() {
-
-    if(eventStatus == EventStatus.pending) {
+    if (eventStatus == EventStatus.pending) {
       _stopWatchTimer.onStartTimer();
       setState(() {
         eventStatus = EventStatus.inProgress;
         widget.selectedEvent.status = EventStatus.inProgress.name;
       });
       widget.callBack(EventActionType.inProgress);
-    }else{
+    } else {
       _stopWatchTimer.onStopTimer();
       setState(() {
         eventStatus = EventStatus.completed;
@@ -230,7 +247,7 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
   }
 
   String get eventStatusTitle {
-    return switch(eventStatus){
+    return switch (eventStatus) {
       EventStatus.inProgress => 'End',
       EventStatus.pending => 'Start',
       EventStatus.completed => 'Completed',
@@ -239,7 +256,7 @@ class _SelectedEventViewState extends State<SelectedEventView> with DateFormats{
   }
 
   Color get rippleColor {
-    return switch(eventStatus){
+    return switch (eventStatus) {
       EventStatus.inProgress => Colors.orange,
       EventStatus.pending => Colors.blue,
       EventStatus.completed => Colors.green,

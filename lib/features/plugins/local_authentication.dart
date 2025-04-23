@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class LocalAuthentication extends StatelessWidget {

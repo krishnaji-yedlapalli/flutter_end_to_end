@@ -1,6 +1,4 @@
-
 class DbConstants {
-
   static const String schoolDbName = 'school';
 
   static const String todoListDbName = 'todolist';
@@ -23,13 +21,14 @@ class DbConstants {
 
   static const String priority = 'priority';
 
-  static const String notSupportedOfflineErrorMsg = 'Currently not supported Offline. Please retry when Online';
+  static const String notSupportedOfflineErrorMsg =
+      'Currently not supported Offline. Please retry when Online';
 
-  static const String failedToProcessInOfflineErrorMsg = 'Failed to process the data, Unexpected error occurred';
+  static const String failedToProcessInOfflineErrorMsg =
+      'Failed to process the data, Unexpected error occurred';
 }
 
 class SchoolDbConstants {
-
   static const String schoolsTableName = 'schools';
 
   static const String schoolDetailsTableName = 'school_details';
@@ -37,5 +36,4 @@ class SchoolDbConstants {
   static const String studentsTableName = 'students';
 
   static const String schoolIdColumnName = 'schoolId';
-
 }
