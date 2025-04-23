@@ -10,7 +10,10 @@ import 'package:sample_latest/features/daily_tracker/features/events/presentatio
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/cubit/events_cubit.dart';
 
 class ExistingEventsView extends StatefulWidget {
-  const ExistingEventsView({super.key});
+
+  final BuildContext parentContext;
+
+  const ExistingEventsView(this.parentContext, {super.key});
 
   @override
   State<ExistingEventsView> createState() => _ExistingEventsViewState();
@@ -21,30 +24,37 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((duration) {
-      // context.read<DailyTrackerStatusBloc>().fetchExistingEvents();
     });
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EventsCubit, EventsState>(
-        builder: (context, EventsState trackState) {
-          if (trackState is EventsStateLoaded) {
-            return _buildEvents(trackState.events);
-          } else {
-            return circularLoader();
-          }
-        });
+    return BlocProvider.value(
+      value: widget.parentContext.read<EventsCubit>(),
+      child: Builder(
+        builder: (context) {
+          context.read<EventsCubit>().loadEventsBasedOnTheUser();
+          return BlocBuilder<EventsCubit, EventsState>(
+              builder: (context, EventsState trackState) {
+                if (trackState is EventsStateLoaded) {
+                  return _buildEvents(context, trackState.events);
+                } else {
+                  return circularLoader();
+                }
+              });
+        }
+      ),
+    );
   }
 
-  Widget _buildEvents(List<EventEntity> events) {
+  Widget _buildEvents(BuildContext context, List<EventEntity> events) {
    return dialogWithButtons(
        title: 'Existing Events',
-       content: _buildList(events), actions: ['Close', 'Create Event'], callBack: onClose
+       content: _buildList(context, events), actions: ['Close', 'Create Event'], callBack: onClose
    );
   }
 
-  Widget _buildList(List<EventEntity> events) {
+  Widget _buildList(BuildContext context, List<EventEntity> events) {
     return ListView.builder(
         itemCount: events.length,
         shrinkWrap: true,
@@ -57,7 +67,7 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
             trailing: Wrap(
               children: [
                 IconButton(icon: Icon(Icons.edit), onPressed: () => onEdit(event)),
-                IconButton(icon: Icon(Icons.delete), onPressed: () => onDelete(event)),
+                IconButton(icon: Icon(Icons.delete), onPressed: () => onDelete(context, event)),
               ],
             ),
           );
@@ -68,16 +78,16 @@ class _ExistingEventsViewState extends State<ExistingEventsView> with Loaders, C
     if(index == 0) {
       GoRouter.of(context).pop();
     }else if(index == 1){
-      adaptiveDialog(context, CreateDailyTrackerEvent(context));
+      adaptiveDialog(context, CreateDailyTrackerEvent(widget.parentContext));
     }
   }
 
-  void onDelete(EventEntity event) {
+  void onDelete(BuildContext context, EventEntity event) {
     context.read<EventsCubit>().deleteEvent(event);
   }
 
   void onEdit(EventEntity event){
-    adaptiveDialog(context, CreateDailyTrackerEvent(context, event: event));
+    adaptiveDialog( widget.parentContext, CreateDailyTrackerEvent(widget.parentContext, event: event));
   }
 
 }

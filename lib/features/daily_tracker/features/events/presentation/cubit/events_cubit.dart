@@ -1,14 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/delete_event_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 
+import '../../../../../../core/mixins/date_formats.dart';
 import '../../../../domain/usecases/create_update_event_usecase.dart';
+import '../../../../domain/usecases/update_today_event_useCase.dart';
 import '../../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 part 'event_cubit_state.dart';
 
-class EventsCubit extends Cubit<EventsState> {
+class EventsCubit extends Cubit<EventsState> with DateFormats{
 
   final CheckInStatusCubit _checkInStatusCubit;
 
@@ -16,7 +19,11 @@ class EventsCubit extends Cubit<EventsState> {
 
   final CreateUpdateEventUseCase _createUpdateEventUseCase;
 
-  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase)
+  final UpdateTodayEventUseCase _todayEventUseCase;
+
+  final DeleteEventUseCase _deleteEventUseCase;
+
+  EventsCubit(this._checkInStatusCubit, this.eventsUseCase, this._createUpdateEventUseCase, this._todayEventUseCase, this._deleteEventUseCase)
       : super(EventsStateLoading());
 
   Future<void> loadEventsBasedOnTheUser() async {
@@ -36,39 +43,29 @@ class EventsCubit extends Cubit<EventsState> {
   }
 
   void createOrUpdateEvent(EventEntity event) async {
+    emit(EventsStateLoading());
     var res = await _createUpdateEventUseCase.call(event);
     res.fold((failure) {
       print(failure);
-    }, (events) {
-      _checkInStatusCubit.updateEvents(events);
-      emit(EventsStateLoaded(events));
+    }, (e) {
+      _checkInStatusCubit.updateEvents(e.todayEvents);
+      _todayEventUseCase.call(currentDateInFormatted, e.updatedEvent);
+      emit(EventsStateLoaded(e.userEvents));
     });
   }
 
   Future<void> updateTodayEventDetails(EventEntity selectedEvent) async {
-    createOrUpdateEvent(selectedEvent);
-    //   var index = todayEvents.indexWhere((event) => event.id == selectedEvent.id);
-    //
-    //   if(index != -1){
-    //     todayEvents[index] = selectedEvent;
-    //   }else{
-    //     todayEvents.add(selectedEvent);
-    //   }
-    //
-    //   var body = {
-    //     currentDateInFormatted : {
-    //       'isChecked' : true,
-    //       'events' : todayEvents.map((e)=> e.toJson()).toList()
-    //     }
-    //   };
-    //
-    //   bool status = await repository.checkInTheUser(body);
+    _todayEventUseCase.call(currentDateInFormatted, selectedEvent);
   }
 
   Future<void> deleteEvent(EventEntity selectedEvent) async {
-    //   bool status = await repository.deleteEvent(selectedEvent.id);
-    //   events.removeWhere((event) => event.id == selectedEvent.id);
-    //   var items = events.map((event)=> DailyTrackerEventModel.fromJson(event.toJson())).toList();
-    //   emit(DailyStatusTrackerEvents(items, DailyStatusTrackerLoadedType.events));
+   var res = await _deleteEventUseCase.call(selectedEvent.id!);
+   res.fold((events){
+     emit(EventsStateLoading());
+     Future.delayed(const Duration(seconds: 1));
+     emit(EventsStateLoaded(events));
+   }, (error){
+
+   });
   }
 }

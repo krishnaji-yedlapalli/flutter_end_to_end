@@ -5,13 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/widgets/adapative_container.dart';
 import 'package:sample_latest/core/device/widgets/adapative_padding.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/profile_entity.dart';
 import 'package:sample_latest/features/daily_tracker/features/users/presentation/cubit/profiles_cubit.dart';
 
+import '../../../../../core/mixins/dialogs.dart';
+import '../../../core/daily_tracker_router_module.dart';
 import '../../../shared/models/profile_executed_task.dart';
-import '../../greetings/presentation/cubit/check_in_status_cubit.dart';
+import 'create_profile_dialog.dart';
 
-class UsersView extends StatelessWidget with Loaders {
+class UsersView extends StatelessWidget with Loaders, CustomDialogs {
   const UsersView({super.key});
 
   @override
@@ -24,6 +26,10 @@ class UsersView extends StatelessWidget with Loaders {
           IconButton(onPressed: () {}, icon: const Icon(Icons.login_outlined))
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => onCreateOfProfile(context),
+          label: const Text('Create Profile'),
+          icon: const Icon(Icons.add)),
       body: AdaptivePadding(
         child: BlocBuilder<ProfilesCubit, ProfilesState>(
             builder: (context, ProfilesState profilesState) {
@@ -112,7 +118,7 @@ class UsersView extends StatelessWidget with Loaders {
                           final GetIt injector = GetIt.instance;
                           final task = injector<ProfileExecutedTask>(); // No context needed
                           task.setProfile = profile;
-                          GoRouter.of(context).go('/home/daily-tracker');
+                          GoRouter.of(context).go(DailyTrackerRouterModule.dailyTrackerDashboardPath);
                         },
                         child: const Text('GO')),
                   )
@@ -136,7 +142,7 @@ class UsersView extends StatelessWidget with Loaders {
               ElevatedButton(onPressed: () {}, child: const Text('Create User')),
               ElevatedButton(
                   onPressed: () {
-                    GoRouter.of(context).go('/home/daily-tracker');
+                    GoRouter.of(context).go('/home/tracker/daily-tracker');
                     // final GetIt injector = GetIt.instance;
                     // injector<ProfileExecutedTask>().setProfile = pro;
                   },
@@ -146,5 +152,9 @@ class UsersView extends StatelessWidget with Loaders {
         ),
       );
     });
+  }
+
+  void onCreateOfProfile(BuildContext context) {
+    adaptiveDialog(context, CreateOrEditProfile(context));
   }
 }

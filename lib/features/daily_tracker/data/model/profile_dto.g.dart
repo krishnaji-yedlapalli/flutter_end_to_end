@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_dto.dart';
+part of 'profile_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProfileDto _$UserDtoFromJson(Map<String, dynamic> json) {
+ProfileDto _$ProfileDtoFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
     requiredKeys: const ['id', 'name'],
@@ -17,7 +17,8 @@ ProfileDto _$UserDtoFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$UserDtoToJson(ProfileDto instance) => <String, dynamic>{
+Map<String, dynamic> _$ProfileDtoToJson(ProfileDto instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };

@@ -18,7 +18,7 @@ class CheckInStatusUseCase {
 
   Future<Either<ErrorDetails, CheckInStatusEntity>> call(String date) async {
     try{
-      var params = UserCheckInParams(profileExecutedTask.accountId, profileExecutedTask.profileId, [], date);
+      var params = UserCheckInParams(profileExecutedTask.profileId, [], date);
       var checkInDetails = await checkInStatusRepository.isCheckedIn(params);
       profileExecutedTask.todayEvents = checkInDetails.events;
      return Right(checkInDetails);

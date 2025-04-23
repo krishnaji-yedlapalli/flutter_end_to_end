@@ -1,8 +1,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sample_latest/features/daily_tracker/domain/entities/user_entity.dart';
+import 'package:sample_latest/features/daily_tracker/domain/entities/profile_entity.dart';
 
-part 'user_dto.g.dart';
+part 'profile_dto.g.dart';
 
 @JsonSerializable()
 class ProfileDto {
@@ -23,7 +23,7 @@ class ProfileDto {
   }
 
   factory ProfileDto.fromJson(Map<String, dynamic> json) =>
-      _$UserDtoFromJson(json);
+      _$ProfileDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserDtoToJson(this);
+  Map<String, dynamic> toJson() => _$ProfileDtoToJson(this);
 }

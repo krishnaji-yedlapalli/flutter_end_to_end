@@ -8,7 +8,7 @@ import 'package:sample_latest/features/daily_tracker/features/events/presentatio
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/check_in_btn.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/screens/existing_events.dart';
+import 'package:sample_latest/features/daily_tracker/features/events/presentation/existing_events.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/today_events.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
@@ -165,10 +165,10 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
         'asset/sound_effects/check_in.mp3');
     player.play();
     await controller.reverse();
-    context.read<CheckInStatusCubit>().checkIn();
+    if(mounted) context.read<CheckInStatusCubit>().checkIn();
   }
 
   void showEvents() {
-    adaptiveDialog(context, ExistingEventsView());
+    adaptiveDialog(context, ExistingEventsView(context));
   }
 }

@@ -1,14 +1,21 @@
 import 'package:get_it/get_it.dart';
 import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/features/daily_tracker/core/services/session_manager.dart';
+import 'package:sample_latest/features/daily_tracker/data/repository/auth_repository_impl.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/events_repos_impl.dart';
 import 'package:sample_latest/features/daily_tracker/data/repository/profiles_repo_impl.dart';
+import 'package:sample_latest/features/daily_tracker/domain/repository/AuthRepository.dart';
 import 'package:sample_latest/features/daily_tracker/domain/repository/events_repository.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/auth_use_case.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/check_in_usecase.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/create_edit_profile_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/create_update_event_usecase.dart';
+import 'package:sample_latest/features/daily_tracker/domain/usecases/delete_event_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/events_usecase.dart';
 import 'package:sample_latest/features/daily_tracker/domain/usecases/update_today_event_useCase.dart';
+import 'package:sample_latest/features/daily_tracker/features/authentication/presentation/cubit/auth_cubit.dart';
+import 'package:sample_latest/features/daily_tracker/shared/models/profiles_executed_task.dart';
 
-import '../../../../core/data/base_service.dart';
 import '../data/repository/checkIn_status_repo_impl.dart';
 import '../domain/repository/check_in_status_repo.dart';
 import '../domain/repository/profiles_repository.dart';
@@ -44,14 +51,17 @@ class DailyTrackerInjectionModule {
   void _registerRepositories() {
     injector
       ..registerFactory<ProfilesRepository>(
-          () => ProfilesRepositoryImpl(injector()))
-      ..registerFactory<EventsRepository>(() => EventRepositoryImpl(injector()))
+          () => ProfilesRepositoryImpl(injector(), injector()))
+      ..registerFactory<AuthRepository>(
+              () => AuthRepositoryImpl(injector()))
+      ..registerFactory<EventsRepository>(() => EventRepositoryImpl(injector(), injector()))
       ..registerFactory<CheckInStatusRepository>(
-          () => CheckInStatusRepositoryImpl(injector()));
+          () => CheckInStatusRepositoryImpl(injector(), injector()));
   }
 
   void _registerUseCases() {
     injector
+      ..registerFactory<AuthUseCase>(() => AuthUseCase(injector(), injector()))
       ..registerFactory<ProfilesUseCase>(() => ProfilesUseCase(injector(), injector()))
       ..registerFactory<EventsUseCase>(
           () => EventsUseCase(injector(), injector()))
@@ -62,27 +72,80 @@ class DailyTrackerInjectionModule {
       ..registerFactory<CreateUpdateEventUseCase>(
           () => CreateUpdateEventUseCase(injector(), injector()))
       ..registerFactory<UpdateTodayEventUseCase>(
-              () => UpdateTodayEventUseCase(injector(), injector()));
+              () => UpdateTodayEventUseCase(injector(), injector()))
+      ..registerFactory<CreateOrEditProfileUseCase>(
+              () => CreateOrEditProfileUseCase(injector(), injector()))
+      ..registerFactory<DeleteEventUseCase>(
+              () => DeleteEventUseCase(injector(), injector()));
   }
 
   void _registerBlocs() {
     injector
-      ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector()))
+      ..registerFactory<AuthCubit>(() => AuthCubit(injector()))
+      ..registerFactory<ProfilesCubit>(() => ProfilesCubit(injector(), injector()))
       ..registerFactory<CheckInStatusCubit>(
-              () => CheckInStatusCubit(injector(), injector(), injector(), injector()))
+              () => CheckInStatusCubit(injector(), injector(), injector()))
       ..registerFactoryParam<EventsCubit, CheckInStatusCubit, void>((checkInStatusCubit, _) => EventsCubit(
           checkInStatusCubit,
           injector<EventsUseCase>(),
-          injector<CreateUpdateEventUseCase>()));
+          injector<CreateUpdateEventUseCase>(), injector(), injector()));
   }
 
   void _registerExecutedCacheManager() {
     if (!injector.isRegistered<ProfileExecutedTask>()) {
       injector.registerSingleton<ProfileExecutedTask>(ProfileExecutedTask());
     }
+
+    if (!injector.isRegistered<SessionManager>()) {
+      injector.registerSingleton<SessionManager>(SessionManager());
+    }
+
+    if (!injector.isRegistered<ProfilesExecutedTask>()) {
+      injector.registerSingleton<ProfilesExecutedTask>(
+          ProfilesExecutedTask());
+    }
   }
 
-  void _unRegisterDependencies() async {
-    // await injector.unregister(instance: SchoolExecutedTaskFlow);
+  void unRegisterDependencies() {
+    // Unregister Blocs
+    injector
+      ..unregister<AuthCubit>()
+      ..unregister<ProfilesCubit>()
+      ..unregister<CheckInStatusCubit>()
+      ..unregister<EventsCubit>();
+
+    // Unregister Use Cases
+    injector
+      ..unregister<AuthUseCase>()
+      ..unregister<ProfilesUseCase>()
+      ..unregister<EventsUseCase>()
+      ..unregister<PerformUserCheckInUseCase>()
+      ..unregister<CheckInStatusUseCase>()
+      ..unregister<CreateUpdateEventUseCase>()
+      ..unregister<UpdateTodayEventUseCase>()
+      ..unregister<CreateOrEditProfileUseCase>()
+      ..unregister<DeleteEventUseCase>();
+
+    // Unregister Repositories
+    injector
+      ..unregister<ProfilesRepository>()
+      ..unregister<AuthRepository>()
+      ..unregister<EventsRepository>()
+      ..unregister<CheckInStatusRepository>();
+
+    // Unregister Services
+    injector.unregister<BaseService>();
+
+    // Unregister Cache Managers or other Singletons
+    if (injector.isRegistered<ProfileExecutedTask>()) {
+      injector.unregister<ProfileExecutedTask>();
+    }
+    if (injector.isRegistered<SessionManager>()) {
+      injector.unregister<SessionManager>();
+    }
+    if (injector.isRegistered<ProfilesExecutedTask>()) {
+      injector.unregister<ProfilesExecutedTask>();
+    }
   }
+
 }

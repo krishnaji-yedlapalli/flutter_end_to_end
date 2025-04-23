@@ -8,5 +8,4 @@ abstract class CheckInStatusRepository {
 
   Future<bool> submitUserCheckIn(UserCheckInParams params);
 
-  Future<bool> updateTodayEvents(UserCheckInParams params);
 }

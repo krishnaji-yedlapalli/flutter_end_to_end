@@ -2,9 +2,12 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/features/daily_tracker/features/authentication/presentation/cubit/auth_cubit.dart';
 
 import '../../../../core/widgets/text_field.dart';
+import '../../core/daily_tracker_router_module.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -15,16 +18,19 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(text: 'krishnajiyedlapalli60@gmail.com');
+  final TextEditingController _passwordController = TextEditingController(text: '123456');
 
-  void _login() {
+  void _login() async {
     if (_formKey.currentState!.validate()) {
       // Perform login logic
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
-      GoRouter.of(context).go('/home/users-page');
-      print("Logging in with: $email, $password");
+
+      var status = await context.read<AuthCubit>().validateUserCredentials(email, password);
+      if(status && mounted) {
+        GoRouter.of(context).go(DailyTrackerRouterModule.profilesPath);
+      }
     }
   }
 
@@ -55,7 +61,6 @@ class _LoginFormState extends State<LoginForm> {
                 SizedBox(height: 16),
                 CustomTextField(controller: _passwordController, label: 'Password',),
                 const SizedBox(height: 20),
-                // Login Button
                 ElevatedButton(
                   onPressed: _login,
                   child: Text("Login"),

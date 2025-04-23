@@ -10,6 +10,7 @@ import '../data/repository/daily_tracker_repository.dart';
 import '../data/repository/profiles_repo_impl.dart';
 import '../domain/repository/profiles_repository.dart';
 import '../domain/usecases/users_useCase.dart';
+import '../features/authentication/presentation/cubit/auth_cubit.dart';
 import '../features/events/presentation/cubit/events_cubit.dart';
 import '../features/greetings/presentation/cubit/check_in_status_cubit.dart';
 import '../features/users/presentation/cubit/profiles_cubit.dart';
@@ -38,17 +39,25 @@ class _DailyTrackerWrapperPageState extends State<DailyTrackerWrapperPage> {
   Widget build(BuildContext context) {
     var injector = GetIt.instance;
 
-    return FeatureDiscovery.withProvider(
-      persistenceProvider: const NoPersistenceProvider(),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
-          BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
-          BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(
-            param1: context.read<CheckInStatusCubit>()
-          )),
-        ],
-        child: widget.child, // This ensures child routes have access to these blocs
+    return PopScope(
+      onPopInvokedWithResult: (status, result) {
+        if(status){
+          DailyTrackerInjectionModule().unRegisterDependencies();
+        }
+      },
+      child: FeatureDiscovery.withProvider(
+        persistenceProvider: const NoPersistenceProvider(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (BuildContext context) => injector<ProfilesCubit>()),
+            BlocProvider(create: (BuildContext context) =>  injector<CheckInStatusCubit>()),
+            BlocProvider(create: (BuildContext context) =>  injector<AuthCubit>()),
+            BlocProvider(create: (BuildContext context) =>  injector<EventsCubit>(
+              param1: context.read<CheckInStatusCubit>()
+            )),
+          ],
+          child: widget.child, // This ensures child routes have access to these blocs
+        ),
       ),
     );
   }
