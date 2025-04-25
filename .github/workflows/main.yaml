@@ -1,8 +1,9 @@
 name: Flutter End to End
 
-on: # Trigger on pushes to the main branch (adjust as needed)
-  push:
-    branches: [ main ]  
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -14,7 +15,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: '3.19.1'  # Replace with your desired Flutter version
+          flutter-version: '3.29.2'  # Replace with your desired Flutter version
 
       - name: Get pub dependencies
         run: flutter pub get
