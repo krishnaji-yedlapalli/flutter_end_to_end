@@ -59,7 +59,7 @@ dependencies:
   youtube_player_flutter:
   local_auth:
 #  share_plus:
-  video_player:
+#  video_player:
   network_info_plus:
   just_audio:
   fluttertoast: ^8.2.12
