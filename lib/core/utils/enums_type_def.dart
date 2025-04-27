@@ -2,6 +2,7 @@ enum ScreenType {
   dashboard,
   routing,
   school,
+  smartControl,
   schoolMvc,
   automaticKeepAlive,
   localizationWithCalendar,

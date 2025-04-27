@@ -1,0 +1,2 @@
+
+enum SmartControlType {onOff, motionDetector}

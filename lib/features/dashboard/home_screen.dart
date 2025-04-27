@@ -107,6 +107,13 @@ class _HomeScreenState extends State<HomeScreen>
             'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
       ),
       (
+      'Smart control to control the devices using IOT',
+      ScreenType.smartControl,
+      Icons.electric_bolt,
+      des:
+      'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+      ),
+      (
         'School Journey with MVC',
         ScreenType.schoolMvc,
         Icons.school,
@@ -229,6 +236,8 @@ class _HomeScreenState extends State<HomeScreen>
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
       ScreenType.dailyTracker => DailyTrackerRouterModule.logInPath,
+      // TODO: Handle this case.
+      ScreenType.smartControl => '/home/smart-control/dashboard',
     };
     context.go(path);
   }
