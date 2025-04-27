@@ -6,7 +6,7 @@ import 'package:sample_latest/core/data/db/offline_handler.dart';
 class ConnectivityHandler {
   static final _singleton = ConnectivityHandler._internal();
 
-  StreamSubscription<ConnectivityResult>? _subscription;
+  StreamSubscription<List<ConnectivityResult>>? _subscription;
 
   StreamController<bool> connectionChangeStatusController = StreamController();
 
@@ -38,7 +38,7 @@ class ConnectivityHandler {
 
   void _connectivityListener() {
     _subscription =
-        _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+        _connectivity.onConnectivityChanged.listen((List<ConnectivityResult> result) {
       late bool currentState;
       if (result == ConnectivityResult.none) {
         currentState = false;
