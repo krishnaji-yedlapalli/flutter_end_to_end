@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:workmanager/workmanager.dart';
+// import 'package:workmanager/workmanager.dart';
 
 class LifeCycleWidget1 extends StatefulWidget {
   const LifeCycleWidget1({Key? key}) : super(key: key);
@@ -67,9 +67,9 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
 
   void workManger() {
     var si = 'be.tramckrijte.workmanagerExample.simpleTask';
-    Workmanager().registerOneOffTask(si, si,
-        initialDelay: const Duration(seconds: 10),
-        inputData: <String, dynamic>{'int': 1});
+    // Workmanager().registerOneOffTask(si, si,
+    //     initialDelay: const Duration(seconds: 10),
+    //     inputData: <String, dynamic>{'int': 1});
   }
 
   static Future<int> runTimer(int a) async {
