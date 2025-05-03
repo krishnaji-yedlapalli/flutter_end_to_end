@@ -93,6 +93,8 @@ dependencies:
   get_it: ^8.0.3
   fpdart: ^1.1.1
   flutter_secure_storage: ^9.2.4
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any
