@@ -28,8 +28,7 @@ class _SmartControlMqttDashboardState extends State<SmartControlMqttDashboard>
   @override
   Widget build(BuildContext context) {
     context.read<SmartControlMqttDashboardCubit>().loadSmartControlDashboard();
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    return SafeArea(
       child: Scaffold(
           body: BlocBuilder<SmartControlMqttDashboardCubit, ScDashboardState>(
               builder: (context, ScDashboardState state) {
@@ -43,18 +42,21 @@ class _SmartControlMqttDashboardState extends State<SmartControlMqttDashboard>
     );
   }
 
-  AdaptiveLayoutBuilder _buildGridView(List<SmartControlMqttModel> screenTypes, MqttServerClient client) {
-    return AdaptiveLayoutBuilder(
-        builder: (context, deviceType) => StaggeredGrid.count(
-            crossAxisCount: deviceType == DeviceResolutionType.mobile ? 3 : 8,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
-            children: screenTypes.map((screenType)=> StaggeredGridTile.count(
-                crossAxisCellCount: 1,
-                mainAxisCellCount: 1,
-                child: SmartControlTile(smartControlModel: screenType,  mqttServerClient: client,)
-            )).toList()
-        ));
+  Padding _buildGridView(List<SmartControlMqttModel> screenTypes, MqttServerClient client) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: AdaptiveLayoutBuilder(
+          builder: (context, deviceType) => StaggeredGrid.count(
+              crossAxisCount: deviceType == DeviceResolutionType.mobile ? 3 : 8,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+              children: screenTypes.map((screenType)=> StaggeredGridTile.count(
+                  crossAxisCellCount: 1,
+                  mainAxisCellCount: 1,
+                  child: SmartControlTile(smartControlModel: screenType,  mqttServerClient: client,)
+              )).toList()
+          )),
+    );
   }
 
 

@@ -48,6 +48,7 @@ class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrappe
     client.setProtocolV311();
     client.logging(on: false);
     client.onDisconnected = () {
+      print('Disconnected!!!');
       // If already disposed, skip
       if (_isDisposed) return;
 
@@ -58,7 +59,8 @@ class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrappe
       // }
     };
     client.onConnected = () {
-     // setState(() {
+      print('Connected!!!');
+      // setState(() {
      //   _isInitialized = true;
      // });
     };

@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import '../../../../../../core/utils/constants.dart';
+import '../../../../shared/constants.dart';
 import '../../../../shared/models/smart_control_model.dart';
 import '../../domain/use_cases/device_status_useCase.dart';
 import '../../domain/use_cases/smart_device_ctrl_useCase.dart';
@@ -23,19 +25,6 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
       this._mqttServerClient)
       : super(SmartDeviceLoading());
 
-  // Future<void> loadSmartDeviceStatus() async {
-  //   emit(SmartDeviceLoading());
-  //   var status =
-  //       await _smartDeviceStatusUseCase.call(_smartControlModel.ipAddress);
-  //   status.fold((status) {
-  //     emit(SmartDeviceLoaded(_smartControlModel));
-  //   }, (error) {
-  //     if (DataErrorStateType.noInternet == error.$1) {
-  //       emit(SmartDeviceLoaded(_smartControlModel, isDisabled: true));
-  //     }
-  //   });
-  // }
-
   void subscribeListener() async  {
      // emit(SmartDeviceLoaded(_smartControlModel, isDisabled: true));
 
@@ -44,9 +33,9 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
      }
 
     _subscription = _mqttServerClient.subscribe(
-        '${_smartControlModel.deviceId}/light/status', MqttQos.atMostOnce);
+        '${_smartControlModel.deviceId}${MqttConstants.status}', MqttQos.atMostOnce);
     _mqttServerClient.subscribe(
-        '${_smartControlModel.deviceId}/deviceStatus', MqttQos.atMostOnce);
+        '${_smartControlModel.deviceId}${MqttConstants.deviceConnectionStatus}', MqttQos.atMostOnce);
 
     _mqttServerClient.updates!
         .listen((List<MqttReceivedMessage<MqttMessage>> c) {
@@ -54,15 +43,15 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
       final topic = c[0].topic;
       final payload =
           MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      if (topic.contains('light/status') &&
+      if (topic.contains('${_smartControlModel.deviceId}${MqttConstants.status}') &&
           _smartControlModel.deviceId == topic.split('/')[0]) {
         _smartControlModel.isActive = payload == 'ON' ? true : false;
         emit(SmartDeviceLoaded(_smartControlModel, isActive: _smartControlModel.isActive, isDisabled: false));
       }
 
-      if (topic.contains('/deviceStatus') &&
+      if (topic.contains('${_smartControlModel.deviceId}${MqttConstants.deviceConnectionStatus}') &&
           _smartControlModel.deviceId == topic.split('/')[0]) {
-        final status = payload == 'online' ? true : false;
+        final status = payload == MqttConstants.onlineStatus ? true : false;
         emit(SmartDeviceLoaded(_smartControlModel, isDisabled: !status));
       }
     });
@@ -77,7 +66,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
     final builder = MqttClientPayloadBuilder();
     builder.addString('status');
     _mqttServerClient.publishMessage(
-        '${_smartControlModel.deviceId}/light/reqStatus', MqttQos.atMostOnce, builder.payload!);
+        '${_smartControlModel.deviceId}${MqttConstants.reqDeviceConnectionStatus}', MqttQos.atMostOnce, builder.payload!);
   }
 
   Future<void> onSelectionOfSmartTile(SmartControlMqttModel device) async {
@@ -88,7 +77,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
       builder.addString('ON');
     }
     _mqttServerClient.publishMessage(
-        '${device.deviceId}/light/control', MqttQos.atMostOnce, builder.payload!);
+        '${device.deviceId}${MqttConstants.controlDevice}', MqttQos.atMostOnce, builder.payload!);
   }
 
   Future<void> updateDeviceStatus(bool status) async {
