@@ -96,6 +96,7 @@ dependencies:
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   flutter_staggered_grid_view: ^0.7.0
+  mqtt_client:
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any

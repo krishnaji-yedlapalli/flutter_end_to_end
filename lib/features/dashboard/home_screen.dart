@@ -107,6 +107,13 @@ class _HomeScreenState extends State<HomeScreen>
             'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
       ),
       (
+      'Smart control MQtt to control the devices using IOT',
+      ScreenType.smartControlMqtt,
+      Icons.electric_bolt,
+      des:
+      'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+      ),
+      (
       'Smart control to control the devices using IOT',
       ScreenType.smartControl,
       Icons.electric_bolt,
@@ -238,6 +245,8 @@ class _HomeScreenState extends State<HomeScreen>
       ScreenType.dailyTracker => DailyTrackerRouterModule.logInPath,
       // TODO: Handle this case.
       ScreenType.smartControl => '/home/smart-control/dashboard',
+      // TODO: Handle this case.
+      ScreenType.smartControlMqtt => '/home/smart-control-mqtt/dashboard',
     };
     context.go(path);
   }

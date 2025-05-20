@@ -3,6 +3,7 @@ enum ScreenType {
   routing,
   school,
   smartControl,
+  smartControlMqtt,
   schoolMvc,
   automaticKeepAlive,
   localizationWithCalendar,
