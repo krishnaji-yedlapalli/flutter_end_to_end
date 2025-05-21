@@ -18,11 +18,12 @@ class SmartDeviceLoaded extends SmartDeviceState {
   final SmartControlMqttModel smartDevice;
   final bool isDisabled;
   final bool isActive;
+  final bool isShimmerEffectRequired;
 
-  SmartDeviceLoaded(this.smartDevice, {this.isActive = false, this.isDisabled = false});
+  SmartDeviceLoaded(this.smartDevice, {this.isActive = false, this.isDisabled = false, this.isShimmerEffectRequired = false});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [smartDevice,isActive, isDisabled];
+  List<Object?> get props => [smartDevice,isActive, isDisabled, isShimmerEffectRequired];
 
 }

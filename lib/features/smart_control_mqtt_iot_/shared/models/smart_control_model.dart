@@ -11,10 +11,11 @@ class SmartControlMqttModel {
   final TileSizeType tileType;
   bool isActive;
   bool isDisabled;
+  bool isAuto;
 
   SmartControlMqttModel(this.name, this.controlType, this.icon, this.deviceId,
       {this.des,
       this.tileType = TileSizeType.small,
       this.isActive = false,
-      this.isDisabled = false,});
+      this.isDisabled = false, this.isAuto = false});
 }

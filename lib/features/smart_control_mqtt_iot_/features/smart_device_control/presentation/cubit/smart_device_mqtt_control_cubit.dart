@@ -80,10 +80,12 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         '${device.deviceId}${MqttConstants.controlDevice}', MqttQos.atMostOnce, builder.payload!);
   }
 
-  Future<void> updateDeviceStatus(bool status) async {
-    emit(SmartDeviceLoading());
-    await Future.delayed(const Duration(seconds: 2));
-    _smartControlModel.isActive = status;
-    emit(SmartDeviceLoaded(_smartControlModel));
+  void onSelectionOfAutoOrManual() {
+    emit(SmartDeviceLoaded(_smartControlModel, isDisabled: false, isShimmerEffectRequired:  true));
+
+  }
+
+  void onSelectionOfSetting() {
+
   }
 }

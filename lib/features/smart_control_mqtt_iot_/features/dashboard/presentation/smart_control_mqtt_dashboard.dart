@@ -46,20 +46,40 @@ class _SmartControlMqttDashboardState extends State<SmartControlMqttDashboard>
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: AdaptiveLayoutBuilder(
-          builder: (context, deviceType) => StaggeredGrid.count(
-              crossAxisCount: deviceType == DeviceResolutionType.mobile ? 3 : 8,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-              children: screenTypes.map((screenType)=> StaggeredGridTile.count(
-                  crossAxisCellCount: 1,
-                  mainAxisCellCount: 1,
-                  child: SmartControlTile(smartControlModel: screenType,  mqttServerClient: client,)
-              )).toList()
-          )),
+          builder: (context, deviceType) {
+           return StaggeredGrid.count(
+                crossAxisCount: deviceType == DeviceResolutionType.mobile
+                    ? 3
+                    : 8,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 4,
+                children: screenTypes.map((screenType) {
+                  final count = getCellCount(screenType.tileType);
+
+                   return StaggeredGridTile.count(
+                        crossAxisCellCount: count.$1,
+                        mainAxisCellCount: count.$2,
+                        child: SmartControlTile(smartControlModel: screenType,
+                          mqttServerClient: client,)
+
+                    );
+           }
+                   ).toList()
+            );
+          }),
     );
   }
 
-
+  (int, int) getCellCount(TileSizeType  type) {
+    switch(type){
+      case TileSizeType.large:
+        return (2,2);
+      case TileSizeType.medium:
+        return (2,1);
+      case TileSizeType.small:
+        return (1,1);
+    }
+  }
 
 
   navigateToControl(SmartControlType type) {

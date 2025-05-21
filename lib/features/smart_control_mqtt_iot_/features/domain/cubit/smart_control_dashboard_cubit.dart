@@ -31,12 +31,28 @@ class SmartControlMqttDashboardCubit extends Cubit<ScDashboardState> {
         tileType: TileSizeType.small,
     ),
     SmartControlMqttModel(
-        'On and Off',
+        'Kitchen Exhaust fan',
         SmartControlType.motionDetector,
         Icons.dashboard,
         'node2',
         des: 'We can on and off the light',
-        tileType: TileSizeType.small,
+        tileType: TileSizeType.medium,
+    ),
+    SmartControlMqttModel(
+      'Outdoor light',
+      SmartControlType.motionDetector,
+      Icons.dashboard,
+      'node3',
+      des: 'We can on and off the light',
+      tileType: TileSizeType.large,
+    ),
+    SmartControlMqttModel(
+      'Main Bed room light',
+      SmartControlType.motionDetector,
+      Icons.dashboard,
+      'node4',
+      des: 'We can on and off the light',
+      tileType: TileSizeType.large,
     ),
   ];
 
