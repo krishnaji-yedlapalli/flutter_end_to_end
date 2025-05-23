@@ -24,6 +24,6 @@ class SmartDeviceLoaded extends SmartDeviceState {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [smartDevice,isActive, isDisabled, isShimmerEffectRequired];
+  List<Object?> get props => [smartDevice,isActive, isDisabled, isShimmerEffectRequired, smartDevice.isAuto, smartDevice.isActive];
 
 }

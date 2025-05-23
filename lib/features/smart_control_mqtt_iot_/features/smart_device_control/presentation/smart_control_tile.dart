@@ -83,49 +83,52 @@ class SmartControlTile extends StatelessWidget with Loaders {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: Colors.grey.shade400),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    smartControl.name,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color:
-                          isConnected ? textColor : textColor.withOpacity(0.5),
+              child: InkWell(
+                onTap: context.read<SmartDeviceMqttControlCubit>().onSelectionOfSmartTile,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      smartControl.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color:
+                            isConnected ? textColor : textColor.withOpacity(0.5),
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          !isAuto ? Icons.settings_remote : Icons.handyman,
-                          color: isConnected
-                              ? textColor
-                              : textColor.withOpacity(0.5),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            !isAuto ? Icons.settings_remote : Icons.handyman,
+                            color: isConnected
+                                ? textColor
+                                : textColor.withOpacity(0.5),
+                          ),
+                          tooltip: isAuto ? 'Auto Mode' : 'Manual Mode',
+                          onPressed: isConnected
+                              ? context
+                                  .read<SmartDeviceMqttControlCubit>()
+                                  .onSelectionOfAutoOrManual
+                              : null,
                         ),
-                        tooltip: isAuto ? 'Auto Mode' : 'Manual Mode',
-                        onPressed: isConnected
-                            ? context
-                                .read<SmartDeviceMqttControlCubit>()
-                                .onSelectionOfAutoOrManual
-                            : null,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.settings,
-                          color: isConnected
-                              ? textColor
-                              : textColor.withOpacity(0.5),
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                            color: isConnected
+                                ? textColor
+                                : textColor.withOpacity(0.5),
+                          ),
+                          tooltip: 'Settings',
+                          onPressed: isConnected ? onSettingsPressed : null,
                         ),
-                        tooltip: 'Settings',
-                        onPressed: isConnected ? onSettingsPressed : null,
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             if (!isConnected)

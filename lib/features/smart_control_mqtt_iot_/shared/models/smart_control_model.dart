@@ -17,5 +17,5 @@ class SmartControlMqttModel {
       {this.des,
       this.tileType = TileSizeType.small,
       this.isActive = false,
-      this.isDisabled = false, this.isAuto = false});
+      this.isDisabled = true, this.isAuto = true});
 }

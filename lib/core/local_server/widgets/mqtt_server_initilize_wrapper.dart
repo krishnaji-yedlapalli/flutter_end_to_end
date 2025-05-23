@@ -31,7 +31,7 @@ class MqttServerInitializeWrapper extends StatefulWidget {
 
 class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrapper> {
 
-  final client = MqttServerClient('192.168.1.44', 'flutter_client');
+  final client = MqttServerClient('192.168.1.19', 'flutter_client');
 
   bool _isInitialized = false;
 
