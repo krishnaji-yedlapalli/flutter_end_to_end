@@ -52,7 +52,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         final payload =
         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
-        print('##** $payload');
+        print('##** payload : $payload');
         if (_smartControlModel.deviceId == topic.split('/')[0]) {
           if (topic.contains(
               '${_smartControlModel.deviceId}${MqttConstants.status}')) {
@@ -106,12 +106,16 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
   }
 
   Future<void> onSelectionOfSmartTile() async {
+    emit(SmartDeviceLoaded(_smartControlModel,
+        isDisabled: false, isShimmerEffectRequired: true));
+
     final builder = MqttClientPayloadBuilder();
     if (_smartControlModel.isActive) {
       builder.addString('OFF');
     } else {
       builder.addString('ON');
     }
+    print('##** On selection of smart tile : ${builder.payload} , smart control status : ${_smartControlModel.isActive}');
     _mqttServerClient.publishMessage(
         '${_smartControlModel.deviceId}${MqttConstants.controlDevice}',
         MqttQos.atMostOnce,
@@ -129,7 +133,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
     }else{
       builder.addString(MqttConstants.autoStatus);
     }
-
+    print('##** On selection of Auto or Manual : ${builder.payload} , smart control status : ${_smartControlModel.isAuto}');
     _mqttServerClient.publishMessage(
         '${_smartControlModel.deviceId}${MqttConstants.controlAutoManualStatus}',
         MqttQos.atMostOnce,
