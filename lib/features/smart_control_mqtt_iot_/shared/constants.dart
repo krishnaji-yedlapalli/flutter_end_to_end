@@ -20,4 +20,8 @@ class MqttConstants {
   static const String setAutoManualStatus = '/updateAutoManualStatus';
 
   static const String controlAutoManualStatus = "/controlAutoManualStatus";
+
+  static const String updateSettings = "/updateSettings";
+
+  static const String updateTimeStatusToClient = "/updateTimeStatusToClient";
 }

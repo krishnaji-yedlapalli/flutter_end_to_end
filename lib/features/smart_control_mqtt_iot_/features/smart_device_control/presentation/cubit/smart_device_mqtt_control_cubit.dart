@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mqtt_client/mqtt_client.dart';
@@ -44,6 +46,9 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
       _mqttServerClient.subscribe(
           '${_smartControlModel.deviceId}${MqttConstants.setAutoManualStatus}',
           MqttQos.atMostOnce);
+      _mqttServerClient.subscribe(
+          '${_smartControlModel.deviceId}${MqttConstants.updateTimeStatusToClient}',
+          MqttQos.atMostOnce);
 
       _mqttServerClient.updates!
           .listen((List<MqttReceivedMessage<MqttMessage>> c) {
@@ -76,6 +81,13 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
             _smartControlModel.isDisabled = false;
             _smartControlModel.isAuto =
             MqttConstants.autoStatus == payload ? true : false;
+            emit(SmartDeviceLoaded(_smartControlModel));
+          }
+
+          if (topic.contains(
+              '${_smartControlModel.deviceId}${MqttConstants
+                  .updateTimeStatusToClient}')) {
+            _smartControlModel.time = int.parse(payload);
             emit(SmartDeviceLoaded(_smartControlModel));
           }
         }
@@ -140,5 +152,22 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         builder.payload!);
   }
 
-  void onSelectionOfSetting() {}
+  void onSelectionOfSetting(int time) {
+    emit(SmartDeviceLoaded(_smartControlModel,
+        isDisabled: false, isShimmerEffectRequired: true));
+
+    final builder = MqttClientPayloadBuilder();
+
+    var body = jsonEncode({
+      'time' : time
+    });
+
+      builder.addString(body);
+
+    print('##** On selection of settings : ${builder.payload} , settings : time');
+    _mqttServerClient.publishMessage(
+        '${_smartControlModel.deviceId}${MqttConstants.updateSettings}',
+        MqttQos.atMostOnce,
+        builder.payload!);
+  }
 }

@@ -2,13 +2,15 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../shared/models/smart_control_model.dart';
 import 'cubit/smart_device_mqtt_control_cubit.dart';
+import 'dialogs/settings.dart';
 
-class SmartControlTile extends StatelessWidget with Loaders {
+class SmartControlTile extends StatelessWidget with Loaders, CustomDialogs {
   final SmartControlMqttModel smartControlModel;
 
   final MqttServerClient mqttServerClient;
@@ -100,30 +102,37 @@ class SmartControlTile extends StatelessWidget with Loaders {
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
+                      spacing: 4,
                       children: [
-                        IconButton(
-                          icon: Icon(
-                            !isAuto ? Icons.settings_remote : Icons.handyman,
-                            color: isConnected
-                                ? textColor
-                                : textColor.withOpacity(0.5),
+                        Container(
+                          decoration: boxDecoration,
+                          child: IconButton(
+                            icon: Icon(
+                              !isAuto ? Icons.settings_remote : Icons.handyman,
+                              color: isConnected
+                                  ? textColor
+                                  : textColor.withOpacity(0.5),
+                            ),
+                            tooltip: isAuto ? 'Auto Mode' : 'Manual Mode',
+                            onPressed: isConnected
+                                ? context
+                                    .read<SmartDeviceMqttControlCubit>()
+                                    .onSelectionOfAutoOrManual
+                                : null,
                           ),
-                          tooltip: isAuto ? 'Auto Mode' : 'Manual Mode',
-                          onPressed: isConnected
-                              ? context
-                                  .read<SmartDeviceMqttControlCubit>()
-                                  .onSelectionOfAutoOrManual
-                              : null,
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.settings,
-                            color: isConnected
-                                ? textColor
-                                : textColor.withOpacity(0.5),
+                        Container(
+                          decoration: boxDecoration,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.settings,
+                              color: isConnected
+                                  ? textColor
+                                  : textColor.withOpacity(0.5),
+                            ),
+                            tooltip: 'Settings',
+                            onPressed: isConnected ? () => onSettingsPressed(context) : null,
                           ),
-                          tooltip: 'Settings',
-                          onPressed: isConnected ? onSettingsPressed : null,
                         ),
                       ],
                     )
@@ -159,7 +168,21 @@ class SmartControlTile extends StatelessWidget with Loaders {
     });
   }
 
-  void onSettingsPressed() {}
+  void onSettingsPressed(BuildContext context) {
+    adaptiveDialog(context, SmartDeviceSetting(context, smartControlModel));
+  }
+
+  BoxDecoration get boxDecoration => BoxDecoration(
+      shape: BoxShape.circle,
+      gradient: RadialGradient(
+        colors: [
+          Colors.blue.withOpacity(0.3),
+          Colors.transparent,
+        ],
+        center: Alignment.center,
+        radius: 0.6,
+      ),
+    );
 }
 
 class SmartDeviceCardShimmer extends StatelessWidget {

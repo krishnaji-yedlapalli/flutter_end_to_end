@@ -12,10 +12,11 @@ class SmartControlMqttModel {
   bool isActive;
   bool isDisabled;
   bool isAuto;
+  int? time;
 
   SmartControlMqttModel(this.name, this.controlType, this.icon, this.deviceId,
       {this.des,
       this.tileType = TileSizeType.small,
       this.isActive = false,
-      this.isDisabled = true, this.isAuto = true});
+      this.isDisabled = true, this.isAuto = true, this.time});
 }
