@@ -86,7 +86,9 @@ class SmartControlTile extends StatelessWidget with Loaders, CustomDialogs {
                 border: Border.all(color: Colors.grey.shade400),
               ),
               child: InkWell(
-                onTap: context.read<SmartDeviceMqttControlCubit>().onSelectionOfSmartTile,
+                onTap: context
+                    .read<SmartDeviceMqttControlCubit>()
+                    .onSelectionOfSmartTile,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -95,43 +97,52 @@ class SmartControlTile extends StatelessWidget with Loaders, CustomDialogs {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color:
-                            isConnected ? textColor : textColor.withOpacity(0.5),
+                        color: isConnected
+                            ? textColor
+                            : textColor.withOpacity(0.5),
                       ),
                     ),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      spacing: 4,
+                      spacing: 1,
                       children: [
-                        Container(
-                          decoration: boxDecoration,
-                          child: IconButton(
-                            icon: Icon(
-                              !isAuto ? Icons.settings_remote : Icons.handyman,
-                              color: isConnected
-                                  ? textColor
-                                  : textColor.withOpacity(0.5),
+                        Expanded(
+                          child: Container(
+                            decoration: boxDecoration,
+                            child: IconButton(
+                              icon: Icon(
+                                !isAuto
+                                    ? Icons.settings_remote
+                                    : Icons.handyman,
+                                color: isConnected
+                                    ? textColor
+                                    : textColor.withOpacity(0.5),
+                              ),
+                              tooltip: isAuto ? 'Auto Mode' : 'Manual Mode',
+                              onPressed: isConnected
+                                  ? context
+                                      .read<SmartDeviceMqttControlCubit>()
+                                      .onSelectionOfAutoOrManual
+                                  : null,
                             ),
-                            tooltip: isAuto ? 'Auto Mode' : 'Manual Mode',
-                            onPressed: isConnected
-                                ? context
-                                    .read<SmartDeviceMqttControlCubit>()
-                                    .onSelectionOfAutoOrManual
-                                : null,
                           ),
                         ),
-                        Container(
-                          decoration: boxDecoration,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.settings,
-                              color: isConnected
-                                  ? textColor
-                                  : textColor.withOpacity(0.5),
+                        Expanded(
+                          child: Container(
+                            decoration: boxDecoration,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.settings,
+                                color: isConnected
+                                    ? textColor
+                                    : textColor.withOpacity(0.5),
+                              ),
+                              tooltip: 'Settings',
+                              onPressed: isConnected
+                                  ? () => onSettingsPressed(context)
+                                  : null,
                             ),
-                            tooltip: 'Settings',
-                            onPressed: isConnected ? () => onSettingsPressed(context) : null,
                           ),
                         ),
                       ],
@@ -173,16 +184,16 @@ class SmartControlTile extends StatelessWidget with Loaders, CustomDialogs {
   }
 
   BoxDecoration get boxDecoration => BoxDecoration(
-      shape: BoxShape.circle,
-      gradient: RadialGradient(
-        colors: [
-          Colors.blue.withOpacity(0.3),
-          Colors.transparent,
-        ],
-        center: Alignment.center,
-        radius: 0.6,
-      ),
-    );
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [
+            Colors.blue.withOpacity(0.3),
+            Colors.transparent,
+          ],
+          center: Alignment.center,
+          radius: 0.6,
+        ),
+      );
 }
 
 class SmartDeviceCardShimmer extends StatelessWidget {
