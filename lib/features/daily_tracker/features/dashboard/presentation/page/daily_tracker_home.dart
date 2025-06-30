@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:sample_latest/core/common/logger/debug_log.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/widgets/check_in_btn.dart';
+import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/widgets/check_in_btn.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/create_tracker_event.dart';
-import 'package:sample_latest/features/daily_tracker/presentation/widgets/digital_clock.dart';
+import 'package:sample_latest/features/daily_tracker/features/dashboard/presentation/widgets/digital_clock.dart';
 import 'package:sample_latest/features/daily_tracker/features/events/presentation/existing_events.dart';
 import 'package:sample_latest/features/daily_tracker/presentation/screens/today_events.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 import '../../../../domain/entities/event_entity.dart';
-import '../../../../presentation/widgets/time_of_day_message.dart';
+import '../widgets/time_of_day_message.dart';
 import '../../../greetings/presentation/cubit/check_in_status_cubit.dart';
 
 class DailyTrackerHome extends StatefulWidget {
@@ -79,7 +80,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
 
   Widget _buildGreetingStatus(
       bool isCheckedIn, PartsOfDay timeOfDay, List<EventEntity> events) {
-    print('##** ${events.length}');
+    LogData.print('##** ${events.length}');
     var greetingText = greeting(timeOfDay);
     TextPainter textPainter = TextPainter(
       text: TextSpan(
@@ -146,7 +147,7 @@ class _DailyTrackerHomeState extends State<DailyTrackerHome>
 
   String greeting(PartsOfDay timeOfDay) {
     return switch (timeOfDay) {
-      PartsOfDay.morning => 'Hello Good Morning',
+      PartsOfDay.morning => 'Good Morning',
       PartsOfDay.afternoon => 'Good After Noon',
       PartsOfDay.evening => 'Good Evening',
       PartsOfDay.night => 'Good Night',
