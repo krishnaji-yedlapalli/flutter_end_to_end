@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/local_server/handlers/base_request_handler.dart';
 import 'package:sample_latest/core/local_server/local_server_manager.dart';
@@ -75,7 +76,7 @@ class _ServerInitializeWrapperState extends State<ServerInitializeWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
+    return kIsWeb ? widget.child : FutureBuilder<void>(
       future: Future.value(), // Server is initialized in initState
       builder: (context, snapshot) {
         if (snapshot.hasError) {

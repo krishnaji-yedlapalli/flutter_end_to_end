@@ -9,25 +9,26 @@ class GeminiChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatProvider = Provider.of<GeminiChatProvider>(context);
+    // final chatProvider = Provider.of<GeminiChatProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chat'),
       ),
-      body: Chat(
-        messages: chatProvider.messages,
-        onSendPressed: chatProvider.handleSendPressed,
-        user: chatProvider.user,
-        showUserAvatars: true,
-        showUserNames: true,
-        listBottomWidget: Wrap(
-          children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.attach_file))
-          ],
-        ),
-        scrollPhysics: const AlwaysScrollableScrollPhysics(),
-      ),
+      body: SizedBox(),
+      // Chat(
+      //   messages: chatProvider.messages,
+      //   onSendPressed: chatProvider.handleSendPressed,
+      //   user: chatProvider.user,
+      //   showUserAvatars: true,
+      //   showUserNames: true,
+      //   listBottomWidget: Wrap(
+      //     children: [
+      //       IconButton(onPressed: () {}, icon: const Icon(Icons.attach_file))
+      //     ],
+      //   ),
+      //   scrollPhysics: const AlwaysScrollableScrollPhysics(), currentUserId: '', resolveUser: (String id) {  }, chatController: null,
+      // ),
       floatingActionButton: const Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

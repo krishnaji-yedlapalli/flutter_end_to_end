@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_latest/core/common/logger/debug_log.dart';
 import 'package:sample_latest/features/daily_tracker/domain/entities/event_entity.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
@@ -9,13 +10,15 @@ import 'package:sample_latest/features/daily_tracker/presentation/screens/remind
 import 'package:sample_latest/features/daily_tracker/presentation/screens/selected_event.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
+import '../../features/events/presentation/widgets/no_events.dart';
+
 class TodayEventsView extends StatefulWidget {
   final List<EventEntity> todayEvents;
 
   const TodayEventsView(this.todayEvents, {super.key});
 
   @override
-  _AnimatedListExampleState createState() => _AnimatedListExampleState();
+   createState() => _AnimatedListExampleState();
 }
 
 class _AnimatedListExampleState extends State<TodayEventsView>
@@ -31,7 +34,7 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
   @override
   void initState() {
-    print('## init state ${widget.todayEvents.length}');
+    LogData.print('## Today events lengths ${widget.todayEvents.length}');
 
     super.initState();
     setEvents();
@@ -43,8 +46,10 @@ class _AnimatedListExampleState extends State<TodayEventsView>
 
   @override
   didUpdateWidget(state) {
-    if (state.todayEvents.isNotEmpty &&
-        state.todayEvents.length != widget.todayEvents.length) {
+    LogData.print('## did update widget - Today events lengths  ${widget.todayEvents.length}');
+
+    if (state.todayEvents.isNotEmpty /*&&
+        state.todayEvents.length != widget.todayEvents.length*/) {
       setEvents();
     }
     super.didUpdateWidget(state);
@@ -118,12 +123,12 @@ class _AnimatedListExampleState extends State<TodayEventsView>
                   child: SizeTransition(
                     sizeFactor: _sizeAnimation,
                     axisAlignment: 0.0,
-                    child: SelectedEventView(
+                    child: isNotEmpty(value) ?  SelectedEventView(
                         key: UniqueKey(),
                         value == 0
                             ? _reminders.elementAt(selectedIndex)
                             : _actions.elementAt(selectedIndex),
-                        onDeleteOrEditOrComplete),
+                        onDeleteOrEditOrComplete) : const NoEventsToDisplay(),
                   ),
                 ),
               ),
@@ -131,6 +136,10 @@ class _AnimatedListExampleState extends State<TodayEventsView>
         ],
       ),
     );
+  }
+
+  bool isNotEmpty(int index) {
+    return index == 0 ? selectedIndex < _reminders.length : selectedIndex < _actions.length;
   }
 
   void onDeleteOrEditOrComplete(EventActionType actionType) {

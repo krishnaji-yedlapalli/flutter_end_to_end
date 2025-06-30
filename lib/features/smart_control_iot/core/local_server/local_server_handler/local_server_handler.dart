@@ -1,17 +1,36 @@
 
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/core/local_server/handlers/base_request_handler.dart';
 import 'package:shelf/shelf.dart';
 
 import '../../../../../core/local_server/model/callback_response_handler.dart';
+import '../../../features/domain/cubit/smart_control_dashboard_cubit.dart';
 
 class SmartControlServerRequestHandler implements BaseRequestHandler {
 
+  final BuildContext context;
+
+  const SmartControlServerRequestHandler(this.context);
+
   @override
   Future<Result<dynamic>> handleRequest(Request request) async {
+
     try {
       print('##** path :  ${request.url.path}');
       switch (request.url.path) {
         case 'motion':
+          if(context.mounted) {
+            final state = context.read<SmartControlDashboardCubit>()
+                .state;
+            if (state is SCDashboardLoaded) {
+              final body = await request.readAsString(); // Get request body
+              Map<String, dynamic> result = jsonDecode(body); // Parse JSON
+              state.smCubits.entries.first.value.updateDeviceStatus(result['motion'] ?? false);
+            }
+          }
           return Result.ok('sucees');
           // return await _handleUsersRequest(request);
         case 'api/products':

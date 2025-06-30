@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       providers: [
         ChangeNotifierProvider(
             create: (context) => CommonProvider(mode, systemLocale)),
-        ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
+        // ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
       ],
       child: MultiBlocProvider(
         providers: [
