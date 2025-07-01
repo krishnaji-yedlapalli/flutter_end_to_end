@@ -40,7 +40,7 @@ import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
 
-import '../features/daily_tracker/core/daily_tracker_router_module.dart';
+import '../features/daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
 import '../features/plugins/local_authentication.dart';
 import '../features/schools/core/schools_router_module.dart';
 import '../features/smart_control_iot/core/smart_control_router_module.dart';
@@ -168,7 +168,7 @@ class Routing {
               builder: (context, state) {
                 return const GeminiChatScreen();
               }),
-          DailyTrackerRouterModule.dailyTrackerRoute()
+          if(!daily_tracker.DailyTrackerRouterModule.isStub) daily_tracker.DailyTrackerRouterModule.dailyTrackerRoute()
         ]);
   }
 
