@@ -15,8 +15,9 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/core/widgets/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../daily_tracker/core/daily_tracker_router_module.dart';
 import '../feature_discovery/home_feature_discovery.dart';
+import '../daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -139,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen>
         Icons.notifications,
         des: 'Test the deeplink in device'
       ),
-      (
+      if(!daily_tracker.DailyTrackerRouterModule.isStub) (
         'Daily Tracker UI',
         ScreenType.dailyTracker,
         Icons.accessibility_sharp,
@@ -242,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen>
         '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
-      ScreenType.dailyTracker => DailyTrackerRouterModule.logInPath,
+      ScreenType.dailyTracker => daily_tracker.DailyTrackerRouterModule.logInPath,
       // TODO: Handle this case.
       ScreenType.smartControl => '/home/smart-control/dashboard',
       // TODO: Handle this case.
