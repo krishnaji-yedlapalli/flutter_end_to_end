@@ -97,6 +97,8 @@ dependencies:
   shelf_router: ^1.1.4
   flutter_staggered_grid_view: ^0.7.0
   mqtt_client:
+  win32: ^5.10.1
+  # flutter_gen: ^5.10.0
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any

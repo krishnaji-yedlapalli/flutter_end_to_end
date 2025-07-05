@@ -57,12 +57,12 @@ void main() async {
   };
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await Firebase.initializeApp(
+  if (!Platform.isLinux) await Firebase.initializeApp(
     options: PushNotificationService.currentPlatform,
   );
-  if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
+  if (!kIsWeb && !Platform.isLinux) FirebaseDatabase.instance.setPersistenceEnabled(true);
 
-  DbConfigurationsByDev().loadSavedData();
+  if (!Platform.isLinux) DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
