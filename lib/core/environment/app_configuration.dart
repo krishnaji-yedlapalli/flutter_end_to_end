@@ -7,8 +7,10 @@ class AppConfiguration {
 
   final Color? hoverColor;
 
+  final String initialRoute;
+
   AppConfiguration(
       {required this.appBarLogoPath,
       this.seedColor = Colors.green,
-      this.hoverColor});
+      this.hoverColor, this.initialRoute = '/home'});
 }
