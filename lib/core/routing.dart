@@ -1,3 +1,4 @@
+import 'package:sample_latest/core/environment/environment.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class Routing {
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: home,
+    initialLocation: Environment().configuration.initialRoute,
     routes: <RouteBase>[
       homeRoute(),
     ],

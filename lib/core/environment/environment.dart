@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 
+import 'package:sample_latest/features/daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
 import 'app_configuration.dart';
 
-enum EnvironmentType { dash, flutter, dart }
+enum EnvironmentType { dash, flutter, dart, dailyTracker }
 
 class Environment {
   static final Environment _singleton = Environment._internal();
@@ -29,6 +30,7 @@ class Environment {
       EnvironmentType.dash => defaultConfiguration,
       EnvironmentType.flutter => flutterConfiguration,
       EnvironmentType.dart => dartConfiguration,
+      EnvironmentType.dailyTracker => dailyConfiguration,
     };
   }
 
@@ -55,5 +57,14 @@ class Environment {
         appBarLogoPath: 'asset/flutter_flavor/flutter_leading_logo.png',
         seedColor: Colors.blue,
         hoverColor: Colors.blue.shade200);
+  }
+
+  AppConfiguration get dailyConfiguration {
+    return AppConfiguration(
+        appBarLogoPath: 'asset/flutter_flavor/flutter_leading_logo.png',
+        seedColor: Colors.blue,
+        hoverColor: Colors.blue.shade200,
+        initialRoute: daily_tracker.DailyTrackerRouterModule.logInPath
+    );
   }
 }
