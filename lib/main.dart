@@ -56,13 +56,14 @@ void main() async {
     return true;
   };
 
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  if (!Platform.isLinux) await Firebase.initializeApp(
-    options: PushNotificationService.currentPlatform,
-  );
-  if (!kIsWeb && !Platform.isLinux) FirebaseDatabase.instance.setPersistenceEnabled(true);
+  if(kIsWeb || !Platform.isLinux){
+    await Firebase.initializeApp(
+      options: PushNotificationService.currentPlatform,
+    );
+    DbConfigurationsByDev().loadSavedData();
+    if(!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
+  }
 
-  if (!Platform.isLinux) DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
