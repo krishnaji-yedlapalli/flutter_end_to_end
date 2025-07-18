@@ -15,15 +15,8 @@ import '../../domain/cubit/smart_control_dashboard_cubit.dart';
 import '../../smart_device_control/presentation/cubit/smart_device_mqtt_control_cubit.dart';
 import '../../smart_device_control/presentation/smart_control_tile.dart';
 
-class SmartControlMqttDashboard extends StatefulWidget {
+class SmartControlMqttDashboard extends StatelessWidget with Loaders{
   const SmartControlMqttDashboard({super.key});
-
-  @override
-  State<SmartControlMqttDashboard> createState() => _SmartControlMqttDashboardState();
-}
-
-class _SmartControlMqttDashboardState extends State<SmartControlMqttDashboard>
-    with CardWidgetsMixin, Loaders {
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +74,7 @@ class _SmartControlMqttDashboardState extends State<SmartControlMqttDashboard>
     }
   }
 
-
-  navigateToControl(SmartControlType type) {
+  navigateToControl(BuildContext context, SmartControlType type) {
     switch (type) {
       case SmartControlType.onOff:
         GoRouter.of(context).go(SmartControlMqttRouterModule.onAndOffPath);
