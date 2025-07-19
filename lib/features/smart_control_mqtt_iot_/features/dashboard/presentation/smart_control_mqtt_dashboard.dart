@@ -74,13 +74,13 @@ class SmartControlMqttDashboard extends StatelessWidget with Loaders{
     }
   }
 
-  navigateToControl(BuildContext context, SmartControlType type) {
-    switch (type) {
-      case SmartControlType.onOff:
-        GoRouter.of(context).go(SmartControlMqttRouterModule.onAndOffPath);
-      case SmartControlType.motionDetector:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-    }
-  }
+  // navigateToControl(BuildContext context, SmartControlType type) {
+  //   switch (type) {
+  //     case SmartControlType.onOff:
+  //       GoRouter.of(context).go(SmartControlMqttRouterModule.onAndOffPath);
+  //     case SmartControlType.motionDetector:
+  //       // TODO: Handle this case.
+  //       throw UnimplementedError();
+  //   }
+  // }
 }

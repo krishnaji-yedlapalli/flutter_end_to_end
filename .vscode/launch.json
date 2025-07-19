@@ -1,0 +1,46 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Dash",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dash"
+            ]
+        },
+        {
+            "name": "Flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "flutter"
+            ]
+        },
+        {
+            "name": "Dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dart"
+            ]
+        },
+        {
+            "name": "Daily Tracker",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dailyTracker"
+            ]
+        }
+    ]
+}
