@@ -11,8 +11,7 @@
 bool isAuto = true;
 
 
-const char *onlineStatus = "online";
-const char *offlineStatus = "offline";
+
 
 unsigned long timerStart = 0;
 bool timerRunning = false;
@@ -45,6 +44,15 @@ void setup() {
 
     // Set MQTT server and callback
     setup_mqtt(client, callback);
+
+    // Updating the time status to client from EEPROM
+    int readValue = -1;
+    EEPROM.get(0, readValue);
+    if (readValue != -1) {
+      timerDuration = readValue; // Update timerDuration with the stored value
+      String updateTimeStatusTopic = String(device_id) + updateTimeStatusToClient;
+      client.publish(updateTimeStatusTopic.c_str(), String(readValue).c_str(), true);
+    }
 }
 
 
