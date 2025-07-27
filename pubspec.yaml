@@ -169,6 +169,7 @@ flutter:
      - asset/gifs/happy.gif
      - asset/icons/discover.png
      - asset/daily_tracker/pre_checkin_background1.png
+     - asset/daily_tracker/pre_checkin_potrait.png
      - asset/daily_tracker/
      - asset/sound_effects/
      - asset/daily_tracker/auth/
