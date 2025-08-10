@@ -1,0 +1,7 @@
+// Flavor Configuration for iOS
+// This file defines flavor-specific configurations
+
+// Default values (can be overridden by flavor-specific configs)
+FLUTTER_APP_FLAVOR=dash
+PRODUCT_NAME=Flutter End to End
+PRODUCT_BUNDLE_IDENTIFIER=com.example.sample-latest
