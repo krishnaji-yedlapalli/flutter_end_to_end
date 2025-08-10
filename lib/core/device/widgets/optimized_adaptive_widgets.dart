@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../config/device_configurations.dart';
-import '../config/optimized_device_configurations.dart';
 import '../enums/device_enums.dart';
 
 /// Optimized AdaptivePadding that uses cached device configuration

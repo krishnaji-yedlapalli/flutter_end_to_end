@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'device_configurations.dart';
-import 'optimized_device_configurations.dart';
 
 /// Manager class that handles device configuration updates efficiently
 class CachedDeviceManager {
