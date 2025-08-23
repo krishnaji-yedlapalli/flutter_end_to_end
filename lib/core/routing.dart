@@ -36,13 +36,14 @@ import 'package:sample_latest/features/routing_features/shell_route/shell_child_
 import 'package:sample_latest/features/routing_features/shell_route/shell_routing.dart';
 import 'package:sample_latest/features/routing_features/state_ful_shell_routing_with_indexed.dart';
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
-import 'package:sample_latest/features/scrolling/scroll_types.dart';
+import 'package:sample_latest/features/scrolling/scrolling.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
 
 import '../features/daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
 import '../features/plugins/local_authentication.dart';
+import '../features/responsive_showcase/pages/responsive_showcase_page.dart';
 import '../features/schools/core/schools_router_module.dart';
 import '../features/smart_control_iot/core/smart_control_router_module.dart';
 import '../features/smart_control_mqtt_iot_/core/smart_control_mqtt_router_module.dart';
@@ -107,6 +108,12 @@ class Routing {
                 return const LocalizationDatePicker();
               }),
           GoRoute(
+              path: 'adaptive-responsive',
+              name: 'AdaptiveAndResponsive',
+              builder: (context, state) {
+                return const ResponsiveShowcasePage();
+              }),
+          GoRoute(
               path: 'isolates',
               name: 'Isolates',
               builder: (context, state) {
@@ -149,13 +156,7 @@ class Routing {
                   },
                 ),
               ]),
-          GoRoute(
-            path: 'scrollTypes',
-            name: 'Scroll Types',
-            builder: (BuildContext context, GoRouterState state) {
-              return const ScrollTypes();
-            },
-          ),
+          scrollTypesRoute(),
           pushNotification(),
           GoRoute(
             path: 'deep-linking',
@@ -387,6 +388,118 @@ class Routing {
     if (navigatorKey.currentContext != null) {
       GoRouter.of(navigatorKey.currentContext!).push(path);
     }
+  }
+
+  static GoRoute scrollTypesRoute() {
+    return GoRoute(
+      path: 'scrollTypes',
+      name: 'Scroll Types',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ScrollTypes();
+      },
+      routes: [
+        GoRoute(
+          path: 'singleChildScrollView',
+          name: 'SingleChildScrollView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const SingleChildScrollViewDemo();
+          },
+        ),
+        GoRoute(
+          path: 'listView',
+          name: 'ListView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ListViewDemo();
+          },
+        ),
+        GoRoute(
+          path: 'gridView',
+          name: 'GridView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const GridViewDemo();
+          },
+        ),
+        GoRoute(
+          path: 'customScrollView',
+          name: 'CustomScrollView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const CustomScrollViewDemo();
+          },
+          routes: [
+            GoRoute(
+              path: 'sliverAppBar',
+              name: 'SliverAppBar Demo',
+              builder: (BuildContext context, GoRouterState state) {
+                return const SliverAppBarDemo();
+              },
+            ),
+            GoRoute(
+              path: 'sliverList',
+              name: 'SliverList Demo',
+              builder: (BuildContext context, GoRouterState state) {
+                return const SliverListDemo();
+              },
+            ),
+            GoRoute(
+              path: 'sliverGrid',
+              name: 'SliverGrid Demo',
+              builder: (BuildContext context, GoRouterState state) {
+                return const SliverGridDemo();
+              },
+            ),
+            GoRoute(
+              path: 'sliverFillViewport',
+              name: 'SliverFillViewport Demo',
+              builder: (BuildContext context, GoRouterState state) {
+                return const SliverFillViewportDemo();
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: 'nestedScrollView',
+          name: 'NestedScrollView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const NestedScrollViewDemo();
+          },
+        ),
+        GoRoute(
+          path: 'pageView',
+          name: 'PageView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const PageViewDemo();
+          },
+        ),
+        GoRoute(
+          path: 'listWheelScrollView',
+          name: 'ListWheelScrollView Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ListWheelScrollViewDemo();
+          },
+        ),
+        GoRoute(
+          path: 'draggableScrollableSheet',
+          name: 'DraggableScrollableSheet Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const DraggableScrollableSheetDemo();
+          },
+        ),
+        GoRoute(
+          path: 'animatedList',
+          name: 'AnimatedList Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const AnimatedListDemo();
+          },
+        ),
+        GoRoute(
+          path: 'scrollbar',
+          name: 'Scrollbar Demo',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ScrollbarDemo();
+          },
+        ),
+      ],
+    );
   }
 
   static bool navigateToHome(BuildContext context) {

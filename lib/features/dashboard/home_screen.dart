@@ -101,6 +101,12 @@ class _HomeScreenState extends State<HomeScreen>
       des: 'Localization and Internalization was implemented in this'
       ),
       (
+      'scrollTypes',
+      ScreenType.scrollTypes,
+      Icons.poll,
+      des: 'Here we can access different types of plugins'
+      ),
+      (
         'Routing concept',
         ScreenType.routing,
         Icons.school,
@@ -182,12 +188,6 @@ class _HomeScreenState extends State<HomeScreen>
         'Plugins',
         ScreenType.plugins,
         Icons.power,
-        des: 'Here we can access different types of plugins'
-      ),
-      (
-        'scrollTypes',
-        ScreenType.scrollTypes,
-        Icons.poll,
         des: 'Here we can access different types of plugins'
       ),
     ];
