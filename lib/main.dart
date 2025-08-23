@@ -26,6 +26,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/adsense_web_stub.dart'
     if (dart.library.html) 'package:sample_latest/adsense_web.dart' as web;
 
+import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
 
 // @pragma('vm:entry-point')
@@ -56,13 +57,14 @@ void main() async {
     return true;
   };
 
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  if (!Platform.isLinux) await Firebase.initializeApp(
-    options: PushNotificationService.currentPlatform,
-  );
-  if (!kIsWeb && !Platform.isLinux) FirebaseDatabase.instance.setPersistenceEnabled(true);
+  if(kIsWeb || !Platform.isLinux){
+    await Firebase.initializeApp(
+      options: PushNotificationService.currentPlatform,
+    );
+    DbConfigurationsByDev().loadSavedData();
+    if(!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
+  }
 
-  if (!Platform.isLinux) DbConfigurationsByDev().loadSavedData();
   Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
@@ -130,54 +132,64 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ),
         ],
         child: Builder(builder: (context) {
-          return OrientationBuilder(builder: (context, orientation) {
-            DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                MediaQuery.of(context).size, orientation);
-            return GlobalLoaderOverlay(
-              child: MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: 'Flutter End to End',
-                localeResolutionCallback: (locale, locales) {
-                  // if(locale?.languageCode == 'es') {
-                  //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                  //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                  //   return englishLocale;
-                  // }
-                  return locale;
-                },
-                locale: context.watch<CommonProvider>().locale,
-                // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                // backButtonDispatcher: () => ,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'),
-                  Locale('es'),
-                  Locale('hi'),
-                  Locale('he'),
-                ],
+          return DeviceConfigurationProvider(
+            child: OrientationBuilder(builder: (context, orientation) {
+              DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                  MediaQuery
+                      .of(context)
+                      .size, orientation);
+              return GlobalLoaderOverlay(
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter End to End',
+                  localeResolutionCallback: (locale, locales) {
+                    // if(locale?.languageCode == 'es') {
+                    //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                    //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                    //   return englishLocale;
+                    // }
+                    return locale;
+                  },
+                  locale: context
+                      .watch<CommonProvider>()
+                      .locale,
+                  // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                  // backButtonDispatcher: () => ,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('es'),
+                    Locale('hi'),
+                    Locale('he'),
+                  ],
 
-                /// text scale factor
-                builder: (BuildContext context, Widget? child) {
-                  var data = MediaQuery.of(context);
-                  return MediaQuery(
-                      data: data.copyWith(
-                        textScaler: TextScaler.linear(data.textScaleFactor),
-                      ),
-                      child: child ?? Container());
-                },
-                theme: CustomTheme.lightThemeData(context),
-                darkTheme: CustomTheme.darkThemeData(),
-                themeMode: context.watch<CommonProvider>().themeModeType,
-                routerConfig: Routing.router,
-              ),
-            );
-          });
-        }),
+                  /// text scale factor
+                  builder: (BuildContext context, Widget? child) {
+                    var data = MediaQuery.of(context);
+                    return MediaQuery(
+                        data: data.copyWith(
+                          textScaler: TextScaler.linear(data.textScaleFactor),
+                        ),
+                        child: child ?? Container());
+                  },
+                  theme: CustomTheme.lightThemeData(context),
+                  darkTheme: CustomTheme.darkThemeData(),
+                  themeMode: context
+                      .watch<CommonProvider>()
+                      .themeModeType,
+                  routerConfig: Routing.router,
+                ),
+              );
+            },
+             )
+          );
+          }
+        ),
       ),
     );
   }

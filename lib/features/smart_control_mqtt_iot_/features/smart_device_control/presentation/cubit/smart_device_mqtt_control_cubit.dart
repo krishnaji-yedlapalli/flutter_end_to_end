@@ -61,24 +61,24 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         if (_smartControlModel.deviceId == topic.split('/')[0]) {
           if (topic.contains(
               '${_smartControlModel.deviceId}${MqttConstants.status}')) {
-            _smartControlModel.isActive = payload == 'ON' ? true : false;
-            _smartControlModel.isDisabled = false;
+            _smartControlModel.isEngaged = payload == 'ON' ? true : false;
+            _smartControlModel.isDeviceUnReachable = false;
             emit(SmartDeviceLoaded(_smartControlModel,
-                isActive: _smartControlModel.isActive, isDisabled: false));
+                isActive: _smartControlModel.isEngaged, isDisabled: false));
           }
 
           if (topic.contains(
               '${_smartControlModel.deviceId}${MqttConstants
                   .deviceConnectionStatus}')) {
             final status = payload == MqttConstants.onlineStatus ? true : false;
-            _smartControlModel.isDisabled = !status;
+            _smartControlModel.isDeviceUnReachable = !status;
             emit(SmartDeviceLoaded(_smartControlModel, isDisabled: !status));
           }
 
           if (topic.contains(
               '${_smartControlModel.deviceId}${MqttConstants
                   .setAutoManualStatus}')) {
-            _smartControlModel.isDisabled = false;
+            _smartControlModel.isDeviceUnReachable = false;
             _smartControlModel.isAuto =
             MqttConstants.autoStatus == payload ? true : false;
             emit(SmartDeviceLoaded(_smartControlModel));
@@ -93,16 +93,16 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         }
       });
     }catch(e,s){
-      _smartControlModel.isDisabled = true;
+      _smartControlModel.isDeviceUnReachable = true;
       emit(SmartDeviceLoaded(_smartControlModel, isDisabled: true));
       return;
     }
 
     await Future.delayed(const Duration(seconds: 2));
-    if (_smartControlModel.isDisabled) {
+    if (_smartControlModel.isDeviceUnReachable) {
       _requestStatus();
       await Future.delayed(const Duration(seconds: 5));
-      if(_smartControlModel.isDisabled) {
+      if(_smartControlModel.isDeviceUnReachable) {
         emit(SmartDeviceLoaded(_smartControlModel, isDisabled: true));
       }
     }
@@ -122,12 +122,12 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         isDisabled: false, isShimmerEffectRequired: true));
 
     final builder = MqttClientPayloadBuilder();
-    if (_smartControlModel.isActive) {
+    if (_smartControlModel.isEngaged) {
       builder.addString('OFF');
     } else {
       builder.addString('ON');
     }
-    print('##** On selection of smart tile : ${builder.payload} , smart control status : ${_smartControlModel.isActive}');
+    print('##** On selection of smart tile : ${builder.payload} , smart control status : ${_smartControlModel.isEngaged}');
     _mqttServerClient.publishMessage(
         '${_smartControlModel.deviceId}${MqttConstants.controlDevice}',
         MqttQos.atMostOnce,

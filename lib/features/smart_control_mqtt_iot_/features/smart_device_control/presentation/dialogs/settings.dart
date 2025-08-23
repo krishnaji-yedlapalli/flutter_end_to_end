@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/widgets/text_field.dart';
@@ -64,6 +65,7 @@ class _SmartDeviceSettingState extends State<SmartDeviceSetting>
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         spacing: 10,
+        mainAxisSize: MainAxisSize.min,
         children: [
           CustomDropDown<int>(
             items: time
@@ -80,7 +82,7 @@ class _SmartDeviceSettingState extends State<SmartDeviceSetting>
                 textEmptyValidator(val.toString(), 'Time is required!!'),
           ),
         ],
-      )
+      ).screenPadding()
     );
   }
 
@@ -91,8 +93,8 @@ class _SmartDeviceSettingState extends State<SmartDeviceSetting>
         break;
       case 1:
         if (formKey.currentState?.validate() ?? false) {
-          widget.parentContext.read<SmartDeviceMqttControlCubit>().onSelectionOfSetting(selectedTime);
           Navigator.of(context).pop();
+          widget.parentContext.read<SmartDeviceMqttControlCubit>().onSelectionOfSetting(selectedTime);
         }
         break;
     }

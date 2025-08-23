@@ -6,6 +6,8 @@ import 'app_configuration.dart';
 
 enum EnvironmentType { dash, flutter, dart, dailyTracker }
 
+const defaultEnvironment = EnvironmentType.dash;
+
 class Environment {
   static final Environment _singleton = Environment._internal();
 
@@ -23,8 +25,8 @@ class Environment {
         const String.fromEnvironment('FLUTTER_APP_FLAVOR').isNotEmpty
             ? (HelperMethods.enumFromString(EnvironmentType.values,
                     const String.fromEnvironment('FLUTTER_APP_FLAVOR')) ??
-                EnvironmentType.dash)
-            : EnvironmentType.dash;
+            defaultEnvironment)
+            : defaultEnvironment;
 
     _configuration = switch (environmentType) {
       EnvironmentType.dash => defaultConfiguration,

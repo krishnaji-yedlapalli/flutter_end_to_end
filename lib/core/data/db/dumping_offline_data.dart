@@ -22,10 +22,7 @@ class _DumpingOfflineData {
 
     /// Zip information
     ByteData value = await args[2];
-    Uint8List zipData =
-        value.buffer.asUint8List(value.offsetInBytes, value.lengthInBytes);
-    InputStream ifs = InputStream(zipData);
-    final archive = ZipDecoder().decodeBuffer(ifs);
+    final archive = ZipDecoder().decodeBytes(value.buffer.asUint8List());
 
     /// Files paths
     var paths = <String>[];
@@ -70,7 +67,6 @@ class _DumpingOfflineData {
         }
       }
     }
-    ifs.close();
     port.send('success');
   }
 }

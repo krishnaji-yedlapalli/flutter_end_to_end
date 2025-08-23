@@ -6,6 +6,7 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 import '../../../shared/models/smart_control_model.dart';
 import '../../../shared/utils/enums.dart';
+import '../../mock/smart_control_seed.dart';
 import '../../smart_device_control/domain/use_cases/device_status_useCase.dart';
 import '../../smart_device_control/domain/use_cases/smart_device_ctrl_useCase.dart';
 import '../../smart_device_control/presentation/cubit/smart_device_mqtt_control_cubit.dart';
@@ -20,44 +21,8 @@ class SmartControlMqttDashboardCubit extends Cubit<ScDashboardState> {
 
   SmartControlMqttDashboardCubit(this._smartDeviceStatusUseCase, this._smartDeviceControlUseCase, this._mqttServerClient) : super(SCDashboardLoading());
 
-  final List<SmartControlMqttModel> screenTypes =
-  [
-    SmartControlMqttModel(
-        'On and Off',
-        SmartControlType.onOff,
-        Icons.dashboard,
-        'node1',
-        des: 'We can on and off the light',
-        tileType: TileSizeType.small,
-    ),
-    SmartControlMqttModel(
-        'Kitchen Exhaust fan',
-        SmartControlType.motionDetector,
-        Icons.dashboard,
-        'node2',
-        des: 'We can on and off the light',
-        tileType: TileSizeType.medium,
-    ),
-    SmartControlMqttModel(
-      'Outdoor light',
-      SmartControlType.motionDetector,
-      Icons.dashboard,
-      'node3',
-      des: 'We can on and off the light',
-      tileType: TileSizeType.large,
-    ),
-    SmartControlMqttModel(
-      'Main Bed room light',
-      SmartControlType.motionDetector,
-      Icons.dashboard,
-      'node4',
-      des: 'We can on and off the light',
-      tileType: TileSizeType.large,
-    ),
-  ];
-
   Future<void> loadSmartControlDashboard() async {
-    emit(SCDashboardLoaded(screenTypes, _mqttServerClient));
+    emit(SCDashboardLoaded(SmartControlSeed.dashboardSeed, _mqttServerClient));
   }
 
 
