@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../constants/responsive_constants.dart';
 
 class ScreenBreakPoints {
-  static const mobileBreakPoint = 600.0;
+  static const mobileBreakPoint = ResponsiveConstants.mobileMaxWidth;
 
-  static const tabletBreakPoint = 900.0;
+  static const tabletBreakPoint = ResponsiveConstants.mobileLandscapeMaxWidth;
 
-  static const desktopBreakPoint = 1024.0;
+  static const desktopBreakPoint = ResponsiveConstants.tabletMaxWidth;
 
   static bool isMobile(Size size) => size.width < mobileBreakPoint;
 

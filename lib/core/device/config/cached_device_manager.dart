@@ -21,9 +21,9 @@ class CachedDeviceManager {
   }
 
   /// Update device configuration and notify listeners only if changed
-  void updateConfiguration(Size size, Orientation orientation) {
+  void updateConfiguration(Size size, Orientation orientation, [double? pixelRatio]) {
     bool hasChanged = DeviceConfiguration
-        .updateDeviceResolutionAndOrientation(size, orientation);
+        .updateDeviceResolutionAndOrientation(size, orientation, pixelRatio);
     
     if (hasChanged) {
       // Only notify listeners if device type actually changed
@@ -79,7 +79,8 @@ class _DeviceConfigurationProviderState
       if (mounted) {
         final size = MediaQuery.of(context).size;
         final orientation = MediaQuery.of(context).orientation;
-        _deviceManager.updateConfiguration(size, orientation);
+        final pixelRatio = MediaQuery.of(context).devicePixelRatio;
+        _deviceManager.updateConfiguration(size, orientation, pixelRatio);
       }
     });
   }
@@ -89,12 +90,12 @@ class _DeviceConfigurationProviderState
     return OrientationBuilder(
       builder: (context, orientation) {
         // Initial configuration update
-        // WidgetsBinding.instance.addPostFrameCallback((_) {
-          _deviceManager.updateConfiguration(
-            MediaQuery.of(context).size,
-            orientation,
-          );
-        // });
+        final pixelRatio = MediaQuery.of(context).devicePixelRatio;
+        _deviceManager.updateConfiguration(
+          MediaQuery.of(context).size,
+          orientation,
+          pixelRatio,
+        );
         
         return widget.child;
       },

@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               DeviceConfiguration.updateDeviceResolutionAndOrientation(
                   MediaQuery
                       .of(context)
-                      .size, orientation);
+                      .size, orientation, MediaQuery.of(context).devicePixelRatio);
               return GlobalLoaderOverlay(
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,

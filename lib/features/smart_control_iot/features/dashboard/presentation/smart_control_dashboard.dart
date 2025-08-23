@@ -45,7 +45,7 @@ class _SmartControlDashboardState extends State<SmartControlDashboard>
   AdaptiveLayoutBuilder _buildGridView(List<SmartControlModel> screenTypes, Map<String, SmartDeviceControlCubit> smCubits, ) {
     return AdaptiveLayoutBuilder(
         builder: (context, deviceType) => StaggeredGrid.count(
-            crossAxisCount: deviceType == DeviceResolutionType.mobile ? 3 : 8,
+            crossAxisCount: deviceType == DeviceResolutionType.mobilePortrait ? 3 : 8,
             mainAxisSpacing: 4,
             crossAxisSpacing: 4,
             children: screenTypes.map((screenType)=> StaggeredGridTile.count(

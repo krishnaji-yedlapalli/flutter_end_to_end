@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../config/device_configurations.dart';
+import '../../constants/responsive_constants.dart';
 
 /// Adaptive navigation bar
 class AdaptiveNavigationBar extends StatelessWidget implements PreferredSizeWidget {
@@ -44,9 +45,9 @@ class AdaptiveNavigationBar extends StatelessWidget implements PreferredSizeWidg
   @override
   Size get preferredSize {
     if (DeviceConfiguration.useCupertinoDesign) {
-      return const Size.fromHeight(44.0); // iOS navigation bar height
+      return const Size.fromHeight(ResponsiveConstants.iosNavigationBarHeight); // iOS navigation bar height
     } else {
-      return const Size.fromHeight(56.0); // Material app bar height
+      return const Size.fromHeight(ResponsiveConstants.materialAppBarHeight); // Material app bar height
     }
   }
 }

@@ -7,6 +7,7 @@ enum ScreenType {
   schoolMvc,
   automaticKeepAlive,
   localizationWithCalendar,
+  adaptiveAndResponsiveWidgets,
   isolates,
   shortcuts,
   plugins,

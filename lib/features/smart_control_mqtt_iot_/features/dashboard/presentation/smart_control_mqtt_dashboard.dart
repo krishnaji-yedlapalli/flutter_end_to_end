@@ -41,7 +41,7 @@ class SmartControlMqttDashboard extends StatelessWidget with Loaders{
       child: AdaptiveLayoutBuilder(
           builder: (context, deviceType) {
            return StaggeredGrid.count(
-                crossAxisCount: deviceType == DeviceResolutionType.mobile
+                crossAxisCount: deviceType == DeviceResolutionType.mobilePortrait
                     ? 3
                     : 8,
                 mainAxisSpacing: 4,
