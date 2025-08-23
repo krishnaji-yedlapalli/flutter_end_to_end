@@ -74,9 +74,12 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
       builder:
           (BuildContext context, DeviceResolutionType deviceResolutionType) {
         return switch (deviceResolutionType) {
-          DeviceResolutionType.mobile => _buildPortraitListView(),
-          DeviceResolutionType.tab => _buildPortraitListView(),
-          DeviceResolutionType.desktop => _buildWebView(context),
+          DeviceResolutionType.mobilePortrait => _buildPortraitListView(),
+          DeviceResolutionType.tabletPortrait => _buildPortraitListView(),
+          DeviceResolutionType.desktopStandard => _buildWebView(context),
+          DeviceResolutionType.mobileLandscape => _buildWebView(context),
+          DeviceResolutionType.tabletLandscape => _buildWebView(context),
+          DeviceResolutionType.desktopLarge => _buildWebView(context),
         };
       },
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../device/config/device_configurations.dart';
+import '../constants/responsive_constants.dart';
 
 mixin CardWidgetsMixin {
   Widget buildHomeCardView(
@@ -12,40 +14,21 @@ mixin CardWidgetsMixin {
         child: InkWell(
           key: key,
           onTap: callback,
-          customBorder: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+          customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(DeviceConfiguration.getResponsiveSpacing(ResponsiveConstants.cardPadding)))),
           child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: DeviceConfiguration.getResponsivePadding(base: ResponsiveConstants.cardPadding),
               alignment: Alignment.topLeft,
-              // decoration: const BoxDecoration(
-              //   borderRadius: BorderRadius.all(Radius.circular(4))
-              // gradient:
-              // LinearGradient(colors: [
-              //   Color(0xFF4B72EF),
-              //   Color(0xFF00CCFF),
-              // ],
-              // begin: Alignment.bottomLeft ?? FractionalOffset(-1, 1.0),
-              // end: Alignment.topRight ?? FractionalOffset(1, -1),
-              // stops: [0.4, 0.7],
-              // tileMode: TileMode.repeated,
-              // // tileMode: TileMode.clamp
-              // )
-
-              // RadialGradient(colors: [
-              //     Color(0xFF4B72EF),
-              //     Color(0xFF00CCFF),
-              // ],
-              // radius: 0.7,
-              // focal: Alignment(0.7, 0.7),
-              // stops: [0.2, .7]
-              // )
-              // ),
               child: Wrap(
-                runSpacing: 3,
+                runSpacing: DeviceConfiguration.getResponsiveSpacing(ResponsiveConstants.tinySpacing),
                 children: [
                   Row(
                     children: [
-                      Icon(icon),
+                      Icon(
+                        icon,
+                        size: DeviceConfiguration.getResponsiveIconSize(ResponsiveConstants.mediumIconSize),
+                      ),
                     ],
                   ),
                   RichText(

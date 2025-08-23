@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../constants/responsive_constants.dart';
 
 mixin Notifiers {
   static void toastNotifier(String label) {
@@ -12,6 +13,6 @@ mixin Notifiers {
         // webBgColor: Colors.grey,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0);
+        fontSize: ResponsiveConstants.largeFontSize);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../constants/responsive_constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 
@@ -32,7 +33,7 @@ mixin CustomDialogs {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: ResponsiveConstants.smallPadding, vertical: ResponsiveConstants.mediumPadding),
             child:
                 Text(title, style: Theme.of(context).textTheme.headlineSmall),
           ),
@@ -47,7 +48,7 @@ mixin CustomDialogs {
 
   Widget _buildButtons(List<String> actions, ValueChanged<int> callBack) {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(ResponsiveConstants.smallPadding),
         child: Align(
           alignment: Alignment.centerRight,
           child: Wrap(

@@ -1,50 +1,148 @@
 import 'package:flutter/material.dart';
-
 import '../enums/device_enums.dart';
-import '../utils/screen_break_points.dart';
+import '../config/device_configurations.dart';
+import '../../constants/responsive_constants.dart';
 
-/// Signature for the builder callback
+/// Signature for the builder callback with enhanced device resolution types
 typedef DeviceResolutionBuilderCallback = Widget Function(
   BuildContext context,
   DeviceResolutionType deviceResolutionType,
 );
 
-/// A widget that builds different layouts based on screen width
+/// Enhanced adaptive layout builder that uses the new 6-category resolution system
 class AdaptiveLayoutBuilder extends StatelessWidget {
-  /// The builder function that returns a widget based on device type
+  /// The builder function that returns a widget based on device resolution type
   final DeviceResolutionBuilderCallback builder;
 
-  /// Breakpoint for mobile width (default: 600)
-  final double mobileBreakpoint;
-
-  /// Breakpoint for tablet width (default: 900)
-  final double tabletBreakpoint;
+  /// Whether to use cached device configuration (recommended for performance)
+  final bool useCachedConfiguration;
 
   const AdaptiveLayoutBuilder({
     super.key,
     required this.builder,
-    this.mobileBreakpoint = ScreenBreakPoints.mobileBreakPoint,
-    this.tabletBreakpoint = ScreenBreakPoints.tabletBreakPoint,
+    this.useCachedConfiguration = true,
   });
-
-  /// Determines the device type based on screen width
-  DeviceResolutionType _getDeviceType(double width) {
-    if (width < mobileBreakpoint) {
-      return DeviceResolutionType.mobile;
-    } else if (width > mobileBreakpoint &&
-        width < ScreenBreakPoints.desktopBreakPoint) {
-      return DeviceResolutionType.tab;
-    } else {
-      return DeviceResolutionType.desktop;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final deviceType = _getDeviceType(constraints.maxWidth);
+        DeviceResolutionType deviceType;
+
+        if (useCachedConfiguration) {
+          // Use the cached device configuration for better performance
+          deviceType = DeviceConfiguration.resolutionType;
+        } else {
+          // Calculate device type based on current constraints
+          deviceType =
+              _calculateDeviceType(constraints.maxWidth, constraints.maxHeight);
+        }
+
         return builder(context, deviceType);
+      },
+    );
+  }
+
+  /// Calculate device type based on width and height (fallback method)
+  DeviceResolutionType _calculateDeviceType(double width, double height) {
+    bool isPortrait = height > width;
+
+    // Mobile detection
+    if (width < ResponsiveConstants.mobileMaxWidth) {
+      return isPortrait
+          ? DeviceResolutionType.mobilePortrait
+          : DeviceResolutionType.mobileLandscape;
+    }
+
+    // Handle mobile landscape edge case
+    if (!isPortrait && width < ResponsiveConstants.mobileLandscapeMaxWidth && height < ResponsiveConstants.mobileMaxWidth) {
+      return DeviceResolutionType.mobileLandscape;
+    }
+
+    // Tablet detection
+    if (width < ResponsiveConstants.tabletMaxWidth) {
+      return isPortrait
+          ? DeviceResolutionType.tabletPortrait
+          : DeviceResolutionType.tabletLandscape;
+    }
+
+    // Desktop detection
+    if (width < ResponsiveConstants.desktopStandardMaxWidth) {
+      return DeviceResolutionType.desktopStandard;
+    }
+
+    return DeviceResolutionType.desktopLarge;
+  }
+}
+
+/// Convenience builder for specific device types
+class ResponsiveBuilder extends StatelessWidget {
+  final Widget? mobile;
+  final Widget? mobileLandscape;
+  final Widget? tablet;
+  final Widget? tabletLandscape;
+  final Widget? desktop;
+  final Widget? desktopLarge;
+  final Widget fallback;
+
+  const ResponsiveBuilder({
+    super.key,
+    this.mobile,
+    this.mobileLandscape,
+    this.tablet,
+    this.tabletLandscape,
+    this.desktop,
+    this.desktopLarge,
+    required this.fallback,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveLayoutBuilder(
+      builder: (context, deviceType) {
+        switch (deviceType) {
+          case DeviceResolutionType.mobilePortrait:
+            return mobile ?? fallback;
+          case DeviceResolutionType.mobileLandscape:
+            return mobileLandscape ?? mobile ?? fallback;
+          case DeviceResolutionType.tabletPortrait:
+            return tablet ?? fallback;
+          case DeviceResolutionType.tabletLandscape:
+            return tabletLandscape ?? tablet ?? fallback; // Your 7-inch case
+          case DeviceResolutionType.desktopStandard:
+            return desktop ?? fallback;
+          case DeviceResolutionType.desktopLarge:
+            return desktopLarge ?? desktop ?? fallback;
+        }
+      },
+    );
+  }
+}
+
+/// Simplified responsive builder for common use cases
+class SimpleResponsiveBuilder extends StatelessWidget {
+  final Widget mobile;
+  final Widget? tablet;
+  final Widget? desktop;
+
+  const SimpleResponsiveBuilder({
+    super.key,
+    required this.mobile,
+    this.tablet,
+    this.desktop,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveLayoutBuilder(
+      builder: (context, deviceType) {
+        if (deviceType.isMobile) {
+          return mobile;
+        } else if (deviceType.isTablet) {
+          return tablet ?? mobile;
+        } else {
+          return desktop ?? tablet ?? mobile;
+        }
       },
     );
   }

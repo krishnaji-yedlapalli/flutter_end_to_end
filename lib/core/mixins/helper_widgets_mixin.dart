@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../constants/responsive_constants.dart';
 
 mixin HelperWidget {
   Widget buildTitleWithContent(
@@ -13,7 +14,7 @@ mixin HelperWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.titleMedium),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: ResponsiveConstants.mediumPadding),
             child: content,
           ),
           if (!DeviceConfiguration.isMobileResolution && !hideBorder)
@@ -29,7 +30,7 @@ mixin HelperWidget {
       bool hideBorder = false}) {
     return Builder(builder: (context) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(ResponsiveConstants.smallPadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -37,7 +38,7 @@ mixin HelperWidget {
             Text(title, style: Theme.of(context).textTheme.titleMedium),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: ResponsiveConstants.mediumPadding),
                 child: content,
               ),
             ),
@@ -148,7 +149,7 @@ mixin HelperWidget {
 
   Widget emptyMessage(String message) => Builder(builder: (context) {
         return Container(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(ResponsiveConstants.smallPadding),
           alignment: Alignment.center,
           child: Text(message, style: Theme.of(context).textTheme.labelLarge),
         );

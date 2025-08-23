@@ -95,6 +95,12 @@ class _HomeScreenState extends State<HomeScreen>
         des: 'Localization and Internalization was implemented in this'
       ),
       (
+      'Adaptive & Responsive Widgets',
+      ScreenType.adaptiveAndResponsiveWidgets,
+      Icons.language,
+      des: 'Localization and Internalization was implemented in this'
+      ),
+      (
         'Routing concept',
         ScreenType.routing,
         Icons.school,
@@ -198,14 +204,23 @@ class _HomeScreenState extends State<HomeScreen>
         ],
       ),
       body: AdaptiveLayoutBuilder(
-        builder: (context, deviceType) => GridView.builder(
+        builder: (context, deviceType) => Padding(
+          padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
+          child: GridView.builder(
             itemCount: screenTypes.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: switch (deviceType) {
-              DeviceResolutionType.mobile => 2,
-              DeviceResolutionType.tab => 3,
-              DeviceResolutionType.desktop => 5,
-            }),
+              crossAxisCount: switch (deviceType) {
+                DeviceResolutionType.mobilePortrait => 2,
+                DeviceResolutionType.mobileLandscape => 3,
+                DeviceResolutionType.tabletPortrait => 3,
+                DeviceResolutionType.tabletLandscape => 4, // Optimized for 7-inch
+                DeviceResolutionType.desktopStandard => 5,
+                DeviceResolutionType.desktopLarge => 7,
+              },
+              crossAxisSpacing: DeviceConfiguration.getResponsiveSpacing(8.0),
+              mainAxisSpacing: DeviceConfiguration.getResponsiveSpacing(8.0),
+              childAspectRatio: _getChildAspectRatio(deviceType),
+            ),
             itemBuilder: (_, index) {
               var screenDetails = screenTypes.elementAt(index);
               var module = buildHomeCardView(
@@ -220,9 +235,29 @@ class _HomeScreenState extends State<HomeScreen>
                   ? HomeScreenFeatureDiscovery()
                       .aboutModuleDiscovery(module, screenDetails.$2)
                   : module;
-            }),
+            },
+          ),
+        ),
       ),
     );
+  }
+
+  /// Get responsive aspect ratio for grid items based on device type
+  double _getChildAspectRatio(DeviceResolutionType deviceType) {
+    switch (deviceType) {
+      case DeviceResolutionType.mobilePortrait:
+        return 1; // Slightly taller cards for mobile portrait
+      case DeviceResolutionType.mobileLandscape:
+        return 1.1;  // Wider cards for mobile landscape
+      case DeviceResolutionType.tabletPortrait:
+        return 0.9;  // Good balance for tablet portrait
+      case DeviceResolutionType.tabletLandscape:
+        return 1.0;  // Perfect square for 7-inch landscape
+      case DeviceResolutionType.desktopStandard:
+        return 1.0;  // Square cards for desktop
+      case DeviceResolutionType.desktopLarge:
+        return 1.1;  // Slightly wider for large desktop
+    }
   }
 
   navigateToDashboard(ScreenType type) {
@@ -244,10 +279,9 @@ class _HomeScreenState extends State<HomeScreen>
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
       ScreenType.dailyTracker => daily_tracker.DailyTrackerRouterModule.logInPath,
-      // TODO: Handle this case.
       ScreenType.smartControl => '/home/smart-control/dashboard',
-      // TODO: Handle this case.
       ScreenType.smartControlMqtt => '/home/smart-control-mqtt/dashboard',
+      ScreenType.adaptiveAndResponsiveWidgets => '/home/adaptive-responsive',
     };
     context.go(path);
   }

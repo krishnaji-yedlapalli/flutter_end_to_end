@@ -4,6 +4,7 @@ import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../constants/responsive_constants.dart';
 
 import '../environment/environment.dart';
 
@@ -29,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: DeviceConfiguration.isWeb
           ? InkResponse(
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(ResponsiveConstants.tinyPadding),
                 child: Image.asset(Environment().configuration.appBarLogoPath),
               ),
               onTap: () => Routing.navigateToHome(context))
