@@ -139,13 +139,14 @@ class ResponsiveSmallText extends ResponsiveText {
     bool centerText = false,
     TextDecoration? decoration,
     FontStyle? fontStyle,
+    double baseFontSize = 12.0,
   }) : super(
           text,
           key: key,
           textAlign: textAlign,
           color: color,
           fontWeight: fontWeight,
-          baseFontSize: 12.0, // Smaller base size
+          baseFontSize: baseFontSize, // Smaller base size
           maxLines: maxLines,
           overflow: overflow,
           padding: padding,

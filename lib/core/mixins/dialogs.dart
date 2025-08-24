@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sample_latest/core/device/widgets/responsive_widgets.dart';
 import '../constants/responsive_constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
@@ -18,7 +19,7 @@ mixin CustomDialogs {
                 : DeviceConfiguration.isTabResolution
                     ? MediaQuery.of(context).size.width / 2
                     : MediaQuery.of(context).size.width / 3,
-            child: content,
+            child: SingleChildScrollView(child: content),
           ));
         });
   }
@@ -35,7 +36,7 @@ mixin CustomDialogs {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: ResponsiveConstants.smallPadding, vertical: ResponsiveConstants.mediumPadding),
             child:
-                Text(title, style: Theme.of(context).textTheme.headlineSmall),
+                ResponsiveTitle(title),
           ),
           const Divider(),
           Flexible(fit: FlexFit.loose, child: content),
@@ -57,9 +58,9 @@ mixin CustomDialogs {
             crossAxisAlignment: WrapCrossAlignment.end,
             children: List.generate(
                 actions.length,
-                (index) => ElevatedButton(
+                (index) => AdaptiveResponsiveButton(
                     onPressed: () => callBack(index),
-                    child: Text(actions.elementAt(index)))),
+                    text: actions.elementAt(index))),
           ),
         ));
   }
@@ -71,8 +72,8 @@ mixin CustomDialogs {
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
-            title: Text(title),
-            content: Text(content),
+            title: ResponsiveTitle(title),
+            content: ResponsiveText(content),
             actions: [
               IconButton(
                   onPressed: () => GoRouter.of(context).pop(true),
@@ -84,22 +85,20 @@ mixin CustomDialogs {
 
   static Future<bool> buildAlertDialogWithYesOrNo(BuildContext context,
       {required String title, required String content}) async {
-    var style =
-        const TextStyle(color: Colors.orange, fontWeight: FontWeight.w600);
     return await showAdaptiveDialog<bool>(
             barrierDismissible: true,
             context: context,
             builder: (context) {
               return CupertinoAlertDialog(
-                title: Text(title),
-                content: Text(content),
+                title: ResponsiveTitle(title),
+                content: ResponsiveText(content),
                 actions: [
                   TextButton(
                       onPressed: () => GoRouter.of(context).pop(false),
-                      child: Text('No', style: style)),
+                      child: const ResponsiveText('No', color: Colors.orange, fontWeight: FontWeight.w600,)),
                   TextButton(
                       onPressed: () => GoRouter.of(context).pop(true),
-                      child: Text('Yes', style: style)),
+                      child: const ResponsiveText('Yes', color: Colors.orange, fontWeight: FontWeight.w600,)),
                 ],
               );
             }) ??

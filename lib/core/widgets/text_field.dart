@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/device/widgets/responsive_widgets.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      style: TextStyle(fontSize: DeviceConfiguration.getResponsiveFontSize(14)),
       decoration: outlineDecoration(),
       validator: validator,
       inputFormatters: inputFormatter,
@@ -44,8 +47,14 @@ class CustomTextField extends StatelessWidget {
 
   InputDecoration outlineDecoration() {
     return InputDecoration(
-        label: Text(label),
-        suffixIcon: suffixIcon,
+        label: ResponsiveText(label),
+        contentPadding: DeviceConfiguration.getResponsivePadding(horizontal: 12, vertical: 8),
+        suffixIcon: suffixIcon != null ? IconTheme(
+          data: IconThemeData(
+            size: DeviceConfiguration.getResponsiveIconSize(24),
+          ),
+          child: suffixIcon!,
+        ) : null,
         prefixText: prefix,
         border: const OutlineInputBorder());
   }

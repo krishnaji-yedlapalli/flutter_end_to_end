@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/device/widgets/responsive_widgets.dart';
 
 class CustomDropDown<T> extends StatelessWidget {
   const CustomDropDown(
@@ -23,13 +25,16 @@ class CustomDropDown<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
-      hint: hint != null ? Text(hint!) : null,
+      hint: hint != null ? ResponsiveText(hint!) : null,
       items: items,
       onChanged: onChanged,
       value: value,
       validator: validator,
-      style: const TextStyle(fontWeight: FontWeight.w100, color: Colors.black),
-      decoration: const InputDecoration(border: OutlineInputBorder()),
+      style: TextStyle(fontSize: DeviceConfiguration.getResponsiveFontSize(14), fontWeight: FontWeight.w100, color: Colors.black),
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        contentPadding: DeviceConfiguration.getResponsivePadding(horizontal: 12, vertical: 12),
+      ),
     );
   }
 }
