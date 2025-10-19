@@ -59,6 +59,7 @@ enum EventDayType {
   weekly,
   fortnight,
   quaterly,
+  monthly,
   customDate,
   action
 }
