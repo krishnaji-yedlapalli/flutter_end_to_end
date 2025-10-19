@@ -1,11 +1,15 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../shared/mixins/smart_device_mixin.dart';
 
-class SmartDeviceActionButton extends StatelessWidget with SmartDeviceMixin{
-
-  const SmartDeviceActionButton({ super.key, required this.icon, this.isConnected = false, this.isActive = false, this.toolTip, this.callBack});
+class SmartDeviceActionButton extends StatelessWidget with SmartDeviceMixin {
+  const SmartDeviceActionButton(
+      {super.key,
+      required this.icon,
+      this.isConnected = false,
+      this.isActive = false,
+      this.toolTip,
+      this.callBack});
 
   final IconData icon;
 
@@ -23,15 +27,12 @@ class SmartDeviceActionButton extends StatelessWidget with SmartDeviceMixin{
     return Container(
       decoration: boxDecoration,
       child: IconButton(
-        icon: Icon(
-          icon,
-          color: isConnected
-              ? fontColor
-              : fontColor.withOpacity(0.5),
-        ),
-        tooltip: toolTip,
-        onPressed: callBack
-      ),
+          icon: Icon(
+            icon,
+            color: isConnected ? fontColor : fontColor.withOpacity(0.5),
+          ),
+          tooltip: toolTip,
+          onPressed: callBack),
     );
   }
 }

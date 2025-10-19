@@ -7,9 +7,11 @@ import '../features/dashboard/presentation/smart_control_mqtt_dashboard.dart';
 import '../features/on_and_off/presentation/on_and_off_view.dart';
 
 class SmartControlMqttRouterModule {
-  static final _smartControlTrackerShellNavigatorKey = GlobalKey<NavigatorState>();
+  static final _smartControlTrackerShellNavigatorKey =
+      GlobalKey<NavigatorState>();
 
-  static get smartControlTrackerShellNavigatorKey => _smartControlTrackerShellNavigatorKey;
+  static get smartControlTrackerShellNavigatorKey =>
+      _smartControlTrackerShellNavigatorKey;
 
   static const _parentPath = 'smart-control-mqtt';
   static const _dashboard = '$_parentPath/dashboard';
@@ -32,15 +34,15 @@ class SmartControlMqttRouterModule {
             pageBuilder: (BuildContext context, GoRouterState state) {
               return const NoTransitionPage(child: SmartControlMqttDashboard());
             },
-        routes: [
-          GoRoute(path: _onAndOff,
-            parentNavigatorKey: _smartControlTrackerShellNavigatorKey,
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return const NoTransitionPage(child: OnAndOffView());
-            },
-          )
-        ]
-        ),
+            routes: [
+              GoRoute(
+                path: _onAndOff,
+                parentNavigatorKey: _smartControlTrackerShellNavigatorKey,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return const NoTransitionPage(child: OnAndOffView());
+                },
+              )
+            ]),
       ],
     );
   }

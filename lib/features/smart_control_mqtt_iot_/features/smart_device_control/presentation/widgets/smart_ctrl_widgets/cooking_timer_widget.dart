@@ -1,11 +1,11 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../../shared/models/smart_control_model.dart';
 import '../smart_device_action_btn.dart';
 
 class CookingTimerWidget extends StatelessWidget {
-  const CookingTimerWidget(this.smartControl, this.isConnected, {super.key, this.onSettingsPressed});
+  const CookingTimerWidget(this.smartControl, this.isConnected,
+      {super.key, this.onSettingsPressed});
   final SmartControlMqttModel smartControl;
   final bool isConnected;
   final VoidCallback? onSettingsPressed;
@@ -24,11 +24,11 @@ class CookingTimerWidget extends StatelessWidget {
           children: [
             Expanded(
                 child: SmartDeviceActionButton(
-                  icon: Icons.settings,
-                  toolTip: 'Settings',
-                  isConnected: isConnected,
-                  callBack: isConnected ? onSettingsPressed : null,
-                )),
+              icon: Icons.settings,
+              toolTip: 'Settings',
+              isConnected: isConnected,
+              callBack: isConnected ? onSettingsPressed : null,
+            )),
           ],
         )
       ],

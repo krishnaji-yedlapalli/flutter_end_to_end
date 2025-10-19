@@ -17,7 +17,8 @@ class SliverFillViewportDemo extends StatelessWidget {
           // Info header
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -35,7 +36,9 @@ class SliverFillViewportDemo extends StatelessWidget {
                           Text(
                             'SliverFillViewport',
                             style: TextStyle(
-                              fontSize: DeviceConfiguration.isMobileResolution ? 20 : 24,
+                              fontSize: DeviceConfiguration.isMobileResolution
+                                  ? 20
+                                  : 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -135,7 +138,8 @@ class SliverFillViewportDemo extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -196,7 +200,8 @@ class SliverFillViewportDemo extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -231,28 +236,31 @@ class SliverFillViewportDemo extends StatelessWidget {
       'Easy to implement',
     ];
 
-    return features.map((feature) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Icon(
-            Icons.check_circle,
-            color: Colors.white,
-            size: 20,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              feature,
-              style: TextStyle(
-                fontSize: DeviceConfiguration.isMobileResolution ? 16 : 18,
-                color: Colors.white.withOpacity(0.9),
+    return features
+        .map((feature) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      feature,
+                      style: TextStyle(
+                        fontSize:
+                            DeviceConfiguration.isMobileResolution ? 16 : 18,
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-        ],
-      ),
-    )).toList();
+            ))
+        .toList();
   }
 
   Widget _buildGalleryPage() {
@@ -268,7 +276,8 @@ class SliverFillViewportDemo extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -290,7 +299,8 @@ class SliverFillViewportDemo extends StatelessWidget {
             Expanded(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 3,
+                  crossAxisCount:
+                      DeviceConfiguration.isMobileResolution ? 2 : 3,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                 ),
@@ -342,7 +352,8 @@ class SliverFillViewportDemo extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -427,7 +438,8 @@ class SliverFillViewportDemo extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -457,7 +469,8 @@ class SliverFillViewportDemo extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.purple,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),

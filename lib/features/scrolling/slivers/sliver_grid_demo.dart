@@ -17,7 +17,8 @@ class SliverGridDemo extends StatelessWidget {
           // Info header
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -35,7 +36,9 @@ class SliverGridDemo extends StatelessWidget {
                           Text(
                             'SliverGrid',
                             style: TextStyle(
-                              fontSize: DeviceConfiguration.isMobileResolution ? 20 : 24,
+                              fontSize: DeviceConfiguration.isMobileResolution
+                                  ? 20
+                                  : 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -120,7 +123,8 @@ class SliverGridDemo extends StatelessWidget {
             ),
             sliver: SliverGrid(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: DeviceConfiguration.isMobileResolution ? 150 : 200,
+                maxCrossAxisExtent:
+                    DeviceConfiguration.isMobileResolution ? 150 : 200,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.8,
@@ -136,7 +140,7 @@ class SliverGridDemo extends StatelessWidget {
                     Colors.indigo,
                   ];
                   final color = colors[index % colors.length];
-                  
+
                   return Card(
                     elevation: 4,
                     child: Container(
@@ -206,7 +210,7 @@ class SliverGridDemo extends StatelessWidget {
                   final aspectRatios = [1.0, 1.5, 0.8, 1.2, 0.9];
                   final heights = [120.0, 180.0, 100.0, 150.0, 110.0];
                   final height = heights[index % heights.length];
-                  
+
                   return Card(
                     elevation: 4,
                     child: Container(
@@ -275,7 +279,8 @@ class SliverGridDemo extends StatelessWidget {
           // Grid Delegate Comparison
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 color: Colors.blue.withOpacity(0.05),
                 child: Padding(
@@ -313,7 +318,8 @@ class SliverGridDemo extends StatelessWidget {
           // Code examples
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -341,27 +347,27 @@ class SliverGridDemo extends StatelessWidget {
                       _buildCodeExample(
                         'Fixed Cross Axis Count',
                         'SliverGrid(\n'
-                        '  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(\n'
-                        '    crossAxisCount: 2,\n'
-                        '    crossAxisSpacing: 10,\n'
-                        '    mainAxisSpacing: 10,\n'
-                        '    childAspectRatio: 1.0,\n'
-                        '  ),\n'
-                        '  delegate: SliverChildBuilderDelegate(...),\n'
-                        ')',
+                            '  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(\n'
+                            '    crossAxisCount: 2,\n'
+                            '    crossAxisSpacing: 10,\n'
+                            '    mainAxisSpacing: 10,\n'
+                            '    childAspectRatio: 1.0,\n'
+                            '  ),\n'
+                            '  delegate: SliverChildBuilderDelegate(...),\n'
+                            ')',
                       ),
                       const SizedBox(height: 16),
                       _buildCodeExample(
                         'Max Cross Axis Extent',
                         'SliverGrid(\n'
-                        '  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(\n'
-                        '    maxCrossAxisExtent: 200,\n'
-                        '    crossAxisSpacing: 10,\n'
-                        '    mainAxisSpacing: 10,\n'
-                        '    childAspectRatio: 0.8,\n'
-                        '  ),\n'
-                        '  delegate: SliverChildBuilderDelegate(...),\n'
-                        ')',
+                            '  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(\n'
+                            '    maxCrossAxisExtent: 200,\n'
+                            '    crossAxisSpacing: 10,\n'
+                            '    mainAxisSpacing: 10,\n'
+                            '    childAspectRatio: 0.8,\n'
+                            '  ),\n'
+                            '  delegate: SliverChildBuilderDelegate(...),\n'
+                            ')',
                       ),
                     ],
                   ),

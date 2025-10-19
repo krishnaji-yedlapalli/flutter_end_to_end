@@ -1,4 +1,3 @@
-
 class ServerConfig {
   static const defaultPort = 8080;
   static const defaultHost = 'localhost';

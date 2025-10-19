@@ -17,17 +17,11 @@ class ButtonWidgetsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildStandardButtons(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildButtonVariants(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildIconButtons(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildSpecialButtons(),
         ],
       ),
@@ -40,9 +34,7 @@ class ButtonWidgetsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Standard Buttons'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -72,9 +64,9 @@ class ButtonWidgetsSection extends StatelessWidget {
                   ),
                 ),
               ]),
-              
+
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
+
               // Full width button
               AdaptiveResponsiveButton(
                 text: 'Full Width Button',
@@ -82,9 +74,9 @@ class ButtonWidgetsSection extends StatelessWidget {
                 isFullWidth: true,
                 icon: Icons.check_circle,
               ),
-              
+
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
+
               // Button with icon
               AdaptiveResponsiveButton(
                 text: 'With Icon',
@@ -95,9 +87,7 @@ class ButtonWidgetsSection extends StatelessWidget {
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Standard Buttons', '''
 AdaptiveResponsiveButton(
   text: 'Primary',
@@ -119,9 +109,7 @@ AdaptiveResponsiveButton(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Button Size Variants'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -151,9 +139,9 @@ AdaptiveResponsiveButton(
                   ),
                 ),
               ]),
-              
+
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
+
               // Large button
               AdaptiveResponsiveLargeButton(
                 text: 'Large Button',
@@ -163,9 +151,7 @@ AdaptiveResponsiveButton(
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Button Variants', '''
 AdaptiveResponsiveCompactButton(
   text: 'Compact',
@@ -185,9 +171,7 @@ AdaptiveResponsiveLargeButton(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Icon Buttons'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -226,9 +210,9 @@ AdaptiveResponsiveLargeButton(
                   ),
                 ],
               ),
-              
+
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-              
+
               // FAB examples
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -250,9 +234,7 @@ AdaptiveResponsiveLargeButton(
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Icon Buttons', '''
 AdaptiveResponsiveIconButton(
   icon: Icons.favorite,
@@ -273,9 +255,7 @@ AdaptiveResponsiveFAB(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Outline Buttons'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -304,9 +284,9 @@ AdaptiveResponsiveFAB(
                   ),
                 ),
               ]),
-              
+
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
+
               // Custom colored outline button
               AdaptiveResponsiveOutlineButton(
                 text: 'Custom Color Outline',
@@ -318,9 +298,7 @@ AdaptiveResponsiveFAB(
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Outline Buttons', '''
 AdaptiveResponsiveOutlineButton(
   text: 'Outline',
@@ -358,9 +336,7 @@ AdaptiveResponsiveOutlineButton(
             color: Colors.green[300],
             fontWeight: FontWeight.w600,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-          
           ResponsiveSmallText(
             code,
             color: Colors.grey[300],

@@ -1,13 +1,12 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 typedef MqttClientBuilderCallback = Widget Function(
-    BuildContext context,
-    MqttServerClient client,
-    );
+  BuildContext context,
+  MqttServerClient client,
+);
 
 // Server Initialization Widget
 class MqttServerInitializeWrapper extends StatefulWidget {
@@ -22,15 +21,17 @@ class MqttServerInitializeWrapper extends StatefulWidget {
     this.port,
     this.address,
     this.onError,
-    this.onSuccess, required this.builder,
+    this.onSuccess,
+    required this.builder,
   }) : super(key: key);
 
   @override
-  State<MqttServerInitializeWrapper> createState() => _MqttServerInitializeWrapperState();
+  State<MqttServerInitializeWrapper> createState() =>
+      _MqttServerInitializeWrapperState();
 }
 
-class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrapper> {
-
+class _MqttServerInitializeWrapperState
+    extends State<MqttServerInitializeWrapper> {
   final client = MqttServerClient('192.168.1.19', 'flutter_client');
 
   bool _isInitialized = false;
@@ -40,7 +41,9 @@ class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrappe
   @override
   void initState() {
     super.initState();
-   if(!(client.connectionStatus?.state == MqttConnectionState.connecting || client.connectionStatus?.state == MqttConnectionState.connected)) _connectToMqttBroker();
+    if (!(client.connectionStatus?.state == MqttConnectionState.connecting ||
+        client.connectionStatus?.state == MqttConnectionState.connected))
+      _connectToMqttBroker();
   }
 
   Future<({bool status, String message})> _connectToMqttBroker() async {
@@ -61,30 +64,31 @@ class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrappe
     client.onConnected = () {
       print('Connected!!!');
       // setState(() {
-     //   _isInitialized = true;
-     // });
+      //   _isInitialized = true;
+      // });
     };
 
     try {
-     var status = await client.connect();
+      var status = await client.connect();
 
-     if(status == null) return (status : false, message: 'Unable to figure out the status');
+      if (status == null)
+        return (status: false, message: 'Unable to figure out the status');
 
-      switch(status.state){
+      switch (status.state) {
         case MqttConnectionState.disconnecting:
-          return (status : false, message: 'Disconnecting');
+          return (status: false, message: 'Disconnecting');
         case MqttConnectionState.disconnected:
-          return (status : false, message: 'Disconnected');
+          return (status: false, message: 'Disconnected');
         case MqttConnectionState.connecting:
-          return (status : false, message: 'Connecting');
+          return (status: false, message: 'Connecting');
         case MqttConnectionState.connected:
-          return (status : true, message: 'Connected');
+          return (status: true, message: 'Connected');
         case MqttConnectionState.faulted:
-          return (status : false, message: 'Faulted');
+          return (status: false, message: 'Faulted');
       }
     } catch (e) {
       client.disconnect();
-      return (status : false, message: 'Exception : ${e.toString()}');
+      return (status: false, message: 'Exception : ${e.toString()}');
     }
   }
 
@@ -97,25 +101,28 @@ class _MqttServerInitializeWrapperState extends State<MqttServerInitializeWrappe
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? widget.builder(context, client) :  FutureBuilder<({bool status, String message})>(
-      future: _connectToMqttBroker(), // Server is initialized in initState
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          var data = snapshot.data;
+    return kIsWeb
+        ? widget.builder(context, client)
+        : FutureBuilder<({bool status, String message})>(
+            future:
+                _connectToMqttBroker(), // Server is initialized in initState
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var data = snapshot.data;
 
-          if(data != null && (data.status || _isInitialized)){
-            return widget.builder(context, client);
-          }else {
-            return Center(
-              child: Text('${data?.message}'),
-            );
-          }
-        }else{
-          return const Center(
-            child: CircularProgressIndicator(),
+                if (data != null && (data.status || _isInitialized)) {
+                  return widget.builder(context, client);
+                } else {
+                  return Center(
+                    child: Text('${data?.message}'),
+                  );
+                }
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           );
-        }
-      },
-    );
   }
 }

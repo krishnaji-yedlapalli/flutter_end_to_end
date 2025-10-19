@@ -24,28 +24,30 @@ class ButtonsDemo extends StatelessWidget {
           children: [
             _buildSectionTitle('Device Info'),
             _buildDeviceInfoCard(),
-            
+
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-            
+
             _buildSectionTitle('Standard Buttons'),
             _buildStandardButtons(),
-            
+
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-            
+
             _buildSectionTitle('Button Variants'),
             _buildButtonVariants(),
-            
+
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-            
+
             _buildSectionTitle('Icon Buttons'),
             _buildIconButtons(),
-            
+
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-            
+
             _buildSectionTitle('Outline Buttons'),
             _buildOutlineButtons(),
-            
-            SizedBox(height: DeviceConfiguration.getResponsiveSpacing(100)), // Space for FAB
+
+            SizedBox(
+                height: DeviceConfiguration.getResponsiveSpacing(
+                    100)), // Space for FAB
           ],
         ),
       ),
@@ -80,10 +82,19 @@ class ButtonsDemo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow('Resolution Type', DeviceConfiguration.resolutionType.toString()),
-            _buildInfoRow('Screen Size', '${DeviceConfiguration.screenWidth.toInt()}x${DeviceConfiguration.screenHeight.toInt()}'),
-            _buildInfoRow('Scale Factor', DeviceConfiguration.getResponsiveScaleFactor().toStringAsFixed(2)),
-            _buildInfoRow('Platform Design', DeviceConfiguration.useCupertinoDesign ? 'Cupertino' : 'Material'),
+            _buildInfoRow('Resolution Type',
+                DeviceConfiguration.resolutionType.toString()),
+            _buildInfoRow('Screen Size',
+                '${DeviceConfiguration.screenWidth.toInt()}x${DeviceConfiguration.screenHeight.toInt()}'),
+            _buildInfoRow(
+                'Scale Factor',
+                DeviceConfiguration.getResponsiveScaleFactor()
+                    .toStringAsFixed(2)),
+            _buildInfoRow(
+                'Platform Design',
+                DeviceConfiguration.useCupertinoDesign
+                    ? 'Cupertino'
+                    : 'Material'),
           ],
         ),
       ),

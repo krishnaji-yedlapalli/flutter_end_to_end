@@ -69,16 +69,16 @@ class CustomTheme {
 
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              elevation: WidgetStateProperty.resolveWith(
-                  (Set<WidgetState> states) {
+              elevation:
+                  WidgetStateProperty.resolveWith((Set<WidgetState> states) {
                 if (states.contains(WidgetState.hovered)) {
                   return 5.0;
                 } else {
                   return 3.0;
                 }
               }),
-              backgroundColor: WidgetStateProperty.resolveWith(
-                  (Set<WidgetState> states) {
+              backgroundColor:
+                  WidgetStateProperty.resolveWith((Set<WidgetState> states) {
                 if (states.contains(WidgetState.disabled)) {
                   return Colors.grey;
                 } else if (states.contains(WidgetState.hovered)) {

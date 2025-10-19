@@ -1,4 +1,3 @@
-
 import '../model/callback_response_handler.dart';
 
 import 'dart:convert';
@@ -34,6 +33,4 @@ abstract class BaseRequestHandler {
   String success(dyamic) {
     return '';
   }
-
-
-  }
+}

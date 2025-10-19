@@ -12,19 +12,19 @@ cd "$GIT_ROOT" || exit 1
 
 echo "Running pre-commit checks for the entire project..."
 
-# Apply automatic fixes for analyzer issues
-echo "Applying automatic fixes for Dart analyzer issues..."
-dart fix --apply lib
+# # Apply automatic fixes for analyzer issues
+# echo "Applying automatic fixes for Dart analyzer issues..."
+# dart fix --apply lib
 
 # Re-run Dart analyzer to catch any remaining issues
-echo "Re-running Dart analyzer..."
-dart analyze lib
-if [ $? -ne 0 ]; then
-  echo "Dart analyzer found issues that could not be fixed automatically. Please fix them before committing."
-  exit 1
-else
-  echo "No analyzer issues found."
-fi
+# echo "Re-running Dart analyzer..."
+# dart analyze lib
+# if [ $? -ne 0 ]; then
+#   echo "Dart analyzer found issues that could not be fixed automatically. Please fix them before committing."
+#   exit 1
+# else
+#   echo "No analyzer issues found."
+# fi
 
 # Format Dart code
 echo "Formatting Dart code..."

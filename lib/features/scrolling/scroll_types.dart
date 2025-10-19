@@ -12,37 +12,43 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
     final scrollTypes = [
       ScrollTypeItem(
         name: 'SingleChildScrollView',
-        description: 'Basic scrolling for single child widgets with overflow handling',
+        description:
+            'Basic scrolling for single child widgets with overflow handling',
         icon: Icons.view_stream,
         routePath: 'singleChildScrollView',
       ),
       ScrollTypeItem(
         name: 'ListView',
-        description: 'Scrollable list of widgets with builder, separated, and custom types',
+        description:
+            'Scrollable list of widgets with builder, separated, and custom types',
         icon: Icons.list,
         routePath: 'listView',
       ),
       ScrollTypeItem(
         name: 'GridView',
-        description: 'Scrollable grid layout with fixed count, extent, and staggered options',
+        description:
+            'Scrollable grid layout with fixed count, extent, and staggered options',
         icon: Icons.grid_view,
         routePath: 'gridView',
       ),
       ScrollTypeItem(
         name: 'CustomScrollView',
-        description: 'Advanced scrolling with slivers, headers, and custom layouts',
+        description:
+            'Advanced scrolling with slivers, headers, and custom layouts',
         icon: Icons.view_stream,
         routePath: 'customScrollView',
       ),
       ScrollTypeItem(
         name: 'NestedScrollView',
-        description: 'Nested scrolling with collapsible headers and tab integration',
+        description:
+            'Nested scrolling with collapsible headers and tab integration',
         icon: Icons.layers,
         routePath: 'nestedScrollView',
       ),
       ScrollTypeItem(
         name: 'PageView',
-        description: 'Horizontal page-by-page scrolling with smooth transitions',
+        description:
+            'Horizontal page-by-page scrolling with smooth transitions',
         icon: Icons.swipe,
         routePath: 'pageView',
       ),
@@ -54,19 +60,22 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
       ),
       ScrollTypeItem(
         name: 'DraggableScrollableSheet',
-        description: 'Bottom sheet with draggable scrolling and gesture support',
+        description:
+            'Bottom sheet with draggable scrolling and gesture support',
         icon: Icons.drag_handle,
         routePath: 'draggableScrollableSheet',
       ),
       ScrollTypeItem(
         name: 'AnimatedList',
-        description: 'List with smooth animations for insertions, removals, and updates',
+        description:
+            'List with smooth animations for insertions, removals, and updates',
         icon: Icons.animation,
         routePath: 'animatedList',
       ),
       ScrollTypeItem(
         name: 'Scrollbar',
-        description: 'Custom scrollbars with styling, interactivity, and visual feedback',
+        description:
+            'Custom scrollbars with styling, interactivity, and visual feedback',
         icon: Icons.linear_scale,
         routePath: 'scrollbar',
       ),
@@ -78,7 +87,8 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -94,7 +104,8 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
   Widget _buildInfoCard(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 20.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 16.0 : 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -110,7 +121,8 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
                   child: Text(
                     'Flutter Scrolling Widgets',
                     style: TextStyle(
-                      fontSize: DeviceConfiguration.isMobileResolution ? 18 : 24,
+                      fontSize:
+                          DeviceConfiguration.isMobileResolution ? 18 : 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -160,7 +172,8 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
     );
   }
 
-  Widget _buildScrollTypesList(BuildContext context, List<ScrollTypeItem> scrollTypes) {
+  Widget _buildScrollTypesList(
+      BuildContext context, List<ScrollTypeItem> scrollTypes) {
     if (DeviceConfiguration.isMobileResolution) {
       // Mobile: Use ListView for better scrolling experience
       return ListView.separated(
@@ -169,7 +182,8 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
         itemCount: scrollTypes.length,
         separatorBuilder: (context, index) => const SizedBox(height: 12),
         itemBuilder: (context, index) {
-          return _buildScrollTypeCard(context, scrollTypes[index], isMobile: true);
+          return _buildScrollTypeCard(context, scrollTypes[index],
+              isMobile: true);
         },
       );
     } else {
@@ -185,13 +199,15 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
         ),
         itemCount: scrollTypes.length,
         itemBuilder: (context, index) {
-          return _buildScrollTypeCard(context, scrollTypes[index], isMobile: false);
+          return _buildScrollTypeCard(context, scrollTypes[index],
+              isMobile: false);
         },
       );
     }
   }
 
-  Widget _buildScrollTypeCard(BuildContext context, ScrollTypeItem scrollType, {required bool isMobile}) {
+  Widget _buildScrollTypeCard(BuildContext context, ScrollTypeItem scrollType,
+      {required bool isMobile}) {
     return Card(
       elevation: 4,
       child: InkWell(
@@ -199,13 +215,16 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: EdgeInsets.all(isMobile ? 16.0 : 20.0),
-          child: isMobile ? _buildMobileCardContent(context, scrollType) : _buildDesktopCardContent(context, scrollType),
+          child: isMobile
+              ? _buildMobileCardContent(context, scrollType)
+              : _buildDesktopCardContent(context, scrollType),
         ),
       ),
     );
   }
 
-  Widget _buildMobileCardContent(BuildContext context, ScrollTypeItem scrollType) {
+  Widget _buildMobileCardContent(
+      BuildContext context, ScrollTypeItem scrollType) {
     return Row(
       children: [
         Container(
@@ -256,7 +275,8 @@ class ScrollTypes extends StatelessWidget with CardWidgetsMixin {
     );
   }
 
-  Widget _buildDesktopCardContent(BuildContext context, ScrollTypeItem scrollType) {
+  Widget _buildDesktopCardContent(
+      BuildContext context, ScrollTypeItem scrollType) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

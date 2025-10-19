@@ -45,7 +45,8 @@ class LocalServerManager {
       _server = await shelf_io.serve(handler, ip, port ?? 8080);
       _isInitialized = true;
 
-      await _notifyCallbacks(Result.ok('Server started on port: ${_server?.port}'));
+      await _notifyCallbacks(
+          Result.ok('Server started on port: ${_server?.port}'));
     } catch (e) {
       await _notifyCallbacks(Result.error('Server initialization failed: $e'));
       rethrow;

@@ -12,11 +12,10 @@ import '../cubit/smart_device_mqtt_control_cubit.dart';
 
 class SmartDeviceSetting extends StatefulWidget {
   const SmartDeviceSetting(
-      this.parentContext,
-      this.smartControlMqttModel,
-      {Key? key,
-        })
-      : super(key: key);
+    this.parentContext,
+    this.smartControlMqttModel, {
+    Key? key,
+  }) : super(key: key);
 
   final BuildContext parentContext;
   final SmartControlMqttModel smartControlMqttModel;
@@ -27,17 +26,16 @@ class SmartDeviceSetting extends StatefulWidget {
 
 class _SmartDeviceSettingState extends State<SmartDeviceSetting>
     with CustomDialogs, Validators {
-
   static const List<(String, int)> time = [
-  ('2 minutes', 2 * 60 * 1000),
-  ('30 minutes', 30 * 60 * 1000),
-  ('1 hour', 60 * 60 * 1000),
-  ('2hr\'s', 120 * 60 * 1000),
-  ('3hr\'s', 180 * 60 * 1000),
-  ('5hr\'s', 300 * 60 * 1000),
-  ('8hr\'s', 480 * 60 * 1000),
-  ('12hr\'s', 720 * 60 * 1000),
-  ('24hr\'s', 1440 * 60 * 1000),
+    ('2 minutes', 2 * 60 * 1000),
+    ('30 minutes', 30 * 60 * 1000),
+    ('1 hour', 60 * 60 * 1000),
+    ('2hr\'s', 120 * 60 * 1000),
+    ('3hr\'s', 180 * 60 * 1000),
+    ('5hr\'s', 300 * 60 * 1000),
+    ('8hr\'s', 480 * 60 * 1000),
+    ('12hr\'s', 720 * 60 * 1000),
+    ('24hr\'s', 1440 * 60 * 1000),
   ];
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -46,7 +44,7 @@ class _SmartDeviceSettingState extends State<SmartDeviceSetting>
 
   @override
   void initState() {
-     selectedTime = widget.smartControlMqttModel.time ?? time.first.$2;
+    selectedTime = widget.smartControlMqttModel.time ?? time.first.$2;
     super.initState();
   }
 
@@ -61,29 +59,29 @@ class _SmartDeviceSettingState extends State<SmartDeviceSetting>
 
   Widget _buildFrom() {
     return Form(
-      key: formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        spacing: 10,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomDropDown<int>(
-            items: time
-                .map((e) => DropdownMenuItem<int>(value: e.$2, child: Text(e.$1)))
-                .toList(),
-            onChanged: (val){
-              if(val != null){
-                selectedTime = val;
-              }
-            },
-            value: selectedTime,
-            hint: 'Select Time',
-            validator: (val) =>
-                textEmptyValidator(val.toString(), 'Time is required!!'),
-          ),
-        ],
-      ).screenPadding()
-    );
+        key: formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          spacing: 10,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomDropDown<int>(
+              items: time
+                  .map((e) =>
+                      DropdownMenuItem<int>(value: e.$2, child: Text(e.$1)))
+                  .toList(),
+              onChanged: (val) {
+                if (val != null) {
+                  selectedTime = val;
+                }
+              },
+              value: selectedTime,
+              hint: 'Select Time',
+              validator: (val) =>
+                  textEmptyValidator(val.toString(), 'Time is required!!'),
+            ),
+          ],
+        ).screenPadding());
   }
 
   void onTapOfAction(int index) {
@@ -94,7 +92,9 @@ class _SmartDeviceSettingState extends State<SmartDeviceSetting>
       case 1:
         if (formKey.currentState?.validate() ?? false) {
           Navigator.of(context).pop();
-          widget.parentContext.read<SmartDeviceMqttControlCubit>().onSelectionOfSetting(selectedTime);
+          widget.parentContext
+              .read<SmartDeviceMqttControlCubit>()
+              .onSelectionOfSetting(selectedTime);
         }
         break;
     }

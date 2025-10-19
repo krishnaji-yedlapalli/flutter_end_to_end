@@ -14,7 +14,8 @@ mixin HelperWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.titleMedium),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: ResponsiveConstants.mediumPadding),
+            padding: const EdgeInsets.symmetric(
+                vertical: ResponsiveConstants.mediumPadding),
             child: content,
           ),
           if (!DeviceConfiguration.isMobileResolution && !hideBorder)
@@ -38,7 +39,8 @@ mixin HelperWidget {
             Text(title, style: Theme.of(context).textTheme.titleMedium),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: ResponsiveConstants.mediumPadding),
+                padding: const EdgeInsets.symmetric(
+                    vertical: ResponsiveConstants.mediumPadding),
                 child: content,
               ),
             ),

@@ -1,4 +1,3 @@
+enum SmartControlType { onOff, motionDetector }
 
-enum SmartControlType {onOff, motionDetector}
-
-enum TileSizeType {large, medium, small}
+enum TileSizeType { large, medium, small }

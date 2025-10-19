@@ -5,7 +5,8 @@ import '../../../../../shared/models/smart_control_model.dart';
 import '../smart_device_action_btn.dart';
 
 class PirLightCtrlWidget extends StatelessWidget with SmartDeviceMixin {
-  const PirLightCtrlWidget(this.smartControl, this.isConnected, {super.key, this.onToggleAutoManual, this.onSettingsPressed});
+  const PirLightCtrlWidget(this.smartControl, this.isConnected,
+      {super.key, this.onToggleAutoManual, this.onSettingsPressed});
   final SmartControlMqttModel smartControl;
   final bool isConnected;
   final VoidCallback? onToggleAutoManual;
@@ -42,4 +43,3 @@ class PirLightCtrlWidget extends StatelessWidget with SmartDeviceMixin {
     );
   }
 }
-

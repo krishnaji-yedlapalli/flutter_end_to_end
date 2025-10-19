@@ -49,7 +49,8 @@ class CustomScrollViewDemo extends StatelessWidget {
           // Header with info
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -68,7 +69,9 @@ class CustomScrollViewDemo extends StatelessWidget {
                             child: Text(
                               'CustomScrollView Mastery',
                               style: TextStyle(
-                                fontSize: DeviceConfiguration.isMobileResolution ? 24 : 28,
+                                fontSize: DeviceConfiguration.isMobileResolution
+                                    ? 24
+                                    : 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -110,7 +113,8 @@ class CustomScrollViewDemo extends StatelessWidget {
                 crossAxisCount: DeviceConfiguration.isMobileResolution ? 1 : 2,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                childAspectRatio: DeviceConfiguration.isMobileResolution ? 2.5 : 1.8,
+                childAspectRatio:
+                    DeviceConfiguration.isMobileResolution ? 2.5 : 1.8,
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -125,7 +129,8 @@ class CustomScrollViewDemo extends StatelessWidget {
           // What are Slivers section
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 color: Colors.blue.withOpacity(0.05),
                 child: Padding(
@@ -229,7 +234,8 @@ class CustomScrollViewDemo extends StatelessWidget {
           // Footer
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16 : 24),
+              margin: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16 : 24),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -343,7 +349,8 @@ class CustomScrollViewDemo extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: demo.color.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
@@ -375,7 +382,8 @@ class CustomScrollViewDemo extends StatelessWidget {
     );
   }
 
-  Widget _buildBenefitItem(String title, String description, IconData icon, Color color) {
+  Widget _buildBenefitItem(
+      String title, String description, IconData icon, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(

@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../../shared/models/smart_control_model.dart';
 
 class WaterTankStatusWidget extends StatelessWidget {
-  const WaterTankStatusWidget(this.smartControl, this.isConnected, {super.key, this.onSettingsPressed});
+  const WaterTankStatusWidget(this.smartControl, this.isConnected,
+      {super.key, this.onSettingsPressed});
   final SmartControlMqttModel smartControl;
   final bool isConnected;
   final VoidCallback? onSettingsPressed;
@@ -17,7 +17,6 @@ class WaterTankStatusWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Spacer(),
-
       ],
     );
   }

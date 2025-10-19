@@ -15,7 +15,8 @@ class ResponsiveUtils {
   }
 
   /// Get responsive padding using the new system
-  static EdgeInsets getResponsivePadding(BuildContext context, {
+  static EdgeInsets getResponsivePadding(
+    BuildContext context, {
     double base = ResponsiveConstants.defaultBasePadding,
     double? horizontal,
     double? vertical,

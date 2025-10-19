@@ -37,5 +37,7 @@ class SmartControlMqttModel {
       {this.des,
       this.tileType = TileSizeType.small,
       this.isEngaged = false,
-      this.isDeviceUnReachable = true, this.isAuto = true, this.time});
+      this.isDeviceUnReachable = true,
+      this.isAuto = true,
+      this.time});
 }

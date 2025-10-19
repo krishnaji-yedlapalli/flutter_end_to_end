@@ -1,12 +1,11 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../../../../shared/models/smart_control_model.dart';
 import '../smart_device_action_btn.dart';
 
 class ScheduledDeviceControlWidget extends StatelessWidget {
-  const ScheduledDeviceControlWidget(this.smartControl, this.isConnected, {super.key, this.onToggleAutoManual, this.onSettingsPressed});
+  const ScheduledDeviceControlWidget(this.smartControl, this.isConnected,
+      {super.key, this.onToggleAutoManual, this.onSettingsPressed});
   final SmartControlMqttModel smartControl;
   final bool isConnected;
   final VoidCallback? onToggleAutoManual;
@@ -32,11 +31,11 @@ class ScheduledDeviceControlWidget extends StatelessWidget {
                     callBack: isConnected ? onToggleAutoManual : null)),
             Expanded(
                 child: SmartDeviceActionButton(
-                  icon: Icons.settings,
-                  toolTip: 'Settings',
-                  isConnected: isConnected,
-                  callBack: isConnected ? onSettingsPressed : null,
-                )),
+              icon: Icons.settings,
+              toolTip: 'Settings',
+              isConnected: isConnected,
+              callBack: isConnected ? onSettingsPressed : null,
+            )),
           ],
         )
       ],

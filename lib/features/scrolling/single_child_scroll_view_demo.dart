@@ -13,7 +13,8 @@ class SingleChildScrollViewDemo extends StatelessWidget {
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -7,13 +7,11 @@ import '../features/smart_device_control/domain/repository/smart_device_control_
 import '../features/smart_device_control/domain/use_cases/device_status_useCase.dart';
 import '../features/smart_device_control/domain/use_cases/smart_device_ctrl_useCase.dart';
 
-
-
 class SmartControlInjectionModule {
   SmartControlInjectionModule._(); // Private constructor to enforce singleton
 
   static final SmartControlInjectionModule _instance =
-  SmartControlInjectionModule._();
+      SmartControlInjectionModule._();
 
   factory SmartControlInjectionModule() => _instance;
 
@@ -31,27 +29,26 @@ class SmartControlInjectionModule {
   }
 
   void _registerRepositories() {
-    injector
-      .registerFactory<SmartDeviceControlRepository>(
-          () => SmartDeviceControlRepositoryImpl(injector()));
+    injector.registerFactory<SmartDeviceControlRepository>(
+        () => SmartDeviceControlRepositoryImpl(injector()));
   }
 
   void _registerUseCases() {
     injector
-      ..registerFactory<SmartDeviceStatusUseCase>(() => SmartDeviceStatusUseCase(injector()))
+      ..registerFactory<SmartDeviceStatusUseCase>(
+          () => SmartDeviceStatusUseCase(injector()))
       ..registerFactory<SmartDeviceControlUseCase>(
           () => SmartDeviceControlUseCase(injector()));
   }
 
   void _registerBlocs() {
-    injector
-      .registerFactory<SmartControlDashboardCubit>(() => SmartControlDashboardCubit(injector(), injector()));
+    injector.registerFactory<SmartControlDashboardCubit>(
+        () => SmartControlDashboardCubit(injector(), injector()));
   }
 
   void unRegisterDependencies() {
     // Unregister Blocs
-    injector
-      .unregister<SmartControlDashboardCubit>();
+    injector.unregister<SmartControlDashboardCubit>();
 
     // Unregister Use Cases
     injector
@@ -59,8 +56,7 @@ class SmartControlInjectionModule {
       ..unregister<SmartDeviceControlUseCase>();
 
     // Unregister Repositories
-    injector
-      .unregister<SmartDeviceControlRepository>();
+    injector.unregister<SmartDeviceControlRepository>();
 
     // Unregister Services
     injector.unregister<BaseService>();

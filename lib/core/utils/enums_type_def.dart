@@ -39,7 +39,10 @@ enum PluginType {
 
 typedef OfflineDumpingStatus = ({String title, int percentage})?;
 
-typedef CategorizedEvents = ({List<EventEntity> reminders, List<EventEntity> actions});
+typedef CategorizedEvents = ({
+  List<EventEntity> reminders,
+  List<EventEntity> actions
+});
 
 enum SchoolDiscoverFeatureType {
   create,

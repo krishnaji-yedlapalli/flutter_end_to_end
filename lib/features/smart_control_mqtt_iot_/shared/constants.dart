@@ -1,6 +1,4 @@
-
 class MqttConstants {
-
   static const String deviceConnectionStatus = '/deviceConnectionStatus';
 
   static const String reqDeviceConnectionStatus = '/reqConnectionStatus';

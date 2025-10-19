@@ -42,7 +42,8 @@ class _BasicListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -107,16 +108,33 @@ class _ListViewBuilder extends StatelessWidget {
   const _ListViewBuilder();
 
   final List<String> items = const [
-    'Apple', 'Banana', 'Cherry', 'Date', 'Elderberry',
-    'Fig', 'Grape', 'Honeydew', 'Kiwi', 'Lemon',
-    'Mango', 'Nectarine', 'Orange', 'Papaya', 'Quince',
-    'Raspberry', 'Strawberry', 'Tangerine', 'Ugli fruit', 'Vanilla bean'
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Elderberry',
+    'Fig',
+    'Grape',
+    'Honeydew',
+    'Kiwi',
+    'Lemon',
+    'Mango',
+    'Nectarine',
+    'Orange',
+    'Papaya',
+    'Quince',
+    'Raspberry',
+    'Strawberry',
+    'Tangerine',
+    'Ugli fruit',
+    'Vanilla bean'
   ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -150,7 +168,9 @@ class _ListViewBuilder extends StatelessWidget {
                       icon: const Icon(Icons.favorite_border),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Added ${items[index]} to favorites')),
+                          SnackBar(
+                              content:
+                                  Text('Added ${items[index]} to favorites')),
                         );
                       },
                     ),
@@ -193,7 +213,8 @@ class _ListViewSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -283,7 +304,8 @@ class _ListViewCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -313,7 +335,8 @@ class _ListViewCustom extends StatelessWidget {
                     );
                   }
                   return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                     child: ListTile(
                       leading: Icon(
                         Icons.star,

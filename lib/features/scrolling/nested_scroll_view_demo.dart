@@ -84,7 +84,8 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
 
   Widget _buildListTab() {
     return ListView.builder(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       itemCount: 50,
       itemBuilder: (context, index) {
         return Card(
@@ -123,7 +124,8 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
 
   Widget _buildGridTab() {
     return GridView.builder(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 3,
         crossAxisSpacing: 12,
@@ -188,7 +190,8 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
 
   Widget _buildCustomTab() {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -201,7 +204,8 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
                   Text(
                     'NestedScrollView Features',
                     style: TextStyle(
-                      fontSize: DeviceConfiguration.isMobileResolution ? 18 : 20,
+                      fontSize:
+                          DeviceConfiguration.isMobileResolution ? 18 : 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -459,7 +463,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: _tabBar,

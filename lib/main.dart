@@ -57,12 +57,12 @@ void main() async {
     return true;
   };
 
-  if(kIsWeb || !Platform.isLinux){
+  if (kIsWeb || !Platform.isLinux) {
     await Firebase.initializeApp(
       options: PushNotificationService.currentPlatform,
     );
     DbConfigurationsByDev().loadSavedData();
-    if(!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
+    if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
   }
 
   Dart3Features('krishna', 'yedlapalli');
@@ -132,12 +132,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ),
         ],
         child: Builder(builder: (context) {
-          return DeviceConfigurationProvider(
-            child: OrientationBuilder(builder: (context, orientation) {
+          return DeviceConfigurationProvider(child: OrientationBuilder(
+            builder: (context, orientation) {
               DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                  MediaQuery
-                      .of(context)
-                      .size, orientation, MediaQuery.of(context).devicePixelRatio);
+                  MediaQuery.of(context).size,
+                  orientation,
+                  MediaQuery.of(context).devicePixelRatio);
               return GlobalLoaderOverlay(
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
@@ -150,9 +150,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     // }
                     return locale;
                   },
-                  locale: context
-                      .watch<CommonProvider>()
-                      .locale,
+                  locale: context.watch<CommonProvider>().locale,
                   // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                   // backButtonDispatcher: () => ,
                   localizationsDelegates: const [
@@ -179,17 +177,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   },
                   theme: CustomTheme.lightThemeData(context),
                   darkTheme: CustomTheme.darkThemeData(),
-                  themeMode: context
-                      .watch<CommonProvider>()
-                      .themeModeType,
+                  themeMode: context.watch<CommonProvider>().themeModeType,
                   routerConfig: Routing.router,
                 ),
               );
             },
-             )
-          );
-          }
-        ),
+          ));
+        }),
       ),
     );
   }

@@ -33,36 +33,34 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
         ? _buildCupertinoFAB(responsiveIconSize, responsiveFontSize)
         : _buildMaterialFAB(context, responsiveIconSize, responsiveFontSize);
 
-    return tooltip != null
-        ? Tooltip(message: tooltip!, child: fab)
-        : fab;
+    return tooltip != null ? Tooltip(message: tooltip!, child: fab) : fab;
   }
 
   /// Calculate responsive icon size
   double _getResponsiveIconSize() {
     double baseSize = baseIconSize ?? 24.0;
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 4.0;
     } else if (DeviceConfiguration.isTabResolution) {
       baseSize += 2.0;
     }
-    
+
     return DeviceConfiguration.getResponsiveIconSize(baseSize);
   }
 
   /// Calculate responsive font size for extended FAB
   double _getResponsiveFontSize() {
     double baseSize = baseFontSize ?? 14.0;
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 2.0;
     } else if (DeviceConfiguration.isTabResolution) {
       baseSize += 1.0;
     }
-    
+
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
   }
 
@@ -76,7 +74,8 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: CupertinoColors.activeBlue,
-        borderRadius: BorderRadius.circular(isExtended ? 28.0 : iconSize + 16.0),
+        borderRadius:
+            BorderRadius.circular(isExtended ? 28.0 : iconSize + 16.0),
         boxShadow: [
           BoxShadow(
             color: CupertinoColors.systemGrey.withOpacity(0.3),
@@ -98,7 +97,8 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
                     size: iconSize,
                     color: CupertinoColors.white,
                   ),
-                  SizedBox(width: DeviceConfiguration.getResponsiveSpacing(8.0)),
+                  SizedBox(
+                      width: DeviceConfiguration.getResponsiveSpacing(8.0)),
                   Text(
                     label!,
                     style: TextStyle(
@@ -119,7 +119,8 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
   }
 
   /// Build Material-style FAB
-  Widget _buildMaterialFAB(BuildContext context, double iconSize, double fontSize) {
+  Widget _buildMaterialFAB(
+      BuildContext context, double iconSize, double fontSize) {
     if (isExtended && label != null) {
       return FloatingActionButton.extended(
         onPressed: onPressed,
@@ -139,7 +140,8 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
     }
 
     // Determine FAB size based on device type
-    if (DeviceConfiguration.isDesktopResolution || DeviceConfiguration.isTabletLandscape) {
+    if (DeviceConfiguration.isDesktopResolution ||
+        DeviceConfiguration.isTabletLandscape) {
       return FloatingActionButton.large(
         onPressed: onPressed,
         elevation: DeviceConfiguration.platformElevation,
@@ -149,7 +151,8 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
       return FloatingActionButton.small(
         onPressed: onPressed,
         elevation: DeviceConfiguration.platformElevation,
-        child: Icon(icon, size: iconSize * 0.8), // Slightly smaller icon for small FAB
+        child: Icon(icon,
+            size: iconSize * 0.8), // Slightly smaller icon for small FAB
       );
     }
 

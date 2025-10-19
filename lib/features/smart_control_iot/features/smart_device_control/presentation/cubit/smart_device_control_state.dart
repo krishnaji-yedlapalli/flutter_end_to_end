@@ -1,20 +1,14 @@
-
 part of 'smart_device_control_cubit.dart';
 
-
-abstract class SmartDeviceState extends Equatable {
-
-}
+abstract class SmartDeviceState extends Equatable {}
 
 class SmartDeviceLoading extends SmartDeviceState {
   @override
   // TODO: implement props
   List<Object?> get props => [];
-
 }
 
 class SmartDeviceLoaded extends SmartDeviceState {
-
   final SmartControlModel smartDevice;
   final bool isDisabled;
 
@@ -23,5 +17,4 @@ class SmartDeviceLoaded extends SmartDeviceState {
   @override
   // TODO: implement props
   List<Object?> get props => [];
-
 }
