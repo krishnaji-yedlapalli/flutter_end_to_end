@@ -7,8 +7,10 @@ repos:
         language: script
         stages: [pre-commit]
 
--   repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v4.0.0
+-   repo: local
     hooks:
-    -   id: commitlint
+    -   id: validate-commit-msg
+        name: Validate Commit Message
+        entry: scripts/validate_commit_msg.sh
+        language: system
         stages: [commit-msg]
