@@ -142,3 +142,46 @@ https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/49739
 **Unit Test and Widget Testing**
 
 ![Results of Unit and Widget Tests](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/697b7a82-0c76-41a2-815f-d9898adf2417)
+
+---
+# Project Setup
+
+This project is built with Flutter version **3.29.2** and Dart version **3.7.2**. The current project version is **1.0.0+1**.
+
+## Prerequisites
+
+- Flutter SDK (version 3.29.2 or higher is recommended)
+- [pre-commit](https://pre-commit.com/) (for running pre-commit checks)
+
+## Setup Steps
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/krishnaji-yedlapalli/flutter_end_to_end.git
+    cd flutter_end_to_end
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Install Git hooks:**
+    This project uses `pre-commit` to run checks before each commit. To set it up, run the following commands:
+    ```bash
+    pip install pre-commit
+    pre-commit install
+    ```
+
+4.  **Run the project:**
+    You can run the project using the following command:
+    ```bash
+    flutter run
+    ```
+    This project supports flavors. You can run a specific flavor using:
+    ```bash
+    flutter run --flavor <flavor_name>
+    ```
+    (e.g., `flutter run --flavor flutter` or `flutter run --flavor dart`)
+
+> **Note on the `daily_tracker` submodule:** The `daily_tracker` feature is managed as a private submodule. Access to this repository is restricted due to privacy and policy considerations. If you require access to this part of the project, please contact the project administrator.
