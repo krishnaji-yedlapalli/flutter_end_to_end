@@ -6,3 +6,9 @@ repos:
         entry: scripts/project_pre_commit_hook.sh
         language: script
         stages: [pre-commit]
+
+-   repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v4.0.0
+    hooks:
+    -   id: commitlint
+        stages: [commit-msg]
