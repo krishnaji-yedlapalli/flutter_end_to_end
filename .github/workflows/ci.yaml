@@ -53,3 +53,25 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/app/outputs/flutter-apk/
           publish_branch: gh-pages    
+
+  build_web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build web
+        run: flutter build web --release --no-tree-shake-icons
+
+      - name: Upload web build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-web
+          path: build/web    
