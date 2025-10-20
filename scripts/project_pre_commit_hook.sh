@@ -28,7 +28,7 @@ fi
 
 # Format Dart code
 echo "Formatting Dart code..."
-find lib -name "*.dart" ! -name "*.g.dart" | xargs dart format
+find lib test -name "*.dart" ! -name "*.g.dart" | xargs dart format
 if [ $? -ne 0 ]; then
   echo "Dart formatting command failed."
   exit 1
