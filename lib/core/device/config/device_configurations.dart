@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../enums/device_enums.dart';
-import '../utils/screen_break_points.dart';
 import '../../constants/responsive_constants.dart';
 
 class DeviceConfiguration {

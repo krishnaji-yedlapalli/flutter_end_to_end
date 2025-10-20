@@ -10,7 +10,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
-import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
@@ -171,7 +170,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     var data = MediaQuery.of(context);
                     return MediaQuery(
                         data: data.copyWith(
-                          textScaler: TextScaler.linear(data.textScaleFactor),
+                          textScaler:
+                              TextScaler.linear(data.textScaler.scale(1)),
                         ),
                         child: child ?? Container());
                   },

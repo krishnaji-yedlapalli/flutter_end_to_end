@@ -26,5 +26,11 @@ linter:
      unused_import: true
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
+analyzer:
+  exclude:
+    - 'lib/features/**'
+    - 'test/**'
+    - 'lib/core/**'
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

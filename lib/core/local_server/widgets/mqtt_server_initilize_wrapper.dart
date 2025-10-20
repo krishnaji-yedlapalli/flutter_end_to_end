@@ -34,7 +34,7 @@ class _MqttServerInitializeWrapperState
     extends State<MqttServerInitializeWrapper> {
   final client = MqttServerClient('192.168.1.19', 'flutter_client');
 
-  bool _isInitialized = false;
+  final bool _isInitialized = false;
 
   bool _isDisposed = false;
 
@@ -42,8 +42,9 @@ class _MqttServerInitializeWrapperState
   void initState() {
     super.initState();
     if (!(client.connectionStatus?.state == MqttConnectionState.connecting ||
-        client.connectionStatus?.state == MqttConnectionState.connected))
+        client.connectionStatus?.state == MqttConnectionState.connected)) {
       _connectToMqttBroker();
+    }
   }
 
   Future<({bool status, String message})> _connectToMqttBroker() async {
@@ -71,8 +72,9 @@ class _MqttServerInitializeWrapperState
     try {
       var status = await client.connect();
 
-      if (status == null)
+      if (status == null) {
         return (status: false, message: 'Unable to figure out the status');
+      }
 
       switch (status.state) {
         case MqttConnectionState.disconnecting:
