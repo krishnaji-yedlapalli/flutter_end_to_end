@@ -17,7 +17,6 @@ import '../../mock_data/configuration_data.dart';
 
 @GenerateMocks([SchoolRepository])
 void main() async {
-
   late SchoolBloc schoolBloc;
 
   setUp(() {
@@ -25,7 +24,6 @@ void main() async {
   });
 
   group('Creating and editing a school', () {
-
     testWidgets('Creating  school', (tester) async {
       await tester
           .pumpWidget(const MaterialApp(home: Scaffold(body: CreateSchool())));
@@ -84,14 +82,13 @@ void main() async {
     });
 
     testWidgets('Testing different Screen resolution', (tester) async {
-
       for (var size in TestConfigurationData.screenSizes) {
         await tester.binding.setSurfaceSize(size);
         DeviceConfiguration.updateDeviceResolutionAndOrientation(
             size, Orientation.portrait);
 
         schoolBloc = SchoolBloc(SchoolRepository());
-        schoolBloc.isWelcomeMessageShowed =true;
+        schoolBloc.isWelcomeMessageShowed = true;
         SchoolScreenFeatureDiscovery().isCompleted = true;
 
         final GoRouter goRouter = GoRouter(
@@ -120,7 +117,7 @@ void main() async {
           key: UniqueKey(),
           routerConfig: goRouter,
           localizationsDelegates: TestConfigurationData.localizationDelegate,
-          supportedLocales: TestConfigurationData.supportedLocales ,
+          supportedLocales: TestConfigurationData.supportedLocales,
         ));
 
         await tester.tap(find.byType(FloatingActionButton));

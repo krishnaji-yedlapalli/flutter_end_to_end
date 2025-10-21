@@ -68,7 +68,7 @@ class ResponsiveText extends StatelessWidget {
   /// Calculate responsive font size for body text
   double _getResponsiveFontSize() {
     double baseSize = baseFontSize ?? 14.0; // Standard body text size
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 2.0; // Larger on desktop for better readability
@@ -76,14 +76,14 @@ class ResponsiveText extends StatelessWidget {
       baseSize += 1.0; // Slightly larger on tablet
     }
     // Mobile keeps base size for optimal readability
-    
+
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
   }
 
   /// Get responsive padding if specified
   EdgeInsets? _getResponsivePadding() {
     if (padding == null) return null;
-    
+
     return EdgeInsets.only(
       left: DeviceConfiguration.getResponsiveSpacing(padding!.left),
       top: DeviceConfiguration.getResponsiveSpacing(padding!.top),
@@ -95,7 +95,7 @@ class ResponsiveText extends StatelessWidget {
   /// Get responsive letter spacing
   double? _getResponsiveLetterSpacing() {
     if (letterSpacing == null) return null;
-    
+
     // Scale letter spacing with font size
     double scaleFactor = DeviceConfiguration.getResponsiveScaleFactor();
     return letterSpacing! * scaleFactor;

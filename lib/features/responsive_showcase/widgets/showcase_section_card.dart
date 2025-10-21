@@ -25,8 +25,9 @@ class ShowcaseSectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardPadding = padding ?? DeviceConfiguration.getResponsivePadding(base: 20.0);
-    
+    final cardPadding =
+        padding ?? DeviceConfiguration.getResponsivePadding(base: 20.0);
+
     Widget content = Container(
       width: double.infinity,
       padding: cardPadding,
@@ -52,7 +53,6 @@ class ShowcaseSectionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(),
-          
           if (subtitle != null) ...[
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
             ResponsiveSubtitle(
@@ -60,9 +60,7 @@ class ShowcaseSectionCard extends StatelessWidget {
               color: Colors.grey[600],
             ),
           ],
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(20)),
-          
           child,
         ],
       ),
@@ -101,7 +99,6 @@ class ShowcaseSectionCard extends StatelessWidget {
             color: Colors.grey[800],
           ),
         ),
-        
         if (expandable)
           Icon(
             Icons.expand_more,
@@ -138,8 +135,9 @@ class ShowcaseGradientCard extends ShowcaseSectionCard {
 
   @override
   Widget build(BuildContext context) {
-    final cardPadding = padding ?? DeviceConfiguration.getResponsivePadding(base: 20.0);
-    
+    final cardPadding =
+        padding ?? DeviceConfiguration.getResponsivePadding(base: 20.0);
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

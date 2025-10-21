@@ -12,5 +12,6 @@ class AppConfiguration {
   AppConfiguration(
       {required this.appBarLogoPath,
       this.seedColor = Colors.green,
-      this.hoverColor, this.initialRoute = '/home'});
+      this.hoverColor,
+      this.initialRoute = '/home'});
 }

@@ -42,7 +42,8 @@ class _FixedCountGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -135,7 +136,8 @@ class _MaxExtentGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -146,7 +148,8 @@ class _MaxExtentGrid extends StatelessWidget {
           const SizedBox(height: 16),
           Expanded(
             child: GridView.extent(
-              maxCrossAxisExtent: DeviceConfiguration.isMobileResolution ? 150 : 200,
+              maxCrossAxisExtent:
+                  DeviceConfiguration.isMobileResolution ? 150 : 200,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               children: List.generate(
@@ -231,14 +234,21 @@ class _GridViewBuilder extends StatelessWidget {
   const _GridViewBuilder();
 
   final List<Color> colors = const [
-    Colors.red, Colors.blue, Colors.green, Colors.orange,
-    Colors.purple, Colors.teal, Colors.pink, Colors.indigo,
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.teal,
+    Colors.pink,
+    Colors.indigo,
   ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -347,7 +357,8 @@ class _StaggeredGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -367,7 +378,7 @@ class _StaggeredGrid extends StatelessWidget {
                 (context, index) {
                   final heights = [120.0, 180.0, 150.0, 200.0, 130.0];
                   final height = heights[index % heights.length];
-                  
+
                   return Card(
                     elevation: 4,
                     child: Container(
@@ -419,7 +430,8 @@ class _StaggeredGrid extends StatelessWidget {
                               children: [
                                 Chip(
                                   label: Text('Tag ${index + 1}'),
-                                  backgroundColor: Colors.orange.withOpacity(0.2),
+                                  backgroundColor:
+                                      Colors.orange.withOpacity(0.2),
                                 ),
                                 Icon(
                                   Icons.more_vert,

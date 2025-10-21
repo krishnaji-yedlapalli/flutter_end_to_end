@@ -18,7 +18,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../feature_discovery/home_feature_discovery.dart';
 import '../daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -95,16 +94,16 @@ class _HomeScreenState extends State<HomeScreen>
         des: 'Localization and Internalization was implemented in this'
       ),
       (
-      'Adaptive & Responsive Widgets',
-      ScreenType.adaptiveAndResponsiveWidgets,
-      Icons.language,
-      des: 'Localization and Internalization was implemented in this'
+        'Adaptive & Responsive Widgets',
+        ScreenType.adaptiveAndResponsiveWidgets,
+        Icons.language,
+        des: 'Localization and Internalization was implemented in this'
       ),
       (
-      'scrollTypes',
-      ScreenType.scrollTypes,
-      Icons.poll,
-      des: 'Here we can access different types of plugins'
+        'scrollTypes',
+        ScreenType.scrollTypes,
+        Icons.poll,
+        des: 'Here we can access different types of plugins'
       ),
       (
         'Routing concept',
@@ -120,18 +119,18 @@ class _HomeScreenState extends State<HomeScreen>
             'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
       ),
       (
-      'Smart control MQtt to control the devices using IOT',
-      ScreenType.smartControlMqtt,
-      Icons.electric_bolt,
-      des:
-      'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+        'Smart control MQtt to control the devices using IOT',
+        ScreenType.smartControlMqtt,
+        Icons.electric_bolt,
+        des:
+            'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
       ),
       (
-      'Smart control to control the devices using IOT',
-      ScreenType.smartControl,
-      Icons.electric_bolt,
-      des:
-      'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+        'Smart control to control the devices using IOT',
+        ScreenType.smartControl,
+        Icons.electric_bolt,
+        des:
+            'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
       ),
       (
         'School Journey with MVC',
@@ -152,12 +151,13 @@ class _HomeScreenState extends State<HomeScreen>
         Icons.notifications,
         des: 'Test the deeplink in device'
       ),
-      if(!daily_tracker.DailyTrackerRouterModule.isStub) (
-        'Daily Tracker UI',
-        ScreenType.dailyTracker,
-        Icons.accessibility_sharp,
-        des: 'We can track daily activities'
-      ),
+      if (!daily_tracker.DailyTrackerRouterModule.isStub)
+        (
+          'Daily Tracker UI',
+          ScreenType.dailyTracker,
+          Icons.accessibility_sharp,
+          des: 'We can track daily activities'
+        ),
       (
         'Gemini Generative AI',
         ScreenType.gemini,
@@ -213,7 +213,8 @@ class _HomeScreenState extends State<HomeScreen>
                 DeviceResolutionType.mobilePortrait => 2,
                 DeviceResolutionType.mobileLandscape => 3,
                 DeviceResolutionType.tabletPortrait => 3,
-                DeviceResolutionType.tabletLandscape => 4, // Optimized for 7-inch
+                DeviceResolutionType.tabletLandscape =>
+                  4, // Optimized for 7-inch
                 DeviceResolutionType.desktopStandard => 5,
                 DeviceResolutionType.desktopLarge => 7,
               },
@@ -248,15 +249,15 @@ class _HomeScreenState extends State<HomeScreen>
       case DeviceResolutionType.mobilePortrait:
         return 1; // Slightly taller cards for mobile portrait
       case DeviceResolutionType.mobileLandscape:
-        return 1.1;  // Wider cards for mobile landscape
+        return 1.1; // Wider cards for mobile landscape
       case DeviceResolutionType.tabletPortrait:
-        return 0.9;  // Good balance for tablet portrait
+        return 0.9; // Good balance for tablet portrait
       case DeviceResolutionType.tabletLandscape:
-        return 1.0;  // Perfect square for 7-inch landscape
+        return 1.0; // Perfect square for 7-inch landscape
       case DeviceResolutionType.desktopStandard:
-        return 1.0;  // Square cards for desktop
+        return 1.0; // Square cards for desktop
       case DeviceResolutionType.desktopLarge:
-        return 1.1;  // Slightly wider for large desktop
+        return 1.1; // Slightly wider for large desktop
     }
   }
 
@@ -278,7 +279,8 @@ class _HomeScreenState extends State<HomeScreen>
         '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
       ScreenType.gemini => '/home/gemini',
-      ScreenType.dailyTracker => daily_tracker.DailyTrackerRouterModule.logInPath,
+      ScreenType.dailyTracker =>
+        daily_tracker.DailyTrackerRouterModule.logInPath,
       ScreenType.smartControl => '/home/smart-control/dashboard',
       ScreenType.smartControlMqtt => '/home/smart-control-mqtt/dashboard',
       ScreenType.adaptiveAndResponsiveWidgets => '/home/adaptive-responsive',

@@ -15,9 +15,7 @@ class DeviceInfoSection extends StatelessWidget {
       child: Column(
         children: [
           _buildInfoGrid(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(20)),
-          
           _buildResolutionVisualization(),
         ],
       ),
@@ -34,18 +32,23 @@ class DeviceInfoSection extends StatelessWidget {
       },
       {
         'label': 'Screen Size',
-        'value': '${DeviceConfiguration.screenWidth.toInt()} × ${DeviceConfiguration.screenHeight.toInt()}',
+        'value':
+            '${DeviceConfiguration.screenWidth.toInt()} × ${DeviceConfiguration.screenHeight.toInt()}',
         'icon': Icons.screenshot_monitor,
       },
       {
         'label': 'Scale Factor',
-        'value': DeviceConfiguration.getResponsiveScaleFactor().toStringAsFixed(2),
+        'value':
+            DeviceConfiguration.getResponsiveScaleFactor().toStringAsFixed(2),
         'icon': Icons.zoom_in,
       },
       {
         'label': 'Platform Design',
-        'value': DeviceConfiguration.useCupertinoDesign ? 'Cupertino' : 'Material',
-        'icon': DeviceConfiguration.useCupertinoDesign ? Icons.apple : Icons.android,
+        'value':
+            DeviceConfiguration.useCupertinoDesign ? 'Cupertino' : 'Material',
+        'icon': DeviceConfiguration.useCupertinoDesign
+            ? Icons.apple
+            : Icons.android,
       },
       {
         'label': 'Grid Columns',
@@ -55,7 +58,9 @@ class DeviceInfoSection extends StatelessWidget {
       {
         'label': 'Orientation',
         'value': DeviceConfiguration.isPortrait ? 'Portrait' : 'Landscape',
-        'icon': DeviceConfiguration.isPortrait ? Icons.stay_current_portrait : Icons.stay_current_landscape,
+        'icon': DeviceConfiguration.isPortrait
+            ? Icons.stay_current_portrait
+            : Icons.stay_current_landscape,
       },
     ];
 
@@ -111,9 +116,7 @@ class DeviceInfoSection extends StatelessWidget {
             size: DeviceConfiguration.getResponsiveIconSize(20),
             color: Colors.blue[600],
           ),
-          
           SizedBox(width: DeviceConfiguration.getResponsiveSpacing(12)),
-          
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,9 +127,7 @@ class DeviceInfoSection extends StatelessWidget {
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
                 ),
-                
                 SizedBox(height: DeviceConfiguration.getResponsiveSpacing(2)),
-                
                 ResponsiveText(
                   value,
                   fontWeight: FontWeight.w600,
@@ -165,13 +166,9 @@ class DeviceInfoSection extends StatelessWidget {
             'Resolution Breakdown',
             centerText: true,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-          
           _buildResolutionBars(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-          
           _buildResolutionLegend(),
         ],
       ),
@@ -198,7 +195,7 @@ class DeviceInfoSection extends StatelessWidget {
         final color = resolution['color'] as Color;
         final name = resolution['name'] as String;
         final isCurrentResolution = _isCurrentResolution(width);
-        
+
         return Padding(
           padding: EdgeInsets.symmetric(
             vertical: DeviceConfiguration.getResponsiveSpacing(4),
@@ -209,11 +206,11 @@ class DeviceInfoSection extends StatelessWidget {
                 width: DeviceConfiguration.getResponsiveSpacing(120),
                 child: ResponsiveSmallText(
                   name,
-                  fontWeight: isCurrentResolution ? FontWeight.bold : FontWeight.normal,
+                  fontWeight:
+                      isCurrentResolution ? FontWeight.bold : FontWeight.normal,
                   color: isCurrentResolution ? color : Colors.grey[600],
                 ),
               ),
-              
               Expanded(
                 child: Container(
                   height: DeviceConfiguration.getResponsiveSpacing(8),
@@ -226,19 +223,20 @@ class DeviceInfoSection extends StatelessWidget {
                     widthFactor: width / maxWidth,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: isCurrentResolution ? color : color.withOpacity(0.3),
+                        color: isCurrentResolution
+                            ? color
+                            : color.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
                   ),
                 ),
               ),
-              
               SizedBox(width: DeviceConfiguration.getResponsiveSpacing(8)),
-              
               ResponsiveSmallText(
                 '${width}px',
-                fontWeight: isCurrentResolution ? FontWeight.bold : FontWeight.normal,
+                fontWeight:
+                    isCurrentResolution ? FontWeight.bold : FontWeight.normal,
                 color: isCurrentResolution ? color : Colors.grey[600],
               ),
             ],
@@ -262,7 +260,7 @@ class DeviceInfoSection extends StatelessWidget {
   bool _isCurrentResolution(int width) {
     final currentWidth = DeviceConfiguration.screenWidth;
     final resolutionType = DeviceConfiguration.resolutionType;
-    
+
     switch (resolutionType.toString().split('.').last) {
       case 'mobilePortrait':
         return width == 480;

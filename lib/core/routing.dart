@@ -41,7 +41,8 @@ import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/global_variables.dart';
 import 'package:sample_latest/ui/exception/page_not_found.dart';
 
-import '../features/daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
+import '../features/daily_tracker_stub/daily_tracker_entry_point.dart'
+    as daily_tracker;
 import '../features/plugins/local_authentication.dart';
 import '../features/responsive_showcase/pages/responsive_showcase_page.dart';
 import '../features/schools/core/schools_router_module.dart';
@@ -170,7 +171,8 @@ class Routing {
               builder: (context, state) {
                 return const GeminiChatScreen();
               }),
-          if(!daily_tracker.DailyTrackerRouterModule.isStub) daily_tracker.DailyTrackerRouterModule.dailyTrackerRoute()
+          if (!daily_tracker.DailyTrackerRouterModule.isStub)
+            daily_tracker.DailyTrackerRouterModule.dailyTrackerRoute()
         ]);
   }
 

@@ -70,8 +70,8 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
       right: DeviceConfiguration.getResponsiveSpacing(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: DeviceConfiguration.isMobilePortrait 
-            ? CrossAxisAlignment.center 
+        crossAxisAlignment: DeviceConfiguration.isMobilePortrait
+            ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
         children: [
           if (!DeviceConfiguration.isMobilePortrait) ...[
@@ -81,9 +81,9 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
               color: Colors.white.withOpacity(0.9),
               baseFontSize: 14.0,
             ),
-            
+
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-            
+
             _buildDeviceIndicator(),
           ],
         ],
@@ -95,7 +95,7 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
   Widget _buildDeviceIndicator() {
     IconData deviceIcon;
     String deviceText;
-    
+
     if (DeviceConfiguration.isDesktopResolution) {
       deviceIcon = Icons.desktop_windows;
       deviceText = 'Desktop View';
@@ -115,9 +115,7 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
           size: DeviceConfiguration.getResponsiveIconSize(16),
           color: Colors.white.withOpacity(0.8),
         ),
-        
         SizedBox(width: DeviceConfiguration.getResponsiveSpacing(6)),
-        
         ResponsiveSmallText(
           deviceText,
           color: Colors.white.withOpacity(0.8),
@@ -138,7 +136,7 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
         onPressed: () => _showInfoDialog(context),
         tooltip: 'About Responsive Showcase',
       ),
-      
+
       // Settings button (only on larger screens)
       if (!DeviceConfiguration.isMobilePortrait)
         IconButton(
@@ -149,7 +147,7 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
           onPressed: () => _showSettingsDialog(context),
           tooltip: 'Settings',
         ),
-      
+
       SizedBox(width: DeviceConfiguration.getResponsiveSpacing(8)),
     ];
   }
@@ -167,16 +165,14 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
             const ResponsiveText(
               'This showcase demonstrates responsive and adaptive widgets that work across all screen sizes and platforms.',
             ),
-            
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-            
             const ResponsiveText('Features:'),
-            
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-            
-            const ResponsiveSmallText('• Platform-specific styling (iOS/Android)'),
+            const ResponsiveSmallText(
+                '• Platform-specific styling (iOS/Android)'),
             const ResponsiveSmallText('• Responsive text and spacing'),
-            const ResponsiveSmallText('• Adaptive layouts for all screen sizes'),
+            const ResponsiveSmallText(
+                '• Adaptive layouts for all screen sizes'),
             const ResponsiveSmallText('• Optimized performance'),
           ],
         ),
@@ -200,10 +196,8 @@ class ResponsiveShowcaseAppBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const ResponsiveText('Showcase settings will be available here.'),
-            
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-            
-             ResponsiveSmallText(
+            ResponsiveSmallText(
               'Current resolution: ${DeviceConfiguration.resolutionType}',
             ),
           ],

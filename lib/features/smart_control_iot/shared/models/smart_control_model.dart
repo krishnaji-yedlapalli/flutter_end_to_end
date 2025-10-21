@@ -13,9 +13,14 @@ class SmartControlModel {
   bool isActive;
   bool isDisabled;
 
-  SmartControlModel(this.name, this.controlType, this.icon, this.ipAddress,
-      {this.des,
-      this.tileType = TileSizeType.small,
-      this.isActive = false,
-      this.isDisabled = false,});
+  SmartControlModel(
+    this.name,
+    this.controlType,
+    this.icon,
+    this.ipAddress, {
+    this.des,
+    this.tileType = TileSizeType.small,
+    this.isActive = false,
+    this.isDisabled = false,
+  });
 }

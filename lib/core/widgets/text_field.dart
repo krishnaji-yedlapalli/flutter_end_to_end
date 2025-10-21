@@ -48,13 +48,16 @@ class CustomTextField extends StatelessWidget {
   InputDecoration outlineDecoration() {
     return InputDecoration(
         label: ResponsiveText(label),
-        contentPadding: DeviceConfiguration.getResponsivePadding(horizontal: 12, vertical: 8),
-        suffixIcon: suffixIcon != null ? IconTheme(
-          data: IconThemeData(
-            size: DeviceConfiguration.getResponsiveIconSize(24),
-          ),
-          child: suffixIcon!,
-        ) : null,
+        contentPadding: DeviceConfiguration.getResponsivePadding(
+            horizontal: 12, vertical: 8),
+        suffixIcon: suffixIcon != null
+            ? IconTheme(
+                data: IconThemeData(
+                  size: DeviceConfiguration.getResponsiveIconSize(24),
+                ),
+                child: suffixIcon!,
+              )
+            : null,
         prefixText: prefix,
         border: const OutlineInputBorder());
   }

@@ -36,27 +36,32 @@ class AdaptiveResponsiveOutlineButton extends StatelessWidget {
     final responsiveBorderWidth = _getResponsiveBorderWidth();
 
     // Build button content
-    Widget buttonChild = _buildButtonContent(responsiveTextSize, responsiveIconSize);
+    Widget buttonChild =
+        _buildButtonContent(responsiveTextSize, responsiveIconSize);
 
     // Platform-specific button implementation
     Widget button = DeviceConfiguration.useCupertinoDesign
-        ? _buildCupertinoOutlineButton(context, buttonChild, responsivePadding, responsiveBorderWidth)
-        : _buildMaterialOutlineButton(context, buttonChild, responsivePadding, responsiveBorderWidth);
+        ? _buildCupertinoOutlineButton(
+            context, buttonChild, responsivePadding, responsiveBorderWidth)
+        : _buildMaterialOutlineButton(
+            context, buttonChild, responsivePadding, responsiveBorderWidth);
 
-    return isFullWidth ? SizedBox(width: double.infinity, child: button) : button;
+    return isFullWidth
+        ? SizedBox(width: double.infinity, child: button)
+        : button;
   }
 
   /// Calculate responsive text size
   double _getResponsiveTextSize() {
     double baseSize = baseFontSize ?? 16.0;
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 2.0;
     } else if (DeviceConfiguration.isTabResolution) {
       baseSize += 1.0;
     }
-    
+
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
   }
 
@@ -73,7 +78,7 @@ class AdaptiveResponsiveOutlineButton extends StatelessWidget {
 
     double horizontal = 20.0;
     double vertical = 12.0;
-    
+
     // Device-specific padding adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       horizontal += 6.0;
@@ -82,7 +87,7 @@ class AdaptiveResponsiveOutlineButton extends StatelessWidget {
       horizontal += 3.0;
       vertical += 1.5;
     }
-    
+
     return DeviceConfiguration.getResponsivePadding(
       horizontal: horizontal,
       vertical: vertical,
@@ -92,27 +97,27 @@ class AdaptiveResponsiveOutlineButton extends StatelessWidget {
   /// Calculate responsive icon size
   double _getResponsiveIconSize() {
     double baseSize = baseIconSize ?? 20.0;
-    
+
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 4.0;
     } else if (DeviceConfiguration.isTabResolution) {
       baseSize += 2.0;
     }
-    
+
     return DeviceConfiguration.getResponsiveIconSize(baseSize);
   }
 
   /// Calculate responsive border width
   double _getResponsiveBorderWidth() {
     double baseWidth = borderWidth ?? 1.5;
-    
+
     // Slightly thicker borders on larger screens
     if (DeviceConfiguration.isDesktopResolution) {
       baseWidth += 0.5;
     } else if (DeviceConfiguration.isTabResolution) {
       baseWidth += 0.25;
     }
-    
+
     return baseWidth * DeviceConfiguration.getResponsiveScaleFactor();
   }
 
@@ -163,7 +168,7 @@ class AdaptiveResponsiveOutlineButton extends StatelessWidget {
     double borderWidth,
   ) {
     final effectiveBorderColor = borderColor ?? CupertinoColors.activeBlue;
-    
+
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -200,7 +205,7 @@ class AdaptiveResponsiveOutlineButton extends StatelessWidget {
     double borderWidth,
   ) {
     final effectiveBorderColor = borderColor ?? Theme.of(context).primaryColor;
-    
+
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(

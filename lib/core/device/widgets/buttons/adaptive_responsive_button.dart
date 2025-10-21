@@ -29,16 +29,16 @@ class AdaptiveResponsiveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // Get responsive text size
     final responsiveTextSize = _getResponsiveTextSize();
-    
+
     // Get responsive padding
     final responsivePadding = _getResponsivePadding();
-    
+
     // Get responsive icon size
     final responsiveIconSize = _getResponsiveIconSize();
 
     // Build button content with responsive sizing
     Widget buttonChild = _buildButtonContent(
-      responsiveTextSize, 
+      responsiveTextSize,
       responsiveIconSize,
     );
 
@@ -48,20 +48,22 @@ class AdaptiveResponsiveButton extends StatelessWidget {
         : _buildMaterialButton(buttonChild, responsivePadding);
 
     // Apply full width if needed
-    return isFullWidth ? SizedBox(width: double.infinity, child: button) : button;
+    return isFullWidth
+        ? SizedBox(width: double.infinity, child: button)
+        : button;
   }
 
   /// Calculate responsive text size based on device type and base size
   double _getResponsiveTextSize() {
     double baseSize = baseFontSize ?? (isPrimary ? 16.0 : 14.0);
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 2.0; // Larger text on desktop
     } else if (DeviceConfiguration.isTabResolution) {
       baseSize += 1.0; // Slightly larger on tablet
     }
-    
+
     // Apply responsive scaling
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
   }
@@ -80,7 +82,7 @@ class AdaptiveResponsiveButton extends StatelessWidget {
     // Default padding calculations
     double horizontal = isPrimary ? 24.0 : 16.0;
     double vertical = isPrimary ? 12.0 : 8.0;
-    
+
     // Device-specific padding adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       horizontal += 8.0;
@@ -89,7 +91,7 @@ class AdaptiveResponsiveButton extends StatelessWidget {
       horizontal += 4.0;
       vertical += 2.0;
     }
-    
+
     return DeviceConfiguration.getResponsivePadding(
       horizontal: horizontal,
       vertical: vertical,
@@ -99,14 +101,14 @@ class AdaptiveResponsiveButton extends StatelessWidget {
   /// Calculate responsive icon size
   double _getResponsiveIconSize() {
     double baseSize = baseIconSize ?? 20.0;
-    
+
     // Device-specific icon size adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 4.0;
     } else if (DeviceConfiguration.isTabResolution) {
       baseSize += 2.0;
     }
-    
+
     return DeviceConfiguration.getResponsiveIconSize(baseSize);
   }
 

@@ -6,7 +6,8 @@ class ListWheelScrollViewDemo extends StatefulWidget {
   const ListWheelScrollViewDemo({Key? key}) : super(key: key);
 
   @override
-  State<ListWheelScrollViewDemo> createState() => _ListWheelScrollViewDemoState();
+  State<ListWheelScrollViewDemo> createState() =>
+      _ListWheelScrollViewDemoState();
 }
 
 class _ListWheelScrollViewDemoState extends State<ListWheelScrollViewDemo> {
@@ -50,7 +51,8 @@ class _ListWheelScrollViewDemoState extends State<ListWheelScrollViewDemo> {
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -129,13 +131,14 @@ class _ListWheelScrollViewDemoState extends State<ListWheelScrollViewDemo> {
                   builder: (context, index) {
                     final isSelected = index == selectedIndex;
                     return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
                       decoration: BoxDecoration(
-                        color: isSelected 
+                        color: isSelected
                             ? Theme.of(context).primaryColor.withOpacity(0.1)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
-                        border: isSelected 
+                        border: isSelected
                             ? Border.all(color: Theme.of(context).primaryColor)
                             : null,
                       ),
@@ -144,8 +147,10 @@ class _ListWheelScrollViewDemoState extends State<ListWheelScrollViewDemo> {
                           timeZones[index],
                           style: TextStyle(
                             fontSize: isSelected ? 16 : 14,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: isSelected 
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: isSelected
                                 ? Theme.of(context).primaryColor
                                 : Colors.grey[700],
                           ),
@@ -172,10 +177,22 @@ class _ListWheelScrollViewDemoState extends State<ListWheelScrollViewDemo> {
 
   Widget _buildColorPicker() {
     final colors = [
-      Colors.red, Colors.pink, Colors.purple, Colors.deepPurple,
-      Colors.indigo, Colors.blue, Colors.lightBlue, Colors.cyan,
-      Colors.teal, Colors.green, Colors.lightGreen, Colors.lime,
-      Colors.yellow, Colors.amber, Colors.orange, Colors.deepOrange,
+      Colors.red,
+      Colors.pink,
+      Colors.purple,
+      Colors.deepPurple,
+      Colors.indigo,
+      Colors.blue,
+      Colors.lightBlue,
+      Colors.cyan,
+      Colors.teal,
+      Colors.green,
+      Colors.lightGreen,
+      Colors.lime,
+      Colors.yellow,
+      Colors.amber,
+      Colors.orange,
+      Colors.deepOrange,
     ];
 
     return Card(
@@ -204,7 +221,8 @@ class _ListWheelScrollViewDemoState extends State<ListWheelScrollViewDemo> {
                 perspective: 0.01,
                 children: colors.map((color) {
                   return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(30),

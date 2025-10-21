@@ -21,8 +21,8 @@ class SmartControlMqttWrapperPage extends StatefulWidget {
       _SmartControlMqttWrapperPageState();
 }
 
-class _SmartControlMqttWrapperPageState extends State<SmartControlMqttWrapperPage> {
-
+class _SmartControlMqttWrapperPageState
+    extends State<SmartControlMqttWrapperPage> {
   @override
   void initState() {
     SmartControlMqttInjectionModule().registerDependencies();
@@ -39,15 +39,18 @@ class _SmartControlMqttWrapperPageState extends State<SmartControlMqttWrapperPag
           SmartControlMqttInjectionModule().unRegisterDependencies();
         }
       },
-      child:  MqttServerInitializeWrapper(
+      child: MqttServerInitializeWrapper(
         builder: (BuildContext context, MqttServerClient client) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => OnOffCubit(OnOffUsecase(OnOffRepository(BaseService.instance)))),
-              BlocProvider(create: (context) => injector<SmartControlMqttDashboardCubit>(param1: client)),
+              BlocProvider(
+                  create: (context) => OnOffCubit(
+                      OnOffUsecase(OnOffRepository(BaseService.instance)))),
+              BlocProvider(
+                  create: (context) =>
+                      injector<SmartControlMqttDashboardCubit>(param1: client)),
             ],
-            child: widget
-                .child,
+            child: widget.child,
           );
         },
       ),

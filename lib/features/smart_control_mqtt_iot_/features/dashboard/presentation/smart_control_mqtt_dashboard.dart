@@ -15,62 +15,58 @@ import '../../domain/cubit/smart_control_dashboard_cubit.dart';
 import '../../smart_device_control/presentation/cubit/smart_device_mqtt_control_cubit.dart';
 import '../../smart_device_control/presentation/smart_control_tile.dart';
 
-class SmartControlMqttDashboard extends StatelessWidget with Loaders{
+class SmartControlMqttDashboard extends StatelessWidget with Loaders {
   const SmartControlMqttDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
     context.read<SmartControlMqttDashboardCubit>().loadSmartControlDashboard();
     return SafeArea(
-      child: Scaffold(
-          body: BlocBuilder<SmartControlMqttDashboardCubit, ScDashboardState>(
+      child: Scaffold(body:
+          BlocBuilder<SmartControlMqttDashboardCubit, ScDashboardState>(
               builder: (context, ScDashboardState state) {
-                if (state is SCDashboardLoaded) {
-                    return _buildGridView(state.smItems, state.mqttServerClient);
-                } else {
-                  return circularLoader();
-                }
-              })
-      ),
+        if (state is SCDashboardLoaded) {
+          return _buildGridView(state.smItems, state.mqttServerClient);
+        } else {
+          return circularLoader();
+        }
+      })),
     );
   }
 
-  Padding _buildGridView(List<SmartControlMqttModel> screenTypes, MqttServerClient client) {
+  Padding _buildGridView(
+      List<SmartControlMqttModel> screenTypes, MqttServerClient client) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: AdaptiveLayoutBuilder(
-          builder: (context, deviceType) {
-           return StaggeredGrid.count(
-                crossAxisCount: deviceType == DeviceResolutionType.mobilePortrait
-                    ? 3
-                    : 8,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
-                children: screenTypes.map((screenType) {
-                  final count = getCellCount(screenType.tileType);
+      child: AdaptiveLayoutBuilder(builder: (context, deviceType) {
+        return StaggeredGrid.count(
+            crossAxisCount:
+                deviceType == DeviceResolutionType.mobilePortrait ? 3 : 8,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            children: screenTypes.map((screenType) {
+              final count = getCellCount(screenType.tileType);
 
-                   return StaggeredGridTile.count(
-                        crossAxisCellCount: count.$1,
-                        mainAxisCellCount: count.$2,
-                        child: SmartControlTile(smartControlModel: screenType,
-                          mqttServerClient: client,)
-
-                    );
-           }
-                   ).toList()
-            );
-          }),
+              return StaggeredGridTile.count(
+                  crossAxisCellCount: count.$1,
+                  mainAxisCellCount: count.$2,
+                  child: SmartControlTile(
+                    smartControlModel: screenType,
+                    mqttServerClient: client,
+                  ));
+            }).toList());
+      }),
     );
   }
 
-  (int, int) getCellCount(TileSizeType  type) {
-    switch(type){
+  (int, int) getCellCount(TileSizeType type) {
+    switch (type) {
       case TileSizeType.large:
-        return (2,2);
+        return (2, 2);
       case TileSizeType.medium:
-        return (2,1);
+        return (2, 1);
       case TileSizeType.small:
-        return (1,1);
+        return (1, 1);
     }
   }
 

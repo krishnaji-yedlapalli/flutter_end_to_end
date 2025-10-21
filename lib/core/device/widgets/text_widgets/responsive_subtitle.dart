@@ -58,7 +58,7 @@ class ResponsiveSubtitle extends StatelessWidget {
   /// Calculate responsive font size for subtitle
   double _getResponsiveFontSize() {
     double baseSize = baseFontSize ?? 16.0; // Small-medium subtitle size
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 3.0; // Larger on desktop
@@ -67,14 +67,14 @@ class ResponsiveSubtitle extends StatelessWidget {
     } else if (DeviceConfiguration.isMobilePortrait) {
       baseSize -= 0.5; // Slightly smaller on mobile portrait
     }
-    
+
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
   }
 
   /// Get responsive padding if specified
   EdgeInsets? _getResponsivePadding() {
     if (padding == null) return null;
-    
+
     return EdgeInsets.only(
       left: DeviceConfiguration.getResponsiveSpacing(padding!.left),
       top: DeviceConfiguration.getResponsiveSpacing(padding!.top),
@@ -93,8 +93,8 @@ class ResponsiveSubtitle extends StatelessWidget {
 
   /// Get default color based on theme (usually secondary color)
   Color? _getDefaultColor(BuildContext context) {
-    return Theme.of(context).textTheme.titleMedium?.color ?? 
-           Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.7);
+    return Theme.of(context).textTheme.titleMedium?.color ??
+        Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.7);
   }
 
   /// Get appropriate line height for subtitles

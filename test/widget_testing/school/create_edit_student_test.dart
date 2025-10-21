@@ -11,10 +11,8 @@ import 'package:sample_latest/core/device/config/device_configurations.dart';
 import '../../mock_data/configuration_data.dart';
 
 main() {
-
   group('create student widget test', () {
-
-    setUp((){
+    setUp(() {
       DeviceConfiguration.initiate();
     });
 
@@ -73,16 +71,16 @@ main() {
     });
 
     testWidgets('Testing different Screen resolution', (tester) async {
-
       for (var size in TestConfigurationData.screenSizes) {
         await tester.binding.setSurfaceSize(size);
-        DeviceConfiguration.updateDeviceResolutionAndOrientation(size, Orientation.portrait);
+        DeviceConfiguration.updateDeviceResolutionAndOrientation(
+            size, Orientation.portrait);
 
         await tester.pumpWidget(MaterialApp(
             key: UniqueKey(),
             home: MediaQuery(
                 data: MediaQueryData(size: size),
-                child:  BlocProvider(
+                child: BlocProvider(
                     create: (context) => SchoolBloc(SchoolRepository()),
                     child: const SchoolDetails('123', null)))));
         await tester.pumpAndSettle();

@@ -43,11 +43,18 @@ class ResponsiveTestWidget extends StatelessWidget {
               ),
             ),
             SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-            _buildInfoRow('Resolution Type', DeviceConfiguration.resolutionType.toString()),
-            _buildInfoRow('Screen Size', '${DeviceConfiguration.screenWidth.toInt()}x${DeviceConfiguration.screenHeight.toInt()}'),
-            _buildInfoRow('Scale Factor', DeviceConfiguration.getResponsiveScaleFactor().toStringAsFixed(2)),
-            _buildInfoRow('Grid Columns', DeviceConfiguration.getGridColumnCount().toString()),
-            _buildInfoRow('Is Tablet Landscape', DeviceConfiguration.isTabletLandscape.toString()),
+            _buildInfoRow('Resolution Type',
+                DeviceConfiguration.resolutionType.toString()),
+            _buildInfoRow('Screen Size',
+                '${DeviceConfiguration.screenWidth.toInt()}x${DeviceConfiguration.screenHeight.toInt()}'),
+            _buildInfoRow(
+                'Scale Factor',
+                DeviceConfiguration.getResponsiveScaleFactor()
+                    .toStringAsFixed(2)),
+            _buildInfoRow('Grid Columns',
+                DeviceConfiguration.getGridColumnCount().toString()),
+            _buildInfoRow('Is Tablet Landscape',
+                DeviceConfiguration.isTabletLandscape.toString()),
           ],
         ),
       ),
@@ -56,7 +63,8 @@ class ResponsiveTestWidget extends StatelessWidget {
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: DeviceConfiguration.getResponsiveSpacing(4)),
+      padding: EdgeInsets.symmetric(
+          vertical: DeviceConfiguration.getResponsiveSpacing(4)),
       child: Row(
         children: [
           Text(
@@ -129,7 +137,7 @@ class ResponsiveTestWidget extends StatelessWidget {
 
   Widget _buildGridDemo() {
     int columnCount = DeviceConfiguration.getGridColumnCount();
-    
+
     return Card(
       child: Padding(
         padding: DeviceConfiguration.getResponsivePadding(),

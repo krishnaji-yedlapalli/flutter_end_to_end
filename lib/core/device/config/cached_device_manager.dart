@@ -21,10 +21,11 @@ class CachedDeviceManager {
   }
 
   /// Update device configuration and notify listeners only if changed
-  void updateConfiguration(Size size, Orientation orientation, [double? pixelRatio]) {
-    bool hasChanged = DeviceConfiguration
-        .updateDeviceResolutionAndOrientation(size, orientation, pixelRatio);
-    
+  void updateConfiguration(Size size, Orientation orientation,
+      [double? pixelRatio]) {
+    bool hasChanged = DeviceConfiguration.updateDeviceResolutionAndOrientation(
+        size, orientation, pixelRatio);
+
     if (hasChanged) {
       // Only notify listeners if device type actually changed
       for (final listener in _listeners) {
@@ -49,14 +50,12 @@ class DeviceConfigurationProvider extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DeviceConfigurationProvider> createState() => 
+  State<DeviceConfigurationProvider> createState() =>
       _DeviceConfigurationProviderState();
 }
 
-class _DeviceConfigurationProviderState 
-    extends State<DeviceConfigurationProvider> 
-    with WidgetsBindingObserver {
-  
+class _DeviceConfigurationProviderState
+    extends State<DeviceConfigurationProvider> with WidgetsBindingObserver {
   final CachedDeviceManager _deviceManager = CachedDeviceManager();
 
   @override
@@ -96,7 +95,7 @@ class _DeviceConfigurationProviderState
           orientation,
           pixelRatio,
         );
-        
+
         return widget.child;
       },
     );

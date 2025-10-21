@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable,pattern_never_matches_value_type
 
 class Dart3Features {
+  // ignore: prefer_typing_uninitialized_variables
   final fullName;
   Dart3Features(String firstName, String lastName)
       : fullName = firstName + lastName {
@@ -46,7 +47,6 @@ class Dart3Features {
       _ when name.contains('su') && name == 'sudheer' => 'f*ck you',
       _ => 'no data'
     };
-    return 'heloo';
   }
 
   String exhaustiveFunctionWithRecords() {

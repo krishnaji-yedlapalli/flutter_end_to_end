@@ -1,5 +1,3 @@
-import '../../features/daily_tracker/domain/entities/event_entity.dart';
-
 enum ScreenType {
   dashboard,
   routing,
@@ -38,8 +36,6 @@ enum PluginType {
 }
 
 typedef OfflineDumpingStatus = ({String title, int percentage})?;
-
-typedef CategorizedEvents = ({List<EventEntity> reminders, List<EventEntity> actions});
 
 enum SchoolDiscoverFeatureType {
   create,

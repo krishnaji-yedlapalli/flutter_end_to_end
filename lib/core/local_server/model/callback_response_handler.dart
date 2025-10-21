@@ -1,4 +1,3 @@
-
 // Result class for handling responses
 class Result<T> {
   final T? data;

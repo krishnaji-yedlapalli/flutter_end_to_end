@@ -16,17 +16,11 @@ class TextWidgetsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildTextHierarchy(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildTextVariants(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildTextStyling(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildTextAlignment(),
         ],
       ),
@@ -39,9 +33,7 @@ class TextWidgetsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Text Hierarchy'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -56,25 +48,19 @@ class TextWidgetsSection extends StatelessWidget {
             children: [
               const ResponsiveHeader('Header Text'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
               const ResponsiveSubHeader('Sub Header Text'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
               const ResponsiveTitle('Title Text'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(6)),
-              
               const ResponsiveSubtitle('Subtitle Text'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(6)),
-              
               const ResponsiveText(
                 'Regular body text that adapts to different screen sizes while maintaining optimal readability across all devices and platforms.',
               ),
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Text Hierarchy', '''
 ResponsiveHeader('Header Text'),
 ResponsiveSubHeader('Sub Header Text'),
@@ -91,9 +77,7 @@ ResponsiveText('Body text...'),'''),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Text Size Variants'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -106,22 +90,21 @@ ResponsiveText('Body text...'),'''),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ResponsiveLargeText('Large Text - For emphasis and important content'),
+              const ResponsiveLargeText(
+                  'Large Text - For emphasis and important content'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
-              const ResponsiveText('Regular Text - Standard body text for most content'),
+              const ResponsiveText(
+                  'Regular Text - Standard body text for most content'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
-              const ResponsiveSmallText('Small Text - For secondary information and details'),
+              const ResponsiveSmallText(
+                  'Small Text - For secondary information and details'),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
-              const ResponsiveCaptionText('Caption Text - For image captions and fine print'),
+              const ResponsiveCaptionText(
+                  'Caption Text - For image captions and fine print'),
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Text Variants', '''
 ResponsiveLargeText('Large text'),
 ResponsiveText('Regular text'),
@@ -137,14 +120,14 @@ ResponsiveCaptionText('Caption text'),'''),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Text Styling Options'),
-        
+
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
+
         // Create responsive grid for styling examples
         _buildStylingGrid(),
-        
+
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
+
         _buildCodeExample('Text Styling', '''
 ResponsiveText('Bold Text', fontWeight: FontWeight.bold),
 ResponsiveText('Italic Text', fontStyle: FontStyle.italic),
@@ -157,10 +140,24 @@ ResponsiveText('Underlined', decoration: TextDecoration.underline),'''),
   /// Build styling examples grid
   Widget _buildStylingGrid() {
     final stylingExamples = [
-      {'text': 'Bold Text', 'widget': const ResponsiveText('Bold Text', fontWeight: FontWeight.bold)},
-      {'text': 'Italic Text', 'widget': const ResponsiveText('Italic Text', fontStyle: FontStyle.italic)},
-      {'text': 'Underlined', 'widget': const ResponsiveText('Underlined', decoration: TextDecoration.underline)},
-      {'text': 'Letter Spacing', 'widget': const ResponsiveText('Letter Spacing', letterSpacing: 2.0)},
+      {
+        'text': 'Bold Text',
+        'widget': const ResponsiveText('Bold Text', fontWeight: FontWeight.bold)
+      },
+      {
+        'text': 'Italic Text',
+        'widget':
+            const ResponsiveText('Italic Text', fontStyle: FontStyle.italic)
+      },
+      {
+        'text': 'Underlined',
+        'widget': const ResponsiveText('Underlined',
+            decoration: TextDecoration.underline)
+      },
+      {
+        'text': 'Letter Spacing',
+        'widget': const ResponsiveText('Letter Spacing', letterSpacing: 2.0)
+      },
     ];
 
     int crossAxisCount;
@@ -205,9 +202,7 @@ ResponsiveText('Underlined', decoration: TextDecoration.underline),'''),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Text Alignment'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -219,15 +214,14 @@ ResponsiveText('Underlined', decoration: TextDecoration.underline),'''),
           ),
           child: Column(
             children: [
-              const ResponsiveText('Left Aligned Text (Default)', textAlign: TextAlign.left),
+              const ResponsiveText('Left Aligned Text (Default)',
+                  textAlign: TextAlign.left),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
               const ResponsiveText('Center Aligned Text', centerText: true),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
-              const ResponsiveText('Right Aligned Text', textAlign: TextAlign.right),
+              const ResponsiveText('Right Aligned Text',
+                  textAlign: TextAlign.right),
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-              
               const ResponsiveText(
                 'Justified text that spreads across the full width and aligns to both margins.',
                 textAlign: TextAlign.justify,
@@ -235,9 +229,7 @@ ResponsiveText('Underlined', decoration: TextDecoration.underline),'''),
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Text Alignment', '''
 ResponsiveText('Left aligned', textAlign: TextAlign.left),
 ResponsiveText('Centered', centerText: true),
@@ -265,9 +257,7 @@ ResponsiveText('Justified', textAlign: TextAlign.justify),'''),
             color: Colors.green[300],
             fontWeight: FontWeight.w600,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-          
           ResponsiveSmallText(
             code,
             color: Colors.grey[300],

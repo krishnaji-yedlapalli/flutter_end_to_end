@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -14,17 +13,15 @@ import '../../smart_device_control/presentation/cubit/smart_device_mqtt_control_
 part 'smart_control_dashboard_state.dart';
 
 class SmartControlMqttDashboardCubit extends Cubit<ScDashboardState> {
-
   final SmartDeviceStatusUseCase _smartDeviceStatusUseCase;
   final SmartDeviceControlUseCase _smartDeviceControlUseCase;
   final MqttServerClient _mqttServerClient;
 
-  SmartControlMqttDashboardCubit(this._smartDeviceStatusUseCase, this._smartDeviceControlUseCase, this._mqttServerClient) : super(SCDashboardLoading());
+  SmartControlMqttDashboardCubit(this._smartDeviceStatusUseCase,
+      this._smartDeviceControlUseCase, this._mqttServerClient)
+      : super(SCDashboardLoading());
 
   Future<void> loadSmartControlDashboard() async {
     emit(SCDashboardLoaded(SmartControlSeed.dashboardSeed, _mqttServerClient));
   }
-
-
 }
-

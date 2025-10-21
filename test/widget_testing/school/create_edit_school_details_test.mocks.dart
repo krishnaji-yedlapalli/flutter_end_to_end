@@ -6,9 +6,12 @@
 import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sample_latest/features/schools/data/model/school_details_model.dart' as _i3;
-import 'package:sample_latest/features/schools/data/model/school_model.dart' as _i4;
-import 'package:sample_latest/features/schools/data/model/student_model.dart' as _i5;
+import 'package:sample_latest/features/schools/data/model/school_details_model.dart'
+    as _i3;
+import 'package:sample_latest/features/schools/data/model/school_model.dart'
+    as _i4;
+import 'package:sample_latest/features/schools/data/model/student_model.dart'
+    as _i5;
 import 'package:sample_latest/core/data/base_service.dart' as _i2;
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart'
     as _i6;

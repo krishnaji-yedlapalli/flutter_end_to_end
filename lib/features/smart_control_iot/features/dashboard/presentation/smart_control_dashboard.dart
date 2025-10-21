@@ -23,41 +23,43 @@ class SmartControlDashboard extends StatefulWidget {
 
 class _SmartControlDashboardState extends State<SmartControlDashboard>
     with CardWidgetsMixin, Loaders {
-
   @override
   Widget build(BuildContext context) {
     context.read<SmartControlDashboardCubit>().loadSmartControlDashboard();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: Scaffold(
-          body: BlocBuilder<SmartControlDashboardCubit, ScDashboardState>(
+      child: Scaffold(body:
+          BlocBuilder<SmartControlDashboardCubit, ScDashboardState>(
               builder: (context, ScDashboardState state) {
-                if (state is SCDashboardLoaded) {
-                    return _buildGridView(state.smItems, state.smCubits);
-                } else {
-                  return circularLoader();
-                }
-              })
-      ),
+        if (state is SCDashboardLoaded) {
+          return _buildGridView(state.smItems, state.smCubits);
+        } else {
+          return circularLoader();
+        }
+      })),
     );
   }
 
-  AdaptiveLayoutBuilder _buildGridView(List<SmartControlModel> screenTypes, Map<String, SmartDeviceControlCubit> smCubits, ) {
+  AdaptiveLayoutBuilder _buildGridView(
+    List<SmartControlModel> screenTypes,
+    Map<String, SmartDeviceControlCubit> smCubits,
+  ) {
     return AdaptiveLayoutBuilder(
         builder: (context, deviceType) => StaggeredGrid.count(
-            crossAxisCount: deviceType == DeviceResolutionType.mobilePortrait ? 3 : 8,
+            crossAxisCount:
+                deviceType == DeviceResolutionType.mobilePortrait ? 3 : 8,
             mainAxisSpacing: 4,
             crossAxisSpacing: 4,
-            children: screenTypes.map((screenType)=> StaggeredGridTile.count(
-                crossAxisCellCount: 1,
-                mainAxisCellCount: 1,
-                child: SmartControlTile(smartControlModel: screenType, smartDeviceControlCubit: smCubits[screenType.ipAddress]!)
-            )).toList()
-        ));
+            children: screenTypes
+                .map((screenType) => StaggeredGridTile.count(
+                    crossAxisCellCount: 1,
+                    mainAxisCellCount: 1,
+                    child: SmartControlTile(
+                        smartControlModel: screenType,
+                        smartDeviceControlCubit:
+                            smCubits[screenType.ipAddress]!)))
+                .toList()));
   }
-
-
-
 
   navigateToControl(SmartControlType type) {
     switch (type) {

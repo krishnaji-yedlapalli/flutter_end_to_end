@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-import workmanager
+
 import flutter_local_notifications
 
 @main
@@ -19,8 +19,6 @@ import flutter_local_notifications
          UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
       }
 
-    WorkmanagerPlugin.registerTask(withIdentifier: "task-identifier")
-      UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(60*15))
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

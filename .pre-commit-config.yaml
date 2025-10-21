@@ -1,0 +1,16 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: project-pre-commit
+        name: Project Pre-commit Hook
+        entry: scripts/project_pre_commit_hook.sh
+        language: script
+        stages: [pre-commit]
+
+-   repo: local
+    hooks:
+    -   id: validate-commit-msg
+        name: Validate Commit Message
+        entry: scripts/validate_commit_msg.sh
+        language: system
+        stages: [commit-msg]

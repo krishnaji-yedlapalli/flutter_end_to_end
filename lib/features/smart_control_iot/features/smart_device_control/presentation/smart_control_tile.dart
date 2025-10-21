@@ -44,25 +44,33 @@ class SmartControlTile extends StatelessWidget with Loaders {
                     : Colors.brown,
             borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: InkWell(
-          onTap: isDisabled ? null :  () {
-            context
-                .read<SmartDeviceControlCubit>()
-                .onSelectionOfSmartTile(smartControl);
-          },
+          onTap: isDisabled
+              ? null
+              : () {
+                  context
+                      .read<SmartDeviceControlCubit>()
+                      .onSelectionOfSmartTile(smartControl);
+                },
           child: Stack(
             children: [
-              if(isDisabled) Container(
-                color: Colors.black12,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Failed to connect', style: TextStyle(fontWeight: FontWeight.bold)),
-                    IconButton(onPressed: (){
-                      context.read<SmartDeviceControlCubit>().loadSmartDeviceStatus();
-                    }, icon: const Icon(Icons.refresh))
-                  ],
+              if (isDisabled)
+                Container(
+                  color: Colors.black12,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Failed to connect',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      IconButton(
+                          onPressed: () {
+                            context
+                                .read<SmartDeviceControlCubit>()
+                                .loadSmartDeviceStatus();
+                          },
+                          icon: const Icon(Icons.refresh))
+                    ],
+                  ),
                 ),
-              ),
               Opacity(
                 opacity: isDisabled ? 0.2 : 1,
                 child: Column(

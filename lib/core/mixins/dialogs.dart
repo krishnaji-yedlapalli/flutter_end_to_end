@@ -34,9 +34,10 @@ mixin CustomDialogs {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: ResponsiveConstants.smallPadding, vertical: ResponsiveConstants.mediumPadding),
-            child:
-                ResponsiveTitle(title),
+            padding: const EdgeInsets.symmetric(
+                horizontal: ResponsiveConstants.smallPadding,
+                vertical: ResponsiveConstants.mediumPadding),
+            child: ResponsiveTitle(title),
           ),
           const Divider(),
           Flexible(fit: FlexFit.loose, child: content),
@@ -95,10 +96,18 @@ mixin CustomDialogs {
                 actions: [
                   TextButton(
                       onPressed: () => GoRouter.of(context).pop(false),
-                      child: const ResponsiveText('No', color: Colors.orange, fontWeight: FontWeight.w600,)),
+                      child: const ResponsiveText(
+                        'No',
+                        color: Colors.orange,
+                        fontWeight: FontWeight.w600,
+                      )),
                   TextButton(
                       onPressed: () => GoRouter.of(context).pop(true),
-                      child: const ResponsiveText('Yes', color: Colors.orange, fontWeight: FontWeight.w600,)),
+                      child: const ResponsiveText(
+                        'Yes',
+                        color: Colors.orange,
+                        fontWeight: FontWeight.w600,
+                      )),
                 ],
               );
             }) ??

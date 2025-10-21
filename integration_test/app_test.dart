@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,7 +9,6 @@ import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 void main() {
-
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
@@ -23,18 +20,17 @@ void main() {
     DeviceConfiguration.initiate();
   });
 
-
-  group('end to end test', (){
+  group('end to end test', () {
     testWidgets('end to end test', (tester) async {
-
       await tester.pumpWidget(const MyApp());
 
       bool homeOverlayDismissed = false;
       for (int i = 0; i < 100; i++) {
-        await tester.pump(const Duration(milliseconds: 100)); // Pump for a short duration
+        await tester.pump(
+            const Duration(milliseconds: 100)); // Pump for a short duration
 
         // Check if the overlay is dismissed
-        if(find.text('Dismiss').evaluate().isNotEmpty) {
+        if (find.text('Dismiss').evaluate().isNotEmpty) {
           final homeDismiss = find.text('Dismiss');
           homeOverlayDismissed = true;
           await tester.tap(homeDismiss);
@@ -51,13 +47,14 @@ void main() {
 
       bool schoolOverlayDismissed = false;
       for (int i = 0; i < 100; i++) {
-        await tester.pump(const Duration(milliseconds: 100)); // Pump for a short duration
+        await tester.pump(
+            const Duration(milliseconds: 100)); // Pump for a short duration
 
         // Check if the overlay is dismissed
         var schoolDismiss = find.text('Dismiss');
-        if(schoolDismiss.evaluate().isNotEmpty && tester.any(schoolDismiss)) {
+        if (schoolDismiss.evaluate().isNotEmpty && tester.any(schoolDismiss)) {
           await tester.ensureVisible(schoolDismiss);
-          if(i < 30) continue;
+          if (i < 30) continue;
           schoolOverlayDismissed = true;
           await tester.tap(find.text('Dismiss'));
         }
@@ -67,7 +64,6 @@ void main() {
       }
 
       await tester.pumpAndSettle();
-
 
       var welcomePopup = find.byIcon(Icons.thumb_up);
       await tester.tap(welcomePopup);
@@ -99,7 +95,8 @@ void main() {
 
       var createdSchool = find.byType(ListTile);
 
-      var edit = find.descendant(of: createdSchool.first, matching: find.byIcon(Icons.edit));
+      var edit = find.descendant(
+          of: createdSchool.first, matching: find.byIcon(Icons.edit));
       await tester.tap(edit);
       await tester.pumpAndSettle();
 
@@ -122,7 +119,6 @@ void main() {
       await tester.enterText(studentTextFieldList.last, 'Texas');
       await tester.pump();
 
-
       var studentDropDown = find.text('Standard');
       await tester.tap(studentDropDown);
       await tester.pumpAndSettle();
@@ -134,7 +130,8 @@ void main() {
       await tester.tap(find.text('Create'));
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      var editStudent = find.descendant(of: createdSchool.first, matching: find.byIcon(Icons.edit));
+      var editStudent = find.descendant(
+          of: createdSchool.first, matching: find.byIcon(Icons.edit));
       await tester.tap(editStudent);
       await tester.pumpAndSettle();
 
@@ -157,10 +154,10 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      var deleteSchool = find.descendant(of: find.byType(ListTile).first, matching: find.byIcon(Icons.delete));
+      var deleteSchool = find.descendant(
+          of: find.byType(ListTile).first, matching: find.byIcon(Icons.delete));
       await tester.tap(deleteSchool);
       // await tester.pump(const Duration(seconds: 1));
-
     });
   });
 }

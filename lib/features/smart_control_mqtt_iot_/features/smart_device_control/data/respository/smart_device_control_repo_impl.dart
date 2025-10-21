@@ -1,11 +1,8 @@
-
-
 import 'package:sample_latest/core/data/base_service.dart';
 
 import '../../domain/repository/smart_device_control_repo.dart';
 
-class SmartDeviceControlRepositoryImpl implements SmartDeviceControlRepository{
-
+class SmartDeviceControlRepositoryImpl implements SmartDeviceControlRepository {
   final BaseService _baseService;
 
   final String baseUrl = 'http://192.168.1.37/';
@@ -20,7 +17,7 @@ class SmartDeviceControlRepositoryImpl implements SmartDeviceControlRepository{
 
   @override
   Future<bool> on(String ip) async {
-    var response = await _baseService.makeRequest(baseUrl: ip,  url: 'turnOn');
+    var response = await _baseService.makeRequest(baseUrl: ip, url: 'turnOn');
     return int.parse(response) == 1 ? true : false;
   }
 

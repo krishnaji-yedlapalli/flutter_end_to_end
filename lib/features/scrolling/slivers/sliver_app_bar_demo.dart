@@ -77,7 +77,9 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
                         Text(
                           'SliverAppBar Demo',
                           style: TextStyle(
-                            fontSize: DeviceConfiguration.isMobileResolution ? 28 : 36,
+                            fontSize: DeviceConfiguration.isMobileResolution
+                                ? 28
+                                : 36,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -86,7 +88,9 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
                         Text(
                           'Expandable • Collapsible • Stretchable',
                           style: TextStyle(
-                            fontSize: DeviceConfiguration.isMobileResolution ? 16 : 18,
+                            fontSize: DeviceConfiguration.isMobileResolution
+                                ? 16
+                                : 18,
                             color: Colors.white.withOpacity(0.9),
                           ),
                         ),
@@ -98,7 +102,8 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
                     top: 60,
                     right: 20,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
@@ -130,7 +135,8 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
           // Content explaining SliverAppBar features
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -167,9 +173,11 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
           ),
 
           // Different SliverAppBar variations
-          _buildVariationSection('Floating SliverAppBar', _buildFloatingAppBar()),
+          _buildVariationSection(
+              'Floating SliverAppBar', _buildFloatingAppBar()),
           _buildVariationSection('Snap SliverAppBar', _buildSnapAppBar()),
-          _buildVariationSection('Non-Pinned SliverAppBar', _buildNonPinnedAppBar()),
+          _buildVariationSection(
+              'Non-Pinned SliverAppBar', _buildNonPinnedAppBar()),
 
           // Sample content to demonstrate scrolling
           SliverList(
@@ -177,7 +185,8 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
               (context, index) {
                 return Card(
                   margin: EdgeInsets.symmetric(
-                    horizontal: DeviceConfiguration.isMobileResolution ? 16 : 24,
+                    horizontal:
+                        DeviceConfiguration.isMobileResolution ? 16 : 24,
                     vertical: 8,
                   ),
                   child: ListTile(
@@ -199,7 +208,8 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
     );
   }
 
-  Widget _buildFeatureCard(String title, String description, IconData icon, Color color) {
+  Widget _buildFeatureCard(
+      String title, String description, IconData icon, Color color) {
     return Card(
       elevation: 4,
       child: Padding(
@@ -250,7 +260,8 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
   Widget _buildVariationSection(String title, Widget appBar) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

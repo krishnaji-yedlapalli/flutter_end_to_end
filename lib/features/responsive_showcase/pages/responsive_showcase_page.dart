@@ -18,7 +18,7 @@ class ResponsiveShowcasePage extends StatelessWidget {
         slivers: [
           // Responsive App Bar
           const ResponsiveShowcaseAppBar(),
-          
+
           // Main content sections
           SliverPadding(
             padding: _getResponsivePadding(),
@@ -26,27 +26,27 @@ class ResponsiveShowcasePage extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 // Welcome section
                 _buildWelcomeSection(),
-                
+
                 _buildSectionSpacing(),
-                
+
                 // Device information
                 const DeviceInfoSection(),
-                
+
                 _buildSectionSpacing(),
-                
+
                 // Text widgets showcase
                 const TextWidgetsSection(),
-                
+
                 _buildSectionSpacing(),
-                
+
                 // Button widgets showcase
                 const ButtonWidgetsSection(),
-                
+
                 _buildSectionSpacing(),
-                
+
                 // Layout examples
                 const LayoutExamplesSection(),
-                
+
                 // Bottom spacing
                 SizedBox(height: DeviceConfiguration.getResponsiveSpacing(50)),
               ]),
@@ -101,16 +101,12 @@ class ResponsiveShowcasePage extends StatelessWidget {
             'Responsive Showcase',
             centerText: true,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-          
           const ResponsiveSubtitle(
             'Explore adaptive and responsive widgets that work seamlessly across all screen sizes and platforms.',
             centerText: true,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-          
           _buildFeatureHighlights(),
         ],
       ),
@@ -120,10 +116,26 @@ class ResponsiveShowcasePage extends StatelessWidget {
   /// Build feature highlights with responsive grid
   Widget _buildFeatureHighlights() {
     final features = [
-      {'icon': Icons.devices, 'title': 'Multi-Platform', 'desc': 'iOS, Android, Web, Desktop'},
-      {'icon': Icons.restore_page_outlined, 'title': 'Responsive', 'desc': 'Adapts to all screen sizes'},
-      {'icon': Icons.palette, 'title': 'Adaptive Design', 'desc': 'Platform-specific styling'},
-      {'icon': Icons.speed, 'title': 'Optimized', 'desc': 'Performance-focused widgets'},
+      {
+        'icon': Icons.devices,
+        'title': 'Multi-Platform',
+        'desc': 'iOS, Android, Web, Desktop'
+      },
+      {
+        'icon': Icons.restore_page_outlined,
+        'title': 'Responsive',
+        'desc': 'Adapts to all screen sizes'
+      },
+      {
+        'icon': Icons.palette,
+        'title': 'Adaptive Design',
+        'desc': 'Platform-specific styling'
+      },
+      {
+        'icon': Icons.speed,
+        'title': 'Optimized',
+        'desc': 'Performance-focused widgets'
+      },
     ];
 
     // Determine grid columns based on device type
@@ -181,17 +193,13 @@ class ResponsiveShowcasePage extends StatelessWidget {
             size: DeviceConfiguration.getResponsiveIconSize(24),
             color: Colors.blue,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-          
           ResponsiveText(
             title,
             fontWeight: FontWeight.w600,
             centerText: true,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(4)),
-          
           ResponsiveSmallText(
             description,
             centerText: true,

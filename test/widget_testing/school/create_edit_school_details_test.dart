@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
@@ -34,15 +32,12 @@ import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';
 import 'school_widget_test.mocks.dart';
 
-
 @GenerateMocks([SchoolRepository])
 void main() async {
-
   TestWidgetsFlutterBinding.ensureInitialized();
   setupFirebaseCoreMocks();
 
   group('home widget testing', () {
-
     late MockSchoolRepository mockSchoolRepo;
 
     setUpAll(() async {
@@ -53,8 +48,8 @@ void main() async {
       mockSchoolRepo = MockSchoolRepository();
     });
 
-    Future<void> pumpSchoolWidgetWithAllDependencies(WidgetTester tester, SchoolBloc schoolBloc,  Size size) async {
-
+    Future<void> pumpSchoolWidgetWithAllDependencies(
+        WidgetTester tester, SchoolBloc schoolBloc, Size size) async {
       final GoRouter goRouter = GoRouter(
         routes: [
           GoRoute(
@@ -62,21 +57,21 @@ void main() async {
             builder: (context, state) => MediaQuery(
                 key: UniqueKey(),
                 data: MediaQueryData(size: size),
-                child: OrientationBuilder(
-                    builder : (context, orientation) {
-                      DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
-                      return ChangeNotifierProvider(
-                        create: (context) =>
-                            CommonProvider(ThemeMode.dark, const Locale('en')),
-                        child: BlocProvider(
-                            key: UniqueKey(),
-                            create: (context) => schoolBloc,
-                            child: Builder(builder: (context) {
-                                  return SchoolDetails('123', SchoolMockData.schools.first);
-                                })),
-                      );
-                    }
-                )), // Replace with your actual widget
+                child: OrientationBuilder(builder: (context, orientation) {
+                  DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                      MediaQuery.of(context).size, orientation);
+                  return ChangeNotifierProvider(
+                    create: (context) =>
+                        CommonProvider(ThemeMode.dark, const Locale('en')),
+                    child: BlocProvider(
+                        key: UniqueKey(),
+                        create: (context) => schoolBloc,
+                        child: Builder(builder: (context) {
+                          return SchoolDetails(
+                              '123', SchoolMockData.schools.first);
+                        })),
+                  );
+                })), // Replace with your actual widget
           ),
           // Add other routes as needed
         ],
@@ -86,12 +81,11 @@ void main() async {
         key: UniqueKey(),
         routerConfig: goRouter,
         localizationsDelegates: TestConfigurationData.localizationDelegate,
-        supportedLocales: TestConfigurationData.supportedLocales ,
+        supportedLocales: TestConfigurationData.supportedLocales,
       ));
     }
 
     testWidgets('Testing with empty students', (tester) async {
-
       when(mockSchoolRepo.fetchSchoolDetails('123')).thenAnswer((value) {
         return Future.value(null);
       });
@@ -99,20 +93,21 @@ void main() async {
         return Future.value(<StudentModel>[]);
       });
 
-      await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(tester,
+          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
       await tester.pump();
 
-      expect(find.text('No Students to display, Create a New student'),  findsOneWidget);
-
+      expect(find.text('No Students to display, Create a New student'),
+          findsOneWidget);
     });
 
     testWidgets('Testing with Add more school details', (tester) async {
-
       when(mockSchoolRepo.fetchSchoolDetails('123')).thenAnswer((value) {
         return Future.value(null);
       });
 
-      await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(tester,
+          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
       await tester.pump();
 
       expect(find.text('Add More details'), findsOneWidget);
@@ -125,7 +120,8 @@ void main() async {
         return Future.value(SchoolMockData.schoolDetails);
       });
 
-      await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(tester,
+          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
       await tester.pump();
 
       expect(find.text('Add More details'), findsNothing);
@@ -133,16 +129,15 @@ void main() async {
       expect(find.text('1200'), findsOneWidget);
 
       expect(find.text('Hostel Availability :'), findsOneWidget);
-
     });
 
     testWidgets('Testing with existing students', (tester) async {
-
       when(mockSchoolRepo.fetchSchoolDetails('123')).thenAnswer((value) {
         return Future.value(SchoolMockData.schoolDetails);
       });
 
-      await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(tester,
+          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
       await tester.pump();
 
       expect(find.text('View Students'), findsOneWidget);
@@ -160,11 +155,9 @@ void main() async {
       await tester.pumpAndSettle();
 
       expect(find.text('Ramesh'), findsOneWidget);
-
     });
 
     testWidgets('Test Different device Resolutions', (tester) async {
-
       for (var size in TestConfigurationData.screenSizes) {
         await tester.binding.setSurfaceSize(size);
         DeviceConfiguration.updateDeviceResolutionAndOrientation(
@@ -186,7 +179,8 @@ void main() async {
         await tester.tap(find.text('View Students'));
         await tester.pump();
 
-        await tester.fling(find.byType(ListView), const Offset(0, -8000), 10000);
+        await tester.fling(
+            find.byType(ListView), const Offset(0, -8000), 10000);
         await tester.pumpAndSettle();
 
         expect(find.text('Ramesh'), findsOneWidget);
@@ -195,6 +189,5 @@ void main() async {
         await tester.pumpAndSettle();
       }
     });
-
   });
 }
