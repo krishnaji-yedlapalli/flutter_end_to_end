@@ -55,7 +55,9 @@ class AdaptiveLayoutBuilder extends StatelessWidget {
     }
 
     // Handle mobile landscape edge case
-    if (!isPortrait && width < ResponsiveConstants.mobileLandscapeMaxWidth && height < ResponsiveConstants.mobileMaxWidth) {
+    if (!isPortrait &&
+        width < ResponsiveConstants.mobileLandscapeMaxWidth &&
+        height < ResponsiveConstants.mobileMaxWidth) {
       return DeviceResolutionType.mobileLandscape;
     }
 

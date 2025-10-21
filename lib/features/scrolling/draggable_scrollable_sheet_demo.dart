@@ -6,11 +6,14 @@ class DraggableScrollableSheetDemo extends StatefulWidget {
   const DraggableScrollableSheetDemo({Key? key}) : super(key: key);
 
   @override
-  State<DraggableScrollableSheetDemo> createState() => _DraggableScrollableSheetDemoState();
+  State<DraggableScrollableSheetDemo> createState() =>
+      _DraggableScrollableSheetDemoState();
 }
 
-class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetDemo> {
-  final DraggableScrollableController _controller = DraggableScrollableController();
+class _DraggableScrollableSheetDemoState
+    extends State<DraggableScrollableSheetDemo> {
+  final DraggableScrollableController _controller =
+      DraggableScrollableController();
   bool _isExpanded = false;
 
   @override
@@ -24,7 +27,7 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
         children: [
           // Background content
           _buildBackgroundContent(),
-          
+
           // Draggable scrollable sheet
           DraggableScrollableSheet(
             controller: _controller,
@@ -78,7 +81,8 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
             _isExpanded = !_isExpanded;
           });
         },
-        child: Icon(_isExpanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up),
+        child: Icon(
+            _isExpanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up),
       ),
     );
   }
@@ -96,7 +100,8 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -109,7 +114,8 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
                     Text(
                       'DraggableScrollableSheet Demo',
                       style: TextStyle(
-                        fontSize: DeviceConfiguration.isMobileResolution ? 20 : 24,
+                        fontSize:
+                            DeviceConfiguration.isMobileResolution ? 20 : 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -226,7 +232,7 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
         if (index == 0) {
           return _buildContentSection();
         }
-        
+
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 4),
           child: ListTile(
@@ -241,7 +247,8 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
               ),
             ),
             title: Text('Scrollable Item ${index}'),
-            subtitle: Text('This is item number ${index} in the draggable sheet'),
+            subtitle:
+                Text('This is item number ${index} in the draggable sheet'),
             trailing: IconButton(
               icon: const Icon(Icons.more_vert),
               onPressed: () {
@@ -317,8 +324,14 @@ class _DraggableScrollableSheetDemoState extends State<DraggableScrollableSheetD
 
   Color _getColorForIndex(int index) {
     final colors = [
-      Colors.red, Colors.blue, Colors.green, Colors.orange,
-      Colors.purple, Colors.teal, Colors.pink, Colors.indigo,
+      Colors.red,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.purple,
+      Colors.teal,
+      Colors.pink,
+      Colors.indigo,
     ];
     return colors[index % colors.length];
   }

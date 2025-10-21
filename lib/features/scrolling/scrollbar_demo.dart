@@ -43,7 +43,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
 
   Widget _buildBasicScrollbar() {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,7 +72,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                            border:
+                                Border.all(color: Colors.grey.withOpacity(0.3)),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Scrollbar(
@@ -89,7 +91,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                                       child: Text('${index + 1}'),
                                     ),
                                     title: Text('Item ${index + 1}'),
-                                    subtitle: Text('Scrollable item ${index + 1}'),
+                                    subtitle:
+                                        Text('Scrollable item ${index + 1}'),
                                   ),
                                 );
                               },
@@ -117,7 +120,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                       Container(
                         height: 200,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                          border:
+                              Border.all(color: Colors.grey.withOpacity(0.3)),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Scrollbar(
@@ -174,7 +178,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
 
   Widget _buildCustomScrollbar() {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -279,7 +284,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
 
   Widget _buildInteractiveScrollbar() {
     return Padding(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -302,7 +308,8 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                 child: GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: DeviceConfiguration.isMobileResolution ? 2 : 3,
+                    crossAxisCount:
+                        DeviceConfiguration.isMobileResolution ? 2 : 3,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                     childAspectRatio: 1.0,
@@ -310,11 +317,17 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                   itemCount: 100,
                   itemBuilder: (context, index) {
                     final colors = [
-                      Colors.red, Colors.blue, Colors.green, Colors.orange,
-                      Colors.purple, Colors.teal, Colors.pink, Colors.indigo,
+                      Colors.red,
+                      Colors.blue,
+                      Colors.green,
+                      Colors.orange,
+                      Colors.purple,
+                      Colors.teal,
+                      Colors.pink,
+                      Colors.indigo,
                     ];
                     final color = colors[index % colors.length];
-                    
+
                     return Card(
                       elevation: 4,
                       child: Container(

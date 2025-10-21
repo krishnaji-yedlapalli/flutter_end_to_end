@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
@@ -33,15 +31,12 @@ import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';
 import 'school_widget_test.mocks.dart';
 
-
 @GenerateMocks([SchoolRepository])
 void main() async {
-
   TestWidgetsFlutterBinding.ensureInitialized();
   setupFirebaseCoreMocks();
 
   group('home widget testing', () {
-
     late MockSchoolRepository mockSchoolRepo;
 
     setUpAll(() async {
@@ -56,23 +51,23 @@ void main() async {
     //   schoolBloc.close();
     // });
 
-    Future<void> pumpSchoolWidgetWithAllDependencies(WidgetTester tester, SchoolBloc schoolBloc,  Size size) async {
-
+    Future<void> pumpSchoolWidgetWithAllDependencies(
+        WidgetTester tester, SchoolBloc schoolBloc, Size size) async {
       final GoRouter goRouter = GoRouter(
         routes: [
           GoRoute(
             path: '/',
             builder: (context, state) => MediaQuery(
-              key: UniqueKey(),
+                key: UniqueKey(),
                 data: MediaQueryData(size: size),
-                child: OrientationBuilder(
-                  builder : (context, orientation) {
-                    DeviceConfiguration.updateDeviceResolutionAndOrientation(MediaQuery.of(context).size, orientation);
-                    return ChangeNotifierProvider(
+                child: OrientationBuilder(builder: (context, orientation) {
+                  DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                      MediaQuery.of(context).size, orientation);
+                  return ChangeNotifierProvider(
                     create: (context) =>
                         CommonProvider(ThemeMode.dark, const Locale('en')),
                     child: BlocProvider(
-                      key: UniqueKey(),
+                        key: UniqueKey(),
                         create: (context) => schoolBloc,
                         child: FeatureDiscovery.withProvider(
                             persistenceProvider: const NoPersistenceProvider(),
@@ -80,8 +75,7 @@ void main() async {
                               return const Schools();
                             }))),
                   );
-    }
-                )), // Replace with your actual widget
+                })), // Replace with your actual widget
           ),
           // Add other routes as needed
         ],
@@ -91,13 +85,13 @@ void main() async {
         key: UniqueKey(),
         routerConfig: goRouter,
         localizationsDelegates: TestConfigurationData.localizationDelegate,
-        supportedLocales: TestConfigurationData.supportedLocales ,
+        supportedLocales: TestConfigurationData.supportedLocales,
       ));
     }
 
     testWidgets('Testing feature discovery', (tester) async {
-
-      await pumpSchoolWidgetWithAllDependencies(tester, SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(tester,
+          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
 
       bool schoolOverlayDismissed = false;
       for (int i = 0; i < 100; i++) {
@@ -123,27 +117,27 @@ void main() async {
     });
 
     testWidgets('Testing with No Schools', (tester) async {
-
       when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
         return Future.value(<SchoolModel>[]);
       });
 
-      await pumpSchoolWidgetWithAllDependencies(tester,  SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(tester,
+          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
       await tester.pumpAndSettle();
 
-      expect(find.text('No Schools Found, Create a new School'),  findsOneWidget);
-
+      expect(
+          find.text('No Schools Found, Create a new School'), findsOneWidget);
     });
 
     testWidgets('Test Existing school flow', (tester) async {
-
       var schoolBloc = SchoolBloc(mockSchoolRepo);
       schoolBloc.isWelcomeMessageShowed = true;
       when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
         return Future.value(SchoolMockData.schools);
       });
 
-      await pumpSchoolWidgetWithAllDependencies(tester, schoolBloc, TestConfigurationData.screenSizes.first);
+      await pumpSchoolWidgetWithAllDependencies(
+          tester, schoolBloc, TestConfigurationData.screenSizes.first);
       await tester.pumpAndSettle();
 
       expect(find.byType(ListTile), findsAtLeast(2));
@@ -160,14 +154,13 @@ void main() async {
     });
 
     testWidgets('Test Different device Resolutions', (tester) async {
-
       for (var size in TestConfigurationData.screenSizes) {
         await tester.binding.setSurfaceSize(size);
         DeviceConfiguration.updateDeviceResolutionAndOrientation(
             size, Orientation.portrait);
 
         var schoolBloc = SchoolBloc(mockSchoolRepo);
-        schoolBloc.isWelcomeMessageShowed =true;
+        schoolBloc.isWelcomeMessageShowed = true;
         SchoolScreenFeatureDiscovery().isCompleted = true;
 
         when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
@@ -177,7 +170,8 @@ void main() async {
         await pumpSchoolWidgetWithAllDependencies(tester, schoolBloc, size);
         await tester.pumpAndSettle();
 
-        await tester.fling(find.byType(ListView), const Offset(0, -8000), 10000);
+        await tester.fling(
+            find.byType(ListView), const Offset(0, -8000), 10000);
         await tester.pumpAndSettle();
 
         expect(find.text('Sanfransico'), findsOneWidget);
@@ -186,6 +180,5 @@ void main() async {
         await tester.pumpAndSettle();
       }
     });
-
-    });
+  });
 }

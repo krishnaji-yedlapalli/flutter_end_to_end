@@ -52,7 +52,7 @@ class ResponsiveSubHeader extends StatelessWidget {
   /// Calculate responsive font size for sub-header
   double _getResponsiveFontSize() {
     double baseSize = baseFontSize ?? 24.0; // Medium-large size
-    
+
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 6.0; // Larger on desktop
@@ -61,14 +61,14 @@ class ResponsiveSubHeader extends StatelessWidget {
     } else if (DeviceConfiguration.isMobilePortrait) {
       baseSize -= 2.0; // Slightly smaller on mobile portrait
     }
-    
+
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
   }
 
   /// Get responsive padding if specified
   EdgeInsets? _getResponsivePadding() {
     if (padding == null) return null;
-    
+
     return EdgeInsets.only(
       left: DeviceConfiguration.getResponsiveSpacing(padding!.left),
       top: DeviceConfiguration.getResponsiveSpacing(padding!.top),

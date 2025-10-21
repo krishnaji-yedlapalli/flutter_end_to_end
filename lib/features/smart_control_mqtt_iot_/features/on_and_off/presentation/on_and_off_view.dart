@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/core/mixins/loaders.dart';
@@ -21,10 +19,16 @@ class _OnAndOffViewState extends State<OnAndOffView> with Loaders {
     return BlocBuilder<OnOffCubit, OnOffState>(
         builder: (context, OnOffState state) {
       if (state is CurrentOnOffState) {
-        if(state.status) {
-          return Center(child: ElevatedButton(onPressed: ()=> context.read<OnOffCubit>().off(), child: const Text('Off')));
-        }else{
-          return Center(child: ElevatedButton(onPressed: ()=> context.read<OnOffCubit>().on(), child: const Text('On')));
+        if (state.status) {
+          return Center(
+              child: ElevatedButton(
+                  onPressed: () => context.read<OnOffCubit>().off(),
+                  child: const Text('Off')));
+        } else {
+          return Center(
+              child: ElevatedButton(
+                  onPressed: () => context.read<OnOffCubit>().on(),
+                  child: const Text('On')));
         }
       } else {
         return circularLoader();

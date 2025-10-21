@@ -30,10 +30,14 @@ class CustomDropDown<T> extends StatelessWidget {
       onChanged: onChanged,
       value: value,
       validator: validator,
-      style: TextStyle(fontSize: DeviceConfiguration.getResponsiveFontSize(14), fontWeight: FontWeight.w100, color: Colors.black),
+      style: TextStyle(
+          fontSize: DeviceConfiguration.getResponsiveFontSize(14),
+          fontWeight: FontWeight.w100,
+          color: Colors.black),
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
-        contentPadding: DeviceConfiguration.getResponsivePadding(horizontal: 12, vertical: 12),
+        contentPadding: DeviceConfiguration.getResponsivePadding(
+            horizontal: 12, vertical: 12),
       ),
     );
   }

@@ -17,7 +17,8 @@ class SliverListDemo extends StatelessWidget {
           // Info header
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -35,7 +36,9 @@ class SliverListDemo extends StatelessWidget {
                           Text(
                             'SliverList',
                             style: TextStyle(
-                              fontSize: DeviceConfiguration.isMobileResolution ? 20 : 24,
+                              fontSize: DeviceConfiguration.isMobileResolution
+                                  ? 20
+                                  : 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -60,7 +63,8 @@ class SliverListDemo extends StatelessWidget {
               (context, index) {
                 return Card(
                   margin: EdgeInsets.symmetric(
-                    horizontal: DeviceConfiguration.isMobileResolution ? 16 : 24,
+                    horizontal:
+                        DeviceConfiguration.isMobileResolution ? 16 : 24,
                     vertical: 4,
                   ),
                   child: ListTile(
@@ -74,7 +78,9 @@ class SliverListDemo extends StatelessWidget {
                       icon: const Icon(Icons.info_outline),
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Builder item ${index + 1} tapped')),
+                          SnackBar(
+                              content:
+                                  Text('Builder item ${index + 1} tapped')),
                         );
                       },
                     ),
@@ -89,11 +95,16 @@ class SliverListDemo extends StatelessWidget {
           _buildSectionHeader('SliverChildListDelegate'),
           SliverList(
             delegate: SliverChildListDelegate([
-              _buildListItem('Fixed Item 1', 'Pre-built widget', Colors.green, Icons.star),
-              _buildListItem('Fixed Item 2', 'All widgets created upfront', Colors.orange, Icons.favorite),
-              _buildListItem('Fixed Item 3', 'Good for small lists', Colors.purple, Icons.thumb_up),
-              _buildListItem('Fixed Item 4', 'Less memory efficient', Colors.red, Icons.warning),
-              _buildListItem('Fixed Item 5', 'Simple to implement', Colors.teal, Icons.check_circle),
+              _buildListItem(
+                  'Fixed Item 1', 'Pre-built widget', Colors.green, Icons.star),
+              _buildListItem('Fixed Item 2', 'All widgets created upfront',
+                  Colors.orange, Icons.favorite),
+              _buildListItem('Fixed Item 3', 'Good for small lists',
+                  Colors.purple, Icons.thumb_up),
+              _buildListItem('Fixed Item 4', 'Less memory efficient',
+                  Colors.red, Icons.warning),
+              _buildListItem('Fixed Item 5', 'Simple to implement', Colors.teal,
+                  Icons.check_circle),
             ]),
           ),
 
@@ -108,7 +119,8 @@ class SliverListDemo extends StatelessWidget {
               (context, index) {
                 return Card(
                   margin: EdgeInsets.symmetric(
-                    horizontal: DeviceConfiguration.isMobileResolution ? 16 : 24,
+                    horizontal:
+                        DeviceConfiguration.isMobileResolution ? 16 : 24,
                     vertical: 4,
                   ),
                   child: ListTile(
@@ -142,7 +154,8 @@ class SliverListDemo extends StatelessWidget {
           // Performance comparison section
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 color: Colors.blue.withOpacity(0.05),
                 child: Padding(
@@ -169,9 +182,12 @@ class SliverListDemo extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      _buildComparisonRow('SliverChildBuilderDelegate', 'Lazy loading', 'High', Colors.green),
-                      _buildComparisonRow('SliverChildListDelegate', 'Pre-built widgets', 'Medium', Colors.orange),
-                      _buildComparisonRow('SliverPrototypeExtentList', 'Optimized heights', 'High', Colors.green),
+                      _buildComparisonRow('SliverChildBuilderDelegate',
+                          'Lazy loading', 'High', Colors.green),
+                      _buildComparisonRow('SliverChildListDelegate',
+                          'Pre-built widgets', 'Medium', Colors.orange),
+                      _buildComparisonRow('SliverPrototypeExtentList',
+                          'Optimized heights', 'High', Colors.green),
                     ],
                   ),
                 ),
@@ -182,7 +198,8 @@ class SliverListDemo extends StatelessWidget {
           // Code examples section
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+              padding: EdgeInsets.all(
+                  DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -210,21 +227,21 @@ class SliverListDemo extends StatelessWidget {
                       _buildCodeExample(
                         'SliverChildBuilderDelegate',
                         'SliverList(\n'
-                        '  delegate: SliverChildBuilderDelegate(\n'
-                        '    (context, index) => ListTile(...),\n'
-                        '    childCount: 100,\n'
-                        '  ),\n'
-                        ')',
+                            '  delegate: SliverChildBuilderDelegate(\n'
+                            '    (context, index) => ListTile(...),\n'
+                            '    childCount: 100,\n'
+                            '  ),\n'
+                            ')',
                       ),
                       const SizedBox(height: 12),
                       _buildCodeExample(
                         'SliverChildListDelegate',
                         'SliverList(\n'
-                        '  delegate: SliverChildListDelegate([\n'
-                        '    ListTile(...),\n'
-                        '    ListTile(...),\n'
-                        '  ]),\n'
-                        ')',
+                            '  delegate: SliverChildListDelegate([\n'
+                            '    ListTile(...),\n'
+                            '    ListTile(...),\n'
+                            '  ]),\n'
+                            ')',
                       ),
                     ],
                   ),
@@ -260,7 +277,8 @@ class SliverListDemo extends StatelessWidget {
     );
   }
 
-  Widget _buildListItem(String title, String subtitle, Color color, IconData icon) {
+  Widget _buildListItem(
+      String title, String subtitle, Color color, IconData icon) {
     return Card(
       margin: EdgeInsets.symmetric(
         horizontal: DeviceConfiguration.isMobileResolution ? 16 : 24,
@@ -291,7 +309,8 @@ class SliverListDemo extends StatelessWidget {
     );
   }
 
-  Widget _buildComparisonRow(String delegate, String description, String performance, Color color) {
+  Widget _buildComparisonRow(
+      String delegate, String description, String performance, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(

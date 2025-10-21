@@ -17,17 +17,11 @@ class LayoutExamplesSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildGridLayouts(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildCardLayouts(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildListLayouts(),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(24)),
-          
           _buildResponsiveSpacing(),
         ],
       ),
@@ -40,9 +34,7 @@ class LayoutExamplesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Responsive Grids'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -59,9 +51,7 @@ class LayoutExamplesSection extends StatelessWidget {
                 'Grid adapts: ${DeviceConfiguration.getGridColumnCount()} columns on current device',
                 fontWeight: FontWeight.w500,
               ),
-              
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -95,9 +85,9 @@ class LayoutExamplesSection extends StatelessWidget {
                             size: DeviceConfiguration.getResponsiveIconSize(24),
                             color: Colors.blue[600],
                           ),
-                          
-                          SizedBox(height: DeviceConfiguration.getResponsiveSpacing(4)),
-                          
+                          SizedBox(
+                              height:
+                                  DeviceConfiguration.getResponsiveSpacing(4)),
                           ResponsiveSmallText(
                             'Item ${index + 1}',
                             fontWeight: FontWeight.w500,
@@ -112,9 +102,7 @@ class LayoutExamplesSection extends StatelessWidget {
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Responsive Grid', '''
 GridView.builder(
   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -134,17 +122,18 @@ GridView.builder(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Responsive Cards'),
-        
+
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
+
         // Determine layout based on screen size
-        if (DeviceConfiguration.isDesktopResolution || DeviceConfiguration.isTabletLandscape)
+        if (DeviceConfiguration.isDesktopResolution ||
+            DeviceConfiguration.isTabletLandscape)
           _buildHorizontalCards()
         else
           _buildVerticalCards(),
-        
+
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
+
         _buildCodeExample('Responsive Cards', '''
 // Layout adapts based on screen size
 if (DeviceConfiguration.isDesktopResolution) {
@@ -211,21 +200,15 @@ if (DeviceConfiguration.isDesktopResolution) {
                 size: DeviceConfiguration.getResponsiveIconSize(24),
                 color: Colors.blue[600],
               ),
-              
               SizedBox(width: DeviceConfiguration.getResponsiveSpacing(8)),
-              
               ResponsiveTitle(title),
             ],
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-          
           const ResponsiveText(
             'This card adapts its layout based on the available screen space and device type.',
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-          
           AdaptiveResponsiveCompactButton(
             text: 'Action',
             onPressed: () {},
@@ -242,9 +225,7 @@ if (DeviceConfiguration.isDesktopResolution) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Responsive Lists'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -258,16 +239,16 @@ if (DeviceConfiguration.isDesktopResolution) {
             children: List.generate(3, (index) {
               return Padding(
                 padding: EdgeInsets.only(
-                  bottom: index < 2 ? DeviceConfiguration.getResponsiveSpacing(12) : 0,
+                  bottom: index < 2
+                      ? DeviceConfiguration.getResponsiveSpacing(12)
+                      : 0,
                 ),
                 child: _buildListItem('List Item ${index + 1}', Icons.list),
               );
             }),
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Responsive Lists', '''
 ListView.separated(
   padding: DeviceConfiguration.getResponsivePadding(base: 16),
@@ -298,9 +279,7 @@ ListView.separated(
             size: DeviceConfiguration.getResponsiveIconSize(20),
             color: Colors.blue[600],
           ),
-          
           SizedBox(width: DeviceConfiguration.getResponsiveSpacing(12)),
-          
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,9 +288,7 @@ ListView.separated(
                   title,
                   fontWeight: FontWeight.w500,
                 ),
-                
                 SizedBox(height: DeviceConfiguration.getResponsiveSpacing(4)),
-                
                 ResponsiveSmallText(
                   'Responsive list item with adaptive spacing',
                   color: Colors.grey[600],
@@ -319,7 +296,6 @@ ListView.separated(
               ],
             ),
           ),
-          
           AdaptiveResponsiveIconButton(
             icon: Icons.arrow_forward_ios,
             onPressed: () {},
@@ -335,9 +311,7 @@ ListView.separated(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveSubHeader('Responsive Spacing'),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
-        
         Container(
           padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
           decoration: BoxDecoration(
@@ -354,15 +328,11 @@ ListView.separated(
                 'Spacing adapts to screen size:',
                 fontWeight: FontWeight.w500,
               ),
-              
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
               _buildSpacingExample('Small spacing', 8.0),
               _buildSpacingExample('Medium spacing', 16.0),
               _buildSpacingExample('Large spacing', 24.0),
-              
               SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-              
               ResponsiveSmallText(
                 'Current scale factor: ${DeviceConfiguration.getResponsiveScaleFactor().toStringAsFixed(2)}',
                 color: Colors.green[700],
@@ -371,9 +341,7 @@ ListView.separated(
             ],
           ),
         ),
-        
         SizedBox(height: DeviceConfiguration.getResponsiveSpacing(12)),
-        
         _buildCodeExample('Responsive Spacing', '''
 // Spacing automatically scales with device type
 SizedBox(height: DeviceConfiguration.getResponsiveSpacing(16)),
@@ -386,7 +354,7 @@ padding: DeviceConfiguration.getResponsivePadding(base: 16),'''),
   /// Build spacing example widget
   Widget _buildSpacingExample(String label, double baseSpacing) {
     final actualSpacing = DeviceConfiguration.getResponsiveSpacing(baseSpacing);
-    
+
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: DeviceConfiguration.getResponsiveSpacing(4),
@@ -401,9 +369,7 @@ padding: DeviceConfiguration.getResponsivePadding(base: 16),'''),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          
           SizedBox(width: DeviceConfiguration.getResponsiveSpacing(12)),
-          
           ResponsiveSmallText(
             '$label: ${actualSpacing.toStringAsFixed(1)}px',
             fontWeight: FontWeight.w500,
@@ -431,9 +397,7 @@ padding: DeviceConfiguration.getResponsivePadding(base: 16),'''),
             color: Colors.green[300],
             fontWeight: FontWeight.w600,
           ),
-          
           SizedBox(height: DeviceConfiguration.getResponsiveSpacing(8)),
-          
           ResponsiveSmallText(
             code,
             color: Colors.grey[300],

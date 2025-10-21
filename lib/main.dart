@@ -10,7 +10,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
-import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
@@ -57,12 +56,12 @@ void main() async {
     return true;
   };
 
-  if(kIsWeb || !Platform.isLinux){
+  if (kIsWeb || !Platform.isLinux) {
     await Firebase.initializeApp(
       options: PushNotificationService.currentPlatform,
     );
     DbConfigurationsByDev().loadSavedData();
-    if(!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
+    if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
   }
 
   Dart3Features('krishna', 'yedlapalli');
@@ -132,12 +131,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ),
         ],
         child: Builder(builder: (context) {
-          return DeviceConfigurationProvider(
-            child: OrientationBuilder(builder: (context, orientation) {
+          return DeviceConfigurationProvider(child: OrientationBuilder(
+            builder: (context, orientation) {
               DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                  MediaQuery
-                      .of(context)
-                      .size, orientation, MediaQuery.of(context).devicePixelRatio);
+                  MediaQuery.of(context).size,
+                  orientation,
+                  MediaQuery.of(context).devicePixelRatio);
               return GlobalLoaderOverlay(
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
@@ -150,9 +149,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     // }
                     return locale;
                   },
-                  locale: context
-                      .watch<CommonProvider>()
-                      .locale,
+                  locale: context.watch<CommonProvider>().locale,
                   // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
                   // backButtonDispatcher: () => ,
                   localizationsDelegates: const [
@@ -173,23 +170,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     var data = MediaQuery.of(context);
                     return MediaQuery(
                         data: data.copyWith(
-                          textScaler: TextScaler.linear(data.textScaleFactor),
+                          textScaler:
+                              TextScaler.linear(data.textScaler.scale(1)),
                         ),
                         child: child ?? Container());
                   },
                   theme: CustomTheme.lightThemeData(context),
                   darkTheme: CustomTheme.darkThemeData(),
-                  themeMode: context
-                      .watch<CommonProvider>()
-                      .themeModeType,
+                  themeMode: context.watch<CommonProvider>().themeModeType,
                   routerConfig: Routing.router,
                 ),
               );
             },
-             )
-          );
-          }
-        ),
+          ));
+        }),
       ),
     );
   }

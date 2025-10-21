@@ -40,8 +40,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
           '${_smartControlModel.deviceId}${MqttConstants.status}',
           MqttQos.atMostOnce);
       _mqttServerClient.subscribe(
-          '${_smartControlModel.deviceId}${MqttConstants
-              .deviceConnectionStatus}',
+          '${_smartControlModel.deviceId}${MqttConstants.deviceConnectionStatus}',
           MqttQos.atMostOnce);
       _mqttServerClient.subscribe(
           '${_smartControlModel.deviceId}${MqttConstants.setAutoManualStatus}',
@@ -55,7 +54,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
         final recMess = c[0].payload as MqttPublishMessage;
         final topic = c[0].topic;
         final payload =
-        MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+            MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
         print('##** payload : $payload');
         if (_smartControlModel.deviceId == topic.split('/')[0]) {
@@ -68,31 +67,28 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
           }
 
           if (topic.contains(
-              '${_smartControlModel.deviceId}${MqttConstants
-                  .deviceConnectionStatus}')) {
+              '${_smartControlModel.deviceId}${MqttConstants.deviceConnectionStatus}')) {
             final status = payload == MqttConstants.onlineStatus ? true : false;
             _smartControlModel.isDeviceUnReachable = !status;
             emit(SmartDeviceLoaded(_smartControlModel, isDisabled: !status));
           }
 
           if (topic.contains(
-              '${_smartControlModel.deviceId}${MqttConstants
-                  .setAutoManualStatus}')) {
+              '${_smartControlModel.deviceId}${MqttConstants.setAutoManualStatus}')) {
             _smartControlModel.isDeviceUnReachable = false;
             _smartControlModel.isAuto =
-            MqttConstants.autoStatus == payload ? true : false;
+                MqttConstants.autoStatus == payload ? true : false;
             emit(SmartDeviceLoaded(_smartControlModel));
           }
 
           if (topic.contains(
-              '${_smartControlModel.deviceId}${MqttConstants
-                  .updateTimeStatusToClient}')) {
+              '${_smartControlModel.deviceId}${MqttConstants.updateTimeStatusToClient}')) {
             _smartControlModel.time = int.parse(payload);
             emit(SmartDeviceLoaded(_smartControlModel));
           }
         }
       });
-    }catch(e,s){
+    } catch (e, s) {
       _smartControlModel.isDeviceUnReachable = true;
       emit(SmartDeviceLoaded(_smartControlModel, isDisabled: true));
       return;
@@ -102,7 +98,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
     if (_smartControlModel.isDeviceUnReachable) {
       _requestStatus();
       await Future.delayed(const Duration(seconds: 5));
-      if(_smartControlModel.isDeviceUnReachable) {
+      if (_smartControlModel.isDeviceUnReachable) {
         emit(SmartDeviceLoaded(_smartControlModel, isDisabled: true));
       }
     }
@@ -127,7 +123,8 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
     } else {
       builder.addString('ON');
     }
-    print('##** On selection of smart tile : ${builder.payload} , smart control status : ${_smartControlModel.isEngaged}');
+    print(
+        '##** On selection of smart tile : ${builder.payload} , smart control status : ${_smartControlModel.isEngaged}');
     _mqttServerClient.publishMessage(
         '${_smartControlModel.deviceId}${MqttConstants.controlDevice}',
         MqttQos.atMostOnce,
@@ -140,12 +137,13 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
 
     final builder = MqttClientPayloadBuilder();
 
-    if(_smartControlModel.isAuto){
+    if (_smartControlModel.isAuto) {
       builder.addString(MqttConstants.manualStatus);
-    }else{
+    } else {
       builder.addString(MqttConstants.autoStatus);
     }
-    print('##** On selection of Auto or Manual : ${builder.payload} , smart control status : ${_smartControlModel.isAuto}');
+    print(
+        '##** On selection of Auto or Manual : ${builder.payload} , smart control status : ${_smartControlModel.isAuto}');
     _mqttServerClient.publishMessage(
         '${_smartControlModel.deviceId}${MqttConstants.controlAutoManualStatus}',
         MqttQos.atMostOnce,
@@ -158,13 +156,12 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
 
     final builder = MqttClientPayloadBuilder();
 
-    var body = jsonEncode({
-      'time' : time
-    });
+    var body = jsonEncode({'time': time});
 
-      builder.addString(body);
+    builder.addString(body);
 
-    print('##** On selection of settings : ${builder.payload} , settings : time');
+    print(
+        '##** On selection of settings : ${builder.payload} , settings : time');
     _mqttServerClient.publishMessage(
         '${_smartControlModel.deviceId}${MqttConstants.updateSettings}',
         MqttQos.atMostOnce,

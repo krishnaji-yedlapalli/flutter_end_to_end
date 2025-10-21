@@ -33,24 +33,48 @@ class SchoolMockData {
   ];
 
   static final students = [
-    StudentModel('321', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('234', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('654', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('789', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('234', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('654', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('123', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('765', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('77', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('345', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('87543', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('234', '123', 'john', 'texas', 'LKG', 1234567, updatedDate: 432211),
-    StudentModel('987', '123', 'Ramesh', 'texas', 'LKG', 1234567, updatedDate: 432211),
+    StudentModel('321', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('234', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('654', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('789', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('234', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('654', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('123', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('765', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('77', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('345', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('87543', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('234', '123', 'john', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
+    StudentModel('987', '123', 'Ramesh', 'texas', 'LKG', 1234567,
+        updatedDate: 432211),
   ];
 
-  static final individualStudent = StudentModel('87905', '123', 'David', 'texas', 'LKG', 1234567, updatedDate: 432211);
+  static final individualStudent = StudentModel(
+      '87905', '123', 'David', 'texas', 'LKG', 1234567,
+      updatedDate: 432211);
 
-  static final schoolDetails = SchoolDetailsModel('123', 'Oxford', 'India', 'Noida', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Monroe_Township_High_School_Front_View.jpg', 1200, 50, false, 1718168534634);
+  static final schoolDetails = SchoolDetailsModel(
+      '123',
+      'Oxford',
+      'India',
+      'Noida',
+      'https://upload.wikimedia.org/wikipedia/commons/c/ce/Monroe_Township_High_School_Front_View.jpg',
+      1200,
+      50,
+      false,
+      1718168534634);
 
   static final schoolsJson = {
     "160eeb80b9441071a5ac59e962588b3e": {

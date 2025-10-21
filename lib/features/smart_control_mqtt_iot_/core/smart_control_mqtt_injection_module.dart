@@ -13,7 +13,7 @@ class SmartControlMqttInjectionModule {
   SmartControlMqttInjectionModule._(); // Private constructor to enforce singleton
 
   static final SmartControlMqttInjectionModule _instance =
-  SmartControlMqttInjectionModule._();
+      SmartControlMqttInjectionModule._();
 
   factory SmartControlMqttInjectionModule() => _instance;
 
@@ -31,29 +31,34 @@ class SmartControlMqttInjectionModule {
   }
 
   void _registerRepositories() {
-    injector
-      .registerFactory<SmartDeviceControlRepository>(
-          () => SmartDeviceControlRepositoryImpl(injector()));
+    injector.registerFactory<SmartDeviceControlRepository>(
+        () => SmartDeviceControlRepositoryImpl(injector()));
   }
 
   void _registerUseCases() {
     injector
-      ..registerFactory<SmartDeviceStatusUseCase>(() => SmartDeviceStatusUseCase(injector()))
+      ..registerFactory<SmartDeviceStatusUseCase>(
+          () => SmartDeviceStatusUseCase(injector()))
       ..registerFactory<SmartDeviceControlUseCase>(
           () => SmartDeviceControlUseCase(injector()));
   }
 
   void _registerBlocs() {
-    injector
-      .registerFactoryParam<SmartControlMqttDashboardCubit, MqttServerClient, void>((mqttServerClient, _) => SmartControlMqttDashboardCubit(injector(), injector(), mqttServerClient));
-    injector.registerFactoryParam<SmartDeviceMqttControlCubit, SmartControlMqttModel, MqttServerClient>((smartControl, mqtt)=> SmartDeviceMqttControlCubit(injector(), injector(), smartControl, mqtt));
+    injector.registerFactoryParam<SmartControlMqttDashboardCubit,
+            MqttServerClient, void>(
+        (mqttServerClient, _) => SmartControlMqttDashboardCubit(
+            injector(), injector(), mqttServerClient));
+    injector.registerFactoryParam<SmartDeviceMqttControlCubit,
+            SmartControlMqttModel, MqttServerClient>(
+        (smartControl, mqtt) => SmartDeviceMqttControlCubit(
+            injector(), injector(), smartControl, mqtt));
   }
 
   void unRegisterDependencies() {
     // Unregister Blocs
     injector
       ..unregister<SmartControlMqttDashboardCubit>()
-    ..unregister<SmartDeviceMqttControlCubit>();
+      ..unregister<SmartDeviceMqttControlCubit>();
 
     // Unregister Use Cases
     injector
@@ -61,8 +66,7 @@ class SmartControlMqttInjectionModule {
       ..unregister<SmartDeviceControlUseCase>();
 
     // Unregister Repositories
-    injector
-      .unregister<SmartDeviceControlRepository>();
+    injector.unregister<SmartDeviceControlRepository>();
 
     // Unregister Services
     injector.unregister<BaseService>();

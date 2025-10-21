@@ -26,7 +26,8 @@ class ServerInitializeWrapper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ServerInitializeWrapper> createState() => _ServerInitializeWrapperState();
+  State<ServerInitializeWrapper> createState() =>
+      _ServerInitializeWrapperState();
 }
 
 class _ServerInitializeWrapperState extends State<ServerInitializeWrapper> {
@@ -76,23 +77,25 @@ class _ServerInitializeWrapperState extends State<ServerInitializeWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? widget.child : FutureBuilder<void>(
-      future: Future.value(), // Server is initialized in initState
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Error initializing server: ${snapshot.error}'),
-          );
-        }
+    return kIsWeb
+        ? widget.child
+        : FutureBuilder<void>(
+            future: Future.value(), // Server is initialized in initState
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error initializing server: ${snapshot.error}'),
+                );
+              }
 
-        if (!_isInitialized) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+              if (!_isInitialized) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-        return widget.child;
-      },
-    );
+              return widget.child;
+            },
+          );
   }
 }

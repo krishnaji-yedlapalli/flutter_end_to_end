@@ -25,23 +25,22 @@ class AdaptiveResponsiveIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // Calculate responsive icon size
     final responsiveIconSize = _getResponsiveIconSize();
-    
+
     // Calculate responsive padding
     final responsivePadding = _getResponsivePadding();
 
     Widget button = DeviceConfiguration.useCupertinoDesign
         ? _buildCupertinoIconButton(responsiveIconSize, responsivePadding)
-        : _buildMaterialIconButton(context, responsiveIconSize, responsivePadding);
+        : _buildMaterialIconButton(
+            context, responsiveIconSize, responsivePadding);
 
-    return tooltip != null
-        ? Tooltip(message: tooltip!, child: button)
-        : button;
+    return tooltip != null ? Tooltip(message: tooltip!, child: button) : button;
   }
 
   /// Calculate responsive icon size based on device type
   double _getResponsiveIconSize() {
     double baseSize = baseIconSize ?? 24.0;
-    
+
     // Device-specific icon size adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       baseSize += 4.0; // Larger icons on desktop
@@ -50,7 +49,7 @@ class AdaptiveResponsiveIconButton extends StatelessWidget {
     } else if (DeviceConfiguration.isMobilePortrait) {
       baseSize -= 2.0; // Slightly smaller on mobile portrait
     }
-    
+
     return DeviceConfiguration.getResponsiveIconSize(baseSize);
   }
 
@@ -66,14 +65,14 @@ class AdaptiveResponsiveIconButton extends StatelessWidget {
     }
 
     double basePaddingValue = 8.0;
-    
+
     // Device-specific padding adjustments
     if (DeviceConfiguration.isDesktopResolution) {
       basePaddingValue += 4.0;
     } else if (DeviceConfiguration.isTabResolution) {
       basePaddingValue += 2.0;
     }
-    
+
     return DeviceConfiguration.getResponsivePadding(base: basePaddingValue);
   }
 
@@ -84,7 +83,7 @@ class AdaptiveResponsiveIconButton extends StatelessWidget {
       padding: padding,
       minSize: iconSize + padding.vertical,
       child: Icon(
-        icon, 
+        icon,
         size: iconSize,
         color: isPrimary ? CupertinoColors.activeBlue : null,
       ),
@@ -92,7 +91,8 @@ class AdaptiveResponsiveIconButton extends StatelessWidget {
   }
 
   /// Build Material icon button
-  Widget _buildMaterialIconButton(BuildContext context, double iconSize, EdgeInsets padding) {
+  Widget _buildMaterialIconButton(
+      BuildContext context, double iconSize, EdgeInsets padding) {
     return IconButton(
       onPressed: onPressed,
       icon: Icon(icon, size: iconSize),

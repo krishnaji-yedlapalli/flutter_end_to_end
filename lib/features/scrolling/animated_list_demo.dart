@@ -19,9 +19,16 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
     super.initState();
     // Add initial items
     _items.addAll([
-      ListItem(id: _nextId++, title: 'Welcome Item', subtitle: 'This is the first item'),
-      ListItem(id: _nextId++, title: 'Sample Task', subtitle: 'Complete the demo'),
-      ListItem(id: _nextId++, title: 'Another Item', subtitle: 'Try adding and removing items'),
+      ListItem(
+          id: _nextId++,
+          title: 'Welcome Item',
+          subtitle: 'This is the first item'),
+      ListItem(
+          id: _nextId++, title: 'Sample Task', subtitle: 'Complete the demo'),
+      ListItem(
+          id: _nextId++,
+          title: 'Another Item',
+          subtitle: 'Try adding and removing items'),
     ]);
   }
 
@@ -60,7 +67,8 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
 
   Widget _buildInfoCard() {
     return Container(
-      margin: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      margin:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -132,7 +140,8 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
     );
   }
 
-  Widget _buildAnimatedItem(ListItem item, Animation<double> animation, int index) {
+  Widget _buildAnimatedItem(
+      ListItem item, Animation<double> animation, int index) {
     return SlideTransition(
       position: animation.drive(
         Tween<Offset>(
@@ -236,11 +245,24 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
 
   void _addRandomItem() {
     final titles = [
-      'Task', 'Meeting', 'Call', 'Email', 'Project', 'Review', 'Update', 'Report'
+      'Task',
+      'Meeting',
+      'Call',
+      'Email',
+      'Project',
+      'Review',
+      'Update',
+      'Report'
     ];
     final subtitles = [
-      'High priority', 'Due today', 'Follow up required', 'In progress',
-      'Completed', 'Pending review', 'Urgent', 'Low priority'
+      'High priority',
+      'Due today',
+      'Follow up required',
+      'In progress',
+      'Completed',
+      'Pending review',
+      'Urgent',
+      'Low priority'
     ];
 
     final newItem = ListItem(
@@ -273,7 +295,7 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
   void _removeItem(int index) {
     if (index >= 0 && index < _items.length) {
       final removedItem = _items.removeAt(index);
-      
+
       _listKey.currentState?.removeItem(
         index,
         (context, animation) => _buildRemovedItem(removedItem, animation),
@@ -291,7 +313,8 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
     if (_items.isEmpty) return;
 
     for (int i = _items.length - 1; i >= 0; i--) {
-      Future.delayed(Duration(milliseconds: ((_items.length - 1 - i) * 100)), () {
+      Future.delayed(Duration(milliseconds: ((_items.length - 1 - i) * 100)),
+          () {
         if (mounted && _items.isNotEmpty) {
           _removeItem(_items.length - 1);
         }
@@ -303,8 +326,10 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
     showDialog(
       context: context,
       builder: (context) {
-        final titleController = TextEditingController(text: _items[index].title);
-        final subtitleController = TextEditingController(text: _items[index].subtitle);
+        final titleController =
+            TextEditingController(text: _items[index].title);
+        final subtitleController =
+            TextEditingController(text: _items[index].subtitle);
 
         return AlertDialog(
           title: const Text('Edit Item'),
@@ -401,8 +426,14 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
 
   Color _getColorForId(int id) {
     final colors = [
-      Colors.blue, Colors.green, Colors.orange, Colors.purple,
-      Colors.red, Colors.teal, Colors.pink, Colors.indigo,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.purple,
+      Colors.red,
+      Colors.teal,
+      Colors.pink,
+      Colors.indigo,
     ];
     return colors[id % colors.length];
   }

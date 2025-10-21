@@ -38,14 +38,19 @@ class SmartControlTile extends StatelessWidget with Loaders, CustomDialogs {
                   baseColor: Colors.black12,
                   highlightColor: Colors.white,
                   enabled: state.isShimmerEffectRequired,
-                  child: SmartDeviceCard(smartControl: state.smartDevice, isDisabled: state.isDisabled, isShimmerEffectRequired: state.isShimmerEffectRequired)
-              );
+                  child: SmartDeviceCard(
+                      smartControl: state.smartDevice,
+                      isDisabled: state.isDisabled,
+                      isShimmerEffectRequired: state.isShimmerEffectRequired));
             } else {
               return SmartDeviceCard(
                 smartControl: state.smartDevice,
                 isDisabled: state.isDisabled,
-                onToggleAutoManual: context.read<SmartDeviceMqttControlCubit>().onSelectionOfAutoOrManual,
-                onSettingsPressed: () => onSettingsPressed(context, state.smartDevice),
+                onToggleAutoManual: context
+                    .read<SmartDeviceMqttControlCubit>()
+                    .onSelectionOfAutoOrManual,
+                onSettingsPressed: () =>
+                    onSettingsPressed(context, state.smartDevice),
               );
             }
           } else {
@@ -56,7 +61,8 @@ class SmartControlTile extends StatelessWidget with Loaders, CustomDialogs {
     );
   }
 
-  void onSettingsPressed(BuildContext context, SmartControlMqttModel smartControl) {
+  void onSettingsPressed(
+      BuildContext context, SmartControlMqttModel smartControl) {
     adaptiveDialog(context, SmartDeviceSetting(context, smartControl));
   }
 }

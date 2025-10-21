@@ -37,8 +37,8 @@ class ConnectivityHandler {
   }
 
   void _connectivityListener() {
-    _subscription =
-        _connectivity.onConnectivityChanged.listen((List<ConnectivityResult> result) {
+    _subscription = _connectivity.onConnectivityChanged
+        .listen((List<ConnectivityResult> result) {
       late bool currentState;
       if (result == ConnectivityResult.none) {
         currentState = false;

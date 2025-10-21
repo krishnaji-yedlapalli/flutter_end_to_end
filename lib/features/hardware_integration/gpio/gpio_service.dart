@@ -69,7 +69,8 @@ class GpioService {
     if (!_pinStreamControllers.containsKey(pinNumber)) {
       final gpio = _openGpios[pinNumber];
       if (gpio == null || gpio.getGPIOdirection() != GPIOdirection.gpioDirIn) {
-        throw Exception('GPIO pin $pinNumber must be opened as input before listening.');
+        throw Exception(
+            'GPIO pin $pinNumber must be opened as input before listening.');
       }
       final controller = StreamController<bool>.broadcast();
       _pinStreamControllers[pinNumber] = controller;

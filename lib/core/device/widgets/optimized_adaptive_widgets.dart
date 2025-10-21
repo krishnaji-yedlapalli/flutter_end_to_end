@@ -71,7 +71,7 @@ class OptimizedAdaptiveContainer extends StatelessWidget {
   /// Uses cached screen width instead of MediaQuery
   double _getCachedWidth() {
     final screenWidth = DeviceConfiguration.screenWidth;
-    
+
     if (DeviceConfiguration.isMobileResolution) {
       return screenWidth * mobileWidth;
     } else if (DeviceConfiguration.isTabResolution) {
@@ -84,7 +84,8 @@ class OptimizedAdaptiveContainer extends StatelessWidget {
 
 /// Optimized LayoutBuilder that only rebuilds when device type changes
 class OptimizedAdaptiveLayoutBuilder extends StatefulWidget {
-  final Widget Function(BuildContext context, DeviceResolutionType deviceType) builder;
+  final Widget Function(BuildContext context, DeviceResolutionType deviceType)
+      builder;
 
   const OptimizedAdaptiveLayoutBuilder({
     Key? key,
@@ -92,23 +93,25 @@ class OptimizedAdaptiveLayoutBuilder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OptimizedAdaptiveLayoutBuilder> createState() => _OptimizedAdaptiveLayoutBuilderState();
+  State<OptimizedAdaptiveLayoutBuilder> createState() =>
+      _OptimizedAdaptiveLayoutBuilderState();
 }
 
-class _OptimizedAdaptiveLayoutBuilderState extends State<OptimizedAdaptiveLayoutBuilder> {
+class _OptimizedAdaptiveLayoutBuilderState
+    extends State<OptimizedAdaptiveLayoutBuilder> {
   DeviceResolutionType? _lastDeviceType;
   Widget? _cachedWidget;
 
   @override
   Widget build(BuildContext context) {
     final currentDeviceType = DeviceConfiguration.resolutionType;
-    
+
     // Only rebuild if device type actually changed
     if (_lastDeviceType != currentDeviceType || _cachedWidget == null) {
       _cachedWidget = widget.builder(context, currentDeviceType);
       _lastDeviceType = currentDeviceType;
     }
-    
+
     return _cachedWidget!;
   }
 }
@@ -116,7 +119,7 @@ class _OptimizedAdaptiveLayoutBuilderState extends State<OptimizedAdaptiveLayout
 /// Mixin for widgets that need to respond to device type changes efficiently
 mixin OptimizedDeviceAware<T extends StatefulWidget> on State<T> {
   DeviceResolutionType? _lastDeviceType;
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

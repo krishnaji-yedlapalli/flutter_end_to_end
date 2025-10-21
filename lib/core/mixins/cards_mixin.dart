@@ -15,19 +15,23 @@ mixin CardWidgetsMixin {
           key: key,
           onTap: callback,
           customBorder: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                  Radius.circular(DeviceConfiguration.getResponsiveSpacing(ResponsiveConstants.cardPadding)))),
+              borderRadius: BorderRadius.all(Radius.circular(
+                  DeviceConfiguration.getResponsiveSpacing(
+                      ResponsiveConstants.cardPadding)))),
           child: Container(
-              padding: DeviceConfiguration.getResponsivePadding(base: ResponsiveConstants.cardPadding),
+              padding: DeviceConfiguration.getResponsivePadding(
+                  base: ResponsiveConstants.cardPadding),
               alignment: Alignment.topLeft,
               child: Wrap(
-                runSpacing: DeviceConfiguration.getResponsiveSpacing(ResponsiveConstants.tinySpacing),
+                runSpacing: DeviceConfiguration.getResponsiveSpacing(
+                    ResponsiveConstants.tinySpacing),
                 children: [
                   Row(
                     children: [
                       Icon(
                         icon,
-                        size: DeviceConfiguration.getResponsiveIconSize(ResponsiveConstants.mediumIconSize),
+                        size: DeviceConfiguration.getResponsiveIconSize(
+                            ResponsiveConstants.mediumIconSize),
                       ),
                     ],
                   ),

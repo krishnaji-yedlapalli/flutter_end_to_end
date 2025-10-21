@@ -19,21 +19,24 @@ class _PageViewDemoState extends State<PageViewDemo> {
       subtitle: 'Swipe horizontally to navigate',
       color: Colors.blue,
       icon: Icons.swipe,
-      description: 'PageView allows you to create swipeable pages with smooth transitions.',
+      description:
+          'PageView allows you to create swipeable pages with smooth transitions.',
     ),
     PageData(
       title: 'Smooth Animations',
       subtitle: 'Built-in page transitions',
       color: Colors.green,
       icon: Icons.animation,
-      description: 'Each page transition is animated smoothly with customizable curves.',
+      description:
+          'Each page transition is animated smoothly with customizable curves.',
     ),
     PageData(
       title: 'Responsive Design',
       subtitle: 'Works on all screen sizes',
       color: Colors.orange,
       icon: Icons.devices,
-      description: 'PageView adapts to different screen sizes and orientations.',
+      description:
+          'PageView adapts to different screen sizes and orientations.',
     ),
     PageData(
       title: 'Interactive Controls',
@@ -47,7 +50,8 @@ class _PageViewDemoState extends State<PageViewDemo> {
       subtitle: 'Many configuration options',
       color: Colors.red,
       icon: Icons.settings,
-      description: 'Customize scroll direction, physics, and page snapping behavior.',
+      description:
+          'Customize scroll direction, physics, and page snapping behavior.',
     ),
   ];
 
@@ -73,7 +77,8 @@ class _PageViewDemoState extends State<PageViewDemo> {
 
   Widget _buildInfoCard() {
     return Container(
-      margin: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      margin:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -139,7 +144,8 @@ class _PageViewDemoState extends State<PageViewDemo> {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
+        padding: EdgeInsets.all(
+            DeviceConfiguration.isMobileResolution ? 24.0 : 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -232,7 +238,8 @@ class _PageViewDemoState extends State<PageViewDemo> {
 
   Widget _buildNavigationControls() {
     return Container(
-      padding: EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
+      padding:
+          EdgeInsets.all(DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

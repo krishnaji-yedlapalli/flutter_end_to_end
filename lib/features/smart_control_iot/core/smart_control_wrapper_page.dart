@@ -22,7 +22,6 @@ class SmartControlWrapperPage extends StatefulWidget {
 }
 
 class _SmartControlWrapperPageState extends State<SmartControlWrapperPage> {
-
   @override
   void initState() {
     SmartControlInjectionModule().registerDependencies();
@@ -39,20 +38,20 @@ class _SmartControlWrapperPageState extends State<SmartControlWrapperPage> {
           SmartControlInjectionModule().unRegisterDependencies();
         }
       },
-      child:  MultiBlocProvider(
+      child: MultiBlocProvider(
         providers: [
-            BlocProvider(create: (context) => OnOffCubit(OnOffUsecase(OnOffRepository(BaseService.instance)))),
-            BlocProvider(create: (context) => injector<SmartControlDashboardCubit>()),
-          ],
-        child: Builder(
-          builder: (context) {
-            return ServerInitializeWrapper(
-              serverRequestHandler: SmartControlServerRequestHandler(context),
-              child: widget
-                    .child,
-            );
-          }
-        ),
+          BlocProvider(
+              create: (context) => OnOffCubit(
+                  OnOffUsecase(OnOffRepository(BaseService.instance)))),
+          BlocProvider(
+              create: (context) => injector<SmartControlDashboardCubit>()),
+        ],
+        child: Builder(builder: (context) {
+          return ServerInitializeWrapper(
+            serverRequestHandler: SmartControlServerRequestHandler(context),
+            child: widget.child,
+          );
+        }),
       ),
     );
   }

@@ -32,8 +32,7 @@ class SmartDeviceCard extends StatelessWidget with SmartDeviceMixin {
         isOn ? Colors.green.shade400 : Colors.blue.shade100;
     final Color disconnectedColor = Colors.grey.shade300;
 
-    final Color backgroundColor =
-        isConnected ? activeColor : disconnectedColor;
+    final Color backgroundColor = isConnected ? activeColor : disconnectedColor;
     final Color textColorValue = textColor(isOn, isConnected);
 
     return AspectRatio(
@@ -55,27 +54,40 @@ class SmartDeviceCard extends StatelessWidget with SmartDeviceMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(smartControl.name, style: TextStyle(color: textColorValue, fontWeight: FontWeight.bold)),
+                Text(smartControl.name,
+                    style: TextStyle(
+                        color: textColorValue, fontWeight: FontWeight.bold)),
                 Expanded(
                   child: InkWell(
                     onTap: context
                         .read<SmartDeviceMqttControlCubit>()
                         .onSelectionOfSmartTile,
                     child: switch (smartControl.controlType) {
-                      SmartControlType.pirLight =>
-                        PirLightCtrlWidget(smartControl, isConnected, onToggleAutoManual: onToggleAutoManual, onSettingsPressed: onSettingsPressed),
-                      SmartControlType.diodeLight =>
-                        DiodeLightCtrlWidget(smartControl, isConnected, onToggleAutoManual: onToggleAutoManual, onSettingsPressed: onSettingsPressed),
-                      SmartControlType.exhaustFan =>
-                        ExhaustFanCtrlWidget(smartControl, isConnected, onToggleAutoManual: onToggleAutoManual, onSettingsPressed: onSettingsPressed),
-                      SmartControlType.waterLevel =>
-                        WaterTankStatusWidget(smartControl, isConnected, onSettingsPressed: onSettingsPressed),
-                      SmartControlType.gasDetector =>
-                        GasDetectorStatusWidget(smartControl, isConnected, onSettingsPressed: onSettingsPressed),
+                      SmartControlType.pirLight => PirLightCtrlWidget(
+                          smartControl, isConnected,
+                          onToggleAutoManual: onToggleAutoManual,
+                          onSettingsPressed: onSettingsPressed),
+                      SmartControlType.diodeLight => DiodeLightCtrlWidget(
+                          smartControl, isConnected,
+                          onToggleAutoManual: onToggleAutoManual,
+                          onSettingsPressed: onSettingsPressed),
+                      SmartControlType.exhaustFan => ExhaustFanCtrlWidget(
+                          smartControl, isConnected,
+                          onToggleAutoManual: onToggleAutoManual,
+                          onSettingsPressed: onSettingsPressed),
+                      SmartControlType.waterLevel => WaterTankStatusWidget(
+                          smartControl, isConnected,
+                          onSettingsPressed: onSettingsPressed),
+                      SmartControlType.gasDetector => GasDetectorStatusWidget(
+                          smartControl, isConnected,
+                          onSettingsPressed: onSettingsPressed),
                       SmartControlType.scheduledDevice =>
-                        ScheduledDeviceControlWidget(smartControl, isConnected, onToggleAutoManual: onToggleAutoManual, onSettingsPressed: onSettingsPressed),
-                      SmartControlType.cookingTimer =>
-                        CookingTimerWidget(smartControl, isConnected, onSettingsPressed: onSettingsPressed),
+                        ScheduledDeviceControlWidget(smartControl, isConnected,
+                            onToggleAutoManual: onToggleAutoManual,
+                            onSettingsPressed: onSettingsPressed),
+                      SmartControlType.cookingTimer => CookingTimerWidget(
+                          smartControl, isConnected,
+                          onSettingsPressed: onSettingsPressed),
                     },
                   ),
                 ),
