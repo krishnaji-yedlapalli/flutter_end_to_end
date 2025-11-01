@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/core/constants/responsive_constants.dart';
 import 'package:sample_latest/core/environment/environment.dart';
+
+import '../presentation/provider/common_provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;

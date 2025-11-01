@@ -12,8 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
-import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/core/presentation/provider/common_provider.dart';
+import 'package:sample_latest/core/global_variables.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/theme/theme.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
@@ -26,6 +25,7 @@ import 'package:sample_latest/adsense_web_stub.dart'
 
 import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
+import 'shared/presentation/provider/common_provider.dart';
 
 // @pragma('vm:entry-point')
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

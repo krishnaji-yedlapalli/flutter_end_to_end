@@ -8,7 +8,7 @@ import 'package:sample_latest/features/schools/data/model/school_details_model.d
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/core/global_variables.dart';
 
 import 'package:sample_latest/core/mixins/notifiers.dart';
 

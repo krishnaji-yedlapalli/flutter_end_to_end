@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/schools_bloc/schools_state.dart';
-import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/core/global_variables.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
 

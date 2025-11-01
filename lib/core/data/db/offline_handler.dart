@@ -18,7 +18,7 @@ import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/core/global_variables.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/extensions/dio_request_extension.dart';
