@@ -10,7 +10,7 @@ import 'package:sample_latest/core/mixins/loaders.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/features/schools/presentation/screens/schools/create_update_school.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
-import 'package:sample_latest/ui/exception/exception.dart';
+import 'package:sample_latest/shared/exception/exception.dart';
 import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';

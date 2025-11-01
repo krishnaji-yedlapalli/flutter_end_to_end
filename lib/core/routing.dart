@@ -39,7 +39,7 @@ import 'package:sample_latest/features/routing_features/stateful_shell_routing_w
 import 'package:sample_latest/features/scrolling/scrolling.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/ui/exception/page_not_found.dart';
+import 'package:sample_latest/shared/exception/page_not_found.dart';
 
 import '../features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;
