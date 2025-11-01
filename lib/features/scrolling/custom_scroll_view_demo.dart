@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 
 class CustomScrollViewDemo extends StatelessWidget {
   const CustomScrollViewDemo({Key? key}) : super(key: key);

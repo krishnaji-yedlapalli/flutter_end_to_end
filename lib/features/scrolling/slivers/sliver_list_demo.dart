@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 
 class SliverListDemo extends StatelessWidget {
   const SliverListDemo({Key? key}) : super(key: key);

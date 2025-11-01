@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 
 import '../../core/device/enums/device_enums.dart';
 import '../../core/device/widgets/adaptive_layout_builder.dart';

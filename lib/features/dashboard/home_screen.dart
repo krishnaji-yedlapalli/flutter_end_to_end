@@ -13,7 +13,7 @@ import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../feature_discovery/home_feature_discovery.dart';
 import '../daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;

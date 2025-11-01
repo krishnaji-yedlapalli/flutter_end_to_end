@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/mixins/dialogs.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/core/widgets/custom_dropdown.dart';
-import 'package:sample_latest/core/widgets/text_field.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 
 import '../../../shared/models/school_view_model.dart';
 import '../../../shared/params/school_params.dart';

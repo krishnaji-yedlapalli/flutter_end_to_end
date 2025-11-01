@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sample_latest/core/extensions/widget_extension.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/core/widgets/custom_app_bar.dart';
-import 'package:sample_latest/core/widgets/text_field.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 
 class DeepLinkingTesting extends StatelessWidget with Validators {
   DeepLinkingTesting({Key? key}) : super(key: key);
