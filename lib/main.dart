@@ -13,7 +13,6 @@ import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.da
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/latest_3.0.dart';
 import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/core/routing.dart';
 import 'package:sample_latest/core/theme/theme.dart';
@@ -64,7 +63,6 @@ void main() async {
     if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
   }
 
-  Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
   Environment().configure();
