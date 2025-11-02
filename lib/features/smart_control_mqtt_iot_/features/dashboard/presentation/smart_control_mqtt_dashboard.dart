@@ -6,7 +6,7 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 
 import '../../../../../core/device/enums/device_enums.dart';
-import '../../../../../core/device/widgets/adaptive_layout_builder.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 import '../../../../../shared/mixins/mixins.dart';
 import '../../../core/smart_control_mqtt_router_module.dart';
 import '../../../shared/models/smart_control_model.dart';

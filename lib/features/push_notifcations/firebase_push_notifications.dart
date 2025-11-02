@@ -10,7 +10,7 @@ import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
 
 class FirebasePushNotifications extends StatefulWidget {
   const FirebasePushNotifications({Key? key}) : super(key: key);

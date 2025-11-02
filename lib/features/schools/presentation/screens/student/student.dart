@@ -7,7 +7,7 @@ import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
 import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
 
 import '../../blocs/students_bloc/students_state.dart';
 

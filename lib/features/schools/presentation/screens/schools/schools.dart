@@ -15,9 +15,10 @@ import 'package:sample_latest/features/schools/presentation/screens/db_configura
 import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:sample_latest/shared/widgets/widgets.dart';
 
-import '../../../../../core/device/widgets/adapative_container.dart';
+import 'package:sample_latest/shared/widgets/widgets.dart';
 import '../../blocs/schools_bloc/schools_bloc.dart';
 import '../../blocs/schools_bloc/schools_state.dart';
 

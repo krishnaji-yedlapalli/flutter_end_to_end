@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sample_latest/features/shortcuts/call_back_shortcuts.dart';
 import 'package:sample_latest/features/shortcuts/shortcut_actions.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
 
 class ShortcutsTabView extends StatefulWidget {
   const ShortcutsTabView({Key? key}) : super(key: key);
