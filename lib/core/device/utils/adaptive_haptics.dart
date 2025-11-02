@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import '../config/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 /// Adaptive haptic feedback helper
 class AdaptiveHaptics {
