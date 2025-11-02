@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../config/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 class AdaptivePadding extends StatelessWidget {
   final Widget child;

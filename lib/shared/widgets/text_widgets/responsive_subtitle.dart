@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../config/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
-/// Responsive header text widget with large font size that adapts to screen size
-class ResponsiveHeader extends StatelessWidget {
+/// Responsive subtitle text widget with small-medium font size that adapts to screen size
+class ResponsiveSubtitle extends StatelessWidget {
   final String text;
   final TextAlign? textAlign;
   final Color? color;
@@ -12,8 +12,10 @@ class ResponsiveHeader extends StatelessWidget {
   final TextOverflow? overflow;
   final EdgeInsets? padding;
   final bool centerText;
+  final TextDecoration? decoration;
+  final FontStyle? fontStyle;
 
-  const ResponsiveHeader(
+  const ResponsiveSubtitle(
     this.text, {
     Key? key,
     this.textAlign,
@@ -24,6 +26,8 @@ class ResponsiveHeader extends StatelessWidget {
     this.overflow,
     this.padding,
     this.centerText = false,
+    this.decoration,
+    this.fontStyle,
   }) : super(key: key);
 
   @override
@@ -38,6 +42,8 @@ class ResponsiveHeader extends StatelessWidget {
         fontWeight: fontWeight ?? _getDefaultFontWeight(),
         color: color ?? _getDefaultColor(context),
         height: _getLineHeight(),
+        decoration: decoration,
+        fontStyle: fontStyle,
       ),
       textAlign: centerText ? TextAlign.center : (textAlign ?? TextAlign.start),
       maxLines: maxLines,
@@ -49,17 +55,17 @@ class ResponsiveHeader extends StatelessWidget {
         : textWidget;
   }
 
-  /// Calculate responsive font size for header
+  /// Calculate responsive font size for subtitle
   double _getResponsiveFontSize() {
-    double baseSize = baseFontSize ?? 32.0; // Large header size
+    double baseSize = baseFontSize ?? 16.0; // Small-medium subtitle size
 
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
-      baseSize += 8.0; // Much larger on desktop
+      baseSize += 3.0; // Larger on desktop
     } else if (DeviceConfiguration.isTabResolution) {
-      baseSize += 4.0; // Larger on tablet
+      baseSize += 1.5; // Slightly larger on tablet
     } else if (DeviceConfiguration.isMobilePortrait) {
-      baseSize -= 4.0; // Slightly smaller on mobile portrait
+      baseSize -= 0.5; // Slightly smaller on mobile portrait
     }
 
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
@@ -77,28 +83,27 @@ class ResponsiveHeader extends StatelessWidget {
     );
   }
 
-  /// Get default font weight for header
+  /// Get default font weight for subtitle
   FontWeight _getDefaultFontWeight() {
-    // Headers should be bold by default
     if (DeviceConfiguration.isDesktopResolution) {
-      return FontWeight.w700; // Bolder on desktop
+      return FontWeight.w500; // Medium weight on desktop
     }
-    return FontWeight.w600;
+    return FontWeight.w400; // Normal weight
   }
 
-  /// Get default color based on theme
+  /// Get default color based on theme (usually secondary color)
   Color? _getDefaultColor(BuildContext context) {
-    return Theme.of(context).textTheme.headlineLarge?.color;
+    return Theme.of(context).textTheme.titleMedium?.color ??
+        Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.7);
   }
 
-  /// Get appropriate line height for headers
+  /// Get appropriate line height for subtitles
   double _getLineHeight() {
-    // Tighter line height for headers
     if (DeviceConfiguration.isDesktopResolution) {
-      return 1.1;
+      return 1.3;
     } else if (DeviceConfiguration.isTabResolution) {
-      return 1.15;
+      return 1.35;
     }
-    return 1.2;
+    return 1.4;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../config/device_configurations.dart';
-import '../enums/device_enums.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
 
 /// Optimized AdaptivePadding that uses cached device configuration
 class OptimizedAdaptivePadding extends StatelessWidget {

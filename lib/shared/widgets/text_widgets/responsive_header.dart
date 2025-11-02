@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../config/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
-/// Responsive sub-header text widget with medium-large font size that adapts to screen size
-class ResponsiveSubHeader extends StatelessWidget {
+/// Responsive header text widget with large font size that adapts to screen size
+class ResponsiveHeader extends StatelessWidget {
   final String text;
   final TextAlign? textAlign;
   final Color? color;
@@ -13,7 +13,7 @@ class ResponsiveSubHeader extends StatelessWidget {
   final EdgeInsets? padding;
   final bool centerText;
 
-  const ResponsiveSubHeader(
+  const ResponsiveHeader(
     this.text, {
     Key? key,
     this.textAlign,
@@ -49,17 +49,17 @@ class ResponsiveSubHeader extends StatelessWidget {
         : textWidget;
   }
 
-  /// Calculate responsive font size for sub-header
+  /// Calculate responsive font size for header
   double _getResponsiveFontSize() {
-    double baseSize = baseFontSize ?? 24.0; // Medium-large size
+    double baseSize = baseFontSize ?? 32.0; // Large header size
 
     // Device-specific adjustments
     if (DeviceConfiguration.isDesktopResolution) {
-      baseSize += 6.0; // Larger on desktop
+      baseSize += 8.0; // Much larger on desktop
     } else if (DeviceConfiguration.isTabResolution) {
-      baseSize += 3.0; // Slightly larger on tablet
+      baseSize += 4.0; // Larger on tablet
     } else if (DeviceConfiguration.isMobilePortrait) {
-      baseSize -= 2.0; // Slightly smaller on mobile portrait
+      baseSize -= 4.0; // Slightly smaller on mobile portrait
     }
 
     return DeviceConfiguration.getResponsiveFontSize(baseSize);
@@ -77,26 +77,28 @@ class ResponsiveSubHeader extends StatelessWidget {
     );
   }
 
-  /// Get default font weight for sub-header
+  /// Get default font weight for header
   FontWeight _getDefaultFontWeight() {
+    // Headers should be bold by default
     if (DeviceConfiguration.isDesktopResolution) {
-      return FontWeight.w600; // Semi-bold on desktop
+      return FontWeight.w700; // Bolder on desktop
     }
-    return FontWeight.w500; // Medium weight
+    return FontWeight.w600;
   }
 
   /// Get default color based on theme
   Color? _getDefaultColor(BuildContext context) {
-    return Theme.of(context).textTheme.headlineMedium?.color;
+    return Theme.of(context).textTheme.headlineLarge?.color;
   }
 
-  /// Get appropriate line height for sub-headers
+  /// Get appropriate line height for headers
   double _getLineHeight() {
+    // Tighter line height for headers
     if (DeviceConfiguration.isDesktopResolution) {
-      return 1.2;
+      return 1.1;
     } else if (DeviceConfiguration.isTabResolution) {
-      return 1.25;
+      return 1.15;
     }
-    return 1.3;
+    return 1.2;
   }
 }

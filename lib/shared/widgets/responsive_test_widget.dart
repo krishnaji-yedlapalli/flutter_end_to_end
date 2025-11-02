@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../config/device_configurations.dart';
-import '../enums/device_enums.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/shared/widgets/adapative_padding.dart';
 
 /// Test widget to verify responsive design is working correctly
 class ResponsiveTestWidget extends StatelessWidget {
@@ -202,25 +203,5 @@ class ResponsiveTestWidget extends StatelessWidget {
       case DeviceResolutionType.desktopLarge:
         return Colors.teal;
     }
-  }
-}
-
-/// Adaptive padding widget using the new system
-class AdaptivePadding extends StatelessWidget {
-  final Widget child;
-  final double basePadding;
-
-  const AdaptivePadding({
-    Key? key,
-    required this.child,
-    this.basePadding = 16.0,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: DeviceConfiguration.getResponsivePadding(base: basePadding),
-      child: child,
-    );
   }
 }

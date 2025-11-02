@@ -8,4 +8,4 @@ export 'adaptive_navigation_bar.dart';
 export 'adaptive_card.dart';
 
 // Export utils
-export '../utils/adaptive_haptics.dart';
+export 'package:sample_latest/core/device/utils/adaptive_haptics.dart';

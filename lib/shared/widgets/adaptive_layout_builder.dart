@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../enums/device_enums.dart';
-import '../config/device_configurations.dart';
-import '../../constants/responsive_constants.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/constants/responsive_constants.dart';
 
 /// Signature for the builder callback with enhanced device resolution types
 typedef DeviceResolutionBuilderCallback = Widget Function(

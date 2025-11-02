@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../../config/device_configurations.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 /// Icon-only button that adapts to platform and screen size with responsive icon sizing
 class AdaptiveResponsiveIconButton extends StatelessWidget {
