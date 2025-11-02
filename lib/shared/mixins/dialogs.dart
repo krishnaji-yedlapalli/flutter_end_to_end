@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/widgets/responsive_widgets.dart';
-import '../constants/responsive_constants.dart';
+import 'package:sample_latest/core/constants/responsive_constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 
