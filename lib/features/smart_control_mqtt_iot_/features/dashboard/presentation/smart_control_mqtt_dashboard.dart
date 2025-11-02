@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:sample_latest/core/mixins/loaders.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 
 import '../../../../../core/device/enums/device_enums.dart';
 import '../../../../../core/device/widgets/adaptive_layout_builder.dart';
-import '../../../../../core/mixins/cards_mixin.dart';
+import '../../../../../shared/mixins/mixins.dart';
 import '../../../core/smart_control_mqtt_router_module.dart';
 import '../../../shared/models/smart_control_model.dart';
 import '../../../shared/utils/enums.dart';

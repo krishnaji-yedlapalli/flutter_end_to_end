@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/extensions/widget_extension.dart';
+import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/widgets/widgets.dart';
 
 class StateFulShellRoutingWithIndexed extends StatefulWidget {

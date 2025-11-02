@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/core/extensions/widget_extension.dart';
+import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/shared/widgets/widgets.dart';
 

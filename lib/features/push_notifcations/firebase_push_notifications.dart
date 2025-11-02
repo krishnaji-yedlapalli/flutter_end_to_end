@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:googleapis_auth/auth_io.dart';
-import 'package:sample_latest/core/extensions/widget_extension.dart';
+import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
