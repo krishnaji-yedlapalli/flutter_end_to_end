@@ -5,7 +5,7 @@ import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class LocalizationDatePicker extends StatefulWidget {
   const LocalizationDatePicker({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
 /// Responsive app bar for the showcase page that adapts to different screen sizes
 class ResponsiveShowcaseAppBar extends StatelessWidget {

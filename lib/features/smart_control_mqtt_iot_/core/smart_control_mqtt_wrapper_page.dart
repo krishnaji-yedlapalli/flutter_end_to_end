@@ -5,7 +5,7 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/features/smart_control_mqtt_iot_/core/smart_control_mqtt_injection_module.dart';
 
-import '../../../core/local_server/widgets/mqtt_server_initilize_wrapper.dart';
+import '../../../shared/widgets/local_server/mqtt_server_initilize_wrapper.dart';
 import '../features/domain/cubit/smart_control_dashboard_cubit.dart';
 import '../features/on_and_off/data/respository/on_off_repository.dart';
 import '../features/on_and_off/domain/use_cases/on_off_usecase.dart';

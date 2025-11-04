@@ -6,7 +6,7 @@ import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/features/smart_control_iot/features/smart_device_control/presentation/cubit/smart_device_control_cubit.dart';
 
 import '../../../../../core/device/enums/device_enums.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 import '../../../../../shared/mixins/mixins.dart';
 import '../../../core/smart_control_router_module.dart';
 import '../../../shared/models/smart_control_model.dart';

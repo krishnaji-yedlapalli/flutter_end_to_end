@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class PluginsDashboard extends StatelessWidget with CardWidgetsMixin {
   PluginsDashboard({Key? key}) : super(key: key);

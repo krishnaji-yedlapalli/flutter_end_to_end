@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:sample_latest/shared/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class AutomaticKeepAliveScreen extends StatefulWidget {
   const AutomaticKeepAliveScreen({Key? key}) : super(key: key);

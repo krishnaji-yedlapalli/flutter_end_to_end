@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 import '../sections/device_info_section.dart';
 import '../sections/text_widgets_section.dart';
 import '../sections/button_widgets_section.dart';
