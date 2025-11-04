@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sample_latest/core/constants/responsive_constants.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 
-import '../presentation/provider/common_provider.dart';
+import '../../presentation/provider/common_provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;

@@ -4,7 +4,7 @@ import 'package:sample_latest/core/local_server/handlers/base_request_handler.da
 import 'package:sample_latest/core/local_server/local_server_manager.dart';
 import 'package:shelf/shelf.dart';
 
-import '../model/callback_response_handler.dart';
+import '../../../core/local_server/model/callback_response_handler.dart';
 
 // Server Initialization Widget
 class ServerInitializeWrapper extends StatefulWidget {

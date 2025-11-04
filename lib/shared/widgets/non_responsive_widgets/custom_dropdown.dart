@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/widgets.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
 class CustomDropDown<T> extends StatelessWidget {
   const CustomDropDown(

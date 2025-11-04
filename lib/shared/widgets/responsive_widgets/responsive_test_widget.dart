@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/shared/widgets/adapative_padding.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/adapative_padding.dart';
 
 /// Test widget to verify responsive design is working correctly
 class ResponsiveTestWidget extends StatelessWidget {
