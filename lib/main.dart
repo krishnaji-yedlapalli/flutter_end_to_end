@@ -20,8 +20,7 @@ import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:sample_latest/adsense_web_stub.dart'
-    if (dart.library.html) 'package:sample_latest/adsense_web.dart' as web;
+import 'core/platform/platform.dart' as platform;
 
 import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
@@ -39,7 +38,7 @@ import 'shared/presentation/provider/common_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) web.executeWebDependencies();
+  if (kIsWeb) platform.executeWebDependencies();
 
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
