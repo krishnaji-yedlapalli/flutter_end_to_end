@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../device/config/device_configurations.dart';
+import 'constants/app_colors.dart';
 
-class AppTextTheme {
+class AppTextThemes {
   static TextTheme getResponsiveTextTheme(BuildContext context) {
-    // Use the new DeviceConfiguration system for responsive font sizing
     return TextTheme(
       displayLarge: TextStyle(
         fontSize: DeviceConfiguration.getResponsiveFontSize(32),
@@ -33,17 +33,17 @@ class AppTextTheme {
       titleLarge: GoogleFonts.nunito(
         fontSize: DeviceConfiguration.getResponsiveFontSize(16),
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: AppColors.secondary,
       ),
       titleMedium: GoogleFonts.kanit(
         fontSize: DeviceConfiguration.getResponsiveFontSize(14),
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: AppColors.black,
       ),
       titleSmall: GoogleFonts.kanit(
         fontSize: DeviceConfiguration.getResponsiveFontSize(12),
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: AppColors.black,
       ),
       bodyLarge: TextStyle(
         fontSize: DeviceConfiguration.getResponsiveFontSize(16),
@@ -52,19 +52,12 @@ class AppTextTheme {
       bodyMedium: GoogleFonts.dmSans(
         fontSize: DeviceConfiguration.getResponsiveFontSize(14),
         fontWeight: FontWeight.normal,
-        color: Colors.black,
+        color: AppColors.black,
       ),
       bodySmall: TextStyle(
         fontSize: DeviceConfiguration.getResponsiveFontSize(12),
         fontWeight: FontWeight.normal,
       ),
-    );
-  }
-
-  static ThemeData getTheme(BuildContext context) {
-    return ThemeData(
-      textTheme: getResponsiveTextTheme(context),
-      // Add other theme configurations here
     );
   }
 }
