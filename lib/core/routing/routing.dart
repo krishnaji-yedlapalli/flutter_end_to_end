@@ -38,16 +38,16 @@ import 'package:sample_latest/features/routing_features/state_ful_shell_routing_
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/features/scrolling/scrolling.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
-import 'package:sample_latest/core/global_variables.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/shared/exception/page_not_found.dart';
 
-import '../features/daily_tracker_stub/daily_tracker_entry_point.dart'
+import '../../features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;
-import '../features/plugins/local_authentication.dart';
-import '../features/responsive_showcase/pages/responsive_showcase_page.dart';
-import '../features/schools/core/schools_router_module.dart';
-import '../features/smart_control_iot/core/smart_control_router_module.dart';
-import '../features/smart_control_mqtt_iot_/core/smart_control_mqtt_router_module.dart';
+import '../../features/plugins/local_authentication.dart';
+import '../../features/responsive_showcase/pages/responsive_showcase_page.dart';
+import '../../features/schools/core/schools_router_module.dart';
+import '../../features/smart_control_iot/core/smart_control_router_module.dart';
+import '../../features/smart_control_mqtt_iot_/core/smart_control_mqtt_router_module.dart';
 
 class Routing {
   static const String home = '/home';
@@ -69,7 +69,7 @@ class Routing {
   static final shellNavigatorKey = GlobalKey<NavigatorState>();
 
   static final GoRouter router = GoRouter(
-    navigatorKey: navigatorKey,
+    navigatorKey: NavigationKeys.navigatorKey,
     initialLocation: Environment().configuration.initialRoute,
     routes: <RouteBase>[
       homeRoute(),
@@ -291,7 +291,7 @@ class Routing {
   static GoRoute goRoute() {
     return GoRoute(
         path: 'route',
-        parentNavigatorKey: navigatorKey,
+        parentNavigatorKey: NavigationKeys.navigatorKey,
         builder: (BuildContext context, GoRouterState state) {
           return RoutingDashboard();
         },
@@ -380,15 +380,15 @@ class Routing {
   static void onPushNotificationOpened(RemoteMessage? message) {
     String path = '/home/schools';
     if (message?.data['path'] != null) path = message?.data['path'];
-    if (navigatorKey.currentContext != null) {
-      GoRouter.of(navigatorKey.currentContext!).push(path);
+    if (NavigationKeys.navigatorKey.currentContext != null) {
+      GoRouter.of(NavigationKeys.navigatorKey.currentContext!).push(path);
     }
   }
 
   static void onLocalPushNotificationOpened(String? path) {
     path ??= '/home/schools';
-    if (navigatorKey.currentContext != null) {
-      GoRouter.of(navigatorKey.currentContext!).push(path);
+    if (NavigationKeys.navigatorKey.currentContext != null) {
+      GoRouter.of(NavigationKeys.navigatorKey.currentContext!).push(path);
     }
   }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/smart_control_mqtt_iot_/core/smart_control_mqtt_wrapper_page.dart';
 
-import '../../../core/routing.dart';
+import '../../../core/routing/routing.dart';
 import '../features/dashboard/presentation/smart_control_mqtt_dashboard.dart';
 import '../features/on_and_off/presentation/on_and_off_view.dart';
 

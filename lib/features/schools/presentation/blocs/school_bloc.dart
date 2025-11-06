@@ -8,7 +8,7 @@ import 'package:sample_latest/features/schools/data/model/school_details_model.d
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/global_variables.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 
 import 'package:sample_latest/core/mixins/notifiers.dart';
 
@@ -90,7 +90,7 @@ class SchoolBloc extends Cubit<SchoolState> {
       if (student != null) {
         emit(StudentInfoLoaded(schoolState, student, schoolId));
       } else {
-        navigatorKey.currentState?.pop();
+        NavigationKeys.navigatorKey.currentState?.pop();
         Notifiers.toastNotifier('Invalid student details');
       }
     } catch (e, s) {
@@ -104,7 +104,7 @@ class SchoolBloc extends Cubit<SchoolState> {
     const schoolState = SchoolDataLoadedType.schools;
 
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var createdOrUpdatedSchool = await repository.createOrEditSchool(school);
 
@@ -128,7 +128,7 @@ class SchoolBloc extends Cubit<SchoolState> {
               ? 'Unable to create the School'
               : 'Unable to update the school');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
@@ -137,7 +137,7 @@ class SchoolBloc extends Cubit<SchoolState> {
     const schoolState = SchoolDataLoadedType.school;
 
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var createdOrEditSchoolDetails =
           await repository.addOrEditSchoolDetails(schoolDetails);
@@ -147,7 +147,7 @@ class SchoolBloc extends Cubit<SchoolState> {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Unable to create the School Details');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
@@ -156,7 +156,7 @@ class SchoolBloc extends Cubit<SchoolState> {
     const schoolState = SchoolDataLoadedType.students;
 
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var createdStudent =
           await repository.createOrEditStudent(schoolId, student);
@@ -181,7 +181,7 @@ class SchoolBloc extends Cubit<SchoolState> {
               ? 'Unable to create the student'
               : 'Failed to update the Student');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
@@ -189,7 +189,7 @@ class SchoolBloc extends Cubit<SchoolState> {
     const schoolState = SchoolDataLoadedType.schools;
 
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var status = await repository.deleteSchool(schoolId);
 
@@ -201,7 +201,7 @@ class SchoolBloc extends Cubit<SchoolState> {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Failed to Delete the School');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
@@ -211,7 +211,7 @@ class SchoolBloc extends Cubit<SchoolState> {
     emit(const SchoolInfoLoading(schoolState));
 
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var status = await repository.deleteStudent(studentId, schoolId);
 
@@ -225,7 +225,7 @@ class SchoolBloc extends Cubit<SchoolState> {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Failed to Delete the student');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 

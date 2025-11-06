@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
-import 'package:sample_latest/core/global_variables.dart';
-import 'package:sample_latest/core/routing.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
+import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/core/theme/theme.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeLocales(List<Locale>? locales) {
     final currentLocale = locales?.first;
-    navigatorKey.currentContext
+    NavigationKeys.navigatorKey.currentContext
         ?.read<CommonProvider>()
         .onChangeOfLanguage(currentLocale);
     super.didChangeLocales(locales);
@@ -96,8 +96,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangePlatformBrightness() {
     var brightness = View.of(context).platformDispatcher.platformBrightness;
-    navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(
-        brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
+    NavigationKeys.navigatorKey.currentContext
+        ?.read<CommonProvider>()
+        .updateThemeData(
+            brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
     super.didChangePlatformBrightness();
   }
 

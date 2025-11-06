@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/schools_bloc/schools_state.dart';
-import 'package:sample_latest/core/global_variables.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -43,7 +43,7 @@ class SchoolsBloc extends Cubit<SchoolsState> {
   Future<void> createOrUpdateSchool(SchoolParams params,
       {bool isCreateSchool = false}) async {
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var schoolEntities =
           await _schoolModifyUseCase.call(params, isCreateSchool);
@@ -58,13 +58,13 @@ class SchoolsBloc extends Cubit<SchoolsState> {
               ? 'Unable to create the School'
               : 'Unable to update the school');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
   Future<void> deleteSchool(String schoolId) async {
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var schoolEntities = await _deleteSchoolUseCase.call(schoolId);
 
@@ -75,7 +75,7 @@ class SchoolsBloc extends Cubit<SchoolsState> {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Failed to Delete the School');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 }

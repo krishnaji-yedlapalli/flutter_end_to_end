@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/schools_details_state.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
-import 'package:sample_latest/core/global_variables.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -38,7 +38,7 @@ class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
   Future<void> createOrEditSchoolDetails(
       SchoolDetailsParams schoolDetails) async {
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var createdOrEditSchoolDetails =
           await _schoolDetailsModifyUseCase.call(schoolDetails);
@@ -48,7 +48,7 @@ class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Unable to create the School Details');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 }
