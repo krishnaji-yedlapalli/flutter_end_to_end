@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_state.dart';
-import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -46,7 +46,7 @@ class StudentsBloc extends Cubit<StudentsState> {
         emit(StudentInfoLoaded(student.toStudentViewModel(),
             stateType: StudentStateType.student));
       } else {
-        navigatorKey.currentState?.pop();
+        NavigationKeys.navigatorKey.currentState?.pop();
         Notifiers.toastNotifier('Invalid student details');
       }
     } catch (e, s) {
@@ -57,7 +57,7 @@ class StudentsBloc extends Cubit<StudentsState> {
   Future<void> createOrEditStudent(StudentParams params,
       {bool isCreateStudent = false}) async {
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var students = await _studentModifyUseCase.call(params, isCreateStudent);
 
@@ -73,7 +73,7 @@ class StudentsBloc extends Cubit<StudentsState> {
               ? 'Unable to create the student'
               : 'Failed to update the Student');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 
@@ -81,7 +81,7 @@ class StudentsBloc extends Cubit<StudentsState> {
     emit(const StudentsInfoLoading());
 
     try {
-      navigatorKey.currentContext?.loaderOverlay.show();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
       var students = await _deleteStudentUseCase.call(
           studentId: studentId, schoolId: schoolId);
@@ -92,7 +92,7 @@ class StudentsBloc extends Cubit<StudentsState> {
       ExceptionHandler().handleExceptionWithToastNotifier(e,
           stackTrace: s, toastMessage: 'Failed to Delete the student');
     } finally {
-      navigatorKey.currentContext?.loaderOverlay.hide();
+      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
     }
   }
 }

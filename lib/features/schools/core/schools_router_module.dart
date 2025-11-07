@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/features/schools/core/school_module_wrapper_page.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 
-import '../../../core/mixins/dialogs.dart';
-import '../../../core/router_helper.dart';
+import '../../../shared/mixins/mixins.dart';
+import '../../../core/routing/router_helper.dart';
 import '../presentation/screens/school_details/school_details.dart';
 import '../presentation/screens/schools/schools.dart';
 import '../presentation/screens/student/student.dart';

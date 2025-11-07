@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/features/smart_control_iot/core/smart_control_injection_module.dart';
 
-import '../../../core/local_server/widgets/server_initilize_wrapper.dart';
+import '../../../shared/widgets/local_server/server_initilize_wrapper.dart';
 import '../features/domain/cubit/smart_control_dashboard_cubit.dart';
 import '../features/on_and_off/data/respository/on_off_repository.dart';
 import '../features/on_and_off/domain/use_cases/on_off_usecase.dart';

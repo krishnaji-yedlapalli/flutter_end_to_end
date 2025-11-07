@@ -18,7 +18,7 @@ import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/global_variables.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/extensions/dio_request_extension.dart';
@@ -113,7 +113,7 @@ class OfflineHandler {
       },
     );
 
-    navigatorKey.currentContext?.loaderOverlay.show();
+    NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
     /// Uploading the queue items one by one to the server
     for (var queueItem in queueItems) {
@@ -149,7 +149,7 @@ class OfflineHandler {
         ExceptionHandler().handleException(e, s);
       } finally {
         updateQueueItemsCount();
-        navigatorKey.currentContext?.loaderOverlay.hide();
+        NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
       }
     }
 
