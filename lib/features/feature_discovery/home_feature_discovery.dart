@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:feature_discovery/feature_discovery.dart';
-import 'package:sample_latest/core/mixins/buttons_mixin.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/core/utils/constants.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';

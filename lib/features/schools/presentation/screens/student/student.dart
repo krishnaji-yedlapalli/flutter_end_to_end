@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/extensions/widget_extension.dart';
-import 'package:sample_latest/core/mixins/helper_widgets_mixin.dart';
-import 'package:sample_latest/core/mixins/loaders.dart';
+import 'package:sample_latest/shared/extensions/extensions.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
 import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
-import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/core/widgets/custom_app_bar.dart';
+import 'package:sample_latest/shared/exception/exception.dart';
+import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 import '../../blocs/students_bloc/students_state.dart';
 

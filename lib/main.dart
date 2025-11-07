@@ -12,21 +12,19 @@ import 'package:provider/provider.dart';
 import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
-import 'package:sample_latest/global_variables.dart';
-import 'package:sample_latest/latest_3.0.dart';
-import 'package:sample_latest/core/presentation/provider/common_provider.dart';
-import 'package:sample_latest/core/routing.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
+import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/core/theme/theme.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:sample_latest/adsense_web_stub.dart'
-    if (dart.library.html) 'package:sample_latest/adsense_web.dart' as web;
+import 'core/platform/platform.dart' as platform;
 
 import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
+import 'shared/presentation/provider/common_provider.dart';
 
 // @pragma('vm:entry-point')
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -40,7 +38,7 @@ import 'core/environment/environment.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) web.executeWebDependencies();
+  if (kIsWeb) platform.executeWebDependencies();
 
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 
@@ -64,7 +62,6 @@ void main() async {
     if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
   }
 
-  Dart3Features('krishna', 'yedlapalli');
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
   Environment().configure();
@@ -90,7 +87,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeLocales(List<Locale>? locales) {
     final currentLocale = locales?.first;
-    navigatorKey.currentContext
+    NavigationKeys.navigatorKey.currentContext
         ?.read<CommonProvider>()
         .onChangeOfLanguage(currentLocale);
     super.didChangeLocales(locales);
@@ -99,8 +96,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangePlatformBrightness() {
     var brightness = View.of(context).platformDispatcher.platformBrightness;
-    navigatorKey.currentContext?.read<CommonProvider>().updateThemeData(
-        brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
+    NavigationKeys.navigatorKey.currentContext
+        ?.read<CommonProvider>()
+        .updateThemeData(
+            brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light);
     super.didChangePlatformBrightness();
   }
 

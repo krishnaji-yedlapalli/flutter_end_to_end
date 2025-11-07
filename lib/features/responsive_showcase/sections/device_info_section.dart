@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/device/config/device_configurations.dart';
-import '../../../core/device/widgets/text_widgets/text_widgets.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 import '../widgets/showcase_section_card.dart';
 
 /// Section that displays current device configuration and responsive metrics
