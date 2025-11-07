@@ -94,7 +94,7 @@ class ResponsiveSubtitle extends StatelessWidget {
   /// Get default color based on theme (usually secondary color)
   Color? _getDefaultColor(BuildContext context) {
     return Theme.of(context).textTheme.titleMedium?.color ??
-        Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.7);
+        Theme.of(context).textTheme.bodyLarge?.color?.withValues(alpha: .7);
   }
 
   /// Get appropriate line height for subtitles

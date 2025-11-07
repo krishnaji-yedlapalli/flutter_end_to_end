@@ -24,5 +24,4 @@ export 'adaptive_slider.dart';
 export 'adaptive_switch.dart';
 export 'adaptive_widgets.dart';
 export 'optimized_adaptive_widgets.dart';
-export 'responsive_test_widget.dart';
 export 'responsive_widgets.dart';
