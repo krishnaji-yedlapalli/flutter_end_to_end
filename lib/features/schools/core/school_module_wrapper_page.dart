@@ -9,8 +9,9 @@ import 'package:sample_latest/features/schools/domain/use_cases/student_usecases
 import 'package:sample_latest/features/schools/domain/use_cases/student_usecases/student_modify_usecase.dart';
 import 'package:sample_latest/features/schools/domain/use_cases/student_usecases/student_usecase.dart';
 import 'package:sample_latest/features/schools/domain/use_cases/student_usecases/students_usecase.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/school_details_bloc/school_details_bloc.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/ui_mappers/schools_ui_mapper.dart';
 
 import '../../../core/data/base_service.dart';
 import '../data/repository/schools_repository_impl.dart';
@@ -19,7 +20,7 @@ import '../domain/use_cases/school_details_usecase/school_details_modify_useCase
 import '../domain/use_cases/school_details_usecase/school_details_usecase.dart';
 import '../domain/use_cases/schools_usecase/school_modify_usecase.dart';
 import '../domain/use_cases/schools_usecase/school_usecase.dart';
-import '../presentation/blocs/schools_bloc/schools_bloc.dart';
+import '../presentation/cubit/schools_cubit/schools_cubit.dart';
 
 class SchoolModuleWrapperPage extends StatefulWidget {
   const SchoolModuleWrapperPage({super.key, required this.child});
@@ -53,13 +54,16 @@ class _SchoolModuleWrapperPageState extends State<SchoolModuleWrapperPage> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (BuildContext context) => SchoolsBloc(
-              SchoolsUseCase(SchoolsRepositoryImpl(baseService), injector()),
-              SchoolModifyUseCase(
-                  SchoolsRepositoryImpl(baseService), injector()),
-              DeleteSchoolUseCase(
-                  SchoolsRepositoryImpl(baseService), injector()),
-            ),
+            create: (BuildContext context) => SchoolsCubit(
+                schoolsUseCase: SchoolsUseCase(
+                  SchoolsRepositoryImpl(baseService),
+                  injector(),
+                ),
+                schoolModifyUseCase: SchoolModifyUseCase(
+                    SchoolsRepositoryImpl(baseService), injector()),
+                deleteSchoolUsecase: DeleteSchoolUseCase(
+                    SchoolsRepositoryImpl(baseService), injector()),
+                uiMapper: injector<SchoolsUiMapper>()),
           ),
           BlocProvider(
             create: (BuildContext context) => SchoolDetailsBLoc(

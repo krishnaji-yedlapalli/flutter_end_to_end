@@ -8,7 +8,7 @@ import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools/create_update_school.dart';
+import 'package:sample_latest/features/schools/presentation/pages/schools/widgets/create_update_school.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
 import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
@@ -19,8 +19,7 @@ import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsi
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
-import '../../blocs/schools_bloc/schools_bloc.dart';
-import '../../blocs/schools_bloc/schools_state.dart';
+import '../../cubit/schools_cubit/schools_cubit.dart';
 
 class Schools extends StatefulWidget {
   const Schools({Key? key}) : super(key: key);
@@ -34,7 +33,7 @@ class _SchoolsState extends State<Schools>
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      BlocProvider.of<SchoolsBloc>(context).loadSchools();
+      BlocProvider.of<SchoolsCubit>(context).loadSchools();
       SchoolScreenFeatureDiscovery().startFeatureDiscovery(context);
     });
     super.initState();
@@ -57,17 +56,17 @@ class _SchoolsState extends State<Schools>
               onPressed: onTapOfCreateSchool,
               label: const Text('Create School'),
               icon: const Icon(Icons.add))),
-      body: BlocListener<SchoolsBloc, SchoolsState>(
+      body: BlocListener<SchoolsCubit, SchoolsState>(
         listener: (context, state) {
           buildAlertDialog(context,
               title: '!!! Welcome to School Module !!!',
               content:
                   'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
-          BlocProvider.of<SchoolsBloc>(context)
+          BlocProvider.of<SchoolsCubit>(context)
               .updateWelcomeMessageStatus(true);
         },
         listenWhen: (oldState, state) {
-          return !state.isWelcomeMessageShowed;
+          return !state.isWelcomeMessageShown;
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,11 +106,11 @@ class _SchoolsState extends State<Schools>
   }
 
   Widget _buildSchoolBlocConsumer() {
-    return BlocBuilder<SchoolsBloc, SchoolsState>(builder: (context, state) {
+    return BlocBuilder<SchoolsCubit, SchoolsState>(builder: (context, state) {
       if (state is SchoolsInfoInitial || state is SchoolsInfoLoading) {
         return circularLoader();
       } else if (state is SchoolsInfoLoaded) {
-        return _buildRegisteredSchools(state.schools);
+        return _buildRegisteredSchools(state.schoolsUiModel.schools);
       } else if (state is SchoolDataError) {
         return ExceptionView(state.errorStateType);
       } else {
@@ -242,7 +241,7 @@ class _SchoolsState extends State<Schools>
   }
 
   onTapOfSchoolDelete(String schoolId) {
-    BlocProvider.of<SchoolsBloc>(context).deleteSchool(schoolId);
+    BlocProvider.of<SchoolsCubit>(context).deleteSchool(schoolId);
   }
 
   onTapOfDumpStatus([bool isRunning = false]) {

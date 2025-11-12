@@ -5,9 +5,9 @@ import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
-import '../../../shared/models/school_view_model.dart';
-import '../../../shared/params/school_params.dart';
-import '../../blocs/schools_bloc/schools_bloc.dart';
+import '../../../../shared/models/school_view_model.dart';
+import '../../../../shared/params/school_params.dart';
+import '../../../cubit/schools_cubit/schools_cubit.dart';
 
 class CreateSchool extends StatefulWidget {
   final SchoolViewModel? school;
@@ -109,7 +109,7 @@ class _CreateSchoolState extends State<CreateSchool>
         break;
       case 1:
         if (formKey.currentState?.validate() ?? false) {
-          widget.parentContext.read<SchoolsBloc>().createOrUpdateSchool(
+          widget.parentContext.read<SchoolsCubit>().createOrUpdateSchool(
               SchoolParams(schoolNameCtrl.text.trim(), selectedCountry!,
                   locationCtrl.text.trim(), widget.school?.id),
               isCreateSchool: isCreateSchool);

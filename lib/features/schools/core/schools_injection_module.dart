@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:sample_latest/features/schools/shared/models/school_executed_task_model.dart';
 
+import '../presentation/ui_mappers/schools_ui_mapper.dart';
+
 class SchoolsInjectionModule {
   SchoolsInjectionModule._(); // Private constructor to enforce singleton
 
@@ -12,6 +14,7 @@ class SchoolsInjectionModule {
 
   Future<void> registerDependencies() async {
     _registerExecutedCacheManager();
+    _registerUiMappers();
   }
 
   void _registerExecutedCacheManager() {
@@ -21,7 +24,14 @@ class SchoolsInjectionModule {
     }
   }
 
+  void _registerUiMappers() {
+    if (!injector.isRegistered<SchoolsUiMapper>()) {
+      injector.registerSingleton<SchoolsUiMapper>(SchoolsUiMapperImp());
+    }
+  }
+
   void _unRegisterDependencies() async {
     await injector.unregister(instance: SchoolExecutedTaskFlow);
+    await injector.unregister(instance: SchoolsUiMapper);
   }
 }

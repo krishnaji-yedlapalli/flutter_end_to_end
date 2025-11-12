@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
