@@ -21,7 +21,7 @@ class SchoolsView extends StatelessWidget with HelperWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SchoolsOfflineActions(),
-        Expanded(child: _buildSchoolListView(schools)),
+        Expanded(child: _buildRegisteredSchools(schools)),
       ],
     ).screenPadding();
   }
@@ -32,8 +32,6 @@ class SchoolsView extends StatelessWidget with HelperWidget {
     }
 
     return AdaptiveContainer(
-      tabletWidth: 0.7,
-      desktopWidth: 0.35,
       child: _buildSchoolListView(schools),
     );
   }
@@ -50,9 +48,12 @@ class SchoolsView extends StatelessWidget with HelperWidget {
                 text: TextSpan(
                     style: const TextStyle(color: Colors.black),
                     children: [
-                  const TextSpan(
+                  TextSpan(
                       text: 'Country :',
-                      style: TextStyle(color: Colors.orange)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.apply(color: Colors.blue)),
                   TextSpan(text: school.country),
                 ])),
             trailing: Wrap(

@@ -7,7 +7,6 @@ import 'package:sample_latest/features/schools/shared/models/school_view_model.d
 import '../../../shared/mixins/mixins.dart';
 import '../../../core/routing/router_helper.dart';
 import '../presentation/screens/school_details/school_details.dart';
-import '../presentation/pages/schools/schools.dart';
 import '../presentation/screens/student/student.dart';
 
 class SchoolRouterModule {

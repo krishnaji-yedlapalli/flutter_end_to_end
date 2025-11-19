@@ -10,13 +10,26 @@ sealed class SchoolsState extends Equatable {
 }
 
 class SchoolsInfoInitial extends SchoolsState {
-  const SchoolsInfoInitial({bool isWelcomeMessageShown = true})
+  final SchoolsUiModel schoolsUiModel;
+
+  const SchoolsInfoInitial(this.schoolsUiModel,
+      {bool isWelcomeMessageShown = true})
       : super(isWelcomeMessageShown: isWelcomeMessageShown);
 }
 
 class SchoolsInfoLoading extends SchoolsState {
   const SchoolsInfoLoading({bool isWelcomeMessageShown = true})
       : super(isWelcomeMessageShown: isWelcomeMessageShown);
+}
+
+class SchoolsInfoOverlayLoading extends SchoolsState {
+  final bool isLoading;
+  const SchoolsInfoOverlayLoading(
+      {this.isLoading = false, bool isWelcomeMessageShown = true})
+      : super(isWelcomeMessageShown: isWelcomeMessageShown);
+
+  @override
+  List<Object?> get props => [isLoading];
 }
 
 class SchoolsInfoLoaded extends SchoolsState {

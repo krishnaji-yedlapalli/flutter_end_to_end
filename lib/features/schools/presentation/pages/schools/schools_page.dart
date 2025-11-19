@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/features/schools/presentation/pages/schools/schools_view.dart';
+import 'package:sample_latest/features/schools/presentation/ui_models/schools_ui_model.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
 import 'package:sample_latest/shared/extensions/extensions.dart';
@@ -27,54 +29,95 @@ class SchoolsPage extends StatefulWidget {
 class _SchoolsPageState extends State<SchoolsPage>
     with Loaders, CustomDialogs, HelperWidget, FeatureDiscovery {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      BlocProvider.of<SchoolsCubit>(context).loadSchools();
+      SchoolScreenFeatureDiscovery().startFeatureDiscovery(context);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: const Text('Schools'),
-        actions: [
-          featureDiscovery(() => SchoolScreenFeatureDiscovery()
-              .startFeatureDiscovery(context, forceTour: true))
-        ],
-        appBar: AppBar(),
-      ),
-      floatingActionButton: SchoolScreenFeatureDiscovery().aboutSchoolDiscovery(
-          type: SchoolDiscoverFeatureType.create,
-          child: FloatingActionButton.extended(
-              onPressed: onTapOfCreateSchool,
-              label: const Text('Create School'),
-              icon: const Icon(Icons.add))),
-      body: BlocListener<SchoolsCubit, SchoolsState>(
+    return BlocConsumer<SchoolsCubit, SchoolsState>(
         listener: (context, state) {
-          buildAlertDialog(context,
-              title: '!!! Welcome to School Module !!!',
-              content:
-                  'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
-          BlocProvider.of<SchoolsCubit>(context)
-              .updateWelcomeMessageStatus(true);
+          switch (state) {
+            case SchoolsInfoInitial():
+              buildAlertDialog(context,
+                  title: '!!! Welcome to School Module !!!',
+                  content:
+                      'Whole Module is developed with Flutter BLoc pattern and Integrated with Firebase realtime data base Rest apis');
+            case SchoolsInfoOverlayLoading():
+              handleOverlayLoader(context, state.isLoading);
+            case _:
+
+            /// Do nothing
+          }
         },
-        listenWhen: (oldState, state) {
-          return !state.isWelcomeMessageShown;
-        },
-        child: _buildSchoolConsumer(),
-      ),
-    );
+        listenWhen: (prev, curr) =>
+            curr is SchoolsInfoInitial || curr is SchoolsInfoOverlayLoading,
+        buildWhen: (prev, curr) => curr is SchoolsInfoInitial,
+        builder: (context, state) {
+          if (state is SchoolsInfoLoading) {
+            return circularLoader();
+          } else if (state is SchoolsInfoInitial) {
+            return _buildPage(state.schoolsUiModel);
+          } else if (state is SchoolDataError) {
+            return ExceptionView(state.errorStateType);
+          } else {
+            return Container();
+          }
+        });
+  }
+
+  Widget _buildPage(SchoolsUiModel uiModel) {
+    return Scaffold(
+        appBar: CustomAppBar(
+          title: const Text('Schools'),
+          actions: [
+            featureDiscovery(() => SchoolScreenFeatureDiscovery()
+                .startFeatureDiscovery(context, forceTour: true))
+          ],
+          appBar: AppBar(),
+        ),
+        floatingActionButton: SchoolScreenFeatureDiscovery()
+            .aboutSchoolDiscovery(
+                type: SchoolDiscoverFeatureType.create,
+                child: FloatingActionButton.extended(
+                    onPressed: onTapOfCreateSchool,
+                    label: const Text('Create School'),
+                    icon: const Icon(Icons.add))),
+        body: _buildSchoolConsumer());
   }
 
   Widget _buildSchoolConsumer() {
-    return BlocBuilder<SchoolsCubit, SchoolsState>(builder: (context, state) {
-      if (state is SchoolsInfoInitial || state is SchoolsInfoLoading) {
-        return circularLoader();
-      } else if (state is SchoolsInfoLoaded) {
-        return SchoolsView(
-          schools: state.schoolsUiModel.schools,
-          onTap: (school, type) {},
-        );
-      } else if (state is SchoolDataError) {
-        return ExceptionView(state.errorStateType);
-      } else {
-        return Container();
-      }
-    });
+    return BlocBuilder<SchoolsCubit, SchoolsState>(
+        buildWhen: (previous, current) => current is! SchoolsInfoOverlayLoading,
+        builder: (context, state) {
+          if (state is SchoolsInfoInitial || state is SchoolsInfoLoading) {
+            return circularLoader();
+          } else if (state is SchoolsInfoLoaded) {
+            return SchoolsView(
+              schools: state.schoolsUiModel.schools,
+              onTap: onSchoolTapAction,
+            );
+          } else if (state is SchoolDataError) {
+            return ExceptionView(state.errorStateType);
+          } else {
+            return Container();
+          }
+        });
+  }
+
+  void onSchoolTapAction(SchoolViewModel school, SchoolActionType type) {
+    switch (type) {
+      case SchoolActionType.edit:
+        onTapOfEditSchool(school);
+      case SchoolActionType.delete:
+        onTapOfSchoolDelete(school);
+      case SchoolActionType.select:
+        onTapOfSchool(school);
+    }
   }
 
   onTapOfSchool(SchoolViewModel school) {
@@ -95,7 +138,11 @@ class _SchoolsPageState extends State<SchoolsPage>
         context, CreateSchool(parentContext: context, school: school));
   }
 
-  onTapOfSchoolDelete(String schoolId) {
-    BlocProvider.of<SchoolsCubit>(context).deleteSchool(schoolId);
+  onTapOfSchoolDelete(SchoolViewModel school) {
+    BlocProvider.of<SchoolsCubit>(context).deleteSchool(school.id);
+  }
+
+  void handleOverlayLoader(BuildContext context, bool isLoading) {
+    isLoading ? context.loaderOverlay.show() : context.loaderOverlay.hide();
   }
 }
