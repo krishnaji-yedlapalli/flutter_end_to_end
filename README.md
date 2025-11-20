@@ -2,53 +2,71 @@
 
 A Flutter project aimed at learning app development across multiple platforms using a unified codebase.
 
-# Reference link to access the project on Web
- https://flutter-end-to-end.web.app
+## Available Features:
+🎨 **Theming** – Material 3 theming with dynamic light & dark modes.  
+🧭 **Routing** – Declarative routing powered by `GoRouter`.  
+🌐 **Localization** – Internationalization with LTR & RTL support.  
+📱 **Responsiveness** – Adaptive UI for multiple screen sizes & orientations.  
+💾 **Offline Storage** – Local persistence using `sqflite`.  
+🧱 **Clean Architecture** – BLoC + Clean Architecture principles.  
+🔗 **REST APIs** – Firebase Realtime Database examples.  
+🌍 **Deep Linking** – Navigate directly to in-app screens via URLs.  
+🔔 **Push Notifications** – Remote & local notifications using Firebase and `flutter_local_notifications`.  
+🏷️ **Flavor Support** – Environment-based builds for Android, iOS & macOS.  
+⚙️ **CI/CD Integration** – Automated pipelines for Android, iOS, Web, macOS, Windows & Linux using GitHub Actions.  
+🚀 **Semantic Releases** – Automated versioning and publishing with conventional commits.  
+🧪 **Test-Driven Development (TDD)** – Unit, Widget, Golden, Accessibility & Integration tests.  
+🪝 **Git Hooks** – Pre-commit checks for formatting & code quality.  
+📂 **Path Handling Scripts** – Safe path resolution & fallback handling for private or missing files.
 
-# Currently Available Features:
-1. **Theme**
-2. **Routing** - Declarative Routing using GoRouter
-3. **Localization** - Bidirectional Support
-4. **Offline support** - using the Sqflite plugin
-5. **Bloc Architecture** - by applying principles of Clean Architecture
-6. **Integrated REST Api's** - using Firebase Realtime Database.
-7. **Deep Linking** - Using flutter deep-linking
-8. **Remote Push Notifications** - using Firebase
-9. **Flavor Support** - Android, IOS & macOS
-10.**Automate Tests** - Unit, Widget and Integration
-11. **CI/CD Pipeline integration** - for Android, ios, Web and MacOs.
+## Supported Platforms:
+![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20macOS%20%7C%20Linux%20%7C%20Web%20%7C%20Windows-brightgreen)
+- **Android** – [Install Android App](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages)
+- **iOS** – [Install on TestFlight](https://testflight.apple.com/join/UulGfVnn)
+- **Web** – [Open Web App](https://flutter-end-to-end.web.app/)
+- **macOS** – [Download macOS App](https://i.diawi.com/VeQECd)
+- **Windows** – Build available locally (coming soon for public download)
+- **Linux (Raspberry Pi)** – Runs on Raspberry Pi using Flutter Linux embedding
 
-# Currently Supported Platforms:
-- Android - [Install Android App](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages)
-- IOS - [Install IOS](https://testflight.apple.com/join/UulGfVnn)
-- Web - [Open Web App](https://flutter-end-to-end.web.app/)
-- MacOS - [Install IOS](https://i.diawi.com/VeQECd)
+> [!NOTE]
+> In this project, the **Schools** feature demonstrates responsiveness, clean architecture, SOLID principles, design patterns, and API integration. Please refer to its implementation at: [School Feature](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/main/lib/features/schools)
 
-# Theme:
+---
+
+### 🎨Theme:
    * In this application Material 3 themeing was implemented, in this appliacation can find different type of material components.
    * Implemented light and dark theme modes, these modes changes based on the system configurations as well.
    * For more information follow below links
    
-   **Medium post:** https://medium.com/@krishnajiyedlapalli60/creating-custom-theme-in-flutter-with-material-3-70e524a126d0  
-   **Web Reference:** https://flutter-end-to-end.web.app/#/home
+   > **Medium post:** https://medium.com/@krishnajiyedlapalli60/creating-custom-theme-in-flutter-with-material-3-70e524a126d0  
+   > **Web Reference:** https://flutter-end-to-end.web.app/#/home
    
-# Localization:
+### 🧭 Localization:
    * This application Localization with bir directional support.
    * The application adapts to the system language if it is included in the localization list.
    * For more information follow below links
    
-   **Medium post:** https://medium.com/stackademic/flutter-localization-and-internationalization-with-ltr-and-rtl-support-3c70cb926ba5
-   **Web Reference:** https://flutter-end-to-end.web.app/#/home/localization
+   > **Medium post:** https://medium.com/stackademic/flutter-localization-and-internationalization-with-ltr-and-rtl-support-3c70cb926ba5
+   > **Web Reference:** https://flutter-end-to-end.web.app/#/home/localization
 
-# Routing:
+### 📱 Responsiveness:
+   * The application UI is designed to adapt seamlessly across various screen sizes and orientations, including mobile, tablet, web, and desktop.
+   * This is achieved through a combination of Flutter's built-in responsive widgets and techniques:
+     - **`MediaQuery`**: Used to determine current screen size, orientation, and pixel density.
+     - **`LayoutBuilder`**: Dynamically rebuilds parts of the UI based on the available constraints from its parent widget.
+     - **`Expanded` and `Flexible`**: Utilized within `Row` and `Column` widgets to distribute space efficiently.
+     - **Adaptive Widgets**: Leveraging Flutter's Material Design adaptive components and custom-built adaptive widgets to ensure a consistent user experience on all platforms.
+     - **Breakpoints**: Custom breakpoints are defined to switch layouts and designs for different screen categories (e.g., compact, medium, expanded).
+
+### 🌐 Routing:
    * This whole application navigations was implemented using **GoRouter** package.
    * It supports all the platforms which are supported by Flutter.
    * This application supports nested navigation.
    * Implemented Parent with mutiple children navigation but having some issue when tapping on device backbutton will sort out it soon.
 
-   **Web Reference:** https://flutter-end-to-end.web.app/#/home/route
+   > **Web Reference:** https://flutter-end-to-end.web.app/#/home/route
 
-# Clean Architecture using Flutter Bloc pattern:
+### 🧱 Clean Architecture using Flutter Bloc pattern:
    * For brefiely explaining about bloc we created a module called **Schools**, using this module we can create a school,student and more about school, additionally added a delete option as well.
    * The entire process of creating, editing, and deleting entities is implemented using Bloc exclusively.
    * It will explain how to segregate the folders and how flow will be through them.
@@ -56,10 +74,10 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 ![alt text](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*8KFA9NXx_YqjQUYNh6BfqA.png)
 
-   **Medium post:** https://medium.com/@krishnajiyedlapalli60/clean-architecture-using-flutter-bloc-43463e9110db  
-   **Web Reference:** [https://flutter-end-to-end.web.app/#/home/schools](https://flutter-end-to-end.web.app/#/home/schools)
+   > **Medium post:** https://medium.com/@krishnajiyedlapalli60/clean-architecture-using-flutter-bloc-43463e9110db  
+   > **Web Reference:** [https://flutter-end-to-end.web.app/#/home/schools](https://flutter-end-to-end.web.app/#/home/schools)
    
-# Offline Support: 
+### 📡❌ Offline Support: 
    * School module which is developed by using flutter Bloc can stores the data in the local DB this was implemented by using SQLite data base.
    * It has three different type modes based on the selected mode data will be stored.
      - **Offline Mode:**
@@ -71,7 +89,7 @@ A Flutter project aimed at learning app development across multiple platforms us
   * Once internet is available it will automatically upload the data to server using Connectivity plus package.
   * Currently Offline supported platforms iOS, Android and macOS . 
 
-# Deep Linking:
+### 🌍 Deep Linking:
   * This applications supports deep linking purely implemented by using flutter officials docs
     https://docs.flutter.dev/ui/navigation/deep-linking
   * Currently Deep linking supported platforms iOS, Android and macOS.
@@ -81,25 +99,23 @@ A Flutter project aimed at learning app development across multiple platforms us
     
     **iOS:** https://flutter-end-to-end.web.app/.well-known/apple-app-site-association
     
-**Reference Link:** [https://docs.flutter.dev/ui/navigation/deep-linking](https://docs.flutter.dev/ui/navigation/deep-linking)  
-**Web Reference:** https://flutter-end-to-end.web.app/#/home/deep-linking 
+> **Reference Link:** [https://docs.flutter.dev/ui/navigation/deep-linking](https://docs.flutter.dev/ui/navigation/deep-linking)  
+> **Web Reference:** https://flutter-end-to-end.web.app/#/home/deep-linking 
 
-# Push Notification - Remote & Local:
-  ## Remote Push Notication:
-  * Push Notifications are integrated by using Firebase.
-  * Currently Push Notifcations supported platforms Android,iOS,macOS,and Web.   
+### 🔔 Push Notifications
+- **📡 Remote Push Notifications**
+    - Integrated using **Firebase Cloud Messaging (FCM)**
+    - Supported on: **Android, iOS, macOS, Web**
+    > **Reference:** https://firebase.google.com/docs/cloud-messaging/flutter/client  
+    > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/remote-notifications
 
-**Reference Link:** https://firebase.google.com/docs/cloud-messaging/flutter/client    
-**Web Reference:** https://flutter-end-to-end.web.app/#/home/push-notifications/remote-notifications 
+- **📱 Local Push Notifications**
+    - Implemented using **flutter_local_notifications**
+    - Supported on: **Android, iOS, macOS, Linux**
+    > **Reference:** https://pub.dev/packages/flutter_local_notifications#-supported-platforms  
+    > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/local-notifications    
 
- ## Local Push Notification:
- * Local notifications are integrated by using **flutter_local_notifications**.
- * Currently Local Push Notifcations supported platforms Android,iOS,macOS,and Linux.
-
-**Reference Link:** https://pub.dev/packages/flutter_local_notifications#-supported-platforms    
-**Web Reference:** https://flutter-end-to-end.web.app/#/home/push-notifications/local-notifications      
-
-## Product Flavors:
+### 🏷️ Product Flavors:
 
   ####  Flavors are used to build applications on different aspects like
 
@@ -118,11 +134,42 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 `flutter run`
 
-<img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
-<img width="1440" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
-<img width="1434" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
+<img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
+<img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
+<img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
 
-## Automate Tests:
+### ⚙️ CI/CD Integration:
+   This project uses GitHub Actions for its Continuous Integration and Continuous Deployment (CI/CD) pipelines, automating the build and test processes across Android, iOS, Web, macOS, Windows, and Linux.
+
+   - **Continuous Integration (CI)**: The `ci.yaml` workflow runs on every pull request to `main` and `develop`. It performs the following checks:
+     - Lints and analyzes the Dart code to ensure code quality.
+     - Builds the application for Android, iOS, and Web to verify that the project is in a buildable state.
+
+   - **Continuous Deployment (CD)**:
+     - **Firebase Hosting**: The `firebase-hosting-merge.yml` workflow automatically deploys the web build to Firebase Hosting on every push to `main`.
+     - **Android Release**: The `ci.yaml` workflow also deploys the Android APK to the `gh-pages` branch for distribution.
+
+   - **Automated Releases**: The `release.yaml` workflow, triggered on pushes to `main`, automates the release process by:
+     - Bumping the version number based on conventional commit messages.
+     - Creating a new Git tag.
+     - Generating a GitHub Release with an automated changelog.
+
+### 🚀 **Semantic Releases**
+Semantic Releases ensure automated versioning, tagging, and changelog generation based on **Conventional Commits**.
+
+Semantic versioning is driven by commit message types such as `feat`, `fix`, and `chore`, following the official specification:  
+🔗 https://www.conventionalcommits.org/en/v1.0.0/
+
+The `release.yaml` workflow, triggered on pushes to the `main` branch, automates the entire release process by:
+
+- Analyzing commit messages to determine whether to bump **major**, **minor**, or **patch** versions  
+- Automatically updating the version number  
+- Creating and pushing a new Git tag  
+- Generating a GitHub Release with an auto-generated changelog  
+- Ensuring consistent and predictable release cycles        
+
+
+### 🧪 Test Driven Devlopment(TDD):
 
 **Integration Tests on Mobile**
 
@@ -144,6 +191,7 @@ https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/49739
 ![Results of Unit and Widget Tests](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/697b7a82-0c76-41a2-815f-d9898adf2417)
 
 ---
+
 # Project Setup
 
 This project is built with Flutter version **3.29.2** and Dart version **3.7.2**. The current project version is **1.0.0+1**.
@@ -185,3 +233,4 @@ This project is built with Flutter version **3.29.2** and Dart version **3.7.2**
     (e.g., `flutter run --flavor flutter` or `flutter run --flavor dart`)
 
 > **Note on the `daily_tracker` submodule:** The `daily_tracker` feature is managed as a private submodule. Access to this repository is restricted due to privacy and policy considerations. If you require access to this part of the project, please contact the project administrator.
+
