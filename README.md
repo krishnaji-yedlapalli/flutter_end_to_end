@@ -115,25 +115,35 @@ A Flutter project aimed at learning app development across multiple platforms us
     > **Reference:** https://pub.dev/packages/flutter_local_notifications#-supported-platforms  
     > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/local-notifications    
 
-### 🏷️ Product Flavors:
 
-  ####  Flavors are used to build applications on different aspects like
+### 🏷️ Product Flavors
 
- * Maintaining different environment.
- * Buidling application on same code base for different customers by changning logos and App name.
- * Changning Configurations like colors,acess,etc.
+#### Why Flavors Are Used
+Product flavors help build applications for different requirements and environments, such as:
 
-#### This application supports two build flavors 
-1. Flutter 
-2. Dart
-#### Don't be confused they are flavor name only, Based on the flavor launcher icons and App name is changed
+- Maintaining different environments (dev, stage, prod)
+- Building apps for multiple customers while reusing the same codebase  
+  (e.g., changing logos and app names)
+- Changing configurations like colors, access controls, and feature toggles
 
-`flutter run --flavor flutter`
+#### Supported Build Flavors
+This application currently supports **two** build flavors:
 
-`flutter run --flavor dart`
+1. **Flutter**
+2. **Dart**
 
-`flutter run`
+> 💡 *These are just flavor names.*  
+> Depending on the selected flavor, the launcher icons and app name change.
 
+#### Running the App with Flavors
+
+```bash
+flutter run --flavor flutter
+
+flutter run --flavor dart
+
+flutter run   # Default flavor
+```
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
