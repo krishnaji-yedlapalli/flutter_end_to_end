@@ -40,7 +40,7 @@ A Flutter project aimed at learning app development across multiple platforms us
    
    > **Medium post:** https://medium.com/@krishnajiyedlapalli60/creating-custom-theme-in-flutter-with-material-3-70e524a126d0  
    > **Web Reference:** https://flutter-end-to-end.web.app/#/home
-   
+  --- 
 ### 🧭 Localization:
    * This application Localization with bir directional support.
    * The application adapts to the system language if it is included in the localization list.
@@ -48,7 +48,7 @@ A Flutter project aimed at learning app development across multiple platforms us
    
    > **Medium post:** https://medium.com/stackademic/flutter-localization-and-internationalization-with-ltr-and-rtl-support-3c70cb926ba5
    > **Web Reference:** https://flutter-end-to-end.web.app/#/home/localization
-
+---
 ### 📱 Responsiveness:
    * The application UI is designed to adapt seamlessly across various screen sizes and orientations, including mobile, tablet, web, and desktop.
    * This is achieved through a combination of Flutter's built-in responsive widgets and techniques:
@@ -57,7 +57,7 @@ A Flutter project aimed at learning app development across multiple platforms us
      - **`Expanded` and `Flexible`**: Utilized within `Row` and `Column` widgets to distribute space efficiently.
      - **Adaptive Widgets**: Leveraging Flutter's Material Design adaptive components and custom-built adaptive widgets to ensure a consistent user experience on all platforms.
      - **Breakpoints**: Custom breakpoints are defined to switch layouts and designs for different screen categories (e.g., compact, medium, expanded).
-
+---
 ### 🌐 Routing:
    * This whole application navigations was implemented using **GoRouter** package.
    * It supports all the platforms which are supported by Flutter.
@@ -65,7 +65,7 @@ A Flutter project aimed at learning app development across multiple platforms us
    * Implemented Parent with mutiple children navigation but having some issue when tapping on device backbutton will sort out it soon.
 
    > **Web Reference:** https://flutter-end-to-end.web.app/#/home/route
-
+---
 ### 🧱 Clean Architecture using Flutter Bloc pattern:
    * For brefiely explaining about bloc we created a module called **Schools**, using this module we can create a school,student and more about school, additionally added a delete option as well.
    * The entire process of creating, editing, and deleting entities is implemented using Bloc exclusively.
@@ -76,7 +76,7 @@ A Flutter project aimed at learning app development across multiple platforms us
 
    > **Medium post:** https://medium.com/@krishnajiyedlapalli60/clean-architecture-using-flutter-bloc-43463e9110db  
    > **Web Reference:** [https://flutter-end-to-end.web.app/#/home/schools](https://flutter-end-to-end.web.app/#/home/schools)
-   
+ ---  
 ### 📡❌ Offline Support: 
    * School module which is developed by using flutter Bloc can stores the data in the local DB this was implemented by using SQLite data base.
    * It has three different type modes based on the selected mode data will be stored.
@@ -88,7 +88,7 @@ A Flutter project aimed at learning app development across multiple platforms us
        Data will be dumped into the local DB at the time login or Module loading. Later it is used making some operations    
   * Once internet is available it will automatically upload the data to server using Connectivity plus package.
   * Currently Offline supported platforms iOS, Android and macOS . 
-
+---
 ### 🌍 Deep Linking:
   * This applications supports deep linking purely implemented by using flutter officials docs
     https://docs.flutter.dev/ui/navigation/deep-linking
@@ -101,7 +101,7 @@ A Flutter project aimed at learning app development across multiple platforms us
     
 > **Reference Link:** [https://docs.flutter.dev/ui/navigation/deep-linking](https://docs.flutter.dev/ui/navigation/deep-linking)  
 > **Web Reference:** https://flutter-end-to-end.web.app/#/home/deep-linking 
-
+---
 ### 🔔 Push Notifications
 - **📡 Remote Push Notifications**
     - Integrated using **Firebase Cloud Messaging (FCM)**
@@ -114,8 +114,7 @@ A Flutter project aimed at learning app development across multiple platforms us
     - Supported on: **Android, iOS, macOS, Linux**
     > **Reference:** https://pub.dev/packages/flutter_local_notifications#-supported-platforms  
     > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/local-notifications    
-
-
+---
 ### 🏷️ Product Flavors
 
 #### Why Flavors Are Used
@@ -147,7 +146,7 @@ flutter run   # Default flavor
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
-
+---
 ### ⚙️ CI/CD Integration:
    This project uses GitHub Actions for its Continuous Integration and Continuous Deployment (CI/CD) pipelines, automating the build and test processes across Android, iOS, Web, macOS, Windows, and Linux.
 
@@ -163,7 +162,7 @@ flutter run   # Default flavor
      - Bumping the version number based on conventional commit messages.
      - Creating a new Git tag.
      - Generating a GitHub Release with an automated changelog.
-
+---
 ### 🚀 **Semantic Releases**
 Semantic Releases ensure automated versioning, tagging, and changelog generation based on **Conventional Commits**.
 
@@ -177,8 +176,7 @@ The `release.yaml` workflow, triggered on pushes to the `main` branch, automates
 - Creating and pushing a new Git tag  
 - Generating a GitHub Release with an auto-generated changelog  
 - Ensuring consistent and predictable release cycles        
-
-
+---
 ### 🧪 Test Driven Devlopment(TDD):
 
 **Integration Tests on Mobile**
@@ -199,9 +197,7 @@ https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/49739
 **Unit Test and Widget Testing**
 
 ![Results of Unit and Widget Tests](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/697b7a82-0c76-41a2-815f-d9898adf2417)
-
 ---
-
 # Project Setup
 
 This project is built with Flutter version **3.29.2** and Dart version **3.7.2**. The current project version is **1.0.0+1**.
@@ -243,4 +239,28 @@ This project is built with Flutter version **3.29.2** and Dart version **3.7.2**
     (e.g., `flutter run --flavor flutter` or `flutter run --flavor dart`)
 
 > **Note on the `daily_tracker` submodule:** The `daily_tracker` feature is managed as a private submodule. Access to this repository is restricted due to privacy and policy considerations. If you require access to this part of the project, please contact the project administrator.
+
+## 🧭 Roadmap (Upcoming Features)
+
+- 🔗 **.NET Web API Integration**  
+  Integrate backend services using ASP.NET Core Web APIs.
+
+- 🔍 **GraphQL Integration**  
+  Add GraphQL support for efficient querying and flexible data access.
+
+- 📊 **Firebase Analytics Integration**  
+  Track user behavior, events, and app engagement with Firebase Analytics.
+
+- ⚠️ **Advanced Error Handling**  
+  Implement global error tracking, exception logging, and UI-friendly error states.
+
+- 🏠 **Home Automation (Smart Control)**  
+  Control IoT devices using **Raspberry Pi** and **NodeMCU (ESP modules)**.  
+  Build a smart automation control panel inside the app.
+
+- 🤖 **Gen UI Integration**  
+  Integrate AI-generated UI or UI automation via Gen UI frameworks/tools.
+
+- 🧩 **FFI (Foreign Function Interface)**  
+  Add native C/C++/Rust bindings for performance-critical features.
 
