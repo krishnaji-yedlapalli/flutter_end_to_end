@@ -33,6 +33,24 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 ---
 
+### Daily Tracker (Private Sub-Repository)
+
+This public repository contains a private submodule named **Daily Tracker**, which supports all platforms. I personally use it on a Raspberry Pi connected to a touch display with a stand, as shown in the recordings below. I use this setup to track my daily activities.
+
+Access to this sub-repository is restricted due to privacy and policy requirements.
+
+**Hardware Used:**
+- Raspberry Pi 5
+- Active Cooler
+- Raspberry Pi Touch Display 2
+- Display Stand
+
+https://github.com/user-attachments/assets/f2a30bf7-1b82-48f0-b3f5-f752e61a5b65 
+
+https://github.com/user-attachments/assets/bf434daa-6be8-45d6-b5e0-6d539acd9420
+
+---
+
 ### 🎨Theme:
    * In this application Material 3 themeing was implemented, in this appliacation can find different type of material components.
    * Implemented light and dark theme modes, these modes changes based on the system configurations as well.
@@ -146,7 +164,9 @@ flutter run   # Default flavor
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
+
 ---
+
 ### ⚙️ CI/CD Integration:
    This project uses GitHub Actions for its Continuous Integration and Continuous Deployment (CI/CD) pipelines, automating the build and test processes across Android, iOS, Web, macOS, Windows, and Linux.
 
