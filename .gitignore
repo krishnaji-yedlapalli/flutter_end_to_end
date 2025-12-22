@@ -9,6 +9,10 @@
 .history
 .svn/
 migrate_working_dir/
+exec -l/
+exec -l /
+node_modules/
+y/google-cloud-sdk/
 
 # IntelliJ related
 *.iml
