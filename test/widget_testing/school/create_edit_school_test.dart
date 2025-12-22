@@ -5,13 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mockito/annotations.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/features/schools/presentation/blocs/school_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/core/presentation/provider/common_provider.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools/create_update_school.dart';
-import 'package:sample_latest/features/schools/presentation/screens/schools/schools.dart';
+import 'package:sample_latest/features/schools/presentation/pages/schools/widgets/create_update_school.dart';
+import 'package:sample_latest/features/schools/presentation/pages/schools/schools.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import '../../mock_data/configuration_data.dart';
 

@@ -54,9 +54,9 @@ extension DeviceResolutionTypeExtension on DeviceResolutionType {
       case DeviceResolutionType.tabletLandscape:
         return 1.15; // Optimized for 7-inch landscape
       case DeviceResolutionType.desktopStandard:
-        return 1.2;
+        return 1.1;
       case DeviceResolutionType.desktopLarge:
-        return 1.4;
+        return 1.1;
     }
   }
 

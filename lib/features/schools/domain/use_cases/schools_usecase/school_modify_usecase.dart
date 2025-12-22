@@ -1,3 +1,7 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+
 import '../../../../../core/mixins/helper_methods.dart';
 import '../../../shared/models/school_executed_task_model.dart';
 import '../../../shared/params/school_params.dart';
@@ -11,17 +15,29 @@ class SchoolModifyUseCase {
 
   final SchoolExecutedTaskFlow _executedTask;
 
-  Future<List<SchoolEntity>> call(
+  Future<Either<List<SchoolEntity>, ErrorDetails>> call(
       SchoolParams params, bool isCreateSchool) async {
-    var schools = <SchoolEntity>[];
+    try {
+      var schools = <SchoolEntity>[];
 
-    if (isCreateSchool) {
-      schools = await createSchool(params);
-    } else {
-      schools = await updateSchool(params);
+      if (isCreateSchool) {
+        schools = await createSchool(params);
+      } else {
+        schools = await updateSchool(params);
+      }
+
+      return Left(schools);
+    } catch (e, s) {
+      ExceptionHandler().handleExceptionWithToastNotifier(e,
+          stackTrace: s,
+          toastMessage: isCreateSchool
+              ? 'Unable to create the School'
+              : 'Unable to update the school');
+      return Right(ExceptionHandler().handleException(
+        e,
+        s,
+      ));
     }
-
-    return schools;
   }
 
   Future<List<SchoolEntity>> createSchool(SchoolParams params) async {
