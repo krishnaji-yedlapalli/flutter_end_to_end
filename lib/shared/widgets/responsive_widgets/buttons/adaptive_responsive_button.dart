@@ -28,7 +28,7 @@ class AdaptiveResponsiveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get responsive padding
-    final responsivePadding = EdgeInsets.all(0);
+    const responsivePadding = EdgeInsets.all(0);
 
     // Build button content with responsive sizing
     Widget buttonChild = _buildButtonContent();
