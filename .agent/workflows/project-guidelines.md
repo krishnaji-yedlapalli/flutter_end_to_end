@@ -14,7 +14,11 @@ description: General project guidelines and coding standards
 2. **Use Adaptive UI Components** - Always use the adaptive widgets from `lib/core/device/` for cross-platform consistency:
    - Use `AdaptiveButton`, `AdaptiveText`, `AdaptiveScaffold`, etc.
    - Leverage `ScreenBreakpoints` for responsive layouts
-   - Use `DeviceConfig` for platform-specific behavior
+   - Use `DeviceConfiguration` for platform-specific behavior:
+     - `DeviceConfiguration.operatingSystemType` for platform detection (iOS, Android, Web, etc.)
+     - `DeviceConfiguration.isMobileResolution`, `DeviceConfiguration.isTabletResolution` for screen sizes
+     - `DeviceConfiguration.useCupertinoDesign` for platform-appropriate UI components
+     - `DeviceConfiguration.getResponsiveSpacing()`, `DeviceConfiguration.getResponsiveFontSize()` for adaptive sizing
 
 3. **State Management** - Use BLoC for complex state, Provider for simple state
 
