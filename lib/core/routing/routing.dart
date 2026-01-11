@@ -2,6 +2,8 @@ import 'package:sample_latest/core/environment/environment.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
@@ -11,6 +13,7 @@ import 'package:sample_latest/features/deep_linking/deep_linking.dart';
 import 'package:sample_latest/features/generative_ai/presentation/screen/gemini.dart';
 import 'package:sample_latest/features/isolates/isolate_home.dart';
 import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
+import 'package:sample_latest/features/isolates/presentation/cubit/isolate_cubit.dart';
 import 'package:sample_latest/features/localization.dart';
 import 'package:sample_latest/features/plugins/plugins_dashboard.dart';
 import 'package:sample_latest/features/plugins/youtube.dart';
@@ -125,7 +128,15 @@ class Routing {
                     path: 'isolateWithWithOutLag',
                     name: 'Isolates With without Lag',
                     builder: (context, state) {
-                      return IsolateWithCompute();
+                      try {
+                        return BlocProvider(
+                          create: (context) => GetIt.instance<IsolateCubit>(),
+                          child: const EnhancedIsolateDemo(),
+                        );
+                      } catch (e) {
+                        // Fallback if dependencies not initialized
+                        return const IsolateHome();
+                      }
                     }),
               ]),
           GoRoute(
