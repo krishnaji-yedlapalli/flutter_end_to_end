@@ -81,7 +81,7 @@ class AdaptiveResponsiveIconButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       padding: padding,
-      minSize: iconSize + padding.vertical,
+      minimumSize: Size.square(iconSize + padding.vertical),
       child: Icon(
         icon,
         size: iconSize,

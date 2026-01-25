@@ -28,7 +28,7 @@ class CustomDropDown<T> extends StatelessWidget {
       hint: hint != null ? ResponsiveText(hint!) : null,
       items: items,
       onChanged: onChanged,
-      value: value,
+      initialValue: value,
       validator: validator,
       style: TextStyle(
           fontSize: DeviceConfiguration.getResponsiveFontSize(14),

@@ -78,7 +78,7 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
             BorderRadius.circular(isExtended ? 28.0 : iconSize + 16.0),
         boxShadow: [
           BoxShadow(
-            color: CupertinoColors.systemGrey.withOpacity(0.3),
+            color: CupertinoColors.systemGrey.withValues(alpha: 0.3),
             blurRadius: 8.0,
             offset: const Offset(0, 4),
           ),
@@ -87,7 +87,7 @@ class AdaptiveResponsiveFAB extends StatelessWidget {
       child: CupertinoButton(
         onPressed: onPressed,
         padding: responsivePadding,
-        minSize: 0,
+        minimumSize: Size.zero,
         child: isExtended && label != null
             ? Row(
                 mainAxisSize: MainAxisSize.min,
