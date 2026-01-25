@@ -99,7 +99,7 @@ dependencies:
   win32: ^5.10.1
   dart_periphery: ^0.9.18
   flutter_lite_camera: ^0.0.2
-  # flutter_gen: ^5.10.0
+  flutter_gen: ^5.9.0
   flutter_secure_storage: ^9.2.2
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
