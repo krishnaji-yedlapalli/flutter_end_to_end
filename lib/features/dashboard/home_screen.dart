@@ -10,7 +10,7 @@ import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sample_latest/l10n/app_localizations.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';

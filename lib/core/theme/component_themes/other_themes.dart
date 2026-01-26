@@ -13,8 +13,8 @@ class OtherThemes {
     );
   }
 
-  static DialogTheme dialogTheme() {
-    return const DialogTheme(
+  static DialogThemeData dialogTheme() {
+    return const DialogThemeData(
       iconColor: AppColors.orange,
     );
   }
