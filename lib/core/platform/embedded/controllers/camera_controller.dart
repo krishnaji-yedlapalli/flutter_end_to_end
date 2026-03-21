@@ -17,8 +17,6 @@ class CameraController {
   final FlutterLiteCamera _cameraPlugin = FlutterLiteCamera();
   bool _isCameraOpened = false;
   bool _isCapturing = false;
-  int _width = 640;
-  int _height = 480;
   late GPIO _gpio;
   String _buttonState = 'Unknown';
   String? _lastCapturedPath;
@@ -98,8 +96,6 @@ class CameraController {
     try {
       Map<String, dynamic> frame = await _cameraPlugin.captureFrame();
       if (frame.containsKey('data')) {
-        _width = frame['width'];
-        _height = frame['height'];
         return frame['data'] as Uint8List;
       }
       return null;

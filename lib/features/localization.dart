@@ -132,7 +132,6 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker>
   }
 
   Widget _buildSimplifiedStrings() {
-    var size = MediaQuery.of(context).size;
     var list = getLocalizationData();
     return LayoutBuilder(builder: (context, constraints) {
       return ListView.separated(

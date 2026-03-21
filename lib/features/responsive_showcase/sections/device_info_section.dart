@@ -187,7 +187,6 @@ class DeviceInfoSection extends StatelessWidget {
       {'name': 'Desktop Large', 'width': 1920, 'color': Colors.teal},
     ];
 
-    final currentWidth = DeviceConfiguration.screenWidth;
     const maxWidth = 1920.0;
 
     return Column(
@@ -259,7 +258,6 @@ class DeviceInfoSection extends StatelessWidget {
 
   /// Check if the given width matches current resolution type
   bool _isCurrentResolution(int width) {
-    final currentWidth = DeviceConfiguration.screenWidth;
     final resolutionType = DeviceConfiguration.resolutionType;
 
     switch (resolutionType.toString().split('.').last) {

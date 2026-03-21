@@ -7,23 +7,14 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 import '../../../../shared/constants.dart';
 import '../../../../shared/models/smart_control_model.dart';
-import '../../domain/use_cases/device_status_useCase.dart';
-import '../../domain/use_cases/smart_device_ctrl_useCase.dart';
 
 part 'smart_device_control_state.dart';
 
 class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
-  final SmartDeviceStatusUseCase _smartDeviceStatusUseCase;
-  final SmartDeviceControlUseCase _smartDeviceControlUseCase;
   final SmartControlMqttModel _smartControlModel;
   final MqttServerClient _mqttServerClient;
-  Subscription? _subscription;
 
-  SmartDeviceMqttControlCubit(
-      this._smartDeviceStatusUseCase,
-      this._smartDeviceControlUseCase,
-      this._smartControlModel,
-      this._mqttServerClient)
+  SmartDeviceMqttControlCubit(this._smartControlModel, this._mqttServerClient)
       : super(SmartDeviceLoading());
 
   void subscribeListener() async {
@@ -35,7 +26,7 @@ class SmartDeviceMqttControlCubit extends Cubit<SmartDeviceState> {
     // }
 
     try {
-      _subscription = _mqttServerClient.subscribe(
+      _mqttServerClient.subscribe(
           '${_smartControlModel.deviceId}${MqttConstants.status}',
           MqttQos.atMostOnce);
       _mqttServerClient.subscribe(

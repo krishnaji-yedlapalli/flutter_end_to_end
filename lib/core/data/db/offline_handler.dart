@@ -49,7 +49,6 @@ class OfflineHandler {
   /// Handle the request which is from the interceptor
   Future<void> handleRequest(RequestOptions options, dynamic handler) async {
     String path = options.path;
-    Response? response;
 
     try {
       if (path.contains(Urls.schools) ||
@@ -121,7 +120,7 @@ class OfflineHandler {
           RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        var result = await BaseService.instance.makeRequest(
+        await BaseService.instance.makeRequest(
             url: queueItem.path,
             method: requestType ?? RequestType.get,
             body: queueItem.body,
@@ -178,7 +177,7 @@ class OfflineHandler {
       /// Loading Zip Data
       ByteData byteData = await rootBundle.load("asset/school_data.zip");
 
-      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData,
+      await Isolate.spawn(_DumpingOfflineData.dumpOfflineData,
           [receivePort.sendPort, rootIsolateToken, byteData]);
 
       /// Listening to the Dumping status

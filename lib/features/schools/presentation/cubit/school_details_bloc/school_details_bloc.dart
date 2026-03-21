@@ -3,20 +3,18 @@ import 'package:fpdart/fpdart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/schools_details_state.dart';
-import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
 
 import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/models/school_details_view_model.dart';
 import '../../../shared/params/school_details_param.dart';
 
 class SchoolDetailsBloc extends Cubit<SchoolDetailsState> {
-  SchoolDetailsBloc(this._schoolDetailsUseCase,
-      this._schoolDetailsModifyUseCase, this._studentsBloc)
+  SchoolDetailsBloc(
+      this._schoolDetailsUseCase, this._schoolDetailsModifyUseCase)
       : super(const SchoolDetailsInitial());
 
   final SchoolDetailsUseCase _schoolDetailsUseCase;
   final SchoolDetailsModifyUseCase _schoolDetailsModifyUseCase;
-  final StudentsBloc _studentsBloc;
 
   Future<void> loadSchoolDetails(String schoolId) async {
     emit(const SchoolDetailsInitialLoading());

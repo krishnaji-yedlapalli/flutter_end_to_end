@@ -374,17 +374,13 @@ class _HomeScreenState extends State<HomeScreen>
         },
       ),
       content: const Align(alignment: Alignment.center, child: Text('Offline')),
-      actions: [
-        const Text('Retry',
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.white)) ??
-            TextButton(
-                onPressed: () {},
-                child: const Text('Retry',
-                    style: TextStyle(fontWeight: FontWeight.w600)))
+      actions: const [
+        Text('Retry',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+                decorationColor: Colors.white))
       ],
       contentTextStyle: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),

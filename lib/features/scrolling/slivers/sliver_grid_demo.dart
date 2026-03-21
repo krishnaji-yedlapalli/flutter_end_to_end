@@ -207,7 +207,6 @@ class SliverGridDemo extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  final aspectRatios = [1.0, 1.5, 0.8, 1.2, 0.9];
                   final heights = [120.0, 180.0, 100.0, 150.0, 110.0];
                   final height = heights[index % heights.length];
 

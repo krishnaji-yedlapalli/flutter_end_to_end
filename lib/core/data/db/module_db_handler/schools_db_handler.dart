@@ -35,12 +35,6 @@ class _SchoolsDbHandler extends DbHandler {
         return performDeleteOperation(options);
       case RequestType.store:
         return performBulkLocalDataStoreOperation(options);
-      default:
-        throw DioException(
-            requestOptions: options,
-            error: OfflineException(),
-            type: DioExceptionType.unknown,
-            message: DbConstants.notSupportedOfflineErrorMsg);
     }
   }
 
@@ -64,7 +58,7 @@ class _SchoolsDbHandler extends DbHandler {
     }
 
     if (dbName != null) {
-      int recordId = await dbHandler.deleteRecord(
+      await dbHandler.deleteRecord(
           tableName: dbName, columnName: DbConstants.idColumnName, ids: [id]);
 
       /// Storing the data locally
@@ -151,7 +145,7 @@ class _SchoolsDbHandler extends DbHandler {
 
     if (tableName != null) {
       var body = options.data[options.data.keys.first];
-      var response = await dbHandler.insertData(tableName, body);
+      await dbHandler.insertData(tableName, body);
 
       /// Storing the data locally
       if (!(options.notRequiredToStoreInQueue)) {

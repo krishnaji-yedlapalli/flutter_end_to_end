@@ -17,11 +17,11 @@ SchoolDetailsModel _$SchoolDetailsModelFromJson(Map<String, dynamic> json) {
     json['country'] as String,
     json['location'] as String,
     json['image'] as String,
-    json['studentCount'] as int,
-    json['employeeCount'] as int,
+    (json['studentCount'] as num).toInt(),
+    (json['employeeCount'] as num).toInt(),
     json['hostelAvailability'] as bool,
-    json['createdDate'] as int,
-    updatedDate: json['updatedDate'] as int?,
+    (json['createdDate'] as num).toInt(),
+    updatedDate: (json['updatedDate'] as num?)?.toInt(),
   );
 }
 

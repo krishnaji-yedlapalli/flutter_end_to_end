@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
-import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
-import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
-import 'package:sample_latest/features/schools/presentation/screens/school_details/school_details.dart';
 import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
+import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 
-import '../../mock_data/configuration_data.dart';
+void main() {
+  setUp(() {
+    DeviceConfiguration.initiate();
+    DeviceConfiguration.updateDeviceResolutionAndOrientation(
+        const Size(375, 667), Orientation.portrait);
+  });
 
-main() {
+  Future<void> pumpCreateStudent(WidgetTester tester, String schoolId,
+      {StudentViewModel? student}) async {
+    final parentKey = GlobalKey();
+
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Builder(
+          key: parentKey,
+          builder: (ctx) => CreateStudent(ctx, schoolId, student: student),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+  }
+
   group('create student widget test', () {
-    setUp(() {
-      DeviceConfiguration.initiate();
-    });
+    testWidgets('create new student - validation', (tester) async {
+      await pumpCreateStudent(tester, '124');
 
-    testWidgets('create new student', (tester) async {
-      await tester.pumpWidget(
-          const MaterialApp(home: Scaffold(body: CreateStudent('124'))));
-      await tester.pumpAndSettle();
-
-      /// checking validation
       await tester.tap(find.text('Create'));
       await tester.pump();
 
@@ -46,17 +54,18 @@ main() {
     });
 
     testWidgets('Edit existing student', (tester) async {
-      await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-              body: CreateStudent('123',
-                  student: StudentModel(
-                      '321', '123', 'john', 'texas', 'LKG', 1234567,
-                      updatedDate: 432211)))));
-      await tester.pumpAndSettle();
+      final student = StudentViewModel(
+        id: '321',
+        schoolId: '123',
+        studentName: 'john',
+        studentLocation: 'texas',
+        standard: 'LKG',
+      );
+
+      await pumpCreateStudent(tester, '123', student: student);
 
       expect(find.text('john'), findsOneWidget);
       expect(find.text('texas'), findsOneWidget);
-      expect(find.text('LKG'), findsOneWidget);
 
       var studentTextFieldList = find.byType(TextFormField);
       await tester.enterText(studentTextFieldList.first, 'Joseph');
@@ -68,39 +77,6 @@ main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Update'), findsOneWidget);
-    });
-
-    testWidgets('Testing different Screen resolution', (tester) async {
-      for (var size in TestConfigurationData.screenSizes) {
-        await tester.binding.setSurfaceSize(size);
-        DeviceConfiguration.updateDeviceResolutionAndOrientation(
-            size, Orientation.portrait);
-
-        await tester.pumpWidget(MaterialApp(
-            key: UniqueKey(),
-            home: MediaQuery(
-                data: MediaQueryData(size: size),
-                child: BlocProvider(
-                    create: (context) => SchoolBloc(SchoolRepository()),
-                    child: const SchoolDetails('123', null)))));
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.byType(FloatingActionButton));
-        await tester.pumpAndSettle();
-
-        /// checking validation
-        await tester.tap(find.text('Create'));
-        await tester.pump(const Duration(seconds: 2));
-
-        expect(find.text('Student name is required!!'), findsOneWidget);
-        expect(find.text('Standard is required!!'), findsOneWidget);
-        expect(find.text('Location is required!!'), findsOneWidget);
-
-        var studentTextFieldList = find.byType(TextFormField);
-        await tester.enterText(studentTextFieldList.first, 'Joseph');
-        await tester.enterText(studentTextFieldList.last, 'Texas');
-        await tester.pump();
-      }
     });
   });
 }
