@@ -1,3 +1,6 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:sample_latest/features/schools/domain/entities/student_entity.dart';
 
 import '../../../../../core/mixins/helper_methods.dart';
@@ -12,16 +15,26 @@ class StudentModifyUseCase {
 
   final SchoolExecutedTaskFlow _executedTask;
 
-  Future<List<StudentEntity>> call(StudentParams params, bool isCreate) async {
-    var students = <StudentEntity>[];
+  Future<Either<List<StudentEntity>, ErrorDetails>> call(
+      StudentParams params, bool isCreate) async {
+    try {
+      var students = <StudentEntity>[];
 
-    if (isCreate) {
-      students = await createStudent(params);
-    } else {
-      students = await updateStudent(params);
+      if (isCreate) {
+        students = await createStudent(params);
+      } else {
+        students = await updateStudent(params);
+      }
+
+      return Left(students);
+    } catch (e, s) {
+      ExceptionHandler().handleExceptionWithToastNotifier(e,
+          stackTrace: s,
+          toastMessage: isCreate
+              ? 'Unable to create the student'
+              : 'Failed to update the Student');
+      return Right(ExceptionHandler().handleException(e, s));
     }
-
-    return students;
   }
 
   Future<List<StudentEntity>> createStudent(StudentParams params) async {

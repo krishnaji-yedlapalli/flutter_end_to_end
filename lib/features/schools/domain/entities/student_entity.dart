@@ -1,6 +1,3 @@
-import '../../data/model/student_model.dart';
-import '../../shared/models/student_view_model.dart';
-
 class StudentEntity {
   final String id;
   final String schoolId;
@@ -19,29 +16,6 @@ class StudentEntity {
     required this.createdDate,
     this.updatedDate,
   });
-
-  StudentModel toModel() {
-    return StudentModel(
-      id,
-      schoolId,
-      studentName,
-      studentLocation,
-      standard,
-      createdDate,
-      updatedDate: updatedDate,
-    );
-  }
-
-  /// Convert this entity to StudentViewModel
-  StudentViewModel toStudentViewModel() {
-    return StudentViewModel(
-      id: id,
-      schoolId: schoolId,
-      studentName: studentName,
-      studentLocation: studentLocation,
-      standard: standard,
-    );
-  }
 
   StudentEntity copyWith({
     String? id,

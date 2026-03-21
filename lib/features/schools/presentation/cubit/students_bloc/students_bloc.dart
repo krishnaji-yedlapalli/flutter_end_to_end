@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_state.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
@@ -6,10 +7,8 @@ import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../../core/mixins/notifiers.dart';
-import '../../../domain/use_cases/student_usecases/delete_student_usecase.dart';
-import '../../../domain/use_cases/student_usecases/student_modify_usecase.dart';
-import '../../../domain/use_cases/student_usecases/student_usecase.dart';
-import '../../../domain/use_cases/student_usecases/students_usecase.dart';
+import '../../../domain/use_cases/use_cases.dart';
+import '../../../shared/models/student_view_model.dart';
 import '../../../shared/params/student_params.dart';
 
 class StudentsBloc extends Cubit<StudentsState> {
@@ -26,73 +25,71 @@ class StudentsBloc extends Cubit<StudentsState> {
   Future<void> loadStudents(String schoolId) async {
     emit(const StudentsInfoLoading());
 
-    try {
-      var students = await _studentsUseCase.call(schoolId);
-      viewAllStudents = false;
-      emit(StudentsInfoLoaded(
-          students.map((s) => s.toStudentViewModel()).toList(), schoolId));
-    } catch (e, s) {
-      emit(SchoolDataError(ExceptionHandler().handleException(e, s)));
+    var result = await _studentsUseCase.call(schoolId);
+
+    switch (result) {
+      case Left(value: final students):
+        viewAllStudents = false;
+        emit(StudentsInfoLoaded(
+            students.map((s) => StudentViewModel.fromEntity(s)).toList(),
+            schoolId));
+      case Right(value: final errorDetails):
+        emit(SchoolDataError(errorDetails));
     }
   }
 
   Future<void> loadStudent(String studentId, String schoolId) async {
     emit(const StudentsInfoLoading(stateType: StudentStateType.student));
 
-    try {
-      var student = await _studentUseCase.call(studentId, schoolId);
+    var result = await _studentUseCase.call(studentId, schoolId);
 
-      if (student != null) {
-        emit(StudentInfoLoaded(student.toStudentViewModel(),
-            stateType: StudentStateType.student));
-      } else {
-        NavigationKeys.navigatorKey.currentState?.pop();
-        Notifiers.toastNotifier('Invalid student details');
-      }
-    } catch (e, s) {
-      emit(SchoolDataError(ExceptionHandler().handleException(e, s)));
+    switch (result) {
+      case Left(value: final student):
+        if (student != null) {
+          emit(StudentInfoLoaded(StudentViewModel.fromEntity(student),
+              stateType: StudentStateType.student));
+        } else {
+          NavigationKeys.navigatorKey.currentState?.pop();
+          Notifiers.toastNotifier('Invalid student details');
+        }
+      case Right(value: final errorDetails):
+        emit(SchoolDataError(errorDetails));
     }
   }
 
   Future<void> createOrEditStudent(StudentParams params,
       {bool isCreateStudent = false}) async {
-    try {
-      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
+    NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
-      var students = await _studentModifyUseCase.call(params, isCreateStudent);
+    var result = await _studentModifyUseCase.call(params, isCreateStudent);
 
-      // _viewAllStudents = true;
+    NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
 
-      emit(StudentsInfoLoaded(
-          students.map((s) => s.toStudentViewModel()).toList(),
-          params.schoolId));
-    } catch (e, s) {
-      ExceptionHandler().handleExceptionWithToastNotifier(e,
-          stackTrace: s,
-          toastMessage: isCreateStudent
-              ? 'Unable to create the student'
-              : 'Failed to update the Student');
-    } finally {
-      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
+    switch (result) {
+      case Left(value: final students):
+        emit(StudentsInfoLoaded(
+            students.map((s) => StudentViewModel.fromEntity(s)).toList(),
+            params.schoolId));
+      case _: // Error already handled in use case via toast
     }
   }
 
   Future<void> deleteStudent(String studentId, String schoolId) async {
     emit(const StudentsInfoLoading());
 
-    try {
-      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
+    NavigationKeys.navigatorKey.currentContext?.loaderOverlay.show();
 
-      var students = await _deleteStudentUseCase.call(
-          studentId: studentId, schoolId: schoolId);
+    var result = await _deleteStudentUseCase.call(
+        studentId: studentId, schoolId: schoolId);
 
-      emit(StudentsInfoLoaded(
-          students.map((s) => s.toStudentViewModel()).toList(), schoolId));
-    } catch (e, s) {
-      ExceptionHandler().handleExceptionWithToastNotifier(e,
-          stackTrace: s, toastMessage: 'Failed to Delete the student');
-    } finally {
-      NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
+    NavigationKeys.navigatorKey.currentContext?.loaderOverlay.hide();
+
+    switch (result) {
+      case Left(value: final students):
+        emit(StudentsInfoLoaded(
+            students.map((s) => StudentViewModel.fromEntity(s)).toList(),
+            schoolId));
+      case _: // Error already handled in use case via toast
     }
   }
 }

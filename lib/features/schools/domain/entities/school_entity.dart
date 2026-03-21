@@ -1,5 +1,3 @@
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
-
 class SchoolEntity {
   SchoolEntity(
       this.schoolName, this.country, this.location, this.id, this.createdDate,
@@ -32,10 +30,5 @@ class SchoolEntity {
       createdDate ?? this.createdDate,
       updatedDate: updatedDate ?? this.updatedDate,
     );
-  }
-
-  SchoolModel toJson() {
-    return SchoolModel(schoolName, country, location, id, createdDate,
-        updatedDate: updatedDate);
   }
 }

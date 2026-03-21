@@ -30,7 +30,6 @@ class StudentInfoLoaded extends StudentsState {
   const StudentInfoLoaded(this.student, {super.stateType});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [student];
 }
 
@@ -42,7 +41,6 @@ class StudentsInfoLoaded extends StudentsState {
   const StudentsInfoLoaded(this.students, this.schoolId);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [students, schoolId];
 }
 
