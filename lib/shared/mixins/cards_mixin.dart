@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/constants/responsive_constants.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 mixin CardWidgetsMixin {
   Widget buildHomeCardView(

@@ -144,7 +144,7 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.card_giftcard,
                                         color: Colors.green,
                                         size: 40,
@@ -265,7 +265,7 @@ class _ScrollbarDemoState extends State<ScrollbarDemo> {
                               ],
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.purple,
                           ),

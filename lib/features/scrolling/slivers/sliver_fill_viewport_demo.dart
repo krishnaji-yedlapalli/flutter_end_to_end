@@ -56,14 +56,14 @@ class SliverFillViewportDemo extends StatelessWidget {
                           color: Colors.blue.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Row(
+                        child: const Row(
                           children: [
                             Icon(
                               Icons.info_outline,
                               color: Colors.blue,
                               size: 20,
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 'Swipe vertically to see each viewport page',
@@ -127,7 +127,7 @@ class SliverFillViewportDemo extends StatelessWidget {
 
   Widget _buildWelcomePage() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -143,7 +143,7 @@ class SliverFillViewportDemo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.waving_hand,
               size: 80,
               color: Colors.white,
@@ -173,7 +173,7 @@ class SliverFillViewportDemo extends StatelessWidget {
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: Text(
+              child: const Text(
                 'Swipe up to continue',
                 style: TextStyle(
                   color: Colors.white,
@@ -189,7 +189,7 @@ class SliverFillViewportDemo extends StatelessWidget {
 
   Widget _buildFeaturePage() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -205,7 +205,7 @@ class SliverFillViewportDemo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.star,
               size: 80,
               color: Colors.white,
@@ -241,7 +241,7 @@ class SliverFillViewportDemo extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.check_circle,
                     color: Colors.white,
                     size: 20,
@@ -265,7 +265,7 @@ class SliverFillViewportDemo extends StatelessWidget {
 
   Widget _buildGalleryPage() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -281,7 +281,7 @@ class SliverFillViewportDemo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.photo_library,
               size: 80,
               color: Colors.white,
@@ -314,7 +314,7 @@ class SliverFillViewportDemo extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.image,
                           color: Colors.white,
                           size: 40,
@@ -322,7 +322,7 @@ class SliverFillViewportDemo extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           'Image ${index + 1}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
@@ -341,7 +341,7 @@ class SliverFillViewportDemo extends StatelessWidget {
 
   Widget _buildStatisticsPage() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -357,7 +357,7 @@ class SliverFillViewportDemo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.analytics,
               size: 80,
               color: Colors.white,
@@ -427,7 +427,7 @@ class SliverFillViewportDemo extends StatelessWidget {
 
   Widget _buildContactPage() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -443,7 +443,7 @@ class SliverFillViewportDemo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.contact_mail,
               size: 80,
               color: Colors.white,
@@ -475,7 +475,7 @@ class SliverFillViewportDemo extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Get in Touch',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,

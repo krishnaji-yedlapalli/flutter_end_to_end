@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/device/config/device_configurations.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+
+import '../../../core/device/config/device_configurations.dart';
 import '../widgets/showcase_section_card.dart';
 
 /// Section that displays current device configuration and responsive metrics
@@ -187,7 +188,7 @@ class DeviceInfoSection extends StatelessWidget {
     ];
 
     final currentWidth = DeviceConfiguration.screenWidth;
-    final maxWidth = 1920.0;
+    const maxWidth = 1920.0;
 
     return Column(
       children: resolutions.map((resolution) {

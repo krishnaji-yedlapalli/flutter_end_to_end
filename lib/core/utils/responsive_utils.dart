@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../device/config/device_configurations.dart';
+
 import '../constants/responsive_constants.dart';
+import '../device/config/device_configurations.dart';
 
 /// Enhanced ResponsiveUtils using the new 6-category resolution system
 class ResponsiveUtils {

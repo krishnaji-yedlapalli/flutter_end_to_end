@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/isolates/core/isolates_injection_module.dart';
-import 'package:sample_latest/features/isolates/presentation/cubit/isolate_cubit.dart';
 import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
+import 'package:sample_latest/features/isolates/presentation/cubit/isolate_cubit.dart';
 
 class IsolateHome extends StatefulWidget {
   const IsolateHome({Key? key}) : super(key: key);

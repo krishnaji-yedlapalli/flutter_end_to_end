@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:io';
-import 'package:flutter_lite_camera/flutter_lite_camera.dart';
+import 'dart:typed_data';
+
 import 'package:dart_periphery/dart_periphery.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_lite_camera/flutter_lite_camera.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path_provider/path_provider.dart';
 
 final getIt = GetIt.instance;
 

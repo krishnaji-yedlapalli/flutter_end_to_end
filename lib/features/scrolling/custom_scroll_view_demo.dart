@@ -133,8 +133,8 @@ class CustomScrollViewDemo extends StatelessWidget {
                   DeviceConfiguration.isMobileResolution ? 16.0 : 24.0),
               child: Card(
                 color: Colors.blue.withOpacity(0.05),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -145,7 +145,7 @@ class CustomScrollViewDemo extends StatelessWidget {
                             color: Colors.blue,
                             size: 28,
                           ),
-                          const SizedBox(width: 12),
+                          SizedBox(width: 12),
                           Text(
                             'What are Slivers?',
                             style: TextStyle(
@@ -156,8 +156,8 @@ class CustomScrollViewDemo extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
-                      const Text(
+                      SizedBox(height: 16),
+                      Text(
                         'Slivers are scrollable areas that can be combined in a CustomScrollView. '
                         'They provide fine-grained control over scrolling behavior and enable '
                         'complex layouts that wouldn\'t be possible with regular scrolling widgets.',
@@ -182,14 +182,14 @@ class CustomScrollViewDemo extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Icon(
                             Icons.star,
                             color: Colors.amber,
                             size: 28,
                           ),
-                          const SizedBox(width: 12),
+                          SizedBox(width: 12),
                           Text(
                             'Benefits of CustomScrollView',
                             style: TextStyle(
@@ -248,13 +248,13 @@ class CustomScrollViewDemo extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.lightbulb_outline,
                     size: 40,
                     color: Colors.purple,
                   ),
                   const SizedBox(height: 12),
-                  Text(
+                  const Text(
                     'Pro Tip',
                     style: TextStyle(
                       fontSize: 18,

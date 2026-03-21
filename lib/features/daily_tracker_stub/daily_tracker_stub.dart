@@ -7,6 +7,6 @@ class DailyTrackerRouterModule {
 
   static ShellRoute dailyTrackerRoute() {
     /// Stub shell routes
-    return ShellRoute(routes: []);
+    return ShellRoute(routes: const []);
   }
 }

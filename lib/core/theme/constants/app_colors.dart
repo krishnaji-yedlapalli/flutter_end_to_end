@@ -13,7 +13,7 @@ class AppColors {
   // Light theme colors
   static final Color lightBackground = Colors.green.shade50;
   static final Color lightHover = Colors.green.shade200;
-  static final Color lightShadow = Colors.lightGreenAccent;
+  static const Color lightShadow = Colors.lightGreenAccent;
   static final Color errorShade = Colors.red.shade400;
   static final Color orangeShade100 = Colors.orange.shade100;
   static final Color orangeShade500 = Colors.orange.shade500;

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/smart_control_model.dart';
-
 mixin SmartDeviceMixin {
   BoxDecoration get boxDecoration => BoxDecoration(
         shape: BoxShape.circle,

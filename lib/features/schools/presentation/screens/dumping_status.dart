@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 
 class DumpingStatusView extends StatefulWidget {
   const DumpingStatusView({super.key});

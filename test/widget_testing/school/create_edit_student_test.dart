@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/features/schools/data/model/student_model.dart';
 import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
-import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
 import 'package:sample_latest/features/schools/presentation/screens/school_details/school_details.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
 
 import '../../mock_data/configuration_data.dart';
 

@@ -180,7 +180,7 @@ class SingleChildScrollViewDemo extends StatelessWidget {
                         child: Text('Header Content'),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 150,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:provider/provider.dart';
 // Import the correct AI plugin classes
-import 'package:sample_latest/features/generative_ai/presentation/provider/gemini_provider.dart';
 
 class GeminiChatScreen extends StatelessWidget {
   const GeminiChatScreen({super.key});
@@ -15,7 +12,7 @@ class GeminiChatScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Chat'),
       ),
-      body: SizedBox(),
+      body: const SizedBox(),
       // Chat(
       //   messages: chatProvider.messages,
       //   onSendPressed: chatProvider.handleSendPressed,

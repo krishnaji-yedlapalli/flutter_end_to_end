@@ -1,5 +1,6 @@
-import 'dart:isolate';
 import 'dart:convert';
+import 'dart:isolate';
+
 import 'package:flutter/foundation.dart';
 
 /// Example 1: Using compute() - Simplest approach
@@ -160,7 +161,7 @@ class FileIsolateExample {
     // Note: In real app, handle file reading properly
     // This is just to show dart:io works in isolates
     final words = <String, int>{};
-    final content = 'sample text for word counting sample';
+    const content = 'sample text for word counting sample';
 
     for (final word in content.split(' ')) {
       words[word] = (words[word] ?? 0) + 1;

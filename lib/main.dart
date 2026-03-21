@@ -9,18 +9,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
-import 'package:sample_latest/core/routing/routing.dart';
-import 'package:sample_latest/core/theme/theme.dart';
-import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/routing/routing.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
+import 'package:sample_latest/core/theme/theme.dart';
+import 'package:sample_latest/core/utils/connectivity_handler.dart';
+import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/l10n/app_localizations.dart';
-
-import 'core/platform/platform.dart' as platform;
 
 import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
+import 'core/platform/platform.dart' as platform;
 import 'shared/presentation/provider/common_provider.dart';
 
 // @pragma('vm:entry-point')

@@ -1,4 +1,3 @@
-import 'package:sample_latest/core/environment/environment.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/environment/environment.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/automatic_keep_alive.dart';
 import 'package:sample_latest/features/dashboard/home_screen.dart';
@@ -41,7 +42,6 @@ import 'package:sample_latest/features/routing_features/state_ful_shell_routing_
 import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/features/scrolling/scrolling.dart';
 import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/shared/exception/page_not_found.dart';
 
 import '../../features/daily_tracker_stub/daily_tracker_entry_point.dart'

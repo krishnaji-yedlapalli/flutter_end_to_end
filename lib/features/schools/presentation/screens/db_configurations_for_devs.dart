@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 
 class DbConfigurationDialog extends StatefulWidget {
   const DbConfigurationDialog({Key? key}) : super(key: key);

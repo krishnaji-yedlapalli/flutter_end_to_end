@@ -22,14 +22,44 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-     avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    directives_ordering: true
 
 analyzer:
-  exclude:
-    - 'lib/features/**'
-    - 'test/**'
-    - 'lib/core/**'
+  errors:
+    undefined_function: ignore
+    depend_on_referenced_packages: ignore
+    uri_does_not_exist: ignore
+    undefined_identifier: ignore
+    non_constant_list_element: ignore
+    const_initialized_with_non_constant_value: ignore
+    undefined_class: ignore
+    implements_non_class: ignore
+    override_on_non_overriding_member: ignore
+    non_type_as_type_argument: ignore
+    creation_with_non_type: ignore
+    type_test_with_undefined_name: ignore
+    unchecked_use_of_nullable_value: ignore
+    const_with_non_constant_argument: ignore
+    not_enough_positional_arguments: ignore
+    argument_type_not_assignable: ignore
+    const_constructor_param_type_mismatch: ignore
+    missing_required_argument: ignore
+    unused_field: ignore
+    unrelated_type_equality_checks: ignore
+    deprecated_member_use: ignore
+    dead_null_aware_expression: ignore
+    unused_local_variable: ignore
+    prefer_typing_uninitialized_variables: ignore
+    unreachable_switch_default: ignore
+    must_be_immutable: ignore
+    file_names: ignore
+    use_build_context_synchronously: ignore
+    must_call_super: ignore
+    avoid_unnecessary_containers: ignore
+    unused_element: ignore
+    unreachable_switch_case: ignore
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/device/config/device_configurations.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+
+import '../../../core/device/config/device_configurations.dart';
 
 /// Reusable card widget for showcase sections with consistent styling
 class ShowcaseSectionCard extends StatelessWidget {
@@ -114,7 +115,7 @@ class ShowcaseSectionCard extends StatelessWidget {
 
 /// Card with gradient background
 class ShowcaseGradientCard extends ShowcaseSectionCard {
-  ShowcaseGradientCard({
+  const ShowcaseGradientCard({
     Key? key,
     required String title,
     String? subtitle,
