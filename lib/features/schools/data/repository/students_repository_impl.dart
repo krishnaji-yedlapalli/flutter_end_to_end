@@ -1,9 +1,9 @@
-import 'package:sample_latest/features/schools/domain/entities/student_entity.dart';
+import 'package:sample_latest/features/schools/domain/entities/entities.dart';
 
 import '../../../../core/data/base_service.dart';
 import '../../../../core/data/urls.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';
-import '../../domain/repository/students_repository.dart';
+import '../../domain/repository/repository.dart';
 import '../model/student_model.dart';
 
 class StudentsRepositoryImpl implements StudentsRepository {

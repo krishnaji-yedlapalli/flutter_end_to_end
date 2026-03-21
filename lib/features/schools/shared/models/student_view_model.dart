@@ -1,4 +1,4 @@
-import '../../domain/entities/student_entity.dart';
+import '../../domain/entities/entities.dart';
 
 class StudentViewModel {
   final String id;

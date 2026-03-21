@@ -1,14 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
 
-import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sample_latest/features/schools/domain/entities/school_entity.dart';
-
-import '../../../domain/use_cases/schools_usecase/delete_school_usecase.dart';
-import '../../../domain/use_cases/schools_usecase/school_modify_usecase.dart';
-import '../../../domain/use_cases/schools_usecase/school_usecase.dart';
+import '../../../domain/entities/entities.dart';
+import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/params/school_params.dart';
 import 'package:equatable/equatable.dart';
 

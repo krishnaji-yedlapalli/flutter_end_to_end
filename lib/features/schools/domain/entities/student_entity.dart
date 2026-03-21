@@ -1,4 +1,4 @@
-import '../../data/model/student_model.dart';
+import '../../data/model/models.dart';
 import '../../shared/models/student_view_model.dart';
 
 class StudentEntity {

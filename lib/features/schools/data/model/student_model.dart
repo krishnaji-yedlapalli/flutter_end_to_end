@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/student_entity.dart';
+import '../../domain/entities/entities.dart';
 
 part 'student_model.g.dart';
 

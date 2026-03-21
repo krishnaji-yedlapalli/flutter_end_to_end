@@ -6,8 +6,7 @@ import 'package:sample_latest/core/routing/routing_exports.dart';
 
 import 'package:loader_overlay/loader_overlay.dart';
 
-import '../../../domain/use_cases/school_details_usecase/school_details_modify_useCase.dart';
-import '../../../domain/use_cases/school_details_usecase/school_details_usecase.dart';
+import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/params/school_details_param.dart';
 
 class SchoolDetailsBLoc extends Cubit<SchoolDetailsState> {

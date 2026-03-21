@@ -6,10 +6,7 @@ import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../../core/mixins/notifiers.dart';
-import '../../../domain/use_cases/student_usecases/delete_student_usecase.dart';
-import '../../../domain/use_cases/student_usecases/student_modify_usecase.dart';
-import '../../../domain/use_cases/student_usecases/student_usecase.dart';
-import '../../../domain/use_cases/student_usecases/students_usecase.dart';
+import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/params/student_params.dart';
 
 class StudentsBloc extends Cubit<StudentsState> {

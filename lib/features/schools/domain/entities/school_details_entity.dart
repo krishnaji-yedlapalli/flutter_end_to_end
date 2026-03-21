@@ -1,4 +1,4 @@
-import '../../data/model/school_details_model.dart';
+import '../../data/model/models.dart';
 import '../../shared/models/school_details_view_model.dart';
 
 class SchoolDetailsEntity {

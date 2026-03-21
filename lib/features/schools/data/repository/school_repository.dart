@@ -1,7 +1,5 @@
 import 'package:sample_latest/core/data/base_service.dart';
-import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
+import 'package:sample_latest/features/schools/data/model/models.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 

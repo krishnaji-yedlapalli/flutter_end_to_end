@@ -1,4 +1,4 @@
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
+import 'package:sample_latest/features/schools/data/model/models.dart';
 
 class SchoolEntity {
   SchoolEntity(

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';

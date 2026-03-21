@@ -4,15 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 
 import 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
+import 'package:sample_latest/features/schools/data/model/models.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
 
 import 'package:sample_latest/core/mixins/notifiers.dart';
 
-import '../../data/repository/school_repository.dart';
+import '../../data/repository/repository.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 part 'school_state.dart';
