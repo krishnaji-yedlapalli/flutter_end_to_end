@@ -43,6 +43,18 @@ class StudentModel {
     return StudentModel.fromJson(json);
   }
 
+  factory StudentModel.fromEntity(StudentEntity entity) {
+    return StudentModel(
+      entity.id,
+      entity.schoolId,
+      entity.studentName,
+      entity.studentLocation,
+      entity.standard,
+      entity.createdDate,
+      updatedDate: entity.updatedDate,
+    );
+  }
+
   StudentEntity toEntity() {
     return StudentEntity(
       id: id,

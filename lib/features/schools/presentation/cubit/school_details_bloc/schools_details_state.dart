@@ -36,8 +36,7 @@ class SchoolDetailsInfoLoaded extends SchoolDetailsState {
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [SchoolDetailsViewModel, viewAllStudents];
+  List<Object?> get props => [schoolDetails, viewAllStudents];
 }
 
 class SchoolDetailsDataNotFound extends SchoolDetailsState {

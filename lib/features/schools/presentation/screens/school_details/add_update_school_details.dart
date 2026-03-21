@@ -103,7 +103,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails>
       case 1:
         if (formKey.currentState?.validate() ?? false) {
           widget.parentContext
-              .read<SchoolDetailsBLoc>()
+              .read<SchoolDetailsBloc>()
               .createOrEditSchoolDetails(SchoolDetailsParams(
                   widget.school.schoolName,
                   widget.school.country,

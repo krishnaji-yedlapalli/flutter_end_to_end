@@ -60,6 +60,21 @@ class SchoolDetailsModel {
     return SchoolDetailsModel.fromJson(json);
   }
 
+  factory SchoolDetailsModel.fromEntity(SchoolDetailsEntity entity) {
+    return SchoolDetailsModel(
+      entity.id,
+      entity.schoolName,
+      entity.country,
+      entity.location,
+      entity.image,
+      entity.studentCount,
+      entity.employeeCount,
+      entity.hostelAvailability,
+      entity.createdDate,
+      updatedDate: entity.updatedDate,
+    );
+  }
+
   SchoolDetailsEntity toEntity() {
     return SchoolDetailsEntity(
       id: id,

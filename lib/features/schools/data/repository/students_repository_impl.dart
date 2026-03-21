@@ -42,7 +42,9 @@ class StudentsRepositoryImpl implements StudentsRepository {
 
   @override
   Future<StudentEntity> createOrEditStudent(StudentEntity student) async {
-    Map<String, dynamic> body = {student.id: student.toModel().toJson()};
+    Map<String, dynamic> body = {
+      student.id: StudentModel.fromEntity(student).toJson()
+    };
 
     var response = await baseService.makeRequest(
         url: '${Urls.students}/${student.schoolId}.json',

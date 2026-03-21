@@ -13,8 +13,9 @@ class SchoolsRepositoryImpl implements SchoolRepository {
 
   @override
   Future<SchoolEntity> createOrEditSchool(SchoolEntity school) async {
-    /// Creating object
-    Map<String, dynamic> body = {school.id: school.toJson()};
+    Map<String, dynamic> body = {
+      school.id: SchoolModel.fromEntity(school).toJson()
+    };
 
     SchoolModel? schoolDto;
     var response = await baseService.makeRequest(

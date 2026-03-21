@@ -34,7 +34,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
     with HelperWidget, Loaders, CustomDialogs {
   @override
   void initState() {
-    BlocProvider.of<SchoolDetailsBLoc>(context)
+    BlocProvider.of<SchoolDetailsBloc>(context)
         .loadSchoolDetails(widget.schoolId);
     super.initState();
   }
@@ -49,7 +49,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   Widget _buildSchoolBloc() {
-    return BlocConsumer<SchoolDetailsBLoc, SchoolDetailsState>(
+    return BlocConsumer<SchoolDetailsBloc, SchoolDetailsState>(
       builder: (context, state) {
         if (state is SchoolDetailsInitial ||
             state is SchoolDetailsInitialLoading) {

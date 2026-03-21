@@ -1,4 +1,4 @@
-export 'school_details_usecase/school_details_modify_useCase.dart';
+export 'school_details_usecase/school_details_modify_use_case.dart';
 export 'school_details_usecase/school_details_usecase.dart';
 export 'schools_usecase/delete_school_usecase.dart';
 export 'schools_usecase/school_modify_usecase.dart';

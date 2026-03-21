@@ -25,7 +25,7 @@ class SchoolsDetailsRepositoryImpl implements SchoolDetailsRepository {
   Future<SchoolDetailsEntity> addOrEditSchoolDetails(
       SchoolDetailsEntity schoolDetails) async {
     Map<String, dynamic> body = {
-      schoolDetails.id: schoolDetails.toDtoModel().toJson()
+      schoolDetails.id: SchoolDetailsModel.fromEntity(schoolDetails).toJson()
     };
 
     var response = await baseService.makeRequest(

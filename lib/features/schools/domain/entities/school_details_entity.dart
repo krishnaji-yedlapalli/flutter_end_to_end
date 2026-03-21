@@ -1,6 +1,3 @@
-import '../../data/model/models.dart';
-import '../../shared/models/school_details_view_model.dart';
-
 class SchoolDetailsEntity {
   final String id;
   final String schoolName;
@@ -25,35 +22,6 @@ class SchoolDetailsEntity {
     required this.createdDate,
     this.updatedDate,
   });
-
-  SchoolDetailsModel toDtoModel() {
-    return SchoolDetailsModel(
-      id,
-      schoolName,
-      country,
-      location,
-      image,
-      studentCount,
-      employeeCount,
-      hostelAvailability,
-      createdDate,
-      updatedDate: updatedDate,
-    );
-  }
-
-  /// Convert `SchoolEntity` to `SchoolDetailsViewModel`
-  SchoolDetailsViewModel toViewModel() {
-    return SchoolDetailsViewModel(
-      id: id,
-      schoolName: schoolName,
-      country: country,
-      location: location,
-      image: image,
-      studentCount: studentCount,
-      employeeCount: employeeCount,
-      hostelAvailability: hostelAvailability,
-    );
-  }
 
   SchoolDetailsEntity copyWith({
     String? id,
