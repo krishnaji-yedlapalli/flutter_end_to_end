@@ -2,21 +2,21 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/core/utils/connectivity_handler.dart';
-import 'package:sample_latest/l10n/app_localizations.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
+import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
+import 'package:sample_latest/l10n/app_localizations.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../feature_discovery/home_feature_discovery.dart';
+
 import '../daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
+import '../feature_discovery/home_feature_discovery.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -374,17 +374,13 @@ class _HomeScreenState extends State<HomeScreen>
         },
       ),
       content: const Align(alignment: Alignment.center, child: Text('Offline')),
-      actions: [
-        const Text('Retry',
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.white)) ??
-            TextButton(
-                onPressed: () {},
-                child: const Text('Retry',
-                    style: TextStyle(fontWeight: FontWeight.w600)))
+      actions: const [
+        Text('Retry',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+                decorationColor: Colors.white))
       ],
       contentTextStyle: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),

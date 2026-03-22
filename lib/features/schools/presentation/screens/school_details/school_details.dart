@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
-import 'package:sample_latest/shared/extensions/extensions.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
 import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:sample_latest/features/schools/presentation/screens/school_details/add_update_school_details.dart';
 import 'package:sample_latest/features/schools/presentation/screens/student/create_update_student.dart';
 import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/shared/extensions/extensions.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
 import '../../../shared/models/school_details_view_model.dart';
@@ -37,7 +34,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
     with HelperWidget, Loaders, CustomDialogs {
   @override
   void initState() {
-    BlocProvider.of<SchoolDetailsBLoc>(context)
+    BlocProvider.of<SchoolDetailsBloc>(context)
         .loadSchoolDetails(widget.schoolId);
     super.initState();
   }
@@ -52,7 +49,7 @@ class _SchoolDetailsState extends State<SchoolDetails>
   }
 
   Widget _buildSchoolBloc() {
-    return BlocConsumer<SchoolDetailsBLoc, SchoolDetailsState>(
+    return BlocConsumer<SchoolDetailsBloc, SchoolDetailsState>(
       builder: (context, state) {
         if (state is SchoolDetailsInitial ||
             state is SchoolDetailsInitialLoading) {

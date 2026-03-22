@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 
 class DumpingStatusView extends StatefulWidget {
   const DumpingStatusView({super.key});
@@ -15,20 +15,16 @@ class DumpingStatusView extends StatefulWidget {
 
 class _DumpingStatusViewState extends State<DumpingStatusView>
     with CustomDialogs, HelperWidget {
+  OfflineHandler get _offlineHandler => GetIt.instance<OfflineHandler>();
+
   @override
   void initState() {
-    OfflineHandler().dumpingOfflineDataStatus.listen((value) {
+    _offlineHandler.dumpingOfflineDataStatus.listen((value) {
       if (mounted && value == null) {
         GoRouter.of(context).pop();
       }
     });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    // OfflineHandler().dumpingOfflineDataStatus.r
-    super.dispose();
   }
 
   @override
@@ -68,7 +64,7 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
 
   Widget _buildStreamBuilder() {
     return StreamBuilder<OfflineDumpingStatus>(
-      stream: OfflineHandler().dumpingOfflineDataStatus.stream,
+      stream: _offlineHandler.dumpingOfflineDataStatus.stream,
       builder: (context, snapshot) {
         OfflineDumpingStatus? status = snapshot.data;
         if (status != null) {
@@ -81,6 +77,9 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
   }
 
   Widget _buildDownloadingStatus(OfflineDumpingStatus status) {
+    if (status == null) {
+      return const SizedBox.shrink();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -88,15 +87,12 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
         children: [
           Expanded(
             child: Column(
-              // direction: Axis.vertical,
-              // crossAxisAlignment: WrapCrossAlignment.center,
-              // spacing : 10,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Image.asset(
-                    status!.percentage >= 100
+                    status.percentage >= 100
                         ? 'asset/gifs/happy.gif'
                         : 'asset/gifs/waiting.gif',
                     height: 100,
@@ -113,16 +109,8 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
                   height: 100,
                   width: 100,
                   child: LiquidCircularProgressIndicator(
-                    value: (status.percentage ?? 0) / 100, // Defaults to 0.5.
-                    // valueColor: AlwaysStoppedAnimation(Colors
-                    //     .pink), // Defaults to the current Theme's accentColor.
-                    // backgroundColor: Colors
-                    //     .white, // Defaults to the current Theme's backgroundColor.
-                    // borderColor: Colors.red,
-                    // borderWidth: 5.0,
-                    direction: Axis
-                        .vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
-                    // center: Text("Loading..."),
+                    value: (status.percentage) / 100,
+                    direction: Axis.vertical,
                   )),
             ),
           )

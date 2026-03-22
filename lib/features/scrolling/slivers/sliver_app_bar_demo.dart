@@ -55,7 +55,7 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
                 fit: StackFit.expand,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -195,7 +195,7 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
                       child: Text('${index + 1}'),
                     ),
                     title: Text('Sample Content ${index + 1}'),
-                    subtitle: Text('Scroll to see SliverAppBar behavior'),
+                    subtitle: const Text('Scroll to see SliverAppBar behavior'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 );
@@ -289,7 +289,7 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
                         (context, index) {
                           return ListTile(
                             title: Text('Item ${index + 1}'),
-                            subtitle: Text('Sample content'),
+                            subtitle: const Text('Sample content'),
                           );
                         },
                         childCount: 10,
@@ -306,35 +306,35 @@ class _SliverAppBarDemoState extends State<SliverAppBarDemo>
   }
 
   Widget _buildFloatingAppBar() {
-    return SliverAppBar(
+    return const SliverAppBar(
       floating: true,
       pinned: false,
       snap: false,
       backgroundColor: Colors.blue,
-      title: const Text('Floating AppBar'),
+      title: Text('Floating AppBar'),
       automaticallyImplyLeading: false,
     );
   }
 
   Widget _buildSnapAppBar() {
-    return SliverAppBar(
+    return const SliverAppBar(
       floating: true,
       pinned: false,
       snap: true,
       backgroundColor: Colors.green,
-      title: const Text('Snap AppBar'),
+      title: Text('Snap AppBar'),
       automaticallyImplyLeading: false,
     );
   }
 
   Widget _buildNonPinnedAppBar() {
-    return SliverAppBar(
+    return const SliverAppBar(
       floating: false,
       pinned: false,
       snap: false,
       expandedHeight: 120,
       backgroundColor: Colors.orange,
-      flexibleSpace: const FlexibleSpaceBar(
+      flexibleSpace: FlexibleSpaceBar(
         title: Text('Non-Pinned AppBar'),
         centerTitle: true,
       ),

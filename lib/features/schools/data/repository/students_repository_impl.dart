@@ -1,9 +1,9 @@
-import 'package:sample_latest/features/schools/domain/entities/student_entity.dart';
+import 'package:sample_latest/features/schools/domain/entities/entities.dart';
 
 import '../../../../core/data/base_service.dart';
 import '../../../../core/data/urls.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';
-import '../../domain/repository/students_repository.dart';
+import '../../domain/repository/repository.dart';
 import '../model/student_model.dart';
 
 class StudentsRepositoryImpl implements StudentsRepository {
@@ -42,7 +42,9 @@ class StudentsRepositoryImpl implements StudentsRepository {
 
   @override
   Future<StudentEntity> createOrEditStudent(StudentEntity student) async {
-    Map<String, dynamic> body = {student.id: student.toModel().toJson()};
+    Map<String, dynamic> body = {
+      student.id: StudentModel.fromEntity(student).toJson()
+    };
 
     var response = await baseService.makeRequest(
         url: '${Urls.students}/${student.schoolId}.json',
@@ -56,7 +58,7 @@ class StudentsRepositoryImpl implements StudentsRepository {
 
   @override
   Future<bool> deleteStudent(String studentId, String schoolId) async {
-    var studentsDel = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.students}/$schoolId/$studentId.json',
         method: RequestType.delete);
     return true;

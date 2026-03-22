@@ -1,65 +1,50 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:isolate';
 
-import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:get_it/get_it.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
 import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
 import 'package:sample_latest/core/data/base_service.dart';
-import 'package:sample_latest/core/data/db/db_configuration.dart';
+import 'package:sample_latest/core/data/db/db_config_repository.dart';
+import 'package:sample_latest/core/data/db/db_handler_registry.dart';
+import 'package:sample_latest/core/data/db/dumping_offline_data.dart';
+import 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
 import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
-import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
-import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sample_latest/core/extensions/dio_request_extension.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
-import '../utils/abstract_db_handler.dart';
-
-export 'package:sample_latest/core/data/db/offline_handler.dart';
-
-part 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
-part 'package:sample_latest/core/data/db/module_db_handler/schools_db_handler.dart';
-part 'package:sample_latest/core/data/db/module_db_handler/todo_list_db_handler.dart';
-part 'dumping_offline_data.dart';
-
 class OfflineHandler {
-  factory OfflineHandler() {
-    return _singleton;
-  }
-
-  static final OfflineHandler _singleton = OfflineHandler._internal();
-
-  OfflineHandler._internal();
+  late DbHandlerRegistry _registry;
 
   var queueItemsCount = BehaviorSubject<int>.seeded(0);
   var dumpingOfflineDataStatus =
       BehaviorSubject<OfflineDumpingStatus>.seeded(null);
 
+  /// Initialize the registry — call this at app startup
+  void initialize(DbHandlerRegistry registry) {
+    _registry = registry;
+  }
+
+  DbConfigRepository get _dbConfig => GetIt.instance<DbConfigRepository>();
+
   /// Handle the request which is from the interceptor
   Future<void> handleRequest(RequestOptions options, dynamic handler) async {
     String path = options.path;
-    Response? response;
 
     try {
-      if (path.contains(Urls.schools) ||
-          path.contains(Urls.schoolDetails) ||
-          path.contains(Urls.students)) {
-        handler
-            .resolve(await _SchoolsDbHandler().performCrudOperation(options));
-      } else if (path.contains(Urls.todoList)) {
-        handler
-            .resolve(await _TodoListDbHandler().performCrudOperation(options));
+      var dbHandler = _registry.findHandler(path);
+      if (dbHandler != null) {
+        handler.resolve(await dbHandler.performCrudOperation(options));
       } else {
         handler.reject(DioException(
             requestOptions: options,
@@ -82,6 +67,18 @@ class OfflineHandler {
     }
   }
 
+  /// Store data locally without resolving the handler (used for online+offline mode)
+  Future<void> storeLocally(RequestOptions options) async {
+    try {
+      var dbHandler = _registry.findHandler(options.path);
+      if (dbHandler != null) {
+        await dbHandler.performCrudOperation(options);
+      }
+    } catch (e, s) {
+      ReportError.errorLog(e, s);
+    }
+  }
+
   /// Uploading the queue data to the server
   Future<bool> syncData() async {
     var status = false;
@@ -92,7 +89,7 @@ class OfflineHandler {
     var queueItems = <QueueItem>[];
 
     /// Fetching queue items from local DB
-    Response queueItemsResponse = await _CommonDbHandler().performCrudOperation(
+    Response queueItemsResponse = await CommonDbHandler().performCrudOperation(
         RequestOptions(
             method: RequestType.get.name, path: DbConstants.queueItems));
 
@@ -121,7 +118,7 @@ class OfflineHandler {
           RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        var result = await BaseService.instance.makeRequest(
+        await BaseService.instance.makeRequest(
             url: queueItem.path,
             method: requestType ?? RequestType.get,
             body: queueItem.body,
@@ -130,20 +127,23 @@ class OfflineHandler {
 
         /// Deleting item from queue table
         if (queueItem.queueId != null) {
-          await _CommonDbHandler().deleteQueueItem(queueItem.queueId!);
+          await CommonDbHandler().deleteQueueItem(queueItem.queueId!);
         }
 
-        /// Deleting items from school db
-        if (DbConfigurationsByDev.deleteOfflineDataOnceSuccess) {
-          await _SchoolsDbHandler().performCrudOperation(RequestOptions(
-              path: queueItem.path,
-              method: RequestType.delete.name,
-              queryParameters: {
-                DbConstants.idColumnName: queueItem.id.toString()
-              },
-              extra: {
-                DbConstants.notRequiredToStoreInQueue: true
-              }));
+        /// Deleting items from offline db
+        if (_dbConfig.state.deleteOfflineDataOnceSuccess) {
+          var handler = _registry.findHandler(queueItem.path);
+          if (handler != null) {
+            await handler.performCrudOperation(RequestOptions(
+                path: queueItem.path,
+                method: RequestType.delete.name,
+                queryParameters: {
+                  DbConstants.idColumnName: queueItem.id.toString()
+                },
+                extra: {
+                  DbConstants.notRequiredToStoreInQueue: true
+                }));
+          }
         }
       } catch (e, s) {
         ExceptionHandler().handleException(e, s);
@@ -172,13 +172,12 @@ class OfflineHandler {
           .add((title: 'Loading Zip File.......', percentage: 10));
 
       RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
-      _SchoolsDbHandler().initializeDbIfNot();
       var completer = Completer();
 
       /// Loading Zip Data
       ByteData byteData = await rootBundle.load("asset/school_data.zip");
 
-      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData,
+      await Isolate.spawn(DumpingOfflineData.dumpOfflineData,
           [receivePort.sendPort, rootIsolateToken, byteData]);
 
       /// Listening to the Dumping status
@@ -214,7 +213,7 @@ class OfflineHandler {
   Future<int> updateQueueItemsCount() async {
     var count = 0;
     try {
-      count = await _CommonDbHandler().queueItemsCount();
+      count = await CommonDbHandler().queueItemsCount();
       queueItemsCount.add(count);
     } catch (e, s) {
       ReportError.errorLog(e, s);
@@ -225,30 +224,31 @@ class OfflineHandler {
   }
 
   Future<void> deleteOutDatedData() async {
-    if (DbConfigurationsByDev.isOutDatedDataNeedsToBeDeleted &&
-        (DbConfigurationsByDev.lastDeletedOutDataDate == null ||
-            DateTime.now()
-                    .difference(DbConfigurationsByDev.lastDeletedOutDataDate!)
-                    .inDays >
-                DbConfigurationsByDev.howLongDataShouldPersist)) {
+    var config = _dbConfig.state;
+    if (config.isOutDatedDataNeedsToBeDeleted &&
+        (config.lastDeletedOutDataDate == null ||
+            DateTime.now().difference(config.lastDeletedOutDataDate!).inDays >
+                config.howLongDataShouldPersist)) {
       var date = DateTime.now()
-          .subtract(
-              Duration(days: DbConfigurationsByDev.howLongDataShouldPersist))
+          .subtract(Duration(days: config.howLongDataShouldPersist))
           .millisecondsSinceEpoch;
-      await _SchoolsDbHandler().deleteOutdatedData(date);
-      // await _TodoListDbHandler().deleteOutdatedData(date);
-      DbConfigurationsByDev.lastDeletedOutDataDate = DateTime.now();
-      await DbConfigurationsByDev.set(
-          DbConfigurationsByDev.lastDeletedOutDataDate!);
+
+      /// Delete outdated data from all registered handlers
+      for (var handler in _registry.allHandlers) {
+        await handler.deleteOutdatedData(date);
+      }
+
+      await _dbConfig.persistLastDeletedDate(DateTime.now());
       debugPrint('Deleted outdated data');
     }
   }
 
-  ///
+  /// Erase all database data
   Future<void> eraseAllDatabaseData() async {
-    await _SchoolsDbHandler().resetDataBase();
-    await _CommonDbHandler().resetDataBase();
-    await _TodoListDbHandler().resetDataBase();
+    for (var handler in _registry.allHandlers) {
+      await handler.resetDataBase();
+    }
+    await CommonDbHandler().resetDataBase();
     debugPrint('Erased all the data');
   }
 }

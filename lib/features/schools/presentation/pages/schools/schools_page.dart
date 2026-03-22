@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
@@ -11,13 +9,11 @@ import 'package:sample_latest/features/schools/presentation/pages/schools/school
 import 'package:sample_latest/features/schools/presentation/ui_models/schools_ui_model.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
-import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/custom_app_bar.dart';
 
 import '../../../../../shared/mixins/mixins.dart';
 import '../../cubit/schools_cubit/schools_cubit.dart';
 import 'widgets/create_update_school.dart';
-import 'widgets/schools_offline_actions.dart';
 
 class SchoolsPage extends StatefulWidget {
   const SchoolsPage({super.key});

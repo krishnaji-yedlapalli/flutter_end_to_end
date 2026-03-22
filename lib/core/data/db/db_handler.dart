@@ -36,10 +36,9 @@ class SqfLiteDbHandler {
     return _db;
   }
 
-  void _onCreate(Database db, int version, String queryFileName) async {
+  Future<void> _onCreate(Database db, int version, String queryFileName) async {
     // Read SQL queries from file
-    String fileContents = await rootBundle
-        .loadString('lib/services/db/queries/$queryFileName.sql');
+    String fileContents = await rootBundle.loadString(queryFileName);
     fileContents = fileContents.trim().replaceAll('\n', '');
     List<String> queries = fileContents.split(';');
 
@@ -55,8 +54,8 @@ class SqfLiteDbHandler {
     await batch.commit();
   }
 
-  void _onUpgrade(
-      Database db, int oldVersion, int newVersion, String queryFileName) {}
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion,
+      String queryFileName) async {}
 
   Future<int> insertData(String tableName, dynamic data) async {
     return await db.insert(

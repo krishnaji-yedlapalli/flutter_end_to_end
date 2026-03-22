@@ -1,55 +1,78 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
-import 'package:sample_latest/core/environment/environment.dart';
-import 'package:sample_latest/core/presentation/provider/common_provider.dart';
-import 'package:sample_latest/features/schools/presentation/screens/student/student.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/environment/environment.dart';
+import 'package:sample_latest/features/schools/domain/use_cases/use_cases.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/screens/student/student.dart';
+import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
 
 import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';
-import 'create_edit_school_test.mocks.dart';
+
+class MockStudentsUseCase extends Mock implements StudentsUseCase {}
+
+class MockStudentUseCase extends Mock implements StudentUseCase {}
+
+class MockStudentModifyUseCase extends Mock implements StudentModifyUseCase {}
+
+class MockDeleteStudentUseCase extends Mock implements DeleteStudentUseCase {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setupFirebaseCoreMocks();
 
-  late MockSchoolRepository mockSchoolRepo;
+  late MockStudentsUseCase mockStudentsUseCase;
+  late MockStudentUseCase mockStudentUseCase;
+  late MockStudentModifyUseCase mockStudentModifyUseCase;
+  late MockDeleteStudentUseCase mockDeleteStudentUseCase;
 
-  setUpAll(() {
+  setUpAll(() async {
+    WidgetsFlutterBinding.ensureInitialized();
     Environment().configure();
     DeviceConfiguration.initiate();
-    mockSchoolRepo = MockSchoolRepository();
+    await Firebase.initializeApp();
   });
 
-  Future<void> pumpSchoolWidgetWithAllDependencies(
-      WidgetTester tester, SchoolBloc schoolBloc, Size size) async {
-    final GoRouter goRouter = GoRouter(
+  setUp(() {
+    mockStudentsUseCase = MockStudentsUseCase();
+    mockStudentUseCase = MockStudentUseCase();
+    mockStudentModifyUseCase = MockStudentModifyUseCase();
+    mockDeleteStudentUseCase = MockDeleteStudentUseCase();
+  });
+
+  Future<void> pumpStudentWidget(WidgetTester tester, Size size) async {
+    final studentsBloc = StudentsBloc(mockStudentsUseCase,
+        mockStudentModifyUseCase, mockDeleteStudentUseCase, mockStudentUseCase);
+
+    final goRouter = GoRouter(
       routes: [
         GoRoute(
           path: '/',
           builder: (context, state) => MediaQuery(
-              key: UniqueKey(),
-              data: MediaQueryData(size: size),
-              child: OrientationBuilder(builder: (context, orientation) {
-                DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                    MediaQuery.of(context).size, orientation);
-                return ChangeNotifierProvider(
-                  create: (context) =>
-                      CommonProvider(ThemeMode.dark, const Locale('en')),
-                  child: BlocProvider(
-                      key: UniqueKey(),
-                      create: (context) => schoolBloc,
-                      child: Builder(builder: (context) {
-                        return const Student(studentId: '123', schoolId: '123');
-                      })),
-                );
-              })), // Replace with your actual widget
+            key: UniqueKey(),
+            data: MediaQueryData(size: size),
+            child: OrientationBuilder(builder: (context, orientation) {
+              DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                  MediaQuery.of(context).size, orientation);
+              return ChangeNotifierProvider(
+                create: (_) =>
+                    CommonProvider(ThemeMode.dark, const Locale('en')),
+                child: BlocProvider.value(
+                  value: studentsBloc,
+                  child: const Student(studentId: '321', schoolId: '123'),
+                ),
+              );
+            }),
+          ),
         ),
-        // Add other routes as needed
       ],
     );
 
@@ -63,15 +86,13 @@ void main() {
 
   group('Testing Student Details', () {
     testWidgets('Student Details', (tester) async {
-      when(mockSchoolRepo.fetchStudent(any, any))
-          .thenAnswer((value) => Future.value(SchoolMockData.students.first));
+      when(() => mockStudentUseCase.call('321', '123'))
+          .thenAnswer((_) async => Left(SchoolMockData.studentEntities.first));
 
-      await pumpSchoolWidgetWithAllDependencies(tester,
-          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpStudentWidget(tester, TestConfigurationData.screenSizes.first);
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Student Details :'), findsOneWidget);
-
       expect(find.text('Delete Student'), findsOneWidget);
     });
   });

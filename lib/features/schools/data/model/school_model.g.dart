@@ -16,8 +16,8 @@ SchoolModel _$SchoolModelFromJson(Map<String, dynamic> json) {
     json['country'] as String,
     json['location'] as String,
     json['id'] as String,
-    json['createdDate'] as int,
-    updatedDate: json['updatedDate'] as int?,
+    (json['createdDate'] as num).toInt(),
+    updatedDate: (json['updatedDate'] as num?)?.toInt(),
   );
 }
 

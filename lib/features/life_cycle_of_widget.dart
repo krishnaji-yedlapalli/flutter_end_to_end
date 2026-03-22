@@ -15,7 +15,9 @@ class LifeCycleWidget1 extends StatefulWidget {
 class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
   String randomName = 'Krishna';
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -66,7 +68,6 @@ class _LifeCycleWidget1State extends State<LifeCycleWidget1> {
   }
 
   void workManger() {
-    var si = 'be.tramckrijte.workmanagerExample.simpleTask';
     // Workmanager().registerOneOffTask(si, si,
     //     initialDelay: const Duration(seconds: 10),
     //     inputData: <String, dynamic>{'int': 1});
@@ -140,8 +141,6 @@ class _LifeCycleChildWidgetState extends State<LifeCycleChildWidget>
 
   @override
   void didUpdateWidget(covariant LifeCycleChildWidget oldWidget) {
-    var a = List.generate(1000000, (index) => 1000000 / 2).toList();
-
     /// this line of code creates junk
     super.didUpdateWidget(oldWidget);
   }

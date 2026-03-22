@@ -93,6 +93,7 @@ class _ListDataState extends State<ListData>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView(
         children: List.generate(100, (index) {
       var random = Random().nextInt(40000);
@@ -105,7 +106,6 @@ class _ListDataState extends State<ListData>
   }
 
   IconData getRandomIcon() {
-    final List<int> points = <int>[0xe0b0, 0xe0b1, 0xe0b2, 0xe0b3, 0xe0b4];
     final Random random = Random();
     const String chars = '0123456789ABCDEF';
     int length = 3;

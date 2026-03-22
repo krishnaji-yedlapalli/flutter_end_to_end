@@ -1,6 +1,6 @@
-import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/features/smart_control_iot/core/smart_control_injection_module.dart';
 

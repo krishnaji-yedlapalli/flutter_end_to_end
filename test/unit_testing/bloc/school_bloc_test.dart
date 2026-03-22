@@ -1,164 +1,300 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
-import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/features/schools/domain/use_cases/use_cases.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/schools_details_state.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/schools_cubit/schools_cubit.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_state.dart'
+    as students;
+import 'package:sample_latest/features/schools/presentation/ui_mappers/schools_ui_mapper.dart';
+import 'package:sample_latest/features/schools/shared/params/school_params.dart';
 
 import '../../mock_data/school/school_mock_data.dart';
-import 'school_bloc_test.mocks.dart';
 
-@GenerateMocks([SchoolRepository])
+class MockSchoolsUseCase extends Mock implements SchoolsUseCase {}
+
+class MockSchoolModifyUseCase extends Mock implements SchoolModifyUseCase {}
+
+class MockDeleteSchoolUseCase extends Mock implements DeleteSchoolUseCase {}
+
+class MockSchoolDetailsUseCase extends Mock implements SchoolDetailsUseCase {}
+
+class MockSchoolDetailsModifyUseCase extends Mock
+    implements SchoolDetailsModifyUseCase {}
+
+class MockStudentsUseCase extends Mock implements StudentsUseCase {}
+
+class MockStudentUseCase extends Mock implements StudentUseCase {}
+
+class MockStudentModifyUseCase extends Mock implements StudentModifyUseCase {}
+
+class MockDeleteStudentUseCase extends Mock implements DeleteStudentUseCase {}
+
+class MockStudentsBloc extends Mock implements StudentsBloc {}
+
+class FakeSchoolParams extends Fake implements SchoolParams {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockSchoolRepository mockSchoolRepo;
 
-  setUp(() {
-    mockSchoolRepo = MockSchoolRepository();
+  setUpAll(() {
+    registerFallbackValue(FakeSchoolParams());
   });
 
-  group('School bloc test', () {
-    blocTest<SchoolBloc, SchoolState>('loading empty schools',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-            return Future.value(<SchoolModel>[]);
-          });
-        },
-        act: (schoolBloc) => schoolBloc.loadSchools(),
-        expect: () => [
-              const SchoolInfoLoading(SchoolDataLoadedType.schools),
-              isA<SchoolsInfoLoaded>(),
-            ],
-        verify: (bloc) {
-          verify(mockSchoolRepo.fetchSchools()).called(1);
-        });
+  group('SchoolsCubit', () {
+    late MockSchoolsUseCase mockSchoolsUseCase;
+    late MockSchoolModifyUseCase mockSchoolModifyUseCase;
+    late MockDeleteSchoolUseCase mockDeleteSchoolUseCase;
+    late SchoolsUiMapper uiMapper;
 
-    blocTest<SchoolBloc, SchoolState>('Loading bunch of schools',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-            return Future.value(SchoolMockData.schools);
-          });
-        },
-        act: (schoolBloc) => schoolBloc.loadSchools(),
-        skip: 1,
-        expect: () => [
-              isA<SchoolsInfoLoaded>(),
-            ],
-        verify: (bloc) {
-          var state = bloc.state;
-          if (state is SchoolsInfoLoaded) {
-            expect(state.schools, hasLength(SchoolMockData.schools.length));
-          }
-        });
+    setUp(() {
+      mockSchoolsUseCase = MockSchoolsUseCase();
+      mockSchoolModifyUseCase = MockSchoolModifyUseCase();
+      mockDeleteSchoolUseCase = MockDeleteSchoolUseCase();
+      uiMapper = SchoolsUiMapperImp();
+    });
 
-    blocTest<SchoolBloc, SchoolState>('loading schools with error message',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-            return Future.value(throw Exception());
-          });
-        },
-        act: (schoolBloc) => schoolBloc.loadSchools(),
-        expect: () => [
-              const SchoolInfoLoading(SchoolDataLoadedType.schools),
-              isA<SchoolDataError>(),
-            ],
-        verify: (bloc) {
-          verify(mockSchoolRepo.fetchSchools()).called(1);
-        });
+    SchoolsCubit buildCubit() => SchoolsCubit(
+          schoolsUseCase: mockSchoolsUseCase,
+          schoolModifyUseCase: mockSchoolModifyUseCase,
+          deleteSchoolUsecase: mockDeleteSchoolUseCase,
+          uiMapper: uiMapper,
+        );
 
-    blocTest<SchoolBloc, SchoolState>('Create a school',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.createOrEditSchool(any)).thenAnswer((value) =>
-              Future.value(SchoolModel('Kennedy', 'India', 'Hyderabad',
-                  '52a29100b99c1023a3674150b7ab5f7b', 1718168534634)));
-        },
-        act: (schoolBloc) => schoolBloc.createOrUpdateSchool(SchoolModel(
-            'Kennedy',
-            'India',
-            'Hyderabad',
-            '52a29100b99c1023a3674150b7ab5f7b',
-            1718168534634)),
-        // skip: 1,
-        expect: () => [
-              isA<SchoolsInfoLoaded>(),
-            ],
-        verify: (bloc) {
-          verify(mockSchoolRepo.createOrEditSchool(any)).called(1);
-        });
-
-    blocTest<SchoolBloc, SchoolState>('Handle error while creating a school',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.createOrEditSchool(any))
-              .thenAnswer((value) => throw Exception());
-        },
-        act: (schoolBloc) => schoolBloc.createOrUpdateSchool(SchoolModel(
-            'Kennedy',
-            'India',
-            'Hyderabad',
-            '52a29100b99c1023a3674150b7ab5f7b',
-            1718168534634)),
-        skip: 1,
-        expect: () => []);
-
-    blocTest<SchoolBloc, SchoolState>('load empty students',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.fetchStudents('1'))
-              .thenAnswer((value) => Future.value(<StudentModel>[]));
-        },
-        act: (schoolBloc) => schoolBloc.loadStudents('1'),
-        expect: () => <SchoolState>[
-              const StudentsInfoLoaded(SchoolDataLoadedType.students, [], '1')
-            ],
-        skip: 1);
-
-    blocTest<SchoolBloc, SchoolState>(
-      'load existing students',
-      build: () => SchoolBloc(mockSchoolRepo),
+    blocTest<SchoolsCubit, SchoolsState>(
+      'loadSchools emits Initial then Loaded on success with empty list',
+      build: buildCubit,
       setUp: () {
-        when(mockSchoolRepo.fetchStudents('1'))
-            .thenAnswer((value) => Future.value(SchoolMockData.students));
+        when(() => mockSchoolsUseCase.call())
+            .thenAnswer((_) async => const Left([]));
       },
-      act: (schoolBloc) => schoolBloc.loadStudents('1'),
-      expect: () => [isA<StudentsInfoLoaded>()],
-      skip: 1,
+      act: (cubit) => cubit.loadSchools(),
+      expect: () => [
+        isA<SchoolsInfoInitial>(),
+        isA<SchoolsInfoLoaded>(),
+      ],
+      verify: (_) => verify(() => mockSchoolsUseCase.call()).called(1),
     );
 
-    blocTest<SchoolBloc, SchoolState>('Create New Student',
-        build: () => SchoolBloc(mockSchoolRepo),
-        setUp: () {
-          when(mockSchoolRepo.createOrEditStudent(any, any)).thenAnswer(
-              (value) => Future.value(SchoolMockData.individualStudent));
-        },
-        act: (schoolBloc) => schoolBloc.createOrEditStudent(
-            SchoolMockData.individualStudent, '1',
-            isCreateStudent: true),
-        expect: () => [isA<StudentsInfoLoaded>()],
-        verify: (bloc) {
-          var state = bloc.state;
-          if (state is StudentsInfoLoaded) {
-            print(state.students);
-            expect(state.students, hasLength(1));
-          }
-        });
-
-    blocTest<SchoolBloc, SchoolState>(
-      '',
-      build: () => SchoolBloc(mockSchoolRepo),
+    blocTest<SchoolsCubit, SchoolsState>(
+      'loadSchools emits Initial then Loaded with schools',
+      build: buildCubit,
       setUp: () {
-        when(mockSchoolRepo.fetchStudents('1'))
-            .thenAnswer((value) => Future.value(SchoolMockData.students));
+        when(() => mockSchoolsUseCase.call())
+            .thenAnswer((_) async => Left(SchoolMockData.schoolEntities));
       },
-      act: (schoolBloc) => schoolBloc.loadStudents('1'),
-      expect: () => [isA<StudentsInfoLoaded>()],
+      act: (cubit) => cubit.loadSchools(),
       skip: 1,
+      expect: () => [isA<SchoolsInfoLoaded>()],
+      verify: (cubit) {
+        final state = cubit.state;
+        if (state is SchoolsInfoLoaded) {
+          expect(state.schoolsUiModel.schools,
+              hasLength(SchoolMockData.schoolEntities.length));
+        }
+      },
+    );
+
+    blocTest<SchoolsCubit, SchoolsState>(
+      'loadSchools emits error on failure',
+      build: buildCubit,
+      setUp: () {
+        when(() => mockSchoolsUseCase.call()).thenAnswer((_) async =>
+            const Right(
+                (DataErrorStateType.somethingWentWrong, message: null)));
+      },
+      act: (cubit) => cubit.loadSchools(),
+      expect: () => [
+        isA<SchoolsInfoInitial>(),
+        isA<SchoolDataError>(),
+      ],
+    );
+
+    blocTest<SchoolsCubit, SchoolsState>(
+      'createOrUpdateSchool emits overlay loading then updated list',
+      build: buildCubit,
+      seed: () =>
+          SchoolsInfoLoaded(uiMapper.convert(SchoolMockData.schoolEntities)),
+      setUp: () {
+        when(() => mockSchoolModifyUseCase.call(any(), any()))
+            .thenAnswer((_) async => Left(SchoolMockData.schoolEntities));
+      },
+      act: (cubit) => cubit.createOrUpdateSchool(
+          SchoolParams('NewSchool', 'India', 'Delhi', null),
+          isCreateSchool: true),
+      expect: () => [
+        isA<SchoolsInfoOverlayLoading>(),
+        isA<SchoolsInfoOverlayLoading>(),
+        isA<SchoolsInfoLoaded>(),
+      ],
+    );
+
+    blocTest<SchoolsCubit, SchoolsState>(
+      'deleteSchool emits overlay loading then updated list',
+      build: buildCubit,
+      seed: () =>
+          SchoolsInfoLoaded(uiMapper.convert(SchoolMockData.schoolEntities)),
+      setUp: () {
+        when(() => mockDeleteSchoolUseCase.call(any()))
+            .thenAnswer((_) async => Left(SchoolMockData.schoolEntities));
+      },
+      act: (cubit) => cubit.deleteSchool('123'),
+      expect: () => [
+        isA<SchoolsInfoOverlayLoading>(),
+        isA<SchoolsInfoOverlayLoading>(),
+        isA<SchoolsInfoLoaded>(),
+      ],
+    );
+  });
+
+  group('SchoolDetailsBloc', () {
+    late MockSchoolDetailsUseCase mockSchoolDetailsUseCase;
+    late MockSchoolDetailsModifyUseCase mockSchoolDetailsModifyUseCase;
+
+    setUp(() {
+      mockSchoolDetailsUseCase = MockSchoolDetailsUseCase();
+      mockSchoolDetailsModifyUseCase = MockSchoolDetailsModifyUseCase();
+    });
+
+    SchoolDetailsBloc buildBloc() => SchoolDetailsBloc(
+          mockSchoolDetailsUseCase,
+          mockSchoolDetailsModifyUseCase,
+        );
+
+    blocTest<SchoolDetailsBloc, SchoolDetailsState>(
+      'loadSchoolDetails emits Loading then Loaded',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockSchoolDetailsUseCase.call('123'))
+            .thenAnswer((_) async => Left(SchoolMockData.schoolDetailsEntity));
+      },
+      act: (bloc) => bloc.loadSchoolDetails('123'),
+      expect: () => [
+        isA<SchoolDetailsInitialLoading>(),
+        isA<SchoolDetailsInfoLoaded>(),
+      ],
+    );
+
+    blocTest<SchoolDetailsBloc, SchoolDetailsState>(
+      'loadSchoolDetails emits NotFound when null',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockSchoolDetailsUseCase.call('123'))
+            .thenAnswer((_) async => const Left(null));
+      },
+      act: (bloc) => bloc.loadSchoolDetails('123'),
+      expect: () => [
+        isA<SchoolDetailsInitialLoading>(),
+        isA<SchoolDetailsDataNotFound>(),
+      ],
+    );
+
+    blocTest<SchoolDetailsBloc, SchoolDetailsState>(
+      'loadSchoolDetails emits error on failure',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockSchoolDetailsUseCase.call('123')).thenAnswer((_) async =>
+            const Right(
+                (DataErrorStateType.somethingWentWrong, message: null)));
+      },
+      act: (bloc) => bloc.loadSchoolDetails('123'),
+      expect: () => [
+        isA<SchoolDetailsInitialLoading>(),
+        isA<SchoolDetailsDataError>(),
+      ],
+    );
+  });
+
+  group('StudentsBloc', () {
+    late MockStudentsUseCase mockStudentsUseCase;
+    late MockStudentUseCase mockStudentUseCase;
+    late MockStudentModifyUseCase mockStudentModifyUseCase;
+    late MockDeleteStudentUseCase mockDeleteStudentUseCase;
+
+    setUp(() {
+      mockStudentsUseCase = MockStudentsUseCase();
+      mockStudentUseCase = MockStudentUseCase();
+      mockStudentModifyUseCase = MockStudentModifyUseCase();
+      mockDeleteStudentUseCase = MockDeleteStudentUseCase();
+    });
+
+    StudentsBloc buildBloc() => StudentsBloc(
+          mockStudentsUseCase,
+          mockStudentModifyUseCase,
+          mockDeleteStudentUseCase,
+          mockStudentUseCase,
+        );
+
+    blocTest<StudentsBloc, students.StudentsState>(
+      'loadStudents emits Loading then Loaded with empty list',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockStudentsUseCase.call('123'))
+            .thenAnswer((_) async => const Left([]));
+      },
+      act: (bloc) => bloc.loadStudents('123'),
+      expect: () => [
+        isA<students.StudentsInfoLoading>(),
+        isA<students.StudentsInfoLoaded>(),
+      ],
+      verify: (bloc) {
+        final state = bloc.state;
+        if (state is students.StudentsInfoLoaded) {
+          expect(state.students, isEmpty);
+        }
+      },
+    );
+
+    blocTest<StudentsBloc, students.StudentsState>(
+      'loadStudents emits Loaded with students',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockStudentsUseCase.call('123'))
+            .thenAnswer((_) async => Left(SchoolMockData.studentEntities));
+      },
+      act: (bloc) => bloc.loadStudents('123'),
+      skip: 1,
+      expect: () => [isA<students.StudentsInfoLoaded>()],
+      verify: (bloc) {
+        final state = bloc.state;
+        if (state is students.StudentsInfoLoaded) {
+          expect(
+              state.students, hasLength(SchoolMockData.studentEntities.length));
+        }
+      },
+    );
+
+    blocTest<StudentsBloc, students.StudentsState>(
+      'loadStudents emits error on failure',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockStudentsUseCase.call('123')).thenAnswer((_) async =>
+            const Right(
+                (DataErrorStateType.somethingWentWrong, message: null)));
+      },
+      act: (bloc) => bloc.loadStudents('123'),
+      expect: () => [
+        isA<students.StudentsInfoLoading>(),
+        isA<students.SchoolDataError>(),
+      ],
+    );
+
+    blocTest<StudentsBloc, students.StudentsState>(
+      'loadStudent emits Loading then StudentInfoLoaded',
+      build: buildBloc,
+      setUp: () {
+        when(() => mockStudentUseCase.call('321', '123')).thenAnswer(
+            (_) async => Left(SchoolMockData.studentEntities.first));
+      },
+      act: (bloc) => bloc.loadStudent('321', '123'),
+      expect: () => [
+        isA<students.StudentsInfoLoading>(),
+        isA<students.StudentInfoLoaded>(),
+      ],
     );
   });
 }

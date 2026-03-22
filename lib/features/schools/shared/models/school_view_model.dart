@@ -1,4 +1,4 @@
-import '../../domain/entities/school_entity.dart';
+import '../../domain/entities/entities.dart';
 
 class SchoolViewModel {
   SchoolViewModel(this.schoolName, this.country, this.location, this.id);

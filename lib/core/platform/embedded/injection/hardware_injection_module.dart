@@ -1,8 +1,9 @@
-import 'package:sample_latest/features/hardware_integration/hardware_controllers/buzzer_controller.dart';
-import 'package:sample_latest/features/hardware_integration/hardware_controllers/motion_sensor_handler.dart';
-import 'package:sample_latest/features/hardware_integration/camera/camera_controller.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sample_latest/features/hardware_integration/gpio/gpio_service.dart';
+import 'package:sample_latest/core/platform/embedded/controllers/buzzer_controller.dart';
+import 'package:sample_latest/core/platform/embedded/controllers/motion_sensor_handler.dart';
+import 'package:sample_latest/core/platform/embedded/services/gpio_service.dart';
+
+import '../controllers/camera_controller.dart';
 
 class HardwareInjectionModule {
   HardwareInjectionModule._();

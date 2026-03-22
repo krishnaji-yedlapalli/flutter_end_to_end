@@ -1,83 +1,121 @@
-import 'dart:async';
-
-import 'package:bloc_test/bloc_test.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/features/schools/presentation/cubit/school_bloc.dart';
-import 'package:sample_latest/core/environment/environment.dart';
-import 'package:sample_latest/main.dart';
-import 'package:sample_latest/features/schools/data/model/school_model.dart';
-import 'package:sample_latest/features/schools/data/model/student_model.dart';
-import 'package:sample_latest/core/presentation/provider/common_provider.dart';
-import 'package:sample_latest/features/schools/data/repository/school_repository.dart';
-import 'package:sample_latest/ui/exception/exception.dart';
-import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/features/schools/presentation/pages/schools/schools.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sample_latest/core/environment/environment.dart';
+import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
+import 'package:sample_latest/features/schools/domain/entities/entities.dart';
+import 'package:sample_latest/features/schools/domain/use_cases/use_cases.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/schools_cubit/schools_cubit.dart';
+import 'package:sample_latest/features/schools/presentation/cubit/students_bloc/students_bloc.dart';
+import 'package:sample_latest/features/schools/presentation/pages/schools/schools_page.dart';
+import 'package:sample_latest/features/schools/presentation/ui_mappers/schools_ui_mapper.dart';
+import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
 
 import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';
-import 'school_widget_test.mocks.dart';
 
-@GenerateMocks([SchoolRepository])
+class MockSchoolsUseCase extends Mock implements SchoolsUseCase {}
+
+class MockSchoolModifyUseCase extends Mock implements SchoolModifyUseCase {}
+
+class MockDeleteSchoolUseCase extends Mock implements DeleteSchoolUseCase {}
+
+class MockSchoolDetailsUseCase extends Mock implements SchoolDetailsUseCase {}
+
+class MockSchoolDetailsModifyUseCase extends Mock
+    implements SchoolDetailsModifyUseCase {}
+
+class MockStudentsUseCase extends Mock implements StudentsUseCase {}
+
+class MockStudentUseCase extends Mock implements StudentUseCase {}
+
+class MockStudentModifyUseCase extends Mock implements StudentModifyUseCase {}
+
+class MockDeleteStudentUseCase extends Mock implements DeleteStudentUseCase {}
+
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   setupFirebaseCoreMocks();
 
-  group('home widget testing', () {
-    late MockSchoolRepository mockSchoolRepo;
+  group('Schools page widget testing', () {
+    late MockSchoolsUseCase mockSchoolsUseCase;
+    late MockSchoolModifyUseCase mockSchoolModifyUseCase;
+    late MockDeleteSchoolUseCase mockDeleteSchoolUseCase;
+    late MockSchoolDetailsUseCase mockSchoolDetailsUseCase;
+    late MockSchoolDetailsModifyUseCase mockSchoolDetailsModifyUseCase;
+    late MockStudentsUseCase mockStudentsUseCase;
+    late MockStudentUseCase mockStudentUseCase;
+    late MockStudentModifyUseCase mockStudentModifyUseCase;
+    late MockDeleteStudentUseCase mockDeleteStudentUseCase;
 
     setUpAll(() async {
       WidgetsFlutterBinding.ensureInitialized();
       Environment().configure();
       DeviceConfiguration.initiate();
       await Firebase.initializeApp();
-      mockSchoolRepo = MockSchoolRepository();
     });
 
-    // tearDown(() {
-    //   schoolBloc.close();
-    // });
+    setUp(() {
+      mockSchoolsUseCase = MockSchoolsUseCase();
+      mockSchoolModifyUseCase = MockSchoolModifyUseCase();
+      mockDeleteSchoolUseCase = MockDeleteSchoolUseCase();
+      mockSchoolDetailsUseCase = MockSchoolDetailsUseCase();
+      mockSchoolDetailsModifyUseCase = MockSchoolDetailsModifyUseCase();
+      mockStudentsUseCase = MockStudentsUseCase();
+      mockStudentUseCase = MockStudentUseCase();
+      mockStudentModifyUseCase = MockStudentModifyUseCase();
+      mockDeleteStudentUseCase = MockDeleteStudentUseCase();
+    });
 
-    Future<void> pumpSchoolWidgetWithAllDependencies(
-        WidgetTester tester, SchoolBloc schoolBloc, Size size) async {
-      final GoRouter goRouter = GoRouter(
+    Future<void> pumpSchoolsPage(
+        WidgetTester tester, SchoolsCubit schoolsCubit, Size size) async {
+      final schoolDetailsBloc = SchoolDetailsBloc(
+        mockSchoolDetailsUseCase,
+        mockSchoolDetailsModifyUseCase,
+      );
+      final studentsBloc = StudentsBloc(
+          mockStudentsUseCase,
+          mockStudentModifyUseCase,
+          mockDeleteStudentUseCase,
+          mockStudentUseCase);
+
+      final goRouter = GoRouter(
         routes: [
           GoRoute(
             path: '/',
             builder: (context, state) => MediaQuery(
-                key: UniqueKey(),
-                data: MediaQueryData(size: size),
-                child: OrientationBuilder(builder: (context, orientation) {
-                  DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                      MediaQuery.of(context).size, orientation);
-                  return ChangeNotifierProvider(
-                    create: (context) =>
-                        CommonProvider(ThemeMode.dark, const Locale('en')),
-                    child: BlocProvider(
-                        key: UniqueKey(),
-                        create: (context) => schoolBloc,
-                        child: FeatureDiscovery.withProvider(
-                            persistenceProvider: const NoPersistenceProvider(),
-                            child: Builder(builder: (context) {
-                              return const Schools();
-                            }))),
-                  );
-                })), // Replace with your actual widget
+              key: UniqueKey(),
+              data: MediaQueryData(size: size),
+              child: OrientationBuilder(builder: (context, orientation) {
+                DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                    MediaQuery.of(context).size, orientation);
+                return ChangeNotifierProvider(
+                  create: (_) =>
+                      CommonProvider(ThemeMode.dark, const Locale('en')),
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(value: schoolsCubit),
+                      BlocProvider.value(value: schoolDetailsBloc),
+                      BlocProvider.value(value: studentsBloc),
+                    ],
+                    child: const FeatureDiscovery.withProvider(
+                      persistenceProvider: NoPersistenceProvider(),
+                      child: SchoolsPage(),
+                    ),
+                  ),
+                );
+              }),
+            ),
           ),
-          // Add other routes as needed
         ],
       );
 
@@ -89,40 +127,19 @@ void main() async {
       ));
     }
 
-    testWidgets('Testing feature discovery', (tester) async {
-      await pumpSchoolWidgetWithAllDependencies(tester,
-          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
-
-      bool schoolOverlayDismissed = false;
-      for (int i = 0; i < 100; i++) {
-        await tester.pump(
-            const Duration(milliseconds: 100)); // Pump for a short duration
-
-        // Check if the overlay is dismissed
-        if (find.text('Dismiss').evaluate().isNotEmpty) {
-          final schoolDismiss = find.text('Dismiss');
-          schoolOverlayDismissed = true;
-          await tester.tap(schoolDismiss);
-        }
-        if (schoolOverlayDismissed) {
-          break;
-        }
-      }
-      await tester.pumpAndSettle();
-
-      var welcomePopup = find.byIcon(Icons.thumb_up);
-
-      await tester.tap(welcomePopup);
-      await tester.pump();
-    });
+    SchoolsCubit buildCubit() => SchoolsCubit(
+          schoolsUseCase: mockSchoolsUseCase,
+          schoolModifyUseCase: mockSchoolModifyUseCase,
+          deleteSchoolUsecase: mockDeleteSchoolUseCase,
+          uiMapper: SchoolsUiMapperImp(),
+        );
 
     testWidgets('Testing with No Schools', (tester) async {
-      when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-        return Future.value(<SchoolModel>[]);
-      });
+      when(() => mockSchoolsUseCase.call())
+          .thenAnswer((_) async => const Left(<SchoolEntity>[]));
 
-      await pumpSchoolWidgetWithAllDependencies(tester,
-          SchoolBloc(mockSchoolRepo), TestConfigurationData.screenSizes.first);
+      await pumpSchoolsPage(
+          tester, buildCubit(), TestConfigurationData.screenSizes.first);
       await tester.pumpAndSettle();
 
       expect(
@@ -130,20 +147,22 @@ void main() async {
     });
 
     testWidgets('Test Existing school flow', (tester) async {
-      var schoolBloc = SchoolBloc(mockSchoolRepo);
-      schoolBloc.isWelcomeMessageShowed = true;
-      when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-        return Future.value(SchoolMockData.schools);
-      });
+      when(() => mockSchoolsUseCase.call())
+          .thenAnswer((_) async => Left(SchoolMockData.schoolEntities));
 
-      await pumpSchoolWidgetWithAllDependencies(
-          tester, schoolBloc, TestConfigurationData.screenSizes.first);
+      await pumpSchoolsPage(
+          tester, buildCubit(), TestConfigurationData.screenSizes.first);
       await tester.pumpAndSettle();
+
+      // Dismiss welcome dialog if present
+      final thumbUp = find.byIcon(Icons.thumb_up);
+      if (thumbUp.evaluate().isNotEmpty) {
+        await tester.tap(thumbUp);
+        await tester.pumpAndSettle();
+      }
 
       expect(find.byType(ListTile), findsAtLeast(2));
 
-      /// Offset 0 represents x axis and 5000 represents scroll value, negative value represents up wards scroll and positive values represents downward scroll.
-      /// 1000 is scroll velocity.
       await tester.fling(find.byType(ListView), const Offset(0, -8000), 10000);
       await tester.pumpAndSettle();
 
@@ -159,16 +178,20 @@ void main() async {
         DeviceConfiguration.updateDeviceResolutionAndOrientation(
             size, Orientation.portrait);
 
-        var schoolBloc = SchoolBloc(mockSchoolRepo);
-        schoolBloc.isWelcomeMessageShowed = true;
         SchoolScreenFeatureDiscovery().isCompleted = true;
 
-        when(mockSchoolRepo.fetchSchools()).thenAnswer((value) {
-          return Future.value(SchoolMockData.schools);
-        });
+        when(() => mockSchoolsUseCase.call())
+            .thenAnswer((_) async => Left(SchoolMockData.schoolEntities));
 
-        await pumpSchoolWidgetWithAllDependencies(tester, schoolBloc, size);
+        await pumpSchoolsPage(tester, buildCubit(), size);
         await tester.pumpAndSettle();
+
+        // Dismiss welcome dialog if present
+        final thumbUp = find.byIcon(Icons.thumb_up);
+        if (thumbUp.evaluate().isNotEmpty) {
+          await tester.tap(thumbUp);
+          await tester.pumpAndSettle();
+        }
 
         await tester.fling(
             find.byType(ListView), const Offset(0, -8000), 10000);

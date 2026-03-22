@@ -76,7 +76,7 @@ class _FixedCountGrid extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.grid_view,
                           size: 40,
                           color: Colors.blue,
@@ -285,7 +285,7 @@ class _GridViewBuilder extends StatelessWidget {
                             color: color,
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.photo,
                             color: Colors.white,
                             size: 30,
@@ -401,7 +401,7 @@ class _StaggeredGrid extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.article,
                                   color: Colors.orange,
                                 ),

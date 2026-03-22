@@ -1,8 +1,8 @@
 import '../../../../core/data/base_service.dart';
 import '../../../../core/data/urls.dart';
 import '../../../../core/data/utils/service_enums_typedef.dart';
-import '../../domain/entities/school_details_entity.dart';
-import '../../domain/repository/school_details_repository.dart';
+import '../../domain/entities/entities.dart';
+import '../../domain/repository/repository.dart';
 import '../model/school_details_model.dart';
 
 class SchoolsDetailsRepositoryImpl implements SchoolDetailsRepository {
@@ -25,7 +25,7 @@ class SchoolsDetailsRepositoryImpl implements SchoolDetailsRepository {
   Future<SchoolDetailsEntity> addOrEditSchoolDetails(
       SchoolDetailsEntity schoolDetails) async {
     Map<String, dynamic> body = {
-      schoolDetails.id: schoolDetails.toDtoModel().toJson()
+      schoolDetails.id: SchoolDetailsModel.fromEntity(schoolDetails).toJson()
     };
 
     var response = await baseService.makeRequest(

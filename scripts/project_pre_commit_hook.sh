@@ -10,7 +10,7 @@ fi
 # Change to the Git root directory
 cd "$GIT_ROOT" || exit 1
 
-echo "Running pre-commit checks for the entire project..."
+echo "Running pre-commit checks for the entire project..."  
 
 # Run Dart analyzer to catch any remaining issues
 echo "Re-running Dart analyzer..."

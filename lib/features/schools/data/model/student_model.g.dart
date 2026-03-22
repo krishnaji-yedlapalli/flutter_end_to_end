@@ -17,8 +17,8 @@ StudentModel _$StudentModelFromJson(Map<String, dynamic> json) {
     json['studentName'] as String,
     json['studentLocation'] as String,
     json['standard'] as String,
-    json['createdDate'] as int,
-    updatedDate: json['updatedDate'] as int?,
+    (json['createdDate'] as num).toInt(),
+    updatedDate: (json['updatedDate'] as num?)?.toInt(),
   );
 }
 

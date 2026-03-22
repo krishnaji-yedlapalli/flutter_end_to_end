@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/student_entity.dart';
+import '../../domain/entities/entities.dart';
 
 part 'student_model.g.dart';
 
@@ -41,6 +41,18 @@ class StudentModel {
     json['updatedDate'] = int.parse(json['updatedDate']);
 
     return StudentModel.fromJson(json);
+  }
+
+  factory StudentModel.fromEntity(StudentEntity entity) {
+    return StudentModel(
+      entity.id,
+      entity.schoolId,
+      entity.studentName,
+      entity.studentLocation,
+      entity.standard,
+      entity.createdDate,
+      updatedDate: entity.updatedDate,
+    );
   }
 
   StudentEntity toEntity() {

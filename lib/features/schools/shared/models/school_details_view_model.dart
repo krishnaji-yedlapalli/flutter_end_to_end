@@ -1,3 +1,5 @@
+import '../../domain/entities/entities.dart';
+
 class SchoolDetailsViewModel {
   final String id;
   final String schoolName;
@@ -18,4 +20,17 @@ class SchoolDetailsViewModel {
     required this.employeeCount,
     required this.hostelAvailability,
   });
+
+  factory SchoolDetailsViewModel.fromEntity(SchoolDetailsEntity entity) {
+    return SchoolDetailsViewModel(
+      id: entity.id,
+      schoolName: entity.schoolName,
+      country: entity.country,
+      location: entity.location,
+      image: entity.image,
+      studentCount: entity.studentCount,
+      employeeCount: entity.employeeCount,
+      hostelAvailability: entity.hostelAvailability,
+    );
+  }
 }

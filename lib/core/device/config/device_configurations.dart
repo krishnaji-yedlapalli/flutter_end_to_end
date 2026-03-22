@@ -1,8 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
 import 'package:sample_latest/core/constants/responsive_constants.dart';
+import 'package:sample_latest/core/device/enums/device_enums.dart';
 
 class DeviceConfiguration {
   // Cached values
@@ -11,7 +12,6 @@ class DeviceConfiguration {
   static DeviceResolutionType? _cachedResolutionType;
   static double? _cachedWidth;
   static double? _cachedHeight;
-  static double? _cachedPixelRatio;
 
   // Static configuration (set once)
   static late OperatingSystemType _operatingType;
@@ -55,7 +55,6 @@ class DeviceConfiguration {
     _cachedOrientation = orientation;
     _cachedWidth = size.width;
     _cachedHeight = size.height;
-    _cachedPixelRatio = pixelRatio ?? 1.0;
 
     // Enhanced resolution-based detection
     DeviceResolutionType newResolutionType =
@@ -338,6 +337,5 @@ class DeviceConfiguration {
     _cachedResolutionType = null;
     _cachedWidth = null;
     _cachedHeight = null;
-    _cachedPixelRatio = null;
   }
 }

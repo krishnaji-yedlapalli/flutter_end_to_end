@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:sample_latest/features/schools/presentation/screens/db_configurations_for_devs.dart';
-import 'package:sample_latest/features/schools/presentation/screens/dumping_status.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 import 'package:sample_latest/shared/mixins/dialogs.dart';
+import 'package:sample_latest/shared/presentation/screens/db_configurations_for_devs.dart';
+import 'package:sample_latest/shared/presentation/screens/dumping_status.dart';
 
 class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
   const SchoolsOfflineActions({super.key});
+
+  OfflineHandler get _offlineHandler => GetIt.instance<OfflineHandler>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
 
   Widget _buildSyncButton() {
     return StreamBuilder<int>(
-      stream: OfflineHandler().queueItemsCount.stream,
+      stream: _offlineHandler.queueItemsCount.stream,
       initialData: 0,
       builder: (context, snapshot) {
         var count = 0;
@@ -55,7 +58,7 @@ class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
         return Badge(
             label: Text('$count'),
             child: ElevatedButton(
-                onPressed: OfflineHandler().syncData,
+                onPressed: _offlineHandler.syncData,
                 child: const Text('Sync')));
       },
     );
@@ -71,7 +74,7 @@ class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
 
   Widget _buildDumpOfflineButton() {
     return StreamBuilder<OfflineDumpingStatus>(
-      stream: OfflineHandler().dumpingOfflineDataStatus.stream,
+      stream: _offlineHandler.dumpingOfflineDataStatus.stream,
       builder: (context, snapshot) {
         Widget child;
         OfflineDumpingStatus status = snapshot.data;
@@ -91,7 +94,7 @@ class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
 
   Widget _buildDbClearButton() {
     return ElevatedButton.icon(
-        onPressed: OfflineHandler().eraseAllDatabaseData,
+        onPressed: _offlineHandler.eraseAllDatabaseData,
         icon: const Icon(Icons.refresh),
         label: const Text('Reset Whole Db'));
   }
@@ -106,7 +109,7 @@ class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
   }
 
   onTapOfDumpStatus(BuildContext context, bool isRunning) {
-    if (!isRunning) OfflineHandler().dumpOfflineData();
+    if (!isRunning) _offlineHandler.dumpOfflineData();
     adaptiveDialog(context, const DumpingStatusView());
   }
 }

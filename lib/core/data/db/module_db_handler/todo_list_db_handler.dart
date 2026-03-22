@@ -1,19 +1,27 @@
-part of 'package:sample_latest/core/data/db/offline_handler.dart';
+import 'package:dio/dio.dart';
+import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
+import 'package:sample_latest/core/data/urls.dart';
+import 'package:sample_latest/core/data/utils/abstract_db_handler.dart';
+import 'package:sample_latest/core/data/utils/db_constants.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 
-class _TodoListDbHandler extends DbHandler {
-  _TodoListDbHandler._internal();
+class TodoListDbHandler extends DbHandler {
+  TodoListDbHandler._internal();
 
-  static final _TodoListDbHandler _singleton = _TodoListDbHandler._internal();
+  static final TodoListDbHandler _singleton = TodoListDbHandler._internal();
 
-  factory _TodoListDbHandler() {
+  factory TodoListDbHandler() {
     return _singleton;
   }
 
   final DbInfo dbInfo = (
     dbName: 'todolist',
     dbVersion: 5,
-    queryFileName: 'create_todolist_table_queries'
+    queryFileName: 'lib/core/data/db/queries/create_todolist_table_queries.sql'
   );
+
+  @override
+  List<String> get supportedPaths => [Urls.todoList];
 
   @override
   Future<bool> initializeDbIfNot() async {
@@ -44,31 +52,26 @@ class _TodoListDbHandler extends DbHandler {
 
   @override
   Future<Response> performDeleteOperation(RequestOptions options) {
-    // TODO: implement performDeleteOperation
     throw UnimplementedError();
   }
 
   @override
   Future<Response> performGetOperation(RequestOptions options) {
-    // TODO: implement performGetOperation
     throw UnimplementedError();
   }
 
   @override
   Future<Response> performPatchOperation(RequestOptions options) {
-    // TODO: implement performPatchOperation
     throw UnimplementedError();
   }
 
   @override
   Future<Response> performPostOperation(RequestOptions options) {
-    // TODO: implement performPostOperation
     throw UnimplementedError();
   }
 
   @override
   Future<Response> performBulkLocalDataStoreOperation(RequestOptions options) {
-    // TODO: implement _performBulkStoreOperation
     throw UnimplementedError();
   }
 

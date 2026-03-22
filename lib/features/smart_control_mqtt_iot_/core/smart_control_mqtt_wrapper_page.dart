@@ -1,6 +1,6 @@
-import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/features/smart_control_mqtt_iot_/core/smart_control_mqtt_injection_module.dart';

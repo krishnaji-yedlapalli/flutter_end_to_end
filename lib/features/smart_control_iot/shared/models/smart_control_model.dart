@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../features/smart_device_control/presentation/cubit/smart_device_control_cubit.dart';
 import '../utils/enums.dart';
 
 class SmartControlModel {

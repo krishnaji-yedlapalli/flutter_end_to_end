@@ -129,24 +129,24 @@ class _DraggableScrollableSheetDemoState
               ),
             ),
             const SizedBox(height: 20),
-            Card(
+            const Card(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Instructions:',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    const Text('• Drag the bottom sheet up or down'),
-                    const Text('• Use the FAB to animate the sheet'),
-                    const Text('• Scroll within the sheet when expanded'),
-                    const Text('• The sheet has min, initial, and max sizes'),
+                    SizedBox(height: 8),
+                    Text('• Drag the bottom sheet up or down'),
+                    Text('• Use the FAB to animate the sheet'),
+                    Text('• Scroll within the sheet when expanded'),
+                    Text('• The sheet has min, initial, and max sizes'),
                   ],
                 ),
               ),
@@ -239,16 +239,15 @@ class _DraggableScrollableSheetDemoState
             leading: CircleAvatar(
               backgroundColor: _getColorForIndex(index),
               child: Text(
-                '${index}',
+                '$index',
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            title: Text('Scrollable Item ${index}'),
-            subtitle:
-                Text('This is item number ${index} in the draggable sheet'),
+            title: Text('Scrollable Item $index'),
+            subtitle: Text('This is item number $index in the draggable sheet'),
             trailing: IconButton(
               icon: const Icon(Icons.more_vert),
               onPressed: () {
@@ -258,7 +257,7 @@ class _DraggableScrollableSheetDemoState
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Tapped item ${index}'),
+                  content: Text('Tapped item $index'),
                   duration: const Duration(seconds: 1),
                 ),
               );
@@ -346,17 +345,17 @@ class _DraggableScrollableSheetDemoState
           children: [
             ListTile(
               leading: const Icon(Icons.edit),
-              title: Text('Edit Item ${index}'),
+              title: Text('Edit Item $index'),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
               leading: const Icon(Icons.share),
-              title: Text('Share Item ${index}'),
+              title: Text('Share Item $index'),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
               leading: const Icon(Icons.delete),
-              title: Text('Delete Item ${index}'),
+              title: Text('Delete Item $index'),
               onTap: () => Navigator.pop(context),
             ),
           ],

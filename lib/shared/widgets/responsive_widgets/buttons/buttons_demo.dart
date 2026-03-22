@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'buttons.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+
+import 'buttons.dart';
 
 /// Demo page showcasing all adaptive responsive button variants
 class ButtonsDemo extends StatelessWidget {

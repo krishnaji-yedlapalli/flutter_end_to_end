@@ -5,7 +5,7 @@ import '../constants/app_colors.dart';
 class AppBarThemes {
   static AppBarTheme lightAppBarTheme() {
     return AppBarTheme(
-      color: Environment().configuration.seedColor,
+      backgroundColor: Environment().configuration.seedColor,
       shadowColor: AppColors.error,
       elevation: 5,
       foregroundColor: AppColors.secondary,

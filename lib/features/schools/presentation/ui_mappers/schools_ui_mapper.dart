@@ -1,4 +1,4 @@
-import '../../domain/entities/school_entity.dart';
+import '../../domain/entities/entities.dart';
 import '../../shared/models/school_view_model.dart';
 import '../ui_models/schools_ui_model.dart';
 

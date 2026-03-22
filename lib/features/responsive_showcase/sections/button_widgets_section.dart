@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+
 import '../../../core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 import '../widgets/showcase_section_card.dart';
 
 /// Section showcasing all responsive button widgets with interactive examples

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:sample_latest/features/schools/data/model/models.dart';
 import 'package:sample_latest/features/schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 import '../../../shared/models/school_view_model.dart';
 import '../../../shared/params/school_details_param.dart';
@@ -103,7 +103,7 @@ class _AddSchoolDetailsState extends State<AddSchoolDetails>
       case 1:
         if (formKey.currentState?.validate() ?? false) {
           widget.parentContext
-              .read<SchoolDetailsBLoc>()
+              .read<SchoolDetailsBloc>()
               .createOrEditSchoolDetails(SchoolDetailsParams(
                   widget.school.schoolName,
                   widget.school.country,

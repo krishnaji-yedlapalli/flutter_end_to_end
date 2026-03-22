@@ -1,7 +1,7 @@
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/features/schools/domain/entities/school_entity.dart';
-import 'package:sample_latest/features/schools/domain/repository/school_repository.dart';
+import 'package:sample_latest/features/schools/domain/entities/entities.dart';
+import 'package:sample_latest/features/schools/domain/repository/repository.dart';
 
 import '../../../../core/data/base_service.dart';
 import '../model/school_model.dart';
@@ -13,8 +13,9 @@ class SchoolsRepositoryImpl implements SchoolRepository {
 
   @override
   Future<SchoolEntity> createOrEditSchool(SchoolEntity school) async {
-    /// Creating object
-    Map<String, dynamic> body = {school.id: school.toJson()};
+    Map<String, dynamic> body = {
+      school.id: SchoolModel.fromEntity(school).toJson()
+    };
 
     SchoolModel? schoolDto;
     var response = await baseService.makeRequest(
@@ -29,12 +30,12 @@ class SchoolsRepositoryImpl implements SchoolRepository {
 
   @override
   Future<bool> deleteSchool(String schoolId) async {
-    var schoolDelRes = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.schools}/$schoolId.json', method: RequestType.delete);
-    var schoolDetailsDelRes = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.schoolDetails}/$schoolId.json',
         method: RequestType.delete);
-    var studentsDel = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.students}/$schoolId.json', method: RequestType.delete);
     return true;
   }
