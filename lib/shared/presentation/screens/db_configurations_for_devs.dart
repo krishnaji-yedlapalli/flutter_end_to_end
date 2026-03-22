@@ -1,34 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/data/db/db_configuration.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sample_latest/core/data/db/cubit/db_config_cubit.dart';
+import 'package:sample_latest/core/data/db/cubit/db_config_state.dart';
+import 'package:sample_latest/core/data/db/db_config_repository.dart';
+import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 
-class DbConfigurationDialog extends StatefulWidget {
+class DbConfigurationDialog extends StatelessWidget with CustomDialogs {
   const DbConfigurationDialog({Key? key}) : super(key: key);
 
   @override
-  State<DbConfigurationDialog> createState() => _DbConfigurationDialogState();
-}
-
-class _DbConfigurationDialogState extends State<DbConfigurationDialog>
-    with CustomDialogs {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return dialogWithButtons(
-        title: "!!! Hey Dev's !!!",
-        content: _buildFrom(),
-        actions: ['Close'],
-        callBack: (index) {
-          DbConfigurationsByDev().saveData();
-          Navigator.pop(context);
-        });
+    return BlocProvider(
+      create: (_) => DbConfigCubit(GetIt.instance<DbConfigRepository>()),
+      child: BlocBuilder<DbConfigCubit, DbConfigState>(
+        builder: (context, state) {
+          final cubit = context.read<DbConfigCubit>();
+          return dialogWithButtons(
+              title: "!!! Hey Dev's !!!",
+              content: _buildForm(context, cubit, state),
+              actions: ['Close'],
+              callBack: (index) async {
+                final shouldDump = await cubit.save();
+                if (shouldDump) {
+                  GetIt.instance<OfflineHandler>().dumpOfflineData();
+                }
+                if (context.mounted) Navigator.pop(context);
+              });
+        },
+      ),
+    );
   }
 
-  Widget _buildFrom() {
+  Widget _buildForm(
+      BuildContext context, DbConfigCubit cubit, DbConfigState state) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
@@ -46,16 +52,16 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog>
                 subtitle: const Text(
                     'Stores the data in Local db only when there was no internet. Once internet is back data will Sync automatically with server and delete the local data'),
                 isThreeLine: true,
-                value: DbConfigurationsByDev.storeOnlyIfOffline,
-                onChanged: (status) => onSelection(0, status)),
+                value: state.storeOnlyIfOffline,
+                onChanged: (status) => cubit.onSelection(0, status ?? false)),
             const Divider(),
             CheckboxListTile(
                 title: const Text('Online & Offline Mode'),
                 subtitle: const Text(
                     'Irrespective of Internet data will be stored in local db and data will be deleted based on the configured date'),
                 isThreeLine: true,
-                value: DbConfigurationsByDev.storeInBothOfflineAndOnline,
-                onChanged: (status) => onSelection(1, status)),
+                value: state.storeInBothOfflineAndOnline,
+                onChanged: (status) => cubit.onSelection(1, status ?? false)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               child: Row(
@@ -66,12 +72,13 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog>
                           style:
                               TextStyle(fontSize: 12, color: Colors.black26))),
                   DropdownButton(
-                      value: DbConfigurationsByDev.howLongDataShouldPersist,
+                      value: state.howLongDataShouldPersist,
                       items: [2, 5, 10, 15, 20, 25, 30]
                           .map((days) => DropdownMenuItem(
                               value: days, child: Text('$days days')))
                           .toList(),
-                      onChanged: showDataPersistDatePicker)
+                      onChanged: (days) =>
+                          cubit.updateHowLongDataShouldPersist(days ?? 2))
                 ],
               ),
             ),
@@ -81,37 +88,11 @@ class _DbConfigurationDialogState extends State<DbConfigurationDialog>
                 subtitle: const Text(
                     'Data will be dumped into the local DB at the time login or Module loading. Later it is used making some operations'),
                 isThreeLine: true,
-                value: DbConfigurationsByDev.dumpOfflineData,
-                onChanged: (status) => onSelection(2, status)),
+                value: state.dumpOfflineData,
+                onChanged: (status) => cubit.onSelection(2, status ?? false)),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> showDataPersistDatePicker(int? days) async {
-    setState(() {
-      DbConfigurationsByDev.howLongDataShouldPersist = days ?? 2;
-    });
-  }
-
-  void onSelection(int index, bool? status) {
-    status ??= false;
-
-    switch (index) {
-      case 0:
-        DbConfigurationsByDev.storeOnlyIfOffline = status;
-        break;
-      case 1:
-        DbConfigurationsByDev.storeInBothOfflineAndOnline =
-            DbConfigurationsByDev.storeOnlyIfOffline = status;
-        break;
-      case 2:
-        DbConfigurationsByDev.dumpOfflineData =
-            DbConfigurationsByDev.storeInBothOfflineAndOnline =
-                DbConfigurationsByDev.storeOnlyIfOffline = status;
-        break;
-    }
-    setState(() {});
   }
 }

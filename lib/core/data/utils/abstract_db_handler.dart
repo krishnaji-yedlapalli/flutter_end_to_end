@@ -28,6 +28,8 @@ abstract class DbHandler {
 
   Future<bool> initializeDbIfNot();
 
+  List<String> get supportedPaths;
+
   Future<Response> performCrudOperation(RequestOptions options);
 
   Future<Response> performPostOperation(RequestOptions options);
