@@ -58,7 +58,9 @@ void main() async {
   }
 
   /// Initialize Offline dependencies
-  await OfflineInjectionModule().registerDependencies();
+  if (!kIsWeb) {
+    await OfflineInjectionModule().registerDependencies();
+  }
 
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
