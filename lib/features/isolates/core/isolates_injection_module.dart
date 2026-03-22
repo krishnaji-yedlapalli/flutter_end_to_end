@@ -2,9 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:sample_latest/features/isolates/data/datasources/dummy_data_source.dart';
 import 'package:sample_latest/features/isolates/data/repositories/data_repository_impl.dart';
 import 'package:sample_latest/features/isolates/domain/repositories/i_data_repository.dart';
+import 'package:sample_latest/features/isolates/domain/usecases/calculate_statistics_usecase.dart';
 import 'package:sample_latest/features/isolates/domain/usecases/parse_large_json_usecase.dart';
 import 'package:sample_latest/features/isolates/domain/usecases/sort_data_usecase.dart';
-import 'package:sample_latest/features/isolates/domain/usecases/calculate_statistics_usecase.dart';
 import 'package:sample_latest/features/isolates/presentation/cubit/isolate_cubit.dart';
 
 class IsolatesInjectionModule {

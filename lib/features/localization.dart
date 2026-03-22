@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/l10n/app_localizations.dart';
 import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-import 'package:sample_latest/l10n/app_localizations.dart';
 
 class LocalizationDatePicker extends StatefulWidget {
   const LocalizationDatePicker({Key? key}) : super(key: key);
@@ -132,7 +132,6 @@ class _LocalizationDatePickerState extends State<LocalizationDatePicker>
   }
 
   Widget _buildSimplifiedStrings() {
-    var size = MediaQuery.of(context).size;
     var list = getLocalizationData();
     return LayoutBuilder(builder: (context, constraints) {
       return ListView.separated(

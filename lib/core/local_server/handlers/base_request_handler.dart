@@ -1,8 +1,8 @@
-import '../model/callback_response_handler.dart';
-
 import 'dart:convert';
 
 import 'package:shelf/shelf.dart';
+
+import '../model/callback_response_handler.dart';
 
 abstract class BaseRequestHandler {
   Future<Result<dynamic>> handleRequest(Request request);

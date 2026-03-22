@@ -79,8 +79,8 @@ class SchoolsInjectionModule {
           () => StudentsUseCase(injector(), injector()));
     }
     if (!injector.isRegistered<StudentUseCase>()) {
-      injector.registerFactory<StudentUseCase>(
-          () => StudentUseCase(injector(), injector()));
+      injector
+          .registerFactory<StudentUseCase>(() => StudentUseCase(injector()));
     }
     if (!injector.isRegistered<StudentModifyUseCase>()) {
       injector.registerFactory<StudentModifyUseCase>(
@@ -106,7 +106,7 @@ class SchoolsInjectionModule {
     }
     if (!injector.isRegistered<SchoolDetailsBloc>()) {
       injector.registerFactory<SchoolDetailsBloc>(
-          () => SchoolDetailsBloc(injector(), injector(), injector()));
+          () => SchoolDetailsBloc(injector(), injector()));
     }
   }
 

@@ -45,7 +45,6 @@ class Dialogs extends StatelessWidget {
       DialogType.alertDialog => alertDialog(context),
       DialogType.simpleDialog => simpleDialog(context),
       DialogType.simpleDialogOption => simpleDialogWithOptions(context),
-      _ => dialog = Container()
     };
 
     showDialog(

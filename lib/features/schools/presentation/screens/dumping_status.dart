@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 
 class DumpingStatusView extends StatefulWidget {
   const DumpingStatusView({super.key});
@@ -80,6 +80,9 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
   }
 
   Widget _buildDownloadingStatus(OfflineDumpingStatus status) {
+    if (status == null) {
+      return const SizedBox.shrink();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -95,7 +98,7 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Image.asset(
-                    status!.percentage >= 100
+                    status.percentage >= 100
                         ? 'asset/gifs/happy.gif'
                         : 'asset/gifs/waiting.gif',
                     height: 100,
@@ -112,7 +115,7 @@ class _DumpingStatusViewState extends State<DumpingStatusView>
                   height: 100,
                   width: 100,
                   child: LiquidCircularProgressIndicator(
-                    value: (status.percentage ?? 0) / 100, // Defaults to 0.5.
+                    value: (status.percentage) / 100, // Defaults to 0.5.
                     // valueColor: AlwaysStoppedAnimation(Colors
                     //     .pink), // Defaults to the current Theme's accentColor.
                     // backgroundColor: Colors

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class PluginsDashboard extends StatelessWidget with CardWidgetsMixin {
   PluginsDashboard({Key? key}) : super(key: key);
 
-  List<({String name, String des, IconData icon, PluginType type})> pluginList =
-      [
+  final List<({String name, String des, IconData icon, PluginType type})>
+      pluginList = [
     (name: 'Youtube', des: '', icon: Icons.tv, type: PluginType.youtube),
     (
       name: 'Local Auth',

@@ -86,7 +86,7 @@ class SliverGridDemo extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.grid_4x4,
                             size: 30,
                             color: Colors.blue,
@@ -169,9 +169,9 @@ class SliverGridDemo extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
+                          const Text(
                             'Max Extent',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -207,7 +207,6 @@ class SliverGridDemo extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  final aspectRatios = [1.0, 1.5, 0.8, 1.2, 0.9];
                   final heights = [120.0, 180.0, 100.0, 150.0, 110.0];
                   final height = heights[index % heights.length];
 
@@ -233,7 +232,7 @@ class SliverGridDemo extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.photo,
                                   color: Colors.purple,
                                 ),
@@ -288,14 +287,14 @@ class SliverGridDemo extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Icon(
                             Icons.compare,
                             color: Colors.blue,
                             size: 24,
                           ),
-                          const SizedBox(width: 12),
+                          SizedBox(width: 12),
                           Text(
                             'Grid Delegate Comparison',
                             style: TextStyle(
@@ -334,7 +333,7 @@ class SliverGridDemo extends StatelessWidget {
                             size: 24,
                           ),
                           const SizedBox(width: 12),
-                          Text(
+                          const Text(
                             'Code Examples',
                             style: TextStyle(
                               fontSize: 18,

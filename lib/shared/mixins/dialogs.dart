@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
-import 'package:sample_latest/core/constants/responsive_constants.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_latest/core/constants/responsive_constants.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
 mixin CustomDialogs {
   void adaptiveDialog(BuildContext context, Widget content,

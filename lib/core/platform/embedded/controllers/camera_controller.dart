@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:io';
-import 'package:flutter_lite_camera/flutter_lite_camera.dart';
+import 'dart:typed_data';
+
 import 'package:dart_periphery/dart_periphery.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_lite_camera/flutter_lite_camera.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path_provider/path_provider.dart';
 
 final getIt = GetIt.instance;
 
@@ -16,8 +17,6 @@ class CameraController {
   final FlutterLiteCamera _cameraPlugin = FlutterLiteCamera();
   bool _isCameraOpened = false;
   bool _isCapturing = false;
-  int _width = 640;
-  int _height = 480;
   late GPIO _gpio;
   String _buttonState = 'Unknown';
   String? _lastCapturedPath;
@@ -97,8 +96,6 @@ class CameraController {
     try {
       Map<String, dynamic> frame = await _cameraPlugin.captureFrame();
       if (frame.containsKey('data')) {
-        _width = frame['width'];
-        _height = frame['height'];
         return frame['data'] as Uint8List;
       }
       return null;

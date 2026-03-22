@@ -30,7 +30,8 @@ class ConnectivityHandler {
   void initialize() async {
     assert(_subscription == null, 'Already connectivity handler initialized');
 
-    if (await _connectivity.checkConnectivity() != ConnectivityResult.none) {
+    if ((await _connectivity.checkConnectivity()).firstOrNull !=
+        ConnectivityResult.none) {
       _isConnected = true;
     }
     _connectivityListener();
@@ -40,7 +41,7 @@ class ConnectivityHandler {
     _subscription = _connectivity.onConnectivityChanged
         .listen((List<ConnectivityResult> result) {
       late bool currentState;
-      if (result == ConnectivityResult.none) {
+      if (result.firstOrNull == ConnectivityResult.none) {
         currentState = false;
       } else {
         currentState = true;

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:sample_latest/core/mixins/helper_methods.dart';
 import 'package:sample_latest/core/data/db/db_handler.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
 
 abstract class DbHandler {
   bool isDbInitialized = false;

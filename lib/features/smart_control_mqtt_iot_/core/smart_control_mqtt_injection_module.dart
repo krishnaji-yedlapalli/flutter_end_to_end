@@ -46,12 +46,12 @@ class SmartControlMqttInjectionModule {
   void _registerBlocs() {
     injector.registerFactoryParam<SmartControlMqttDashboardCubit,
             MqttServerClient, void>(
-        (mqttServerClient, _) => SmartControlMqttDashboardCubit(
-            injector(), injector(), mqttServerClient));
+        (mqttServerClient, _) =>
+            SmartControlMqttDashboardCubit(mqttServerClient));
     injector.registerFactoryParam<SmartDeviceMqttControlCubit,
             SmartControlMqttModel, MqttServerClient>(
-        (smartControl, mqtt) => SmartDeviceMqttControlCubit(
-            injector(), injector(), smartControl, mqtt));
+        (smartControl, mqtt) =>
+            SmartDeviceMqttControlCubit(smartControl, mqtt));
   }
 
   void unRegisterDependencies() {

@@ -5,7 +5,7 @@ class CardThemes {
   static CardThemeData lightCardTheme() {
     return CardThemeData(
       color: AppColors.lightBackground,
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       shadowColor: Colors.greenAccent,
       elevation: 5,
       surfaceTintColor: AppColors.secondary,
@@ -13,7 +13,7 @@ class CardThemes {
   }
 
   static CardThemeData darkCardTheme() {
-    return CardThemeData(
+    return const CardThemeData(
       margin: EdgeInsets.all(16),
       elevation: 5,
     );

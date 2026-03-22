@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:sample_latest/features/isolates/domain/usecases/calculate_statistics_usecase.dart';
 import 'package:sample_latest/features/isolates/domain/usecases/parse_large_json_usecase.dart';
 import 'package:sample_latest/features/isolates/domain/usecases/sort_data_usecase.dart';
-import 'package:sample_latest/features/isolates/domain/usecases/calculate_statistics_usecase.dart';
-import 'package:sample_latest/features/isolates/shared/isolate_manager.dart';
-import 'package:sample_latest/features/isolates/shared/compute_isolate_manager.dart';
-import 'package:sample_latest/features/isolates/shared/spawn_isolate_manager.dart';
 import 'package:sample_latest/features/isolates/presentation/cubit/isolate_state.dart';
+import 'package:sample_latest/features/isolates/shared/compute_isolate_manager.dart';
+import 'package:sample_latest/features/isolates/shared/isolate_manager.dart';
+import 'package:sample_latest/features/isolates/shared/spawn_isolate_manager.dart';
 
 class IsolateCubit extends Cubit<IsolateState> {
   final ParseLargeJsonUseCase _parseJsonUseCase;

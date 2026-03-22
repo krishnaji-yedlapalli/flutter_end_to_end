@@ -24,7 +24,7 @@ class _CommonDbHandler extends DbHandler {
   Future<Response> performCrudOperation(RequestOptions options) async {
     await super.initializeDb(dbInfo);
 
-    var response;
+    dynamic response;
     try {
       switch (requestType(options.method)) {
         case RequestType.get:
@@ -54,7 +54,7 @@ class _CommonDbHandler extends DbHandler {
   @override
   Future<Response> performDeleteOperation(RequestOptions options) async {
     if (options.path.contains(DbConstants.queueItems)) {
-      int recordId = await dbHandler.deleteRecord(
+      await dbHandler.deleteRecord(
           tableName: DbConstants.queueItems,
           columnName: DbConstants.idColumnName,
           ids: [options.queryParameters['id']]);
@@ -96,8 +96,7 @@ class _CommonDbHandler extends DbHandler {
       }
       queueItemBody['queryParams'] = jsonEncode(queueItem.queryParams);
 
-      var res =
-          await dbHandler.insertData(DbConstants.queueItems, queueItemBody);
+      await dbHandler.insertData(DbConstants.queueItems, queueItemBody);
       return Response(requestOptions: options, data: true, statusCode: 200);
     }
 

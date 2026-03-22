@@ -166,20 +166,17 @@ class _StepperExampleState extends State<StepperExample> {
                           ? Text(stepper.subtitle!)
                           : null,
                       title: Text(stepper.title),
-                      content: Container(
-                        // alignment: Alignment.center,
-                        child: Wrap(
-                          direction: Axis.vertical,
-                          children: [
-                            Text(stepper.content ?? '',
-                                style: const TextStyle(color: Colors.orange)),
-                            Text(
-                                DateTime.now()
-                                    .subtract(Duration(days: _index))
-                                    .toString(),
-                                style: const TextStyle(color: Colors.purple))
-                          ],
-                        ),
+                      content: Wrap(
+                        direction: Axis.vertical,
+                        children: [
+                          Text(stepper.content ?? '',
+                              style: const TextStyle(color: Colors.orange)),
+                          Text(
+                              DateTime.now()
+                                  .subtract(Duration(days: _index))
+                                  .toString(),
+                              style: const TextStyle(color: Colors.purple))
+                        ],
                       ),
                       isActive: stepper.isActive,
                       state: stepper.state,

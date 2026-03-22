@@ -267,7 +267,7 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
 
     final newItem = ListItem(
       id: _nextId++,
-      title: '${titles[_nextId % titles.length]} ${_nextId}',
+      title: '${titles[_nextId % titles.length]} $_nextId',
       subtitle: subtitles[_nextId % subtitles.length],
     );
 

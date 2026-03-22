@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dart_periphery/dart_periphery.dart';
-import 'package:sample_latest/features/hardware_integration/gpio/gpio_service.dart';
+import 'package:sample_latest/core/platform/embedded/services/gpio_service.dart';
 
 class BuzzerController {
   final GpioService _gpioService;

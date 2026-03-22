@@ -7,6 +7,7 @@ import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
@@ -18,20 +19,19 @@ import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
-import 'package:sample_latest/core/mixins/helper_methods.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/extensions/dio_request_extension.dart';
+import 'package:sample_latest/core/mixins/helper_methods.dart';
+import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 import '../utils/abstract_db_handler.dart';
 
 export 'package:sample_latest/core/data/db/offline_handler.dart';
 
+part 'dumping_offline_data.dart';
 part 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
 part 'package:sample_latest/core/data/db/module_db_handler/schools_db_handler.dart';
 part 'package:sample_latest/core/data/db/module_db_handler/todo_list_db_handler.dart';
-part 'dumping_offline_data.dart';
 
 class OfflineHandler {
   factory OfflineHandler() {
@@ -49,7 +49,6 @@ class OfflineHandler {
   /// Handle the request which is from the interceptor
   Future<void> handleRequest(RequestOptions options, dynamic handler) async {
     String path = options.path;
-    Response? response;
 
     try {
       if (path.contains(Urls.schools) ||
@@ -121,7 +120,7 @@ class OfflineHandler {
           RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        var result = await BaseService.instance.makeRequest(
+        await BaseService.instance.makeRequest(
             url: queueItem.path,
             method: requestType ?? RequestType.get,
             body: queueItem.body,
@@ -178,7 +177,7 @@ class OfflineHandler {
       /// Loading Zip Data
       ByteData byteData = await rootBundle.load("asset/school_data.zip");
 
-      var res = await Isolate.spawn(_DumpingOfflineData.dumpOfflineData,
+      await Isolate.spawn(_DumpingOfflineData.dumpOfflineData,
           [receivePort.sendPort, rootIsolateToken, byteData]);
 
       /// Listening to the Dumping status

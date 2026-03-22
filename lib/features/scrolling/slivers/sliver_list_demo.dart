@@ -73,7 +73,7 @@ class SliverListDemo extends StatelessWidget {
                       child: Text('${index + 1}'),
                     ),
                     title: Text('Builder Item ${index + 1}'),
-                    subtitle: Text('Built on demand for efficiency'),
+                    subtitle: const Text('Built on demand for efficiency'),
                     trailing: IconButton(
                       icon: const Icon(Icons.info_outline),
                       onPressed: () {
@@ -142,7 +142,7 @@ class SliverListDemo extends StatelessWidget {
                       ),
                     ),
                     title: Text('Prototype Item ${index + 1}'),
-                    subtitle: Text('Same height as prototype item'),
+                    subtitle: const Text('Same height as prototype item'),
                     trailing: const Icon(Icons.height),
                   ),
                 );
@@ -163,14 +163,14 @@ class SliverListDemo extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Icon(
                             Icons.speed,
                             color: Colors.blue,
                             size: 24,
                           ),
-                          const SizedBox(width: 12),
+                          SizedBox(width: 12),
                           Text(
                             'Performance Comparison',
                             style: TextStyle(
@@ -214,7 +214,7 @@ class SliverListDemo extends StatelessWidget {
                             size: 24,
                           ),
                           const SizedBox(width: 12),
-                          Text(
+                          const Text(
                             'Usage Examples',
                             style: TextStyle(
                               fontSize: 18,

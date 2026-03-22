@@ -11,12 +11,12 @@ class WaterTankStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isAuto = smartControl.isAuto;
+    // final isAuto = smartControl.isAuto;
 
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Spacer(),
+        Spacer(),
       ],
     );
   }

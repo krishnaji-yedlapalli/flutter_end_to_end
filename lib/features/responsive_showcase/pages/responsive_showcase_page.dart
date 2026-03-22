@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../core/device/config/device_configurations.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
-import '../sections/device_info_section.dart';
-import '../sections/text_widgets_section.dart';
+
+import '../../../core/device/config/device_configurations.dart';
 import '../sections/button_widgets_section.dart';
+import '../sections/device_info_section.dart';
 import '../sections/layout_examples_section.dart';
+import '../sections/text_widgets_section.dart';
 import '../widgets/responsive_showcase_app_bar.dart';
 
 /// Main responsive showcase page that demonstrates all adaptive and responsive widgets

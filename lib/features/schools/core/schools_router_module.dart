@@ -4,8 +4,8 @@ import 'package:sample_latest/features/schools/core/school_module_wrapper_page.d
 import 'package:sample_latest/features/schools/presentation/pages/schools/schools_page.dart';
 import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
 
-import '../../../shared/mixins/mixins.dart';
 import '../../../core/routing/router_helper.dart';
+import '../../../shared/mixins/mixins.dart';
 import '../presentation/screens/school_details/school_details.dart';
 import '../presentation/screens/student/student.dart';
 

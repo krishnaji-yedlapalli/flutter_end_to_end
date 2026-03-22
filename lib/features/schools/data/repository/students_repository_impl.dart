@@ -58,7 +58,7 @@ class StudentsRepositoryImpl implements StudentsRepository {
 
   @override
   Future<bool> deleteStudent(String studentId, String schoolId) async {
-    var studentsDel = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.students}/$schoolId/$studentId.json',
         method: RequestType.delete);
     return true;

@@ -1,6 +1,10 @@
 import 'package:sample_latest/features/schools/data/model/school_details_model.dart';
 import 'package:sample_latest/features/schools/data/model/school_model.dart';
 import 'package:sample_latest/features/schools/data/model/student_model.dart';
+import 'package:sample_latest/features/schools/domain/entities/entities.dart';
+import 'package:sample_latest/features/schools/shared/models/school_details_view_model.dart';
+import 'package:sample_latest/features/schools/shared/models/school_view_model.dart';
+import 'package:sample_latest/features/schools/shared/models/student_view_model.dart';
 
 class SchoolMockData {
   static final List<SchoolModel> schools = [
@@ -32,6 +36,12 @@ class SchoolMockData {
         '52a29100b99c7023a3674150b7a15f7b', 1718168534634),
   ];
 
+  static final List<SchoolEntity> schoolEntities =
+      schools.map((s) => s.toSchoolEntity()).toList();
+
+  static final List<SchoolViewModel> schoolViewModels =
+      schoolEntities.map((s) => SchoolViewModel.fromEntity(s)).toList();
+
   static final students = [
     StudentModel('321', '123', 'john', 'texas', 'LKG', 1234567,
         updatedDate: 432211),
@@ -61,6 +71,12 @@ class SchoolMockData {
         updatedDate: 432211),
   ];
 
+  static final List<StudentEntity> studentEntities =
+      students.map((s) => s.toEntity()).toList();
+
+  static final List<StudentViewModel> studentViewModels =
+      studentEntities.map((s) => StudentViewModel.fromEntity(s)).toList();
+
   static final individualStudent = StudentModel(
       '87905', '123', 'David', 'texas', 'LKG', 1234567,
       updatedDate: 432211);
@@ -75,6 +91,12 @@ class SchoolMockData {
       50,
       false,
       1718168534634);
+
+  static final SchoolDetailsEntity schoolDetailsEntity =
+      schoolDetails.toEntity();
+
+  static final SchoolDetailsViewModel schoolDetailsViewModel =
+      SchoolDetailsViewModel.fromEntity(schoolDetailsEntity);
 
   static final schoolsJson = {
     "160eeb80b9441071a5ac59e962588b3e": {

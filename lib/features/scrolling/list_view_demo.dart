@@ -157,7 +157,7 @@ class _ListViewBuilder extends StatelessWidget {
                         color: Colors.green.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.local_grocery_store,
                         color: Colors.green,
                       ),
@@ -246,7 +246,7 @@ class _ListViewSeparated extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.person,
                       color: Colors.purple,
                     ),
@@ -325,7 +325,7 @@ class _ListViewCustom extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Section ${(index ~/ 5) + 1}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.orange,
@@ -338,12 +338,12 @@ class _ListViewCustom extends StatelessWidget {
                     margin:
                         const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                     child: ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
                       title: Text('Custom Item ${index + 1}'),
-                      subtitle: Text('Built with ListView.custom'),
+                      subtitle: const Text('Built with ListView.custom'),
                       trailing: Chip(
                         label: Text('${index + 1}'),
                         backgroundColor: Colors.blue.withOpacity(0.1),

@@ -1,12 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 
+import '../../../../../core/data/utils/service_enums_typedef.dart';
 import '../../../domain/entities/entities.dart';
 import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/params/school_params.dart';
-import 'package:equatable/equatable.dart';
-
-import '../../../../../core/data/utils/service_enums_typedef.dart';
 import '../../ui_mappers/schools_ui_mapper.dart';
 import '../../ui_models/schools_ui_model.dart';
 

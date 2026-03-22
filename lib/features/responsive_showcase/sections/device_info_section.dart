@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/device/config/device_configurations.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+
+import '../../../core/device/config/device_configurations.dart';
 import '../widgets/showcase_section_card.dart';
 
 /// Section that displays current device configuration and responsive metrics
@@ -186,8 +187,7 @@ class DeviceInfoSection extends StatelessWidget {
       {'name': 'Desktop Large', 'width': 1920, 'color': Colors.teal},
     ];
 
-    final currentWidth = DeviceConfiguration.screenWidth;
-    final maxWidth = 1920.0;
+    const maxWidth = 1920.0;
 
     return Column(
       children: resolutions.map((resolution) {
@@ -258,7 +258,6 @@ class DeviceInfoSection extends StatelessWidget {
 
   /// Check if the given width matches current resolution type
   bool _isCurrentResolution(int width) {
-    final currentWidth = DeviceConfiguration.screenWidth;
     final resolutionType = DeviceConfiguration.resolutionType;
 
     switch (resolutionType.toString().split('.').last) {

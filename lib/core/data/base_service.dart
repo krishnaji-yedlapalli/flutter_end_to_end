@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:sample_latest/core/data/interceptors/interceptor.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 
 import 'urls.dart';
 import 'utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/data/interceptors/interceptor.dart';
 
 class BaseService {
   static BaseService instance = BaseService._internal();

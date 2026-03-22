@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class NestedScrollViewDemo extends StatefulWidget {
   const NestedScrollViewDemo({Key? key}) : super(key: key);
@@ -98,13 +97,14 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
                 color: Colors.deepPurple.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.article,
                 color: Colors.deepPurple,
               ),
             ),
             title: Text('Nested List Item ${index + 1}'),
-            subtitle: Text('This item scrolls within the nested scroll view'),
+            subtitle:
+                const Text('This item scrolls within the nested scroll view'),
             trailing: IconButton(
               icon: const Icon(Icons.more_vert),
               onPressed: () {
@@ -250,7 +250,7 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Container(
+                  SizedBox(
                     height: 120,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -267,7 +267,7 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.photo,
                                 color: Colors.orange,
                                 size: 30,
@@ -331,7 +331,7 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
                         color: Colors.teal.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.description,
                         color: Colors.teal,
                       ),

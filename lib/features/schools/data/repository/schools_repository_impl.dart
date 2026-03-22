@@ -30,12 +30,12 @@ class SchoolsRepositoryImpl implements SchoolRepository {
 
   @override
   Future<bool> deleteSchool(String schoolId) async {
-    var schoolDelRes = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.schools}/$schoolId.json', method: RequestType.delete);
-    var schoolDetailsDelRes = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.schoolDetails}/$schoolId.json',
         method: RequestType.delete);
-    var studentsDel = await baseService.makeRequest(
+    await baseService.makeRequest(
         url: '${Urls.students}/$schoolId.json', method: RequestType.delete);
     return true;
   }

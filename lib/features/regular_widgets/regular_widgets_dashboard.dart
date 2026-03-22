@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-
-import '../../core/device/enums/device_enums.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
+import '../../core/device/enums/device_enums.dart';
+
+// ignore: must_be_immutable
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {
   final StatefulNavigationShell? navigationShell;
   RegularlyUsedWidgetsDashboard({this.navigationShell, Key? key})
       : super(key: key);
 
   int selectedIndex = 0;
-  List<(IconData, String, String, String?)> navigationRails = [
+  final List<(IconData, String, String, String?)> navigationRails = [
     (
       Icons.design_services,
       'Material Components',
@@ -104,15 +105,6 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
         Expanded(child: navigationShell ?? const SizedBox())
       ],
     );
-  }
-
-  Widget _buildLandScapeListView() {
-    return Row(children: [
-      ListView.builder(
-          itemCount: navigationRails.length,
-          itemBuilder: (context, index) => const ListTile()),
-      const Expanded(child: SizedBox())
-    ]);
   }
 
   Widget _buildNavigationRail(BuildContext context) {

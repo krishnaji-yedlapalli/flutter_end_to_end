@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:sample_latest/core/extensions/dio_request_extension.dart';
 import 'package:sample_latest/core/data/db/db_configuration.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/extensions/dio_request_extension.dart';
+import 'package:sample_latest/core/utils/connectivity_handler.dart';
 
 class RequestBypassInterceptor extends Interceptor {
   @override
