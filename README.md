@@ -105,7 +105,10 @@ https://github.com/user-attachments/assets/bf434daa-6be8-45d6-b5e0-6d539acd9420
      - **Dumping Offline Data:**
        Data will be dumped into the local DB at the time login or Module loading. Later it is used making some operations    
   * Once internet is available it will automatically upload the data to server using Connectivity plus package.
-  * Currently Offline supported platforms iOS, Android and macOS . 
+  * Currently Offline supported platforms iOS, Android and macOS.
+    
+    https://github.com/user-attachments/assets/1f3978c3-f564-4d79-83bb-646332143534
+    
 ---
 ### 🌍 Deep Linking:
   * This applications supports deep linking purely implemented by using flutter officials docs
