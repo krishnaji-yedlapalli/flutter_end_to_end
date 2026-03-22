@@ -163,6 +163,7 @@ flutter:
   assets:
      - asset/exception_error/
      - lib/core/data/db/queries/
+     - lib/features/schools/data/local/queries/
      - asset/default_dash_flavor/leading_logo.png
      - asset/dart_flavor/dart_leading_logo.png
      - asset/flutter_flavor/flutter_leading_logo.png

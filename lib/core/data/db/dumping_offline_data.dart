@@ -1,13 +1,23 @@
-part of 'offline_handler.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
 
-class _DumpingOfflineData {
-  static final _DumpingOfflineData _singleton = _DumpingOfflineData._internal();
+import 'package:archive/archive_io.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sample_latest/core/data/urls.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/features/schools/data/local/schools_db_handler.dart';
 
-  factory _DumpingOfflineData() {
+class DumpingOfflineData {
+  static final DumpingOfflineData _singleton = DumpingOfflineData._internal();
+
+  factory DumpingOfflineData() {
     return _singleton;
   }
 
-  _DumpingOfflineData._internal();
+  DumpingOfflineData._internal();
 
   /// Store offline data from the server
   static Future<void> dumpOfflineData(List<dynamic> args) async {
@@ -54,15 +64,15 @@ class _DumpingOfflineData {
             (title: 'Dumping Schools into Local Data base', percentage: 70));
 
         if (data != null) {
-          await _SchoolsDbHandler().performCrudOperation(RequestOptions(
+          await SchoolsDbHandler().performCrudOperation(RequestOptions(
               path: Urls.schools, method: RequestType.store.name, data: data));
         }
       } else if (file.path.contains('students')) {
         port.send(
-            (title: 'Dumping Schools into Local Data base', percentage: 80));
+            (title: 'Dumping Students into Local Data base', percentage: 80));
 
         if (data != null) {
-          await _SchoolsDbHandler().performCrudOperation(RequestOptions(
+          await SchoolsDbHandler().performCrudOperation(RequestOptions(
               path: Urls.students, method: RequestType.store.name, data: data));
         }
       }

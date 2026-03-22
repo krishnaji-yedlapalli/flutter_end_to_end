@@ -1,19 +1,31 @@
-part of 'package:sample_latest/core/data/db/offline_handler.dart';
+import 'package:dio/dio.dart';
+import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
+import 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
+import 'package:sample_latest/core/data/urls.dart';
+import 'package:sample_latest/core/data/utils/abstract_db_handler.dart';
+import 'package:sample_latest/core/data/utils/db_constants.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/core/extensions/dio_request_extension.dart';
 
-class _SchoolsDbHandler extends DbHandler {
-  _SchoolsDbHandler._internal();
+class SchoolsDbHandler extends DbHandler {
+  SchoolsDbHandler._internal();
 
-  static final _SchoolsDbHandler _singleton = _SchoolsDbHandler._internal();
+  static final SchoolsDbHandler _singleton = SchoolsDbHandler._internal();
 
-  factory _SchoolsDbHandler() {
+  factory SchoolsDbHandler() {
     return _singleton;
   }
 
   final DbInfo dbInfo = (
     dbName: 'school',
     dbVersion: 5,
-    queryFileName: 'create_school_table_queries'
+    queryFileName:
+        'lib/features/schools/data/local/queries/create_school_table_queries.sql'
   );
+
+  @override
+  List<String> get supportedPaths =>
+      [Urls.schools, Urls.schoolDetails, Urls.students];
 
   @override
   Future<bool> initializeDbIfNot() async {
@@ -63,7 +75,7 @@ class _SchoolsDbHandler extends DbHandler {
 
       /// Storing the data locally
       if (!options.notRequiredToStoreInQueue) {
-        await _CommonDbHandler().insertQueueItem(options);
+        await CommonDbHandler().insertQueueItem(options);
       }
     } else {
       throw DioException(
@@ -79,13 +91,11 @@ class _SchoolsDbHandler extends DbHandler {
   @override
   Future<Response> performGetOperation(RequestOptions options) async {
     if (options.path.contains(Urls.schools)) {
-      /// To get the school details
       List<Map<String, dynamic>>? schools =
           await dbHandler.query(SchoolDbConstants.schoolsTableName);
       return Response(
           requestOptions: options, data: schools ?? [], statusCode: 200);
     } else if (options.path.contains(Urls.schoolDetails)) {
-      /// To get the school added details
       List<Map<String, dynamic>>? schoolDetailsList = await dbHandler.query(
           SchoolDbConstants.schoolDetailsTableName,
           columnName: DbConstants.idColumnName,
@@ -111,7 +121,6 @@ class _SchoolsDbHandler extends DbHandler {
         return Response(
             requestOptions: options, data: students ?? [], statusCode: 200);
       } else {
-        /// To get the students based on the school
         List<Map<String, dynamic>>? students = await dbHandler.query(
             SchoolDbConstants.studentsTableName,
             columnName: DbConstants.idColumnName,
@@ -147,9 +156,8 @@ class _SchoolsDbHandler extends DbHandler {
       var body = options.data[options.data.keys.first];
       await dbHandler.insertData(tableName, body);
 
-      /// Storing the data locally
       if (!(options.notRequiredToStoreInQueue)) {
-        await _CommonDbHandler().insertQueueItem(options);
+        await CommonDbHandler().insertQueueItem(options);
       }
       return Response(
           requestOptions: options, data: options.data, statusCode: 200);
@@ -164,7 +172,6 @@ class _SchoolsDbHandler extends DbHandler {
 
   @override
   Future<Response> performPostOperation(RequestOptions options) {
-    // TODO: implement performPostOperation
     throw UnimplementedError();
   }
 

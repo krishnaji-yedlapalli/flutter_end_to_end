@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/core/data/db/db_configuration.dart';
+import 'package:sample_latest/core/data/db/offline_injection_module.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
@@ -54,9 +54,11 @@ void main() async {
     await Firebase.initializeApp(
       options: PushNotificationService.currentPlatform,
     );
-    DbConfigurationsByDev().loadSavedData();
     if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
   }
+
+  /// Initialize Offline dependencies
+  await OfflineInjectionModule().registerDependencies();
 
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();

@@ -1,19 +1,29 @@
-part of 'package:sample_latest/core/data/db/offline_handler.dart';
+import 'dart:convert';
 
-class _CommonDbHandler extends DbHandler {
-  _CommonDbHandler._internal();
+import 'package:dio/dio.dart';
+import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
+import 'package:sample_latest/core/data/utils/abstract_db_handler.dart';
+import 'package:sample_latest/core/data/utils/db_constants.dart';
+import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:sample_latest/core/extensions/dio_request_extension.dart';
 
-  static final _CommonDbHandler _singleton = _CommonDbHandler._internal();
+class CommonDbHandler extends DbHandler {
+  CommonDbHandler._internal();
 
-  factory _CommonDbHandler() {
+  static final CommonDbHandler _singleton = CommonDbHandler._internal();
+
+  factory CommonDbHandler() {
     return _singleton;
   }
 
   final DbInfo dbInfo = (
     dbName: 'common',
     dbVersion: 5,
-    queryFileName: 'create_common_tables_queries'
+    queryFileName: 'lib/core/data/db/queries/create_common_tables_queries.sql'
   );
+
+  @override
+  List<String> get supportedPaths => [DbConstants.queueItems];
 
   @override
   Future<bool> initializeDbIfNot() async {
@@ -81,7 +91,6 @@ class _CommonDbHandler extends DbHandler {
   @override
   Future<Response> performPatchOperation(RequestOptions options) async {
     if (options.isFromQueueItem) {
-      /// storing in queue items
       var queueItem = QueueItem(options.path, options.method,
           body: options.data,
           id: options.data is Map && options.data.keys.isNotEmpty
@@ -109,7 +118,6 @@ class _CommonDbHandler extends DbHandler {
 
   @override
   Future<Response> performPostOperation(RequestOptions options) {
-    // TODO: implement performPostOperation
     throw UnimplementedError();
   }
 
@@ -143,8 +151,6 @@ class _CommonDbHandler extends DbHandler {
   Future<Response> performBulkLocalDataStoreOperation(
       RequestOptions options) async {
     await super.initializeDb(dbInfo);
-
-    // TODO: implement _performBulkStoreOperation
     throw UnimplementedError();
   }
 
