@@ -7,7 +7,7 @@ import 'app_configuration.dart';
 
 enum EnvironmentType { dash, flutter, dart, dailyTracker }
 
-const defaultEnvironment = EnvironmentType.dailyTracker;
+const defaultEnvironment = EnvironmentType.dash;
 
 class Environment {
   static final Environment _singleton = Environment._internal();
