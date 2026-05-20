@@ -79,6 +79,9 @@ class Routing {
     ],
     errorBuilder: (context, state) => PageNotFound(state),
     redirect: (context, state) async {
+      if (state.uri.path == '/' || state.uri.path.isEmpty) {
+        return Routing.home;
+      }
       return null;
     },
   );
