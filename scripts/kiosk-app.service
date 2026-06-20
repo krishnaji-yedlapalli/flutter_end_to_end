@@ -1,0 +1,18 @@
+[Unit]
+Description=Flutter Kiosk Application
+After=graphical.target
+Wants=graphical.target
+
+[Service]
+Type=simple
+User=pi
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+ExecStart=/home/pi/kiosk-app/build/linux/arm64/release/bundle/sample_latest
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+[Install]
+WantedBy=graphical.target
