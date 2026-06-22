@@ -1,20 +1,21 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/core/data/db/offline_injection_module.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:sample_latest/core/firebase/firebase_initializer.dart';
+import 'package:sample_latest/core/firebase/services/firebase_crashlytics_service.dart';
 import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/theme/theme.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
-import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:sample_latest/l10n/app_localizations.dart';
 
 import 'core/device/config/cached_device_manager.dart';
@@ -41,19 +42,28 @@ void main() async {
   /// For handling rendering/painting/widget building error's
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
+    if (GetIt.I.isRegistered<FirebaseCrashlyticsService>()) {
+      GetIt.I<FirebaseCrashlyticsService>().recordError(
+        details.exception,
+        details.stack,
+        reason: details.exceptionAsString(),
+        fatal: kReleaseMode,
+      );
+    }
     if (kReleaseMode) exit(1);
   };
 
   /// Listen to the method channel kind of errors
   PlatformDispatcher.instance.onError = (error, stack) {
-    print(error);
+    if (GetIt.I.isRegistered<FirebaseCrashlyticsService>()) {
+      GetIt.I<FirebaseCrashlyticsService>()
+          .recordError(error, stack, fatal: true);
+    }
     return true;
   };
 
   if (kIsWeb || !Platform.isLinux) {
-    await Firebase.initializeApp(
-      options: PushNotificationService.currentPlatform,
-    );
+    await FirebaseInitializer.initialize();
     if (!kIsWeb) FirebaseDatabase.instance.setPersistenceEnabled(true);
   }
 
