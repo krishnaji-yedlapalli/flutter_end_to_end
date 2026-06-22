@@ -19,6 +19,7 @@ class FirebaseRemoteConfigServiceImpl extends FirebaseRemoteConfigService {
       minimumFetchInterval: const Duration(hours: 1),
     ));
     _isInitialized = true;
+    await fetchAndActivate();
   }
 
   @override
