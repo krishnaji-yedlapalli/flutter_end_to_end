@@ -30,4 +30,13 @@ abstract class FirebaseRemoteConfigService extends FirebaseService {
 
   /// Sets default values for remote config parameters.
   Future<void> setDefaults(Map<String, dynamic> defaults);
+
+  /// Sets a local in-memory override for [key]. Takes precedence over remote.
+  void setOverride(String key, dynamic value);
+
+  /// Clears a previously set local override for [key].
+  void clearOverride(String key);
+
+  /// Returns all currently active local overrides.
+  Map<String, dynamic> get overrides;
 }

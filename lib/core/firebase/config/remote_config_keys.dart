@@ -10,4 +10,12 @@ class RemoteConfigKeys {
 
   // App Title Label
   static const String appTitleLabel = 'app_title_label';
+  static const String automaticKeepAliveFeatureEnabled =
+      'automaticKeepAliveFeatureEnabled';
+
+  /// Maps each key to its expected [Type] for the override dialog UI.
+  static const Map<String, Type> registry = {
+    appTitleLabel: String,
+    automaticKeepAliveFeatureEnabled: bool,
+  };
 }

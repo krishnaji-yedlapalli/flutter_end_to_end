@@ -7,6 +7,7 @@ class FirebaseRemoteConfigServiceImpl extends FirebaseRemoteConfigService {
 
   late final FirebaseRemoteConfig _remoteConfig;
   bool _isInitialized = false;
+  final Map<String, dynamic> _overrides = {};
 
   @override
   bool get isInitialized => _isInitialized;
@@ -35,24 +36,28 @@ class FirebaseRemoteConfigServiceImpl extends FirebaseRemoteConfigService {
 
   @override
   String getString(String key) {
+    if (_overrides.containsKey(key)) return _overrides[key].toString();
     if (!_isInitialized) return '';
     return _remoteConfig.getString(key);
   }
 
   @override
   bool getBool(String key) {
+    if (_overrides.containsKey(key)) return _overrides[key] as bool;
     if (!_isInitialized) return false;
     return _remoteConfig.getBool(key);
   }
 
   @override
   int getInt(String key) {
+    if (_overrides.containsKey(key)) return _overrides[key] as int;
     if (!_isInitialized) return 0;
     return _remoteConfig.getInt(key);
   }
 
   @override
   double getDouble(String key) {
+    if (_overrides.containsKey(key)) return _overrides[key] as double;
     if (!_isInitialized) return 0.0;
     return _remoteConfig.getDouble(key);
   }
@@ -82,4 +87,13 @@ class FirebaseRemoteConfigServiceImpl extends FirebaseRemoteConfigService {
     if (!_isInitialized) return;
     await _remoteConfig.setDefaults(defaults);
   }
+
+  @override
+  void setOverride(String key, dynamic value) => _overrides[key] = value;
+
+  @override
+  void clearOverride(String key) => _overrides.remove(key);
+
+  @override
+  Map<String, dynamic> get overrides => Map.unmodifiable(_overrides);
 }
