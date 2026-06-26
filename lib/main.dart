@@ -20,6 +20,7 @@ import 'package:sample_latest/l10n/app_localizations.dart';
 
 import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
+import 'core/firebase/config/remote_config_scope.dart';
 import 'core/platform/platform.dart' as platform;
 import 'shared/presentation/provider/common_provider.dart';
 
@@ -126,66 +127,70 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             systemLocale.languageCode == existingLocale.languageCode,
         orElse: () => AppLocalizations.supportedLocales.first);
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (context) => CommonProvider(mode, systemLocale)),
-        // ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
-      ],
-      child: Builder(builder: (context) {
-        return DeviceConfigurationProvider(child: OrientationBuilder(
-          builder: (context, orientation) {
-            DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                MediaQuery.of(context).size,
-                orientation,
-                MediaQuery.of(context).devicePixelRatio);
-            return GlobalLoaderOverlay(
-              child: MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: 'Flutter End to End',
-                localeResolutionCallback: (locale, locales) {
-                  // if(locale?.languageCode == 'es') {
-                  //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                  //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                  //   return englishLocale;
-                  // }
-                  return locale;
-                },
-                locale: context.watch<CommonProvider>().locale,
-                // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                // backButtonDispatcher: () => ,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'),
-                  Locale('es'),
-                  Locale('hi'),
-                  Locale('he'),
-                ],
+    /// This remote config scope is to override the remote values in local
+    return RemoteConfigScope(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => CommonProvider(mode, systemLocale)),
+          // ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
+        ],
+        child: Builder(builder: (context) {
+          return DeviceConfigurationProvider(child: OrientationBuilder(
+            builder: (context, orientation) {
+              DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                  MediaQuery.of(context).size,
+                  orientation,
+                  MediaQuery.of(context).devicePixelRatio);
+              return GlobalLoaderOverlay(
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter End to End',
+                  localeResolutionCallback: (locale, locales) {
+                    // if(locale?.languageCode == 'es') {
+                    //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                    //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                    //   return englishLocale;
+                    // }
+                    return locale;
+                  },
+                  locale: context.watch<CommonProvider>().locale,
+                  // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                  // backButtonDispatcher: () => ,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('es'),
+                    Locale('hi'),
+                    Locale('he'),
+                  ],
 
-                /// text scale factor
-                builder: (BuildContext context, Widget? child) {
-                  var data = MediaQuery.of(context);
-                  return MediaQuery(
-                      data: data.copyWith(
-                        textScaler: TextScaler.linear(data.textScaler.scale(1)),
-                      ),
-                      child: child ?? Container());
-                },
-                theme: CustomTheme.lightThemeData(context),
-                darkTheme: CustomTheme.darkThemeData(),
-                themeMode: context.watch<CommonProvider>().themeModeType,
-                routerConfig: Routing.router,
-              ),
-            );
-          },
-        ));
-      }),
-    );
+                  /// text scale factor
+                  builder: (BuildContext context, Widget? child) {
+                    var data = MediaQuery.of(context);
+                    return MediaQuery(
+                        data: data.copyWith(
+                          textScaler:
+                              TextScaler.linear(data.textScaler.scale(1)),
+                        ),
+                        child: child ?? Container());
+                  },
+                  theme: CustomTheme.lightThemeData(context),
+                  darkTheme: CustomTheme.darkThemeData(),
+                  themeMode: context.watch<CommonProvider>().themeModeType,
+                  routerConfig: Routing.router,
+                ),
+              );
+            },
+          ));
+        }),
+      ), // MultiProvider
+    ); // RemoteConfigScope
   }
 }
 

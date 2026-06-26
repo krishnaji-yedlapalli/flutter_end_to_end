@@ -3,20 +3,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
+import 'package:sample_latest/core/firebase/config/remote_config_keys.dart';
+import 'package:sample_latest/core/firebase/config/remote_config_scope.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
-import 'package:sample_latest/l10n/app_localizations.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../daily_tracker_stub/daily_tracker_entry_point.dart' as daily_tracker;
 import '../feature_discovery/home_feature_discovery.dart';
+import 'constants/home_screen_items.dart';
+import 'widgets/home_app_bar.dart';
+import 'widgets/home_grid.dart';
+import 'widgets/remote_config_override_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,8 +23,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with CardWidgetsMixin, CustomDialogs, FeatureDiscovery {
+class _HomeScreenState extends State<HomeScreen> {
   late final AppLifecycleListener _lifeCycleListener;
 
   // GlobalKey offlineBannerKey = GlobalKey();
@@ -34,14 +31,13 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     _lifeCycleListener = AppLifecycleListener(
-        onStateChange: _onLifeCycleChanged,
-        onDetach: _onDetach,
-        onPause: _onPause,
-        onExitRequested: _onExit);
+      onStateChange: _onLifeCycleChanged,
+      onDetach: () => print('on Detach'),
+      onPause: () => print('on Pause'),
+      onExitRequested: _onExit,
+    );
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // if(DeviceConfiguration.isWeb) buildAlertDialog(context, title : '!!! Hey !!!', content : 'Discover how Android and iOS apps utilize Offline, background, and Isolate functionalities. Install now');
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Some features are currently on development')));
       _buildMaterialBanner();
@@ -56,9 +52,8 @@ class _HomeScreenState extends State<HomeScreen>
     ConnectivityHandler()
         .connectionChangeStatusController
         .stream
-        .listen((bool state) {
-      if (mounted && !state) {
-        // print('sdf sf  $state');
+        .listen((connected) {
+      if (mounted && !connected) {
         // ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
         _buildNetworkConnectivityStatus();
       } else {
@@ -79,233 +74,21 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    List<(String, ScreenType, IconData, {String? des})> screenTypes = [
-      (
-        'Dashboard',
-        ScreenType.dashboard,
-        Icons.dashboard,
-        des:
-            'It contains Shell Routing along with Material and Cupertino components'
-      ),
-      (
-        'Localization',
-        ScreenType.localizationWithCalendar,
-        Icons.language,
-        des: 'Localization and Internalization was implemented in this'
-      ),
-      (
-        'Adaptive & Responsive Widgets',
-        ScreenType.adaptiveAndResponsiveWidgets,
-        Icons.language,
-        des: 'Localization and Internalization was implemented in this'
-      ),
-      (
-        'scrollTypes',
-        ScreenType.scrollTypes,
-        Icons.poll,
-        des: 'Here we can access different types of plugins'
-      ),
-      (
-        'Routing concept',
-        ScreenType.routing,
-        Icons.school,
-        des: 'This describes the routing'
-      ),
-      (
-        'School Journey with Clean Architecture',
-        ScreenType.school,
-        Icons.school,
-        des:
-            'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
-      ),
-      (
-        'Smart control MQtt to control the devices using IOT',
-        ScreenType.smartControlMqtt,
-        Icons.electric_bolt,
-        des:
-            'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
-      ),
-      (
-        'Smart control to control the devices using IOT',
-        ScreenType.smartControl,
-        Icons.electric_bolt,
-        des:
-            'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
-      ),
-      (
-        'School Journey with MVC',
-        ScreenType.schoolMvc,
-        Icons.school,
-        des:
-            'This Journey helps the developer to develop the small scale application with MVC architecture'
-      ),
-      (
-        'Push Notifications',
-        ScreenType.pushNotifications,
-        Icons.notifications,
-        des: 'Firebase push notifications'
-      ),
-      (
-        'Deep Linking',
-        ScreenType.deepLinking,
-        Icons.notifications,
-        des: 'Test the deeplink in device'
-      ),
-      if (!daily_tracker.DailyTrackerRouterModule.isStub)
-        (
-          'Daily Tracker UI',
-          ScreenType.dailyTracker,
-          Icons.accessibility_sharp,
-          des: 'We can track daily activities'
-        ),
-      (
-        'Gemini Generative AI',
-        ScreenType.gemini,
-        Icons.chat,
-        des: 'Chat with Gemini'
-      ),
-      (
-        'Automatci Keep alive',
-        ScreenType.automaticKeepAlive,
-        Icons.tab,
-        des:
-            'This makes the screen alive if we navigated to another tab as well'
-      ),
-      (
-        'Isolates',
-        ScreenType.isolates,
-        Icons.memory,
-        des: 'Currently works in Mobile application only'
-      ),
-      (
-        'Call Back Shortcuts',
-        ScreenType.shortcuts,
-        Icons.app_shortcut,
-        des:
-            'Using keyboard shortcuts we can manipulate the options in the screen'
-      ),
-      (
-        'Plugins',
-        ScreenType.plugins,
-        Icons.power,
-        des: 'Here we can access different types of plugins'
-      ),
-    ];
-
+    final title =
+        RemoteConfigScope.of(context).getString(RemoteConfigKeys.appTitleLabel);
     return Scaffold(
-      appBar: CustomAppBar(
-        title: Text(AppLocalizations.of(context)!.greetings('John', "Carter")),
-        appBar: AppBar(),
-        actions: [
-          DeviceConfiguration.isWeb
-              ? HomeScreenFeatureDiscovery().aboutAppsDiscovery(onTapOfApps)
-              : featureDiscovery(() => HomeScreenFeatureDiscovery()
-                  .startFeatureDiscovery(context, forceTour: true))
-        ],
+      appBar: HomeAppBar(
+        title: title,
+        onRemoteConfigTap: () => showRemoteConfigOverrideDialog(context),
+        onAppsTap: _launchAppUrl,
+        onFeatureTourTap: () => HomeScreenFeatureDiscovery()
+            .startFeatureDiscovery(context, forceTour: true),
       ),
-      body: AdaptiveLayoutBuilder(
-        builder: (context, deviceType) => Padding(
-          padding: DeviceConfiguration.getResponsivePadding(base: 16.0),
-          child: GridView.builder(
-            itemCount: screenTypes.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: switch (deviceType) {
-                DeviceResolutionType.mobilePortrait => 2,
-                DeviceResolutionType.mobileLandscape => 3,
-                DeviceResolutionType.tabletPortrait => 3,
-                DeviceResolutionType.tabletLandscape =>
-                  4, // Optimized for 7-inch
-                DeviceResolutionType.desktopStandard => 5,
-                DeviceResolutionType.desktopLarge => 7,
-              },
-              crossAxisSpacing: DeviceConfiguration.getResponsiveSpacing(8.0),
-              mainAxisSpacing: DeviceConfiguration.getResponsiveSpacing(8.0),
-              childAspectRatio: _getChildAspectRatio(deviceType),
-            ),
-            itemBuilder: (_, index) {
-              var screenDetails = screenTypes.elementAt(index);
-              var module = buildHomeCardView(
-                  key: Key(screenDetails.$2.name),
-                  title: screenDetails.$1,
-                  des: screenDetails.des ?? '',
-                  icon: screenDetails.$3,
-                  callback: () =>
-                      navigateToDashboard(screenTypes.elementAt(index).$2));
-              return HomeScreenFeatureDiscovery.features
-                      .contains(screenDetails.$2.name)
-                  ? HomeScreenFeatureDiscovery()
-                      .aboutModuleDiscovery(module, screenDetails.$2)
-                  : module;
-            },
-          ),
-        ),
-      ),
+      body: HomeGrid(onItemTap: _navigate),
     );
   }
 
-  /// Get responsive aspect ratio for grid items based on device type
-  double _getChildAspectRatio(DeviceResolutionType deviceType) {
-    switch (deviceType) {
-      case DeviceResolutionType.mobilePortrait:
-        return 1; // Slightly taller cards for mobile portrait
-      case DeviceResolutionType.mobileLandscape:
-        return 1.1; // Wider cards for mobile landscape
-      case DeviceResolutionType.tabletPortrait:
-        return 0.9; // Good balance for tablet portrait
-      case DeviceResolutionType.tabletLandscape:
-        return 1.0; // Perfect square for 7-inch landscape
-      case DeviceResolutionType.desktopStandard:
-        return 1.0; // Square cards for desktop
-      case DeviceResolutionType.desktopLarge:
-        return 1.1; // Slightly wider for large desktop
-    }
-  }
-
-  navigateToDashboard(ScreenType type) {
-    String path = switch (type) {
-      ScreenType.dashboard => DeviceConfiguration.isMobileResolution
-          ? '/home/dashboard'
-          : '/home/dashboard/materialComponents',
-      ScreenType.school => '/home/schools',
-      ScreenType.schoolMvc => '/home/schools',
-      ScreenType.automaticKeepAlive => '/home/keepalive',
-      ScreenType.localizationWithCalendar => '/home/localization',
-      ScreenType.isolates => '/home/isolates',
-      ScreenType.shortcuts => '/home/actionShortcuts',
-      ScreenType.plugins => '/home/plugins',
-      ScreenType.scrollTypes => '/home/scrollTypes',
-      ScreenType.routing => '/home/route',
-      ScreenType.pushNotifications =>
-        '/home/push-notifications/remote-notifications',
-      ScreenType.deepLinking => '/home/deep-linking',
-      ScreenType.gemini => '/home/gemini',
-      ScreenType.dailyTracker =>
-        daily_tracker.DailyTrackerRouterModule.logInPath,
-      ScreenType.smartControl => '/home/smart-control/dashboard',
-      ScreenType.smartControlMqtt => '/home/smart-control-mqtt/dashboard',
-      ScreenType.adaptiveAndResponsiveWidgets => '/home/adaptive-responsive',
-    };
-    context.go(path);
-  }
-
-  _onDetach() => print('on Detach');
-
-  _onPause() => print('on Pause');
-
-  void _onLifeCycleChanged(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.detached:
-      // TODO: Handle this case.
-      case AppLifecycleState.resumed:
-      // TODO: Handle this case.
-      case AppLifecycleState.inactive:
-      // TODO: Handle this case.
-      case AppLifecycleState.hidden:
-      // TODO: Handle this case.
-      case AppLifecycleState.paused:
-      // TODO: Handle thissch case.
-    }
-  }
+  void _navigate(ScreenType type) => context.go(homeScreenRoutePath(type));
 
   Future<AppExitResponse> _onExit() async {
     final response = await showDialog<AppExitResponse>(
@@ -316,28 +99,23 @@ class _HomeScreenState extends State<HomeScreen>
         content: const Text('All unsaved data will be lost.'),
         actions: [
           TextButton(
+            onPressed: () => Navigator.of(context).pop(AppExitResponse.cancel),
             child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.of(context).pop(AppExitResponse.cancel);
-            },
           ),
           TextButton(
-            child: const Text('Exist the App'),
-            onPressed: () {
-              Navigator.of(context).pop(AppExitResponse.exit);
-            },
+            onPressed: () => Navigator.of(context).pop(AppExitResponse.exit),
+            child: const Text('Exit the App'),
           ),
         ],
       ),
     );
-
     return response ?? AppExitResponse.exit;
   }
 
   void _buildMaterialBanner() {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-        content: RichText(
-            text: const TextSpan(children: [
+      content: RichText(
+        text: const TextSpan(children: [
           TextSpan(
               text: 'Some features are currently under development',
               style:
@@ -346,13 +124,16 @@ class _HomeScreenState extends State<HomeScreen>
               text: ' - Used MaterialBanner to construct this',
               style:
                   TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
-        ])),
-        actions: [
-          IconButton(
-              onPressed: () =>
-                  ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
-              icon: const Icon(Icons.close, color: Colors.white))
-        ]));
+        ]),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () =>
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+          icon: const Icon(Icons.close, color: Colors.white),
+        )
+      ],
+    ));
   }
 
   void _buildNetworkConnectivityStatus() {
@@ -361,17 +142,13 @@ class _HomeScreenState extends State<HomeScreen>
       leading: StreamBuilder<int>(
         stream: OfflineHandler().queueItemsCount.stream,
         initialData: 0,
-        builder: (context, snapshot) {
-          var count = 0;
-          if (snapshot.hasData) {
-            count = snapshot.data ?? 0;
-          }
-          return Badge(
-              label: Text('$count'),
-              child: TextButton(
-                  onPressed: OfflineHandler().syncData,
-                  child: const Text('Sync')));
-        },
+        builder: (context, snapshot) => Badge(
+          label: Text('${snapshot.data ?? 0}'),
+          child: TextButton(
+            onPressed: OfflineHandler().syncData,
+            child: const Text('Sync'),
+          ),
+        ),
       ),
       content: const Align(alignment: Alignment.center, child: Text('Offline')),
       actions: const [
@@ -384,20 +161,18 @@ class _HomeScreenState extends State<HomeScreen>
       ],
       contentTextStyle: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
-      // margin: const EdgeInsets.all(0),
     ));
   }
 
-  void onTapOfApps(String val) async {
-    String url = val == 'android'
+  void _launchAppUrl(String val) async {
+    final url = val == 'android'
         ? 'https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/gh-pages'
         : 'https://testflight.apple.com/join/UulGfVnn';
-
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      print('error');
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalApplication)) {
+      print('error launching $url');
     }
   }
+
+  void _onLifeCycleChanged(AppLifecycleState state) {}
 }
