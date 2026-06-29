@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 class DailyTrackerRouterModule {
-  static const logInPath = 'stub-login-page';
+  static const logInPath = '/home';
 
   static const isStub = true;
 

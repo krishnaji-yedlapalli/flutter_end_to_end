@@ -70,6 +70,15 @@ android {
     }
 
     buildTypes {
+        getByName("dash"){
+
+        }
+        getByName("flutter"){
+
+        }
+        getByName("dart"){
+
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
@@ -77,19 +86,22 @@ android {
         }
     }
 
-    flavorDimensions "flavors"
+    flavorDimensions += "default"
 
     productFlavors {
         dash {
-            dimension "flavors"
+            dimension "default"
+            applicationIdSuffix = ".dash"
         }
 
         flutter {
-            dimension "flavors"
+            dimension "default"
+            applicationIdSuffix = ".flutter"
         }
 
         dart {
-            dimension "flavors"
+            dimension "default"
+            applicationIdSuffix = ".dart"
         }
     }
 }

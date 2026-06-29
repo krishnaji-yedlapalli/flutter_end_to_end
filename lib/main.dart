@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ import 'core/device/config/cached_device_manager.dart';
 import 'core/environment/environment.dart';
 import 'core/firebase/config/remote_config_scope.dart';
 import 'core/platform/platform.dart' as platform;
+import 'core/splash/splash_screen.dart';
 import 'shared/presentation/provider/common_provider.dart';
 
 // @pragma('vm:entry-point')
@@ -33,9 +35,7 @@ import 'shared/presentation/provider/common_provider.dart';
 //   print("Handling a background message: ${message.messageId}");
 // }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
+Future<void> _initializeApp() async {
   if (kIsWeb) platform.executeWebDependencies();
 
   // if(Platform.isIOS || Platform.isAndroid) Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
@@ -76,6 +76,21 @@ void main() async {
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
   Environment().configure();
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // final binding =
+  // FlutterNativeSplash.preserve(widgetsBinding: binding);
+
+  runApp(const SplashScreen());
+
+  await Future.wait([
+    _initializeApp(),
+    Future.delayed(const Duration(seconds: 2)),
+  ]);
+
+  // FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
