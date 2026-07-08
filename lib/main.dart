@@ -87,7 +87,7 @@ void main() async {
 
   await Future.wait([
     _initializeApp(),
-    Future.delayed(const Duration(seconds: 2)),
+    Future.delayed(SplashScreen.totalDuration),
   ]);
 
   // FlutterNativeSplash.remove();

@@ -25,10 +25,14 @@ class FirebaseInitializer {
     // Skip Firebase on unsupported platforms
     if (!kIsWeb && Platform.isLinux) return;
 
-    // 1. Initialize Firebase Core
-    await Firebase.initializeApp(
-      options: FirebaseOptionsConfig.currentPlatform,
-    );
+    // 1. Initialize Firebase Core.
+    try {
+      await Firebase.initializeApp(
+        options: FirebaseOptionsConfig.currentPlatform,
+      );
+    } on FirebaseException catch (e) {
+      if (e.code != 'duplicate-app') rethrow;
+    }
 
     // 2. Register all services in GetIt
     FirebaseInjectionModule.register();
