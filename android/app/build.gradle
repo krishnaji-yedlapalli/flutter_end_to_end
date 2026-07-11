@@ -77,19 +77,22 @@ android {
         }
     }
 
-    flavorDimensions "flavors"
+    flavorDimensions += "default"
 
     productFlavors {
         dash {
-            dimension "flavors"
+            dimension "default"
+            // applicationIdSuffix = ".dash"
         }
 
         flutter {
-            dimension "flavors"
+            dimension "default"
+            // applicationIdSuffix = ".flutter"
         }
 
         dart {
-            dimension "flavors"
+            dimension "default"
+            // applicationIdSuffix = ".dart"
         }
     }
 }
