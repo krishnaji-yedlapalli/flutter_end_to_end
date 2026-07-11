@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sample_latest/core/firebase/services/firebase_crashlytics_service.dart';
 
 /// Concrete implementation of [FirebaseCrashlyticsService].
@@ -13,7 +14,13 @@ class FirebaseCrashlyticsServiceImpl extends FirebaseCrashlyticsService {
 
   @override
   Future<void> initialize() async {
+    if (kIsWeb) {
+      return;
+    }
     _crashlytics = FirebaseCrashlytics.instance;
+    // Disable crash reporting in debug and profile builds.
+    // Reports are only sent in release mode.
+    await _crashlytics.setCrashlyticsCollectionEnabled(kReleaseMode);
     _isInitialized = true;
   }
 

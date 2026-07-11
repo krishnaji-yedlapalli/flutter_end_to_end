@@ -51,6 +51,7 @@ import '../../features/responsive_showcase/pages/responsive_showcase_page.dart';
 import '../../features/schools/core/schools_router_module.dart';
 import '../../features/smart_control_iot/core/smart_control_router_module.dart';
 import '../../features/smart_control_mqtt_iot_/core/smart_control_mqtt_router_module.dart';
+import '../firebase/analytics_route_observer.dart';
 
 class Routing {
   static const String home = '/home';
@@ -74,6 +75,7 @@ class Routing {
   static final GoRouter router = GoRouter(
     navigatorKey: NavigationKeys.navigatorKey,
     initialLocation: Environment().configuration.initialRoute,
+    observers: [AnalyticsRouteObserver()],
     routes: <RouteBase>[
       homeRoute(),
     ],
