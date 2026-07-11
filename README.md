@@ -18,6 +18,7 @@ A Flutter project aimed at learning app development across multiple platforms us
 🧪 **Test-Driven Development (TDD)** – Unit, Widget, Golden, Accessibility & Integration tests.  
 🪝 **Git Hooks** – Pre-commit checks for formatting & code quality.  
 📂 **Path Handling Scripts** – Safe path resolution & fallback handling for private or missing files.
+🧩 **Platform & Flavor Assets** – Optimized asset bundling in `pubspec.yaml` so only relevant platform and flavor assets are packaged.
 
 ## Supported Platforms:
 ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20macOS%20%7C%20Linux%20%7C%20Web%20%7C%20Windows-brightgreen)
@@ -161,6 +162,19 @@ flutter run --flavor dart
 
 flutter run   # Default flavor
 ```
+
+#### Platform and Flavor Based Assets
+
+The project optimizes bundled assets directly from `pubspec.yaml` by scoping assets to the platforms and flavors that need them. This keeps builds cleaner and avoids packaging unnecessary files for unrelated targets.
+
+- **Flavor-specific splash assets** are loaded for the `dart`, `flutter`, and default `dash` flavors.
+- **Web-specific flavor splash assets** are separated because Flutter flavor asset filtering is not currently used for Web in this project.
+- **Platform-specific splash screen assets** are split for Web, Android, iOS, Linux, Windows, and macOS.
+- **Offline/data assets** are scoped to supported desktop and mobile platforms where they are required.
+- Shared assets such as logos, icons, database queries, daily tracker assets, and sounds remain available to all builds.
+
+When adding new assets, prefer declaring them with `platforms:` and/or `flavors:` in `pubspec.yaml` whenever the asset is not needed by every build target.
+
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/97c77c15-aa35-4176-94d5-12672a589d14">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/1b047413-3ed4-4f52-9632-a2e7331d851f">
 <img width="700" alt="image" src="https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/55613a03-cb0f-452e-a166-b9bbb5b78967">
