@@ -35,6 +35,7 @@ y/google-cloud-sdk/
 .pub-cache/
 .pub/
 /build/
+**/features/**/build/
 
 # Symbolication related
 app.*.symbols

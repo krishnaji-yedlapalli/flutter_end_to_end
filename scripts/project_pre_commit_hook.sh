@@ -14,13 +14,13 @@ echo "Running pre-commit checks for the entire project..."
 
 # Run Dart analyzer to catch any remaining issues
 echo "Re-running Dart analyzer..."
-dart analyze lib test # Analyze lib and test folders
+dart analyze lib test features/schools/lib features/schools/test # Analyze lib, test and workspace packages
 if [ $? -ne 0 ]; then
   echo "Dart analyzer found issues. Attempting to apply fixes..."
-  dart fix --apply lib test # Apply fixes to lib and test folders
+  dart fix --apply lib test features/schools/lib features/schools/test # Apply fixes to lib, test and workspace packages
   
   echo "Re-running Dart analyzer after applying fixes..."
-  dart analyze lib test # Analyze again after fixes
+  dart analyze lib test features/schools/lib features/schools/test # Analyze again after fixes
   if [ $? -ne 0 ]; then
     echo "Dart analyzer still found issues after applying fixes. Please fix them before committing."
     exit 1
@@ -34,7 +34,7 @@ fi
 # Format Dart code
 # Format Dart code
 echo "Formatting Dart code..."
-FORMAT_OUTPUT=$(find lib test integration_test -name "*.dart" ! -name "*.g.dart" | xargs dart format 2>&1)
+FORMAT_OUTPUT=$(find lib test integration_test features/schools/lib features/schools/test -name "*.dart" ! -name "*.g.dart" | xargs dart format 2>&1)
 FORMAT_EXIT_CODE=$?
 
 echo "$FORMAT_OUTPUT"

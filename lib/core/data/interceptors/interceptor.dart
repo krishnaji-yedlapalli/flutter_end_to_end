@@ -7,13 +7,18 @@ import 'package:sample_latest/core/extensions/dio_request_extension.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
 
 class RequestBypassInterceptor extends Interceptor {
+  bool get _isOfflineSupported =>
+      GetIt.instance.isRegistered<DbConfigRepository>() &&
+      GetIt.instance.isRegistered<OfflineHandler>();
+
   DbConfigRepository get _dbConfig => GetIt.instance<DbConfigRepository>();
   OfflineHandler get _offlineHandler => GetIt.instance<OfflineHandler>();
 
   @override
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (!ConnectivityHandler().isConnected &&
+    if (_isOfflineSupported &&
+        !ConnectivityHandler().isConnected &&
         options.isOfflineApi &&
         DeviceConfiguration.isOfflineSupportedDevice &&
         _dbConfig.state.storeData &&
@@ -26,7 +31,8 @@ class RequestBypassInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (_dbConfig.state.storeInBothOfflineAndOnline &&
+    if (_isOfflineSupported &&
+        _dbConfig.state.storeInBothOfflineAndOnline &&
         response.requestOptions.isOfflineApi &&
         !response.requestOptions.isFromQueueItem) {
       response.requestOptions.notRequiredToStoreInQueue = true;
@@ -37,7 +43,8 @@ class RequestBypassInterceptor extends Interceptor {
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.type == DioExceptionType.connectionError &&
+    if (_isOfflineSupported &&
+        err.type == DioExceptionType.connectionError &&
         (err.requestOptions.isOfflineApi) &&
         _dbConfig.state.storeData &&
         !err.requestOptions.isFromQueueItem) {

@@ -48,7 +48,7 @@ import '../../features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;
 import '../../features/plugins/local_authentication.dart';
 import '../../features/responsive_showcase/pages/responsive_showcase_page.dart';
-import '../../features/schools/core/schools_router_module.dart';
+import 'package:schools/core/schools_router_module.dart';
 import '../../features/smart_control_iot/core/smart_control_router_module.dart';
 import '../../features/smart_control_mqtt_iot_/core/smart_control_mqtt_router_module.dart';
 import '../firebase/analytics_route_observer.dart';

@@ -20,7 +20,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ^3.6.0
+
+workspace:
+  - features/schools
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -106,6 +109,8 @@ dependencies:
   flutter_lite_camera: ^0.0.2
   flutter_gen: ^5.9.0
   flutter_secure_storage: ^9.2.2
+  schools:
+    path: features/schools
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any
@@ -168,7 +173,6 @@ flutter:
   assets:
      - asset/exception_error/
      - lib/core/data/db/queries/
-     - lib/features/schools/data/local/queries/
      - asset/icons/discover.png
      - asset/daily_tracker/pre_checkin_background1.png
      - asset/daily_tracker/pre_checkin_potrait.png
