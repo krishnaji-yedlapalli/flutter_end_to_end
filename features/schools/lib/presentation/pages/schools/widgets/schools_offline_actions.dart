@@ -5,10 +5,10 @@ import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
-import 'package:schools/shared/models/school_view_model.dart';
 import 'package:sample_latest/shared/mixins/dialogs.dart';
 import 'package:sample_latest/shared/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/shared/presentation/screens/dumping_status.dart';
+import 'package:schools/shared/models/school_view_model.dart';
 
 class SchoolsOfflineActions extends StatelessWidget with CustomDialogs {
   const SchoolsOfflineActions({super.key});

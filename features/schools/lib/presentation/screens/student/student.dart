@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
-import 'package:schools/shared/models/student_view_model.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
 import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
+import 'package:schools/shared/models/student_view_model.dart';
 
 import '../../cubit/students_bloc/students_state.dart';
 

@@ -1,9 +1,9 @@
+import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:schools/domain/entities/entities.dart';
 import 'package:schools/domain/repository/repository.dart';
 
-import 'package:sample_latest/core/data/base_service.dart';
 import '../model/school_model.dart';
 
 class SchoolsRepositoryImpl implements SchoolRepository {

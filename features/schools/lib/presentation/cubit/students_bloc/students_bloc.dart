@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:sample_latest/core/mixins/notifiers.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_state.dart';
 
-import 'package:sample_latest/core/mixins/notifiers.dart';
 import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/models/student_view_model.dart';
 import '../../../shared/params/student_params.dart';

@@ -1,8 +1,8 @@
-import 'package:schools/domain/entities/entities.dart';
-
 import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:schools/domain/entities/entities.dart';
+
 import '../../domain/repository/repository.dart';
 import '../model/student_model.dart';
 

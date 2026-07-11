@@ -5,13 +5,13 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
+import 'package:sample_latest/shared/exception/exception.dart';
+import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:sample_latest/shared/widgets/non_responsive_widgets/custom_app_bar.dart';
 import 'package:schools/presentation/pages/schools/schools_view.dart';
 import 'package:schools/presentation/ui_models/schools_ui_model.dart';
 import 'package:schools/shared/models/school_view_model.dart';
-import 'package:sample_latest/shared/exception/exception.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/custom_app_bar.dart';
 
-import 'package:sample_latest/shared/mixins/mixins.dart';
 import '../../cubit/schools_cubit/schools_cubit.dart';
 import 'widgets/create_update_school.dart';
 

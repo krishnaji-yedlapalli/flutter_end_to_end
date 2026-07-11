@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:schools/shared/models/school_details_view_model.dart';
-
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:schools/shared/models/school_details_view_model.dart';
 
 abstract class SchoolDetailsState extends Equatable {
   final bool viewAllStudents;
