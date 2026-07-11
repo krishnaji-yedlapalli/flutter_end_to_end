@@ -5,7 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
@@ -80,9 +79,9 @@ Future<void> _initializeApp() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // final binding =
-  // FlutterNativeSplash.preserve(widgetsBinding: binding);
 
+  /// Having two run apps is not a good idea, there will be no smooth transistion between
+  /// Spash screen and actual dashboard
   runApp(const SplashScreen());
 
   await Future.wait([
