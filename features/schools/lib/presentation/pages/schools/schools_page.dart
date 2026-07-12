@@ -1,10 +1,10 @@
+import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/shared/exception/exception.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/widgets/non_responsive_widgets/custom_app_bar.dart';

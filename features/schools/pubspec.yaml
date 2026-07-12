@@ -41,6 +41,8 @@ dependencies:
   # Main app dependency (for core, shared, analytics_exception_handler)
   sample_latest:
     path: ../..
+  feature_discovery_module:
+    path: ../feature_discovery_module
 
 dev_dependencies:
   flutter_test:

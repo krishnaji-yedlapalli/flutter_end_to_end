@@ -1,0 +1,21 @@
+name: smart_control_iot
+description: Smart control IoT feature module.
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc:
+  get_it:
+  fpdart:
+  equatable:
+  shelf:
+  shelf_router:
+  go_router:
+  flutter_staggered_grid_view:
+  sample_latest:
+    path: ../..
+flutter:
+  uses-material-design: true

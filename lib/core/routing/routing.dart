@@ -1,56 +1,52 @@
+import 'package:deep_linking_feature/deep_linking.dart';
 import 'package:feature_discovery/feature_discovery.dart';
+import 'package:feature_localization/localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:isolates_feature/isolate_home.dart';
+import 'package:isolates_feature/isolate_with_compute.dart';
+import 'package:isolates_feature/presentation/cubit/isolate_cubit.dart';
+import 'package:push_notifications/firebase_push_notifications.dart';
+import 'package:push_notifications/local_pushNotifications.dart';
+import 'package:push_notifications/notifications.dart';
+import 'package:regular_widgets/animations/custom_implicit_animation_widgets.dart';
+import 'package:regular_widgets/animations/explicit_animation_widgets.dart';
+import 'package:regular_widgets/animations/implicit_animations_widgets.dart';
+import 'package:regular_widgets/automatic_keep_alive.dart';
+import 'package:regular_widgets/cards_list_view_grid.dart';
+import 'package:regular_widgets/cupertino_components.dart';
+import 'package:regular_widgets/dialogs.dart';
+import 'package:regular_widgets/material_components.dart';
+import 'package:regular_widgets/regular_widgets_dashboard.dart';
+import 'package:regular_widgets/selectable_text.dart';
+import 'package:regular_widgets/stepper_ui.dart';
+import 'package:regular_widgets/tables.dart';
+import 'package:responsive_showcase/pages/responsive_showcase_page.dart';
+import 'package:routing_feature/route_dashboard.dart';
+import 'package:routing_feature/shell_route/shell_child_one/shell_child_one.dart';
+import 'package:routing_feature/shell_route/shell_child_one/shell_child_three.dart';
+import 'package:routing_feature/shell_route/shell_child_one/shell_child_two.dart';
+import 'package:routing_feature/shell_route/shell_child_one/shell_parent.dart';
+import 'package:routing_feature/shell_route/shell_routing.dart';
+import 'package:routing_feature/state_ful_shell_routing_with_indexed.dart';
+import 'package:routing_feature/stateful_shell_routing_without_indexed.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/features/automatic_keep_alive.dart';
 import 'package:sample_latest/features/dashboard/home_screen.dart';
-import 'package:sample_latest/features/deep_linking/deep_linking.dart';
-import 'package:sample_latest/features/generative_ai/presentation/screen/gemini.dart';
-import 'package:sample_latest/features/isolates/isolate_home.dart';
-import 'package:sample_latest/features/isolates/isolate_with_compute.dart';
-import 'package:sample_latest/features/isolates/presentation/cubit/isolate_cubit.dart';
-import 'package:sample_latest/features/localization.dart';
-import 'package:sample_latest/features/plugins/plugins_dashboard.dart';
-import 'package:sample_latest/features/plugins/youtube.dart';
-import 'package:sample_latest/features/push_notifcations/firebase_push_notifications.dart';
-import 'package:sample_latest/features/push_notifcations/local_pushNotifications.dart';
-import 'package:sample_latest/features/push_notifcations/notifications.dart';
-import 'package:sample_latest/features/regular_widgets/animations/custom_implicit_animation_widgets.dart';
-import 'package:sample_latest/features/regular_widgets/animations/explicit_animation_widgets.dart';
-import 'package:sample_latest/features/regular_widgets/animations/implicit_animations_widgets.dart';
-import 'package:sample_latest/features/regular_widgets/cards_list_view_grid.dart';
-import 'package:sample_latest/features/regular_widgets/cupertino_components.dart';
-import 'package:sample_latest/features/regular_widgets/dialogs.dart';
-import 'package:sample_latest/features/regular_widgets/material_components.dart';
-import 'package:sample_latest/features/regular_widgets/regular_widgets_dashboard.dart';
-import 'package:sample_latest/features/regular_widgets/selectable_text.dart';
-import 'package:sample_latest/features/regular_widgets/stepper_ui.dart';
-import 'package:sample_latest/features/regular_widgets/tables.dart';
-import 'package:sample_latest/features/routing_features/route_dashboard.dart';
-import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_child_one.dart';
-import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_child_three.dart';
-import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_child_two.dart';
-import 'package:sample_latest/features/routing_features/shell_route/shell_child_one/shell_parent.dart';
-import 'package:sample_latest/features/routing_features/shell_route/shell_routing.dart';
-import 'package:sample_latest/features/routing_features/state_ful_shell_routing_with_indexed.dart';
-import 'package:sample_latest/features/routing_features/stateful_shell_routing_without_indexed.dart';
-import 'package:sample_latest/features/scrolling/scrolling.dart';
-import 'package:sample_latest/features/shortcuts/shortcuts_main.dart';
 import 'package:sample_latest/shared/exception/page_not_found.dart';
 import 'package:schools/core/schools_router_module.dart';
+import 'package:scrolling/scrolling.dart';
+import 'package:shortcuts_feature/shortcuts_main.dart';
+import 'package:smart_control_iot/core/smart_control_router_module.dart';
+import 'package:smart_control_mqtt/core/smart_control_mqtt_router_module.dart';
 
 import '../../features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;
-import '../../features/plugins/local_authentication.dart';
-import '../../features/responsive_showcase/pages/responsive_showcase_page.dart';
-import '../../features/smart_control_iot/core/smart_control_router_module.dart';
-import '../../features/smart_control_mqtt_iot_/core/smart_control_mqtt_router_module.dart';
 import '../firebase/analytics_route_observer.dart';
 
 class Routing {
@@ -151,28 +147,6 @@ class Routing {
               return const ShortcutsTabView();
             },
           ),
-          GoRoute(
-              path: 'plugins',
-              name: 'Plugins',
-              builder: (BuildContext context, GoRouterState state) {
-                return PluginsDashboard();
-              },
-              routes: [
-                GoRoute(
-                  path: 'youtube',
-                  name: 'Youtube',
-                  builder: (BuildContext context, GoRouterState state) {
-                    return Youtube();
-                  },
-                ),
-                GoRoute(
-                  path: 'localAuthentication',
-                  name: 'Local Authentication',
-                  builder: (BuildContext context, GoRouterState state) {
-                    return const LocalAuthentication();
-                  },
-                ),
-              ]),
           scrollTypesRoute(),
           pushNotification(),
           GoRoute(
@@ -182,11 +156,6 @@ class Routing {
               return DeepLinkingTesting();
             },
           ),
-          GoRoute(
-              path: 'gemini',
-              builder: (context, state) {
-                return const GeminiChatScreen();
-              }),
           if (!daily_tracker.DailyTrackerRouterModule.isStub)
             daily_tracker.DailyTrackerRouterModule.dailyTrackerRoute()
         ]);

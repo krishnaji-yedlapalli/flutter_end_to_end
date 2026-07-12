@@ -1,0 +1,13 @@
+name: responsive_showcase
+description: Responsive UI showcase module.
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  sample_latest:
+    path: ../..
+flutter:
+  uses-material-design: true
