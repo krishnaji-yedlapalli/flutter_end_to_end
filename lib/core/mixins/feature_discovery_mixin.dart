@@ -6,7 +6,16 @@ mixin FeatureDiscovery {
         message: 'Feature Discovery',
         child: InkResponse(
             onTap: callback,
-            child: Image.asset('asset/icons/discover.png',
-                height: 30, width: 30, color: Colors.white)));
+            child: Image.asset(
+              'asset/icons/discover.png',
+              height: 30,
+              width: 30,
+              color: Colors.white,
+              errorBuilder: (_, __, ___) => const Icon(
+                Icons.explore,
+                size: 30,
+                color: Colors.white,
+              ),
+            )));
   }
 }

@@ -103,8 +103,12 @@ class SqfLiteDbHandler {
       {List<String> tablesToExclude = const []}) async {
     for (var tableName in await tables()) {
       if (tablesToExclude.contains(tableName)) continue;
-      await db.delete(tableName,
-          where: 'updatedDate < $millisecondsSinceEpoch');
+      try {
+        await db.delete(tableName,
+            where: 'updatedDate < $millisecondsSinceEpoch');
+      } catch (_) {
+        // Table does not have an updatedDate column — skip it.
+      }
     }
     return true;
   }
@@ -118,7 +122,7 @@ class SqfLiteDbHandler {
 
   Future<List<String>> tables() async {
     List<Map<String, dynamic>> tables = await db.rawQuery(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';");
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name != 'android_metadata';");
 
     return tables.map<String?>((table) => table['name']).nonNulls.toList();
   }

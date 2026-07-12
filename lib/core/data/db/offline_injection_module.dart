@@ -3,7 +3,7 @@ import 'package:sample_latest/core/data/db/db_config_repository.dart';
 import 'package:sample_latest/core/data/db/db_handler_registry.dart';
 import 'package:sample_latest/core/data/db/module_db_handler/todo_list_db_handler.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
-import 'package:sample_latest/features/schools/data/local/schools_db_handler.dart';
+import 'package:schools/data/local/schools_db_handler.dart';
 
 class OfflineInjectionModule {
   OfflineInjectionModule._();

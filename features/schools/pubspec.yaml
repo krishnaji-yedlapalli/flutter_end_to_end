@@ -1,0 +1,53 @@
+name: schools
+description: Schools feature module for the Flutter End to End project.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_bloc:
+  equatable:
+
+  # Functional programming
+  fpdart:
+
+  # Routing
+  go_router:
+
+  # Dependency injection
+  get_it:
+
+  # Networking
+  dio:
+
+  # UI
+  cached_network_image:
+  loader_overlay:
+  feature_discovery:
+    git:
+      url: https://github.com/maheshmnj/feature_discovery.git
+      ref: master
+
+  # Serialization
+  json_annotation:
+
+  # Main app dependency (for core, shared, analytics_exception_handler)
+  sample_latest:
+    path: ../..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail:
+  bloc_test:
+
+flutter:
+  assets:
+    - lib/data/local/queries/

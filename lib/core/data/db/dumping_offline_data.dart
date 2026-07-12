@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/features/schools/data/local/schools_db_handler.dart';
+import 'package:schools/data/local/schools_db_handler.dart';
 
 class DumpingOfflineData {
   static final DumpingOfflineData _singleton = DumpingOfflineData._internal();
