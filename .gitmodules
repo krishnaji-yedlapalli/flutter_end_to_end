@@ -1,3 +1,4 @@
 [submodule "features/daily_tracker_feature"]
 	path = features/daily_tracker_feature
 	url = https://github.com/krishnaji-yedlapalli/daily-tracker.git
+	branch = refactor/daily-tracker-feature-workspace-package
