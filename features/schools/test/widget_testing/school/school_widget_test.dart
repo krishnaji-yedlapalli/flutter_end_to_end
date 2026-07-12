@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/subjects.dart';
+import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/environment/environment.dart';
+import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
 import 'package:schools/domain/entities/entities.dart';
@@ -42,6 +46,24 @@ class MockStudentModifyUseCase extends Mock implements StudentModifyUseCase {}
 
 class MockDeleteStudentUseCase extends Mock implements DeleteStudentUseCase {}
 
+class FakeOfflineHandler extends Fake implements OfflineHandler {
+  @override
+  final queueItemsCount = BehaviorSubject<int>.seeded(0);
+
+  @override
+  final dumpingOfflineDataStatus =
+      BehaviorSubject<OfflineDumpingStatus>.seeded(null);
+
+  @override
+  Future<bool> syncData() async => false;
+
+  @override
+  Future<void> eraseAllDatabaseData() async {}
+
+  @override
+  Future<bool> dumpOfflineData() async => false;
+}
+
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   setupFirebaseCoreMocks();
@@ -62,6 +84,17 @@ void main() async {
       Environment().configure();
       DeviceConfiguration.initiate();
       await Firebase.initializeApp();
+
+      // Register a fake OfflineHandler so SchoolsOfflineActions can resolve it
+      if (!GetIt.instance.isRegistered<OfflineHandler>()) {
+        GetIt.instance.registerSingleton<OfflineHandler>(FakeOfflineHandler());
+      }
+    });
+
+    tearDownAll(() {
+      if (GetIt.instance.isRegistered<OfflineHandler>()) {
+        GetIt.instance.unregister<OfflineHandler>();
+      }
     });
 
     setUp(() {
