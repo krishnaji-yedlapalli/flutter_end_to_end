@@ -10,11 +10,9 @@ enum ScreenType {
   adaptiveAndResponsiveWidgets,
   isolates,
   shortcuts,
-  plugins,
   scrollTypes,
   pushNotifications,
   deepLinking,
-  gemini,
   dailyTracker
 }
 

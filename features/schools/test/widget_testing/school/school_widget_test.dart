@@ -1,4 +1,5 @@
 import 'package:feature_discovery/feature_discovery.dart';
+import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/environment/environment.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
 import 'package:schools/domain/entities/entities.dart';
 import 'package:schools/domain/use_cases/use_cases.dart';

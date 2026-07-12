@@ -1,0 +1,18 @@
+name: feature_localization
+description: Localization feature module.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider:
+  sample_latest:
+    path: ../..
+
+flutter:
+  uses-material-design: true

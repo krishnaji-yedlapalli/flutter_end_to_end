@@ -1,0 +1,19 @@
+name: smart_control_mqtt
+description: Smart control MQTT IoT feature module.
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc:
+  get_it:
+  equatable:
+  mqtt_client:
+  go_router:
+  flutter_staggered_grid_view:
+  sample_latest:
+    path: ../..
+flutter:
+  uses-material-design: true

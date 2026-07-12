@@ -1,6 +1,6 @@
+import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/shared/extensions/extensions.dart';
 import 'package:sample_latest/shared/mixins/helper_widgets_mixin.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';

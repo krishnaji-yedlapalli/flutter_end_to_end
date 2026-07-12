@@ -1,10 +1,10 @@
+import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/features/feature_discovery/school_feature_discovery.dart';
 import 'package:sample_latest/shared/mixins/dialogs.dart';
 import 'package:sample_latest/shared/presentation/screens/db_configurations_for_devs.dart';
 import 'package:sample_latest/shared/presentation/screens/dumping_status.dart';

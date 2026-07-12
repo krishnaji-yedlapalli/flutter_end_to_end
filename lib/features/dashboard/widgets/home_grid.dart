@@ -1,3 +1,4 @@
+import 'package:feature_discovery_module/home_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/device/enums/device_enums.dart';
@@ -5,7 +6,6 @@ import 'package:sample_latest/core/utils/enums_type_def.dart';
 import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
 
-import '../../feature_discovery/home_feature_discovery.dart';
 import '../constants/home_screen_items.dart';
 
 class HomeGrid extends StatelessWidget with CardWidgetsMixin {
