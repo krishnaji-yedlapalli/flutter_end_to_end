@@ -1,6 +1,3 @@
-[submodule "daily_tracker"]
-	path = daily_tracker
-	url = https://github.com/krishnaji-yedlapalli/daily-tracker.git
-[submodule "lib/features/daily_tracker"]
-	path = lib/features/daily_tracker
+[submodule "features/daily_tracker_feature"]
+	path = features/daily_tracker_feature
 	url = https://github.com/krishnaji-yedlapalli/daily-tracker.git

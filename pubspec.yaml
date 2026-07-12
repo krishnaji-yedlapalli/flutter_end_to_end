@@ -210,11 +210,7 @@ flutter:
      - asset/exception_error/
      - lib/core/data/db/queries/
      - asset/icons/discover.png
-     - asset/daily_tracker/pre_checkin_background1.png
-     - asset/daily_tracker/pre_checkin_potrait.png
-     - asset/daily_tracker/
      - asset/sound_effects/
-     - asset/daily_tracker/auth/
 
      - asset/default_dash_flavor/leading_logo.png
      - asset/dart_flavor/dart_leading_logo.png

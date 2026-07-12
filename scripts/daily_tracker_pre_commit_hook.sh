@@ -12,13 +12,19 @@ cd "$GIT_ROOT" || exit 1
 
 echo "Running pre-commit checks for daily_tracker..."
 
+PACKAGE_DIR="features/daily_tracker_feature"
+if [ ! -f "$PACKAGE_DIR/pubspec.yaml" ]; then
+  echo "Daily Tracker submodule not initialized at $PACKAGE_DIR. Skipping checks."
+  exit 0
+fi
+
 # Apply automatic fixes for analyzer issues
 echo "Applying automatic fixes for Dart analyzer issues..."
-dart fix --apply lib/features/daily_tracker
+dart fix --apply "$PACKAGE_DIR"
 
 # Re-run Dart analyzer to catch any remaining issues
 echo "Re-running Dart analyzer..."
-dart analyze lib/features/daily_tracker
+dart analyze "$PACKAGE_DIR"
 if [ $? -ne 0 ]; then
   echo "Dart analyzer found issues that could not be fixed automatically. Please fix them before committing."
   exit 1
@@ -28,7 +34,7 @@ fi
 
 # Format Dart code
 echo "Formatting Dart code..."
-find lib/features/daily_tracker -name "*.dart" ! -name "*.g.dart" | xargs dart format
+find "$PACKAGE_DIR" -name "*.dart" ! -name "*.g.dart" | xargs dart format
 if [ $? -ne 0 ]; then
   echo "Dart formatting command failed."
   exit 1
