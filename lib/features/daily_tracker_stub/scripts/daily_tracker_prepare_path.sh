@@ -10,7 +10,12 @@ ANALYSIS_OPTIONS="$GIT_ROOT/analysis_options.yaml"
 PACKAGE_DIR="$GIT_ROOT/features/daily_tracker_feature"
 PACKAGE_PUBSPEC="$PACKAGE_DIR/pubspec.yaml"
 
-MODE="${1:-disabled}"
+# Auto-detect mode: enable if submodule is present, otherwise disable
+if [ -f "$PACKAGE_PUBSPEC" ]; then
+  MODE="${1:-enabled}"
+else
+  MODE="${1:-disabled}"
+fi
 
 update_pubspec() {
   local action="$1"
@@ -20,60 +25,25 @@ from pathlib import Path
 
 pubspec_path = Path(sys.argv[1])
 action = sys.argv[2]
-content = pubspec_path.read_text()
-lines = content.splitlines(keepends=True)
+lines = pubspec_path.read_text().splitlines(keepends=True)
 
-workspace_block = [
-    "  # BEGIN daily_tracker_workspace\n",
-    "  - features/daily_tracker_feature\n",
-    "  # END daily_tracker_workspace\n",
-]
-dependency_block = [
-    "  # BEGIN daily_tracker_dependency\n",
-    "  daily_tracker_feature:\n",
-    "    path: features/daily_tracker_feature\n",
-    "  # END daily_tracker_dependency\n",
-]
+WORKSPACE_ENTRY = "  - features/daily_tracker_feature\n"
+ANCHOR = "  - features/smart_control_mqtt\n"
 
-def remove_block(text_lines, begin_marker, end_marker):
-    result = []
-    skipping = False
-    for line in text_lines:
-        if begin_marker in line:
-            skipping = True
-            continue
-        if end_marker in line:
-            skipping = False
-            continue
-        if not skipping:
-            result.append(line)
-    return result
+def has_entry(text_lines, entry):
+    return any(line == entry for line in text_lines)
 
-def has_block(text_lines, begin_marker):
-    return any(begin_marker in line for line in text_lines)
-
-def insert_after(lines, needle, block):
+def insert_after(lines, needle, entry):
     for index, line in enumerate(lines):
-        if needle in line:
-            return lines[: index + 1] + block + lines[index + 1 :]
-    raise RuntimeError(f"Could not find insertion point: {needle}")
+        if line == needle:
+            return lines[: index + 1] + [entry] + lines[index + 1 :]
+    raise RuntimeError(f"Could not find insertion point: {needle!r}")
 
 if action == "enable":
-    if not has_block(lines, "# BEGIN daily_tracker_workspace"):
-        lines = insert_after(
-            lines,
-            "- features/smart_control_mqtt",
-            workspace_block,
-        )
-    if not has_block(lines, "# BEGIN daily_tracker_dependency"):
-        lines = insert_after(
-            lines,
-            "path: features/smart_control_mqtt",
-            dependency_block,
-        )
+    if not has_entry(lines, WORKSPACE_ENTRY):
+        lines = insert_after(lines, ANCHOR, WORKSPACE_ENTRY)
 elif action == "disable":
-    lines = remove_block(lines, "# BEGIN daily_tracker_workspace", "# END daily_tracker_workspace")
-    lines = remove_block(lines, "# BEGIN daily_tracker_dependency", "# END daily_tracker_dependency")
+    lines = [line for line in lines if line != WORKSPACE_ENTRY]
 else:
     raise RuntimeError(f"Unknown action: {action}")
 
@@ -91,42 +61,24 @@ analysis_path = Path(sys.argv[1])
 action = sys.argv[2]
 lines = analysis_path.read_text().splitlines(keepends=True)
 
-exclude_block = [
-    "    # BEGIN daily_tracker_exclude\n",
-    "    - features/daily_tracker_feature/**\n",
-    "    # END daily_tracker_exclude\n",
-]
+EXCLUDE_ENTRY = "    - features/daily_tracker_feature/**\n"
 
-def remove_block(text_lines, begin_marker, end_marker):
-    result = []
-    skipping = False
-    for line in text_lines:
-        if begin_marker in line:
-            skipping = True
-            continue
-        if end_marker in line:
-            skipping = False
-            continue
-        if not skipping:
-            result.append(line)
-    return result
+def has_entry(text_lines, entry):
+    return any(line == entry for line in text_lines)
 
-def has_block(text_lines, begin_marker):
-    return any(begin_marker in line for line in text_lines)
-
-def insert_after(lines, needle, block):
+def insert_after(lines, needle, entry):
     for index, line in enumerate(lines):
         if needle in line:
-            return lines[: index + 1] + block + lines[index + 1 :]
-    raise RuntimeError(f"Could not find insertion point: {needle}")
+            return lines[: index + 1] + [entry] + lines[index + 1 :]
+    raise RuntimeError(f"Could not find insertion point: {needle!r}")
 
 if action == "enable":
-    lines = remove_block(lines, "# BEGIN daily_tracker_exclude", "# END daily_tracker_exclude")
+    lines = [line for line in lines if line != EXCLUDE_ENTRY]
 elif action == "disable":
-    if not has_block(lines, "# BEGIN daily_tracker_exclude"):
+    if not has_entry(lines, EXCLUDE_ENTRY):
         if not any("exclude:" in line for line in lines):
-            lines = insert_after(lines, "analyzer:\n", ["  exclude:\n"])
-        lines = insert_after(lines, "  exclude:\n", exclude_block)
+            lines = insert_after(lines, "analyzer:", ["  exclude:\n"])
+        lines = insert_after(lines, "  exclude:", EXCLUDE_ENTRY)
 else:
     raise RuntimeError(f"Unknown action: {action}")
 
