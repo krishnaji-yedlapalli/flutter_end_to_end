@@ -36,7 +36,6 @@ workspace:
   - features/isolates_feature
   - features/smart_control_iot
   - features/smart_control_mqtt
-  - features/daily_tracker_feature
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
