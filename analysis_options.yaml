@@ -27,6 +27,8 @@ linter:
     directives_ordering: true
 
 analyzer:
+  exclude:
+    - features/daily_tracker_feature/**
   errors:
     depend_on_referenced_packages: ignore
     deprecated_member_use: ignore

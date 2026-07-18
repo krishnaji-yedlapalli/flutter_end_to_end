@@ -121,32 +121,6 @@ dependencies:
   flutter_lite_camera: ^0.0.2
   flutter_gen: ^5.9.0
   flutter_secure_storage: ^9.2.2
-  schools:
-    path: features/schools
-  feature_localization:
-    path: features/feature_localization
-  routing_feature:
-    path: features/routing_feature
-  scrolling:
-    path: features/scrolling
-  regular_widgets:
-    path: features/regular_widgets
-  shortcuts_feature:
-    path: features/shortcuts_feature
-  deep_linking_feature:
-    path: features/deep_linking_feature
-  responsive_showcase:
-    path: features/responsive_showcase
-  feature_discovery_module:
-    path: features/feature_discovery_module
-  push_notifications:
-    path: features/push_notifications
-  isolates_feature:
-    path: features/isolates_feature
-  smart_control_iot:
-    path: features/smart_control_iot
-  smart_control_mqtt:
-    path: features/smart_control_mqtt
 
 #AIzaSyCJp4lTmTxWcXzg9sWT6bHjREEujlnafAE
 #  intl : any
@@ -210,11 +184,7 @@ flutter:
      - asset/exception_error/
      - lib/core/data/db/queries/
      - asset/icons/discover.png
-     - asset/daily_tracker/pre_checkin_background1.png
-     - asset/daily_tracker/pre_checkin_potrait.png
-     - asset/daily_tracker/
      - asset/sound_effects/
-     - asset/daily_tracker/auth/
 
      - asset/default_dash_flavor/leading_logo.png
      - asset/dart_flavor/dart_leading_logo.png

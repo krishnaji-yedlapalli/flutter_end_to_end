@@ -13,9 +13,17 @@ This project is built with **Flutter 3.29.2** and **Dart 3.7.2**.
    flutter pub get
    ```
 
-2. **Initialize Submodules** (Required for `daily_tracker`):
+2. **Initialize Submodules** (Required only for private `daily_tracker` access):
    ```bash
-   git submodule update --init --recursive
+   git submodule update --init features/daily_tracker_feature
+   lib/features/daily_tracker_stub/scripts/daily_tracker_prepare_path.sh enabled
+   flutter pub get
+   ```
+
+   Public clones without submodule access should keep Daily Tracker disabled:
+   ```bash
+   lib/features/daily_tracker_stub/scripts/daily_tracker_prepare_path.sh disabled
+   flutter pub get
    ```
 
 3. **Generate code** (if needed for json_serializable, etc.):

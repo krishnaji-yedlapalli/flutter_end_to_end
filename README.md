@@ -35,9 +35,27 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 ### Daily Tracker (Private Sub-Repository)
 
-This public repository contains a private submodule named **Daily Tracker**, which supports all platforms. I personally use it on a Raspberry Pi connected to a touch display with a stand, as shown in the recordings below. I use this setup to track my daily activities.
+This public repository integrates **Daily Tracker** as a private git submodule at `features/daily_tracker_feature`. The submodule supports all platforms. I personally use it on a Raspberry Pi connected to a touch display with a stand, as shown in the recordings below. I use this setup to track my daily activities.
 
-Access to this sub-repository is restricted due to privacy and policy requirements.
+Access to this sub-repository is restricted due to privacy and policy requirements. The public repo ships with a stub bridge in `lib/features/daily_tracker_stub/` so the app builds without the private package.
+
+**Enable locally (requires submodule access):**
+```bash
+git submodule update --init features/daily_tracker_feature
+lib/features/daily_tracker_stub/scripts/daily_tracker_prepare_path.sh enabled
+flutter pub get
+```
+
+**Disable (default for public clones):**
+```bash
+lib/features/daily_tracker_stub/scripts/daily_tracker_prepare_path.sh disabled
+flutter pub get
+```
+
+**Maintainers — publish package updates to the private repo:**
+```bash
+lib/features/daily_tracker_stub/scripts/sync_daily_tracker_to_private_repo.sh
+```
 
 **Hardware Used:**
 - Raspberry Pi 5
@@ -258,7 +276,7 @@ This project is built with Flutter version **3.29.2** and Dart version **3.7.2**
     ```
     (e.g., `flutter run --flavor flutter` or `flutter run --flavor dart`)
 
-> **Note on the `daily_tracker` submodule:** The `daily_tracker` feature is managed as a private submodule. Access to this repository is restricted due to privacy and policy considerations. If you require access to this part of the project, please contact the project administrator.
+> **Note on the `daily_tracker` submodule:** Daily Tracker is a private submodule at `features/daily_tracker_feature`. Access to this repository is restricted due to privacy and policy considerations. If you require access, contact the project administrator. Without access, use `daily_tracker_prepare_path.sh disabled` (the default) and the app will compile using stub routes.
 
 ## 🧭 Roadmap (Upcoming Features)
 
