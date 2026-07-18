@@ -1,0 +1,14 @@
+name: regular_widgets
+description: Regular widgets and animations showcase module.
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router:
+  sample_latest:
+    path: ../..
+flutter:
+  uses-material-design: true

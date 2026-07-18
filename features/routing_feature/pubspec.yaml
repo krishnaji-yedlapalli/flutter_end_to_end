@@ -1,0 +1,19 @@
+name: routing_feature
+description: Routing feature showcase module.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router:
+  provider:
+  sample_latest:
+    path: ../..
+
+flutter:
+  uses-material-design: true

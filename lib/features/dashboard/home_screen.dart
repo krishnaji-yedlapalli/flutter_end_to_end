@@ -1,16 +1,16 @@
 import 'dart:ui';
 
+import 'package:feature_discovery_module/home_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:push_notifications/push_notification_service.dart';
 import 'package:sample_latest/core/data/db/offline_handler.dart';
 import 'package:sample_latest/core/firebase/config/remote_config_keys.dart';
 import 'package:sample_latest/core/firebase/config/remote_config_scope.dart';
 import 'package:sample_latest/core/utils/connectivity_handler.dart';
 import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/features/push_notifcations/push_notification_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../feature_discovery/home_feature_discovery.dart';
 import 'constants/home_screen_items.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/home_grid.dart';

@@ -20,7 +20,22 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ^3.6.0
+
+workspace:
+  - features/schools
+  - features/feature_localization
+  - features/routing_feature
+  - features/scrolling
+  - features/regular_widgets
+  - features/shortcuts_feature
+  - features/deep_linking_feature
+  - features/responsive_showcase
+  - features/feature_discovery_module
+  - features/push_notifications
+  - features/isolates_feature
+  - features/smart_control_iot
+  - features/smart_control_mqtt
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -168,13 +183,8 @@ flutter:
   assets:
      - asset/exception_error/
      - lib/core/data/db/queries/
-     - lib/features/schools/data/local/queries/
      - asset/icons/discover.png
-     - asset/daily_tracker/pre_checkin_background1.png
-     - asset/daily_tracker/pre_checkin_potrait.png
-     - asset/daily_tracker/
      - asset/sound_effects/
-     - asset/daily_tracker/auth/
 
      - asset/default_dash_flavor/leading_logo.png
      - asset/dart_flavor/dart_leading_logo.png

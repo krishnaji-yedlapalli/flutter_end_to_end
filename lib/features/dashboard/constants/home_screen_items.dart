@@ -87,12 +87,6 @@ final List<HomeScreenItem> homeScreenItems = [
       des: 'We can track daily activities'
     ),
   (
-    'Gemini Generative AI',
-    ScreenType.gemini,
-    Icons.chat,
-    des: 'Chat with Gemini'
-  ),
-  (
     'Automatci Keep alive',
     ScreenType.automaticKeepAlive,
     Icons.tab,
@@ -110,12 +104,6 @@ final List<HomeScreenItem> homeScreenItems = [
     Icons.app_shortcut,
     des: 'Using keyboard shortcuts we can manipulate the options in the screen'
   ),
-  (
-    'Plugins',
-    ScreenType.plugins,
-    Icons.power,
-    des: 'Here we can access different types of plugins'
-  ),
 ];
 
 String homeScreenRoutePath(ScreenType type) => switch (type) {
@@ -128,13 +116,11 @@ String homeScreenRoutePath(ScreenType type) => switch (type) {
       ScreenType.localizationWithCalendar => '/home/localization',
       ScreenType.isolates => '/home/isolates',
       ScreenType.shortcuts => '/home/actionShortcuts',
-      ScreenType.plugins => '/home/plugins',
       ScreenType.scrollTypes => '/home/scrollTypes',
       ScreenType.routing => '/home/route',
       ScreenType.pushNotifications =>
         '/home/push-notifications/remote-notifications',
       ScreenType.deepLinking => '/home/deep-linking',
-      ScreenType.gemini => '/home/gemini',
       ScreenType.dailyTracker =>
         daily_tracker.DailyTrackerRouterModule.logInPath,
       ScreenType.smartControl => '/home/smart-control/dashboard',

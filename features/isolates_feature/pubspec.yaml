@@ -1,0 +1,16 @@
+name: isolates_feature
+description: Isolates showcase module.
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc:
+  get_it:
+  go_router:
+  sample_latest:
+    path: ../..
+flutter:
+  uses-material-design: true

@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 exec -l/
 exec -l /
@@ -35,6 +37,7 @@ y/google-cloud-sdk/
 .pub-cache/
 .pub/
 /build/
+**/features/**/build/
 
 # Symbolication related
 app.*.symbols

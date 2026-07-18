@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sample_latest/core/firebase/services/firebase_analytics_service.dart';
 
 /// Concrete implementation of [FirebaseAnalyticsService].
@@ -14,6 +15,9 @@ class FirebaseAnalyticsServiceImpl extends FirebaseAnalyticsService {
   @override
   Future<void> initialize() async {
     _analytics = FirebaseAnalytics.instance;
+    // Disable analytics data collection in debug and profile builds.
+    // Data is only collected in release mode.
+    await _analytics.setAnalyticsCollectionEnabled(kReleaseMode);
     _isInitialized = true;
   }
 
