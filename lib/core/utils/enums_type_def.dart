@@ -4,7 +4,6 @@ enum ScreenType {
   school,
   smartControl,
   smartControlMqtt,
-  schoolMvc,
   automaticKeepAlive,
   localizationWithCalendar,
   adaptiveAndResponsiveWidgets,
