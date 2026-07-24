@@ -1,7 +1,12 @@
 name: Check Version Bump
 
 on:
-  workflow_call:  # makes this reusable — can be called from other workflows
+  workflow_call:
+    inputs:
+      base_ref:
+        description: "Base branch to compare against (e.g. develop, main)"
+        required: true
+        type: string
 
 jobs:
   check_version:
@@ -22,10 +27,10 @@ jobs:
       - name: Extract version from base branch
         id: base_version
         run: |
-          git fetch origin ${{ github.base_ref }}
-          BASE_VERSION=$(git show origin/${{ github.base_ref }}:pubspec.yaml | grep "^version:" | sed 's/version: //' | tr -d '[:space:]')
+          git fetch origin ${{ inputs.base_ref }}
+          BASE_VERSION=$(git show origin/${{ inputs.base_ref }}:pubspec.yaml | grep "^version:" | sed 's/version: //' | tr -d '[:space:]')
           echo "version=$BASE_VERSION" >> "$GITHUB_OUTPUT"
-          echo "Base branch (${{ github.base_ref }}) version: $BASE_VERSION"
+          echo "Base branch (${{ inputs.base_ref }}) version: $BASE_VERSION"
 
       - name: Verify version is bumped
         run: |
@@ -33,14 +38,14 @@ jobs:
           BASE_VERSION="${{ steps.base_version.outputs.version }}"
 
           echo "──────────────────────────────────────"
-          echo "  Base (${{ github.base_ref }}): $BASE_VERSION"
+          echo "  Base (${{ inputs.base_ref }}): $BASE_VERSION"
           echo "  PR branch:        $PR_VERSION"
           echo "──────────────────────────────────────"
 
           if [ "$PR_VERSION" = "$BASE_VERSION" ]; then
             echo ""
             echo "❌ Version not bumped!"
-            echo "   pubspec.yaml version in your branch ($PR_VERSION) is the same as ${{ github.base_ref }} ($BASE_VERSION)."
+            echo "   pubspec.yaml version in your branch ($PR_VERSION) is the same as ${{ inputs.base_ref }} ($BASE_VERSION)."
             echo "   Please run: ./scripts/bump_version.sh"
             exit 1
           fi

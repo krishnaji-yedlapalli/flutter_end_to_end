@@ -8,7 +8,9 @@ on:
 
 jobs:
   check_version:
-    uses: ./.github/workflows/check-version.yml  # reusable workflow
+    uses: ./.github/workflows/check-version.yml
+    with:
+      base_ref: ${{ github.base_ref }}  # passes 'develop' or 'main' depending on PR target
 
   lint_and_test:
     runs-on: ubuntu-latest
