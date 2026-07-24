@@ -1,0 +1,102 @@
+name: Verify Version Bump
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch (feature branch)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from PR branch (HEAD)
+        id: pr_version
+        run: |
+          PR_VERSION=$(grep "^version:" pubspec.yaml | sed 's/version: //' | tr -d '[:space:]')
+          echo "version=$PR_VERSION" >> "$GITHUB_OUTPUT"
+          echo "PR branch version: $PR_VERSION"
+
+      - name: Extract version from base branch
+        id: base_version
+        run: |
+          # Fetch and checkout the base branch pubspec.yaml without switching branches
+          git fetch origin ${{ github.base_ref }}
+          BASE_VERSION=$(git show origin/${{ github.base_ref }}:pubspec.yaml | grep "^version:" | sed 's/version: //' | tr -d '[:space:]')
+          echo "version=$BASE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Base branch (${{ github.base_ref }}) version: $BASE_VERSION"
+
+      - name: Compare versions
+        run: |
+          PR_VERSION="${{ steps.pr_version.outputs.version }}"
+          BASE_VERSION="${{ steps.base_version.outputs.version }}"
+
+          echo "──────────────────────────────────────"
+          echo "  Base branch (${{ github.base_ref }}): $BASE_VERSION"
+          echo "  PR branch:                $PR_VERSION"
+          echo "──────────────────────────────────────"
+
+          if [ "$PR_VERSION" = "$BASE_VERSION" ]; then
+            echo ""
+            echo "❌ Version not bumped!"
+            echo "   pubspec.yaml version in your branch ($PR_VERSION) is the same as ${{ github.base_ref }} ($BASE_VERSION)."
+            echo "   Please run: ./scripts/bump_version.sh"
+            exit 1
+          fi
+
+          # Split semver and build number
+          PR_SEMVER=$(echo "$PR_VERSION" | cut -d'+' -f1)
+          PR_BUILD=$(echo "$PR_VERSION" | cut -d'+' -f2)
+          BASE_SEMVER=$(echo "$BASE_VERSION" | cut -d'+' -f1)
+          BASE_BUILD=$(echo "$BASE_VERSION" | cut -d'+' -f2)
+
+          # Parse semver parts
+          PR_MAJOR=$(echo "$PR_SEMVER" | cut -d'.' -f1)
+          PR_MINOR=$(echo "$PR_SEMVER" | cut -d'.' -f2)
+          PR_PATCH=$(echo "$PR_SEMVER" | cut -d'.' -f3)
+          BASE_MAJOR=$(echo "$BASE_SEMVER" | cut -d'.' -f1)
+          BASE_MINOR=$(echo "$BASE_SEMVER" | cut -d'.' -f2)
+          BASE_PATCH=$(echo "$BASE_SEMVER" | cut -d'.' -f3)
+
+          # Check PR version is strictly greater than base version
+          IS_GREATER=false
+
+          if [ "$PR_MAJOR" -gt "$BASE_MAJOR" ]; then
+            IS_GREATER=true
+          elif [ "$PR_MAJOR" -eq "$BASE_MAJOR" ] && [ "$PR_MINOR" -gt "$BASE_MINOR" ]; then
+            IS_GREATER=true
+          elif [ "$PR_MAJOR" -eq "$BASE_MAJOR" ] && [ "$PR_MINOR" -eq "$BASE_MINOR" ] && [ "$PR_PATCH" -gt "$BASE_PATCH" ]; then
+            IS_GREATER=true
+          fi
+
+          # Also check build number is greater
+          IS_BUILD_GREATER=false
+          if [ "$PR_BUILD" -gt "$BASE_BUILD" ]; then
+            IS_BUILD_GREATER=true
+          fi
+
+          if [ "$IS_GREATER" = false ] && [ "$IS_BUILD_GREATER" = false ]; then
+            echo ""
+            echo "❌ Version was not incremented!"
+            echo "   PR version ($PR_VERSION) is not greater than base version ($BASE_VERSION)."
+            echo "   Please run: ./scripts/bump_version.sh"
+            exit 1
+          fi
+
+          if [ "$IS_GREATER" = false ] && [ "$IS_BUILD_GREATER" = true ]; then
+            echo ""
+            echo "⚠️  Only the build number was incremented (semver unchanged)."
+            echo "   Base: $BASE_VERSION → PR: $PR_VERSION"
+            echo "   This is acceptable but make sure it's intentional."
+          fi
+
+          if [ "$IS_GREATER" = true ]; then
+            echo ""
+            echo "✅ Version bump verified!"
+            echo "   $BASE_VERSION → $PR_VERSION"
+          fi

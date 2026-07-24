@@ -16,10 +16,29 @@ final List<HomeScreenItem> homeScreenItems = [
         'It contains Shell Routing along with Material and Cupertino components'
   ),
   (
+    'School Journey with Clean Architecture',
+    ScreenType.school,
+    Icons.school,
+    des:
+        'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+  ),
+  (
     'Localization',
     ScreenType.localizationWithCalendar,
     Icons.language,
     des: 'Localization and Internalization was implemented in this'
+  ),
+  (
+    'Push Notifications',
+    ScreenType.pushNotifications,
+    Icons.notifications,
+    des: 'Firebase push notifications'
+  ),
+  (
+    'Deep Linking',
+    ScreenType.deepLinking,
+    Icons.notifications,
+    des: 'Test the deeplink in device'
   ),
   (
     'Adaptive & Responsive Widgets',
@@ -38,46 +57,6 @@ final List<HomeScreenItem> homeScreenItems = [
     ScreenType.routing,
     Icons.school,
     des: 'This describes the routing'
-  ),
-  (
-    'School Journey with Clean Architecture',
-    ScreenType.school,
-    Icons.school,
-    des:
-        'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
-  ),
-  (
-    'Smart control MQtt to control the devices using IOT',
-    ScreenType.smartControlMqtt,
-    Icons.electric_bolt,
-    des:
-        'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
-  ),
-  (
-    'Smart control to control the devices using IOT',
-    ScreenType.smartControl,
-    Icons.electric_bolt,
-    des:
-        'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
-  ),
-  (
-    'School Journey with MVC',
-    ScreenType.schoolMvc,
-    Icons.school,
-    des:
-        'This Journey helps the developer to develop the small scale application with MVC architecture'
-  ),
-  (
-    'Push Notifications',
-    ScreenType.pushNotifications,
-    Icons.notifications,
-    des: 'Firebase push notifications'
-  ),
-  (
-    'Deep Linking',
-    ScreenType.deepLinking,
-    Icons.notifications,
-    des: 'Test the deeplink in device'
   ),
   if (!daily_tracker.DailyTrackerRouterModule.isStub)
     (
@@ -104,6 +83,20 @@ final List<HomeScreenItem> homeScreenItems = [
     Icons.app_shortcut,
     des: 'Using keyboard shortcuts we can manipulate the options in the screen'
   ),
+  (
+    'Smart control MQtt to control the devices using IOT',
+    ScreenType.smartControlMqtt,
+    Icons.electric_bolt,
+    des:
+        'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+  ),
+  (
+    'Smart control to control the devices using IOT',
+    ScreenType.smartControl,
+    Icons.electric_bolt,
+    des:
+        'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
+  ),
 ];
 
 String homeScreenRoutePath(ScreenType type) => switch (type) {
@@ -111,7 +104,6 @@ String homeScreenRoutePath(ScreenType type) => switch (type) {
           ? '/home/dashboard'
           : '/home/dashboard/materialComponents',
       ScreenType.school => '/home/schools',
-      ScreenType.schoolMvc => '/home/schools',
       ScreenType.automaticKeepAlive => '/home/keepalive',
       ScreenType.localizationWithCalendar => '/home/localization',
       ScreenType.isolates => '/home/isolates',
