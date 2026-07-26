@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:sample_latest/core/data/db/offline_injection_module.dart';
+import 'package:sample_latest/core/data/network/network_injection_module.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/firebase/firebase_initializer.dart';
 import 'package:sample_latest/core/firebase/services/firebase_crashlytics_service.dart';
@@ -75,6 +76,9 @@ Future<void> _initializeApp() async {
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
   Environment().configure();
+
+  // Register network layer dependencies
+  await NetworkInjectionModule.registerDependencies();
 }
 
 void main() async {

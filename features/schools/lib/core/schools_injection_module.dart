@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/core/data/network/network_client.dart';
 import 'package:schools/shared/models/school_executed_task_model.dart';
 
 import '../data/repository/repository.dart';
@@ -37,19 +37,19 @@ class SchoolsInjectionModule {
   }
 
   void _registerRepositories() {
-    var baseService = BaseService.instance;
+    final networkClient = injector<NetworkClient>();
 
     if (!injector.isRegistered<SchoolRepository>()) {
       injector.registerLazySingleton<SchoolRepository>(
-          () => SchoolsRepositoryImpl(baseService));
+          () => SchoolsRepositoryImpl(networkClient));
     }
     if (!injector.isRegistered<SchoolDetailsRepository>()) {
       injector.registerLazySingleton<SchoolDetailsRepository>(
-          () => SchoolsDetailsRepositoryImpl(baseService));
+          () => SchoolsDetailsRepositoryImpl(networkClient));
     }
     if (!injector.isRegistered<StudentsRepository>()) {
       injector.registerLazySingleton<StudentsRepository>(
-          () => StudentsRepositoryImpl(baseService));
+          () => StudentsRepositoryImpl(networkClient));
     }
   }
 
