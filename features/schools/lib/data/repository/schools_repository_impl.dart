@@ -1,4 +1,4 @@
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/core/data/network/network_client.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:schools/domain/entities/entities.dart';
@@ -7,9 +7,9 @@ import 'package:schools/domain/repository/repository.dart';
 import '../model/school_model.dart';
 
 class SchoolsRepositoryImpl implements SchoolRepository {
-  SchoolsRepositoryImpl(this.baseService);
+  SchoolsRepositoryImpl(this._networkClient);
 
-  final BaseService baseService;
+  final NetworkClient _networkClient;
 
   @override
   Future<SchoolEntity> createOrEditSchool(SchoolEntity school) async {
@@ -18,46 +18,61 @@ class SchoolsRepositoryImpl implements SchoolRepository {
     };
 
     SchoolModel? schoolDto;
-    var response = await baseService.makeRequest(
-        url: '${Urls.schools}.json', body: body, method: RequestType.patch);
-    if (response != null && response is Map && response.keys.isNotEmpty) {
-      schoolDto = SchoolModel.fromJson(response[response.keys.first]);
-    } else {
-      throw UnimplementedError();
-    }
-    return schoolDto.toSchoolEntity();
+    final result = await _networkClient.makeRequest(
+        url: Urls.schools, body: body, method: RequestType.patch);
+
+    return result.fold(
+      (failure) =>
+          throw Exception(failure.message ?? 'Failed to create/edit school'),
+      (response) {
+        final data = response.data;
+        if (data != null && data is Map && data.keys.isNotEmpty) {
+          schoolDto = SchoolModel.fromJson(data[data.keys.first]);
+        } else {
+          throw UnimplementedError();
+        }
+        return schoolDto!.toSchoolEntity();
+      },
+    );
   }
 
   @override
   Future<bool> deleteSchool(String schoolId) async {
-    await baseService.makeRequest(
-        url: '${Urls.schools}/$schoolId.json', method: RequestType.delete);
-    await baseService.makeRequest(
-        url: '${Urls.schoolDetails}/$schoolId.json',
-        method: RequestType.delete);
-    await baseService.makeRequest(
-        url: '${Urls.students}/$schoolId.json', method: RequestType.delete);
+    await _networkClient.makeRequest(
+        url: '${Urls.schools}/$schoolId', method: RequestType.delete);
+    await _networkClient.makeRequest(
+        url: '${Urls.schoolDetails}/$schoolId', method: RequestType.delete);
+    await _networkClient.makeRequest(
+        url: '${Urls.students}/$schoolId', method: RequestType.delete);
     return true;
   }
 
   @override
   Future<List<SchoolEntity>> fetchSchools() async {
     List<SchoolModel> schools = <SchoolModel>[];
-    var response = await baseService.makeRequest(url: '${Urls.schools}.json');
-    if (response is Map) {
-      schools = response.entries
-          .map<SchoolModel>((json) => SchoolModel.fromJson(json.value))
-          .toList();
-    } else if (response is List) {
-      schools = response
-          .map<SchoolModel>((json) => SchoolModel.fromJson(json))
-          .toList();
-    }
+    final result = await _networkClient.makeRequest(url: Urls.schools);
 
-    /// Converting DTO to entities
-    List<SchoolEntity> schoolEntities =
-        schools.map((school) => school.toSchoolEntity()).toList();
+    return result.fold(
+      (failure) =>
+          throw Exception(failure.message ?? 'Failed to fetch schools'),
+      (response) {
+        final data = response.data;
+        if (data is Map) {
+          schools = data.entries
+              .map<SchoolModel>((json) => SchoolModel.fromJson(json.value))
+              .toList();
+        } else if (data is List) {
+          schools = data
+              .map<SchoolModel>((json) => SchoolModel.fromJson(json))
+              .toList();
+        }
 
-    return schoolEntities;
+        /// Converting DTO to entities
+        List<SchoolEntity> schoolEntities =
+            schools.map((school) => school.toSchoolEntity()).toList();
+
+        return schoolEntities;
+      },
+    );
   }
 }
