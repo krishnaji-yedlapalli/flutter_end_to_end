@@ -19,21 +19,3 @@ DioCacheInterceptor buildCacheInterceptor() {
 
   return DioCacheInterceptor(options: cacheOptions);
 }
-
-/// Default [CacheOptions] for use in per-request policy overrides.
-///
-/// Usage:
-/// ```dart
-/// // Bypass cache
-/// options: defaultCacheOptions.copyWith(policy: CachePolicy.noCache).toOptions()
-///
-/// // Force refresh
-/// options: defaultCacheOptions.copyWith(policy: CachePolicy.refresh).toOptions()
-/// ```
-final defaultCacheOptions = CacheOptions(
-  store: MemCacheStore(),
-  policy: CachePolicy.request,
-  maxStale: const Duration(minutes: 5),
-  priority: CachePriority.normal,
-  allowPostMethod: false,
-);
