@@ -1,83 +1,43 @@
-import 'dart:io';
+// ─────────────────────────────────────────────────────────────────────────────
+// Pinned values — Firebase
+// ─────────────────────────────────────────────────────────────────────────────
 
-import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
-import 'package:flutter/foundation.dart';
+/// Certificate fingerprints for Firebase Realtime Database.
+/// Host   : *.us-central1.firebasedatabase.app
+/// Issuer : Google Trust Services WR1
+/// Format : colon-separated uppercase hex — e.g. 'A1:02:E7:B5:...'
+/// Last verified: 2026-07-26
+const List<String> firebaseCertFingerprints = [
+  '57:61:A9:78:99:5B:58:9C:07:0E:A7:35:6D:F2:15:61:04:30:65:64:DE:95:DE:58:1C:6C:D1:BC:97:92:93:61',
+  'B1:0B:6F:00:E6:09:50:9E:87:00:F6:D3:46:87:A2:BF:CE:38:EA:05:A8:FD:F1:CD:C4:0C:3A:2A:0D:0D:0E:45',
+];
 
-/// Configures SSL certificate pinning on the Dio instance.
-///
-/// In debug mode, pinning is skipped to allow development with self-signed certs.
-/// On web platform, this is a no-op since the browser handles TLS verification.
-Future<void> configureSslPinning(Dio dio) async {
-  // Web platform — browser handles TLS, no custom pinning needed.
-  if (kIsWeb) return;
+/// SPKI hashes for Firebase Realtime Database.
+/// Format : base64-encoded SHA-256 of SubjectPublicKeyInfo DER
+/// Last verified: 2026-07-26
+const List<String> firebaseSpkiHashes = [
+  'fTYPg6HQBmTeILOghnjsRj1QxZ4gjqvapgKZv0NFgb4=', // leaf
+  'yDu9og255NN5GEf+Bwa9rTrqFQ0EydZ0r1FCh9TdAW4=', // intermediate (rotation backup)
+];
 
-  // Debug mode — skip pinning for development ease.
-  if (kDebugMode) return;
+// ─────────────────────────────────────────────────────────────────────────────
+// Pinned values — Azure
+// ─────────────────────────────────────────────────────────────────────────────
 
-  final fingerprints = await AppCertificateFingerprint().fingerprints();
+/// Certificate fingerprints for the Azure App Service (.NET API).
+/// Host    : flutter-end-to-end-hjgph8asb4bsajgn.canadaeast-01.azurewebsites.net
+/// Issuer  : Microsoft TLS G2 RSA CA OCSP 16
+/// Expires : Jan 10, 2027 (leaf) — refresh by mid-Dec 2026
+/// Format  : colon-separated uppercase hex — e.g. 'A1:02:E7:B5:...'
+/// Last verified: 2026-07-26
+const List<String> azureCertFingerprints = [
+  'A1:02:E7:B5:A6:FD:00:97:AD:14:FC:6C:7D:87:69:D5:98:11:44:D6:3B:14:72:88:82:73:26:F2:37:35:FB:C7',
+];
 
-  // Fail-closed: if no fingerprints configured, reject all connections.
-  if (fingerprints.isEmpty) {
-    (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-      final client = HttpClient();
-      client.badCertificateCallback = (cert, host, port) => false;
-      return client;
-    };
-    return;
-  }
-
-  (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-    final client = HttpClient();
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) {
-      // Validate host against allowed hosts
-      if (!AppCustomValidator().validate(cert, host, port)) {
-        return false;
-      }
-
-      // Validate certificate fingerprint against pinned set
-      final certFingerprint = cert.sha256Fingerprint;
-      return fingerprints.contains(certFingerprint);
-    };
-    return client;
-  };
-}
-
-/// Extension to extract SHA-256 fingerprint from an X509Certificate.
-extension X509CertificateFingerprint on X509Certificate {
-  String get sha256Fingerprint {
-    // The der property provides the certificate in DER format.
-    // In production, compute SHA-256 of the DER-encoded certificate.
-    final bytes = der;
-    // Simple hex representation for comparison.
-    return bytes
-        .map((byte) => byte.toRadixString(16).padLeft(2, '0'))
-        .join(':')
-        .toUpperCase();
-  }
-}
-
-/// App-specific certificate fingerprint provider.
-class AppCertificateFingerprint {
-  /// Returns the list of valid SHA-256 certificate fingerprints.
-  ///
-  /// In debug mode, returns empty list (pinning skipped at a higher level).
-  /// Supports up to 10 fingerprints for certificate rotation.
-  Future<List<String>> fingerprints() async {
-    if (kDebugMode) return [];
-    return const [
-      // TODO: Add production SHA-256 fingerprints here
-      // '<sha256-fingerprint-1>',
-      // '<sha256-fingerprint-2>',
-    ];
-  }
-}
-
-/// Custom host validator for SSL pinning.
-class AppCustomValidator {
-  /// Returns true if the [host] is in the allowed set.
-  bool validate(X509Certificate cert, String host, int port) {
-    return host.contains('firebaseio.com') || host.contains('googleapis.com');
-  }
-}
+/// SPKI hashes for the Azure App Service (.NET API).
+/// Format : base64-encoded SHA-256 of SubjectPublicKeyInfo DER
+/// Last verified: 2026-07-26
+const List<String> azureSpkiHashes = [
+  'B1prTVOVbmcbxoD4/QfLVGi+aZQazEtJce55jU0WbH8=', // leaf
+  'k8hnGa94Ch68AfKVLqnpxVyUQg+KzClS6foKRac9HI8=', // intermediate (rotation backup)
+];
