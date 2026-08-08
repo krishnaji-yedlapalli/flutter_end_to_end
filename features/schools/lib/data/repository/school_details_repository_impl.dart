@@ -1,4 +1,4 @@
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/core/data/network/network_client.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import '../../domain/entities/entities.dart';
@@ -6,19 +6,26 @@ import '../../domain/repository/repository.dart';
 import '../model/school_details_model.dart';
 
 class SchoolsDetailsRepositoryImpl implements SchoolDetailsRepository {
-  SchoolsDetailsRepositoryImpl(this.baseService);
+  SchoolsDetailsRepositoryImpl(this._networkClient);
 
-  final BaseService baseService;
+  final NetworkClient _networkClient;
 
   @override
   Future<SchoolDetailsEntity?> fetchSchoolDetails(String id) async {
     SchoolDetailsEntity? schoolDetails;
-    var response =
-        await baseService.makeRequest(url: '${Urls.schoolDetails}/$id.json');
-    if (response != null) {
-      schoolDetails = SchoolDetailsModel.fromJson(response).toEntity();
-    }
-    return schoolDetails;
+    final result =
+        await _networkClient.makeRequest(url: '${Urls.schoolDetails}/$id');
+
+    return result.fold(
+      (failure) => null,
+      (response) {
+        final data = response.data;
+        if (data != null) {
+          schoolDetails = SchoolDetailsModel.fromJson(data).toEntity();
+        }
+        return schoolDetails;
+      },
+    );
   }
 
   @override
@@ -28,16 +35,22 @@ class SchoolsDetailsRepositoryImpl implements SchoolDetailsRepository {
       schoolDetails.id: SchoolDetailsModel.fromEntity(schoolDetails).toJson()
     };
 
-    var response = await baseService.makeRequest(
-        url: '${Urls.schoolDetails}.json',
-        body: body,
-        method: RequestType.patch);
-    if (response != null && response is Map && response.keys.isNotEmpty) {
-      schoolDetails =
-          SchoolDetailsModel.fromJson(response[response.keys.first]).toEntity();
-    } else {
-      throw UnimplementedError();
-    }
-    return schoolDetails;
+    final result = await _networkClient.makeRequest(
+        url: Urls.schoolDetails, body: body, method: RequestType.patch);
+
+    return result.fold(
+      (failure) => throw Exception(
+          failure.message ?? 'Failed to add/edit school details'),
+      (response) {
+        final data = response.data;
+        if (data != null && data is Map && data.keys.isNotEmpty) {
+          schoolDetails =
+              SchoolDetailsModel.fromJson(data[data.keys.first]).toEntity();
+        } else {
+          throw UnimplementedError();
+        }
+        return schoolDetails;
+      },
+    );
   }
 }

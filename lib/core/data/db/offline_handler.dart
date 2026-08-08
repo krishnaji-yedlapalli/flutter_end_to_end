@@ -11,12 +11,12 @@ import 'package:rxdart/subjects.dart';
 import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
 import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
 import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
-import 'package:sample_latest/core/data/base_service.dart';
 import 'package:sample_latest/core/data/db/db_config_repository.dart';
 import 'package:sample_latest/core/data/db/db_handler_registry.dart';
 import 'package:sample_latest/core/data/db/dumping_offline_data.dart';
 import 'package:sample_latest/core/data/db/module_db_handler/common_db_handler.dart';
 import 'package:sample_latest/core/data/models/queue_item/queue_item.dart';
+import 'package:sample_latest/core/data/network/network_client.dart';
 import 'package:sample_latest/core/data/utils/db_constants.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:sample_latest/core/mixins/helper_methods.dart';
@@ -118,12 +118,12 @@ class OfflineHandler {
           RequestType.values, queueItem.methodType.toLowerCase());
 
       try {
-        await BaseService.instance.makeRequest(
+        await GetIt.instance<NetworkClient>().makeRequest(
             url: queueItem.path,
             method: requestType ?? RequestType.get,
             body: queueItem.body,
             queryParameters: queueItem.queryParams,
-            isFromQueue: true);
+            extras: {DbConstants.isFromQueue: true});
 
         /// Deleting item from queue table
         if (queueItem.queueId != null) {

@@ -1,4 +1,4 @@
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:sample_latest/core/data/network/network_client.dart';
 import 'package:sample_latest/core/data/urls.dart';
 import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
 import 'package:schools/domain/entities/entities.dart';
@@ -7,37 +7,52 @@ import '../../domain/repository/repository.dart';
 import '../model/student_model.dart';
 
 class StudentsRepositoryImpl implements StudentsRepository {
-  StudentsRepositoryImpl(this.baseService);
+  StudentsRepositoryImpl(this._networkClient);
 
-  final BaseService baseService;
+  final NetworkClient _networkClient;
 
   @override
   Future<StudentEntity?> fetchStudent(String studentId, String schoolId) async {
     StudentEntity? student;
-    var response = await baseService.makeRequest(
-        url: '${Urls.students}/$schoolId/$studentId.json');
-    if (response != null) {
-      student = StudentModel.fromJson(response).toEntity();
-    }
-    return student;
+    final result = await _networkClient.makeRequest(
+        url: '${Urls.students}/$schoolId/$studentId');
+
+    return result.fold(
+      (failure) => null,
+      (response) {
+        final data = response.data;
+        if (data != null) {
+          student = StudentModel.fromJson(data).toEntity();
+        }
+        return student;
+      },
+    );
   }
 
   @override
   Future<List<StudentEntity>> fetchStudents(String schoolId) async {
     List<StudentEntity> students = <StudentEntity>[];
-    var response =
-        await baseService.makeRequest(url: '${Urls.students}/$schoolId.json');
-    if (response is Map) {
-      students = response.entries
-          .map<StudentEntity>(
-              (json) => StudentModel.fromJson(json.value).toEntity())
-          .toList();
-    } else if (response is List) {
-      students = response
-          .map<StudentEntity>((json) => StudentModel.fromJson(json).toEntity())
-          .toList();
-    }
-    return students;
+    final result =
+        await _networkClient.makeRequest(url: '${Urls.students}/$schoolId');
+
+    return result.fold(
+      (failure) => students,
+      (response) {
+        final data = response.data;
+        if (data is Map) {
+          students = data.entries
+              .map<StudentEntity>(
+                  (json) => StudentModel.fromJson(json.value).toEntity())
+              .toList();
+        } else if (data is List) {
+          students = data
+              .map<StudentEntity>(
+                  (json) => StudentModel.fromJson(json).toEntity())
+              .toList();
+        }
+        return students;
+      },
+    );
   }
 
   @override
@@ -46,20 +61,28 @@ class StudentsRepositoryImpl implements StudentsRepository {
       student.id: StudentModel.fromEntity(student).toJson()
     };
 
-    var response = await baseService.makeRequest(
-        url: '${Urls.students}/${student.schoolId}.json',
+    final result = await _networkClient.makeRequest(
+        url: '${Urls.students}/${student.schoolId}',
         body: body,
         method: RequestType.patch);
-    if (response != null && response is Map && response.keys.isNotEmpty) {
-      student = StudentModel.fromJson(response[response.keys.first]).toEntity();
-    }
-    return student;
+
+    return result.fold(
+      (failure) =>
+          throw Exception(failure.message ?? 'Failed to create/edit student'),
+      (response) {
+        final data = response.data;
+        if (data != null && data is Map && data.keys.isNotEmpty) {
+          student = StudentModel.fromJson(data[data.keys.first]).toEntity();
+        }
+        return student;
+      },
+    );
   }
 
   @override
   Future<bool> deleteStudent(String studentId, String schoolId) async {
-    await baseService.makeRequest(
-        url: '${Urls.students}/$schoolId/$studentId.json',
+    await _networkClient.makeRequest(
+        url: '${Urls.students}/$schoolId/$studentId',
         method: RequestType.delete);
     return true;
   }
