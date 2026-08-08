@@ -13,6 +13,9 @@ import 'package:sample_latest/core/data/network/network_injection_module.dart';
 import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:sample_latest/core/firebase/firebase_initializer.dart';
 import 'package:sample_latest/core/firebase/services/firebase_crashlytics_service.dart';
+import 'package:sample_latest/core/kiosk/kiosk_gesture_wrapper.dart';
+import 'package:sample_latest/core/kiosk/kiosk_injection_module.dart';
+import 'package:sample_latest/core/kiosk/kiosk_service.dart';
 import 'package:sample_latest/core/routing/routing.dart';
 import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:sample_latest/core/theme/theme.dart';
@@ -79,6 +82,11 @@ Future<void> _initializeApp() async {
 
   // Register network layer dependencies
   await NetworkInjectionModule.registerDependencies();
+
+  // Register kiosk service dependencies
+  if (!kIsWeb && Platform.isLinux) {
+    KioskInjectionModule().registerDependencies();
+  }
 }
 
 void main() async {
@@ -111,6 +119,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+
+    // Enter kiosk mode on Linux platform after the first frame is rendered.
+    if (!kIsWeb && Platform.isLinux) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        GetIt.instance<IKioskService>().enterKioskMode();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -145,7 +166,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             systemLocale.languageCode == existingLocale.languageCode,
         orElse: () => AppLocalizations.supportedLocales.first);
 
-    /// This remote config scope is to override the remote values in local
+    // This remote config scope is to override the remote values in local.
     return RemoteConfigScope(
       child: MultiProvider(
         providers: [
@@ -153,62 +174,75 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               create: (context) => CommonProvider(mode, systemLocale)),
           // ChangeNotifierProvider(create: (context) => GeminiChatProvider()),
         ],
-        child: Builder(builder: (context) {
-          return DeviceConfigurationProvider(child: OrientationBuilder(
-            builder: (context, orientation) {
-              DeviceConfiguration.updateDeviceResolutionAndOrientation(
-                  MediaQuery.of(context).size,
-                  orientation,
-                  MediaQuery.of(context).devicePixelRatio);
-              return GlobalLoaderOverlay(
-                child: MaterialApp.router(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Flutter End to End',
-                  localeResolutionCallback: (locale, locales) {
-                    // if(locale?.languageCode == 'es') {
-                    //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
-                    //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
-                    //   return englishLocale;
-                    // }
-                    return locale;
-                  },
-                  locale: context.watch<CommonProvider>().locale,
-                  // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-                  // backButtonDispatcher: () => ,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en'),
-                    Locale('es'),
-                    Locale('hi'),
-                    Locale('he'),
-                  ],
+        child: Builder(
+          builder: (context) => DeviceConfigurationProvider(
+            child: OrientationBuilder(
+              builder: (context, orientation) {
+                DeviceConfiguration.updateDeviceResolutionAndOrientation(
+                    MediaQuery.of(context).size,
+                    orientation,
+                    MediaQuery.of(context).devicePixelRatio);
+                final appContent = GlobalLoaderOverlay(
+                  child: MaterialApp.router(
+                    debugShowCheckedModeBanner: false,
+                    title: 'Flutter End to End',
+                    localeResolutionCallback: (locale, locales) {
+                      // if(locale?.languageCode == 'es') {
+                      //   var englishLocale = locales.firstWhere((element) => element.languageCode == 'en');
+                      //   context.read<CommonProvider>().onChangeOfLanguage(englishLocale, ignoreNotify: true);
+                      //   return englishLocale;
+                      // }
+                      return locale;
+                    },
+                    locale: context.watch<CommonProvider>().locale,
+                    // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+                    // backButtonDispatcher: () => ,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    supportedLocales: const [
+                      Locale('en'),
+                      Locale('es'),
+                      Locale('hi'),
+                      Locale('he'),
+                    ],
 
-                  /// text scale factor
-                  builder: (BuildContext context, Widget? child) {
-                    var data = MediaQuery.of(context);
-                    return MediaQuery(
-                        data: data.copyWith(
-                          textScaler:
-                              TextScaler.linear(data.textScaler.scale(1)),
-                        ),
-                        child: child ?? Container());
-                  },
-                  theme: CustomTheme.lightThemeData(context),
-                  darkTheme: CustomTheme.darkThemeData(),
-                  themeMode: context.watch<CommonProvider>().themeModeType,
-                  routerConfig: Routing.router,
-                ),
-              );
-            },
-          ));
-        }),
-      ), // MultiProvider
-    ); // RemoteConfigScope
+                    /// text scale factor
+                    builder: (BuildContext context, Widget? child) {
+                      var data = MediaQuery.of(context);
+                      return MediaQuery(
+                          data: data.copyWith(
+                            textScaler:
+                                TextScaler.linear(data.textScaler.scale(1)),
+                          ),
+                          child: child ?? Container());
+                    },
+                    theme: CustomTheme.lightThemeData(context),
+                    darkTheme: CustomTheme.darkThemeData(),
+                    themeMode: context.watch<CommonProvider>().themeModeType,
+                    routerConfig: Routing.router,
+                  ),
+                );
+                // KioskGestureWrapper intercepts touch events for inactivity
+                // timer reset, display wake, and exit gesture detection.
+                // It is only needed on Linux (kiosk/Raspberry Pi) builds.
+                if (!kIsWeb && Platform.isLinux) {
+                  return KioskGestureWrapper(
+                    kioskService: GetIt.instance<IKioskService>(),
+                    child: appContent,
+                  );
+                }
+
+                return appContent;
+              },
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
