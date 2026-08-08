@@ -34,7 +34,7 @@ void main() {
         () async {
       when(() => mockNetworkClient.makeRequest(
             url: Urls.schools,
-          )).thenAnswer((_) async => Right(NetworkResponse(
+          )).thenAnswer((_) async => const Right(NetworkResponse(
             data: null,
             statusCode: 200,
             headers: {},
@@ -86,7 +86,7 @@ void main() {
       when(() => mockNetworkClient.makeRequest(
             url: '${Urls.schools}/$schoolId',
             method: RequestType.delete,
-          )).thenAnswer((_) async => Right(NetworkResponse(
+          )).thenAnswer((_) async => const Right(NetworkResponse(
             data: null,
             statusCode: 200,
             headers: {},
@@ -94,7 +94,7 @@ void main() {
       when(() => mockNetworkClient.makeRequest(
             url: '${Urls.schoolDetails}/$schoolId',
             method: RequestType.delete,
-          )).thenAnswer((_) async => Right(NetworkResponse(
+          )).thenAnswer((_) async => const Right(NetworkResponse(
             data: null,
             statusCode: 200,
             headers: {},
@@ -102,7 +102,7 @@ void main() {
       when(() => mockNetworkClient.makeRequest(
             url: '${Urls.students}/$schoolId',
             method: RequestType.delete,
-          )).thenAnswer((_) async => Right(NetworkResponse(
+          )).thenAnswer((_) async => const Right(NetworkResponse(
             data: null,
             statusCode: 200,
             headers: {},
@@ -199,7 +199,7 @@ void main() {
       when(() => mockNetworkClient.makeRequest(
             url: '${Urls.students}/123/321',
             method: RequestType.delete,
-          )).thenAnswer((_) async => Right(NetworkResponse(
+          )).thenAnswer((_) async => const Right(NetworkResponse(
             data: null,
             statusCode: 200,
             headers: {},
