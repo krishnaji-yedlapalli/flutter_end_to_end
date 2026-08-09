@@ -1,8 +1,8 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
-import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:app_core/analytics_exception_handler/exception_handler.dart';
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 
-import 'package:sample_latest/core/mixins/helper_methods.dart';
+import 'package:app_core/core/mixins/helper_methods.dart';
 import '../../../shared/models/school_executed_task_model.dart';
 import '../../../shared/params/school_params.dart';
 import '../../entities/school_entity.dart';

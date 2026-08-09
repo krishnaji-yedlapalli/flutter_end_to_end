@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class NotificationWithRemoteAndLocal extends StatefulWidget {
   final Widget child;

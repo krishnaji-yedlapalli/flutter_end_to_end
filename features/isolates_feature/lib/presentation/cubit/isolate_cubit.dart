@@ -6,8 +6,8 @@ import 'package:isolates_feature/presentation/cubit/isolate_state.dart';
 import 'package:isolates_feature/shared/compute_isolate_manager.dart';
 import 'package:isolates_feature/shared/isolate_manager.dart';
 import 'package:isolates_feature/shared/spawn_isolate_manager.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/device/enums/device_enums.dart';
 
 class IsolateCubit extends Cubit<IsolateState> {
   final ParseLargeJsonUseCase _parseJsonUseCase;

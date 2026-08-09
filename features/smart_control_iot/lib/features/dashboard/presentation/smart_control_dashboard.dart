@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:app_core/core/device/enums/device_enums.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
 import 'package:smart_control_iot/features/smart_device_control/presentation/cubit/smart_device_control_cubit.dart';
 
 import '../../../core/smart_control_router_module.dart';

@@ -12,8 +12,7 @@ dependencies:
     sdk: flutter
   go_router:
   provider:
-  sample_latest:
-    path: ../..
-
+  app_core:
+    path: ../../packages/core
 flutter:
   uses-material-design: true

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
 
 import 'cubit/on_off_cubit.dart';
 import 'cubit/on_off_state.dart';

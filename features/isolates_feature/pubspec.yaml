@@ -10,7 +10,7 @@ dependencies:
   flutter_bloc:
   get_it:
   go_router:
-  sample_latest:
-    path: ../..
+  app_core:
+    path: ../../packages/core
 flutter:
   uses-material-design: true

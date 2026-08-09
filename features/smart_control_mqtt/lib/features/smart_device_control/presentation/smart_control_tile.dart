@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smart_control_mqtt/features/smart_device_control/presentation/widgets/smart_device_card.dart';
 

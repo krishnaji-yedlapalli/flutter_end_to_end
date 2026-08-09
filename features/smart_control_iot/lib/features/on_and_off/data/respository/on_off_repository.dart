@@ -1,4 +1,4 @@
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:app_core/core/data/base_service.dart';
 
 class OnOffRepository {
   final BaseService _baseService;

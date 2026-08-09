@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/extensions/extensions.dart';
+import 'package:app_core/shared/extensions/extensions.dart';
 
 enum DialogType { fullscreen, alertDialog, simpleDialog, simpleDialogOption }
 

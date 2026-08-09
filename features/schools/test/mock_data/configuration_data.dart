@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sample_latest/l10n/app_localizations.dart';
+import 'package:app_core/l10n/app_localizations.dart';
 
 class TestConfigurationData {
   static const List<Size> screenSizes = [

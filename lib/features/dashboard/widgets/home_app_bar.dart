@@ -1,9 +1,9 @@
 import 'package:feature_discovery_module/home_feature_discovery.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/mixins/feature_discovery_mixin.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/mixins/feature_discovery_mixin.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class HomeAppBar extends StatelessWidget
     with CustomDialogs

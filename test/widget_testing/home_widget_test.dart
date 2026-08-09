@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/environment/environment.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/environment/environment.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
 import 'package:sample_latest/main.dart';
 
 import '../mock_data/configuration_data.dart';

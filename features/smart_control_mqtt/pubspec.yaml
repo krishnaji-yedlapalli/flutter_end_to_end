@@ -14,7 +14,7 @@ dependencies:
   go_router:
   flutter_staggered_grid_view:
   shimmer:
-  sample_latest:
-    path: ../..
+  app_core:
+    path: ../../packages/core
 flutter:
   uses-material-design: true

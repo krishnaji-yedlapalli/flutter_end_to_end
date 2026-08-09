@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
 
 import '../../daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:app_core/core/data/base_service.dart';
 import '../features/domain/cubit/smart_control_dashboard_cubit.dart';
 import '../features/smart_device_control/data/respository/smart_device_control_repo_impl.dart';
 import '../features/smart_device_control/domain/repository/smart_device_control_repo.dart';

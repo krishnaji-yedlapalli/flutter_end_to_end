@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:schools/presentation/pages/schools/widgets/create_update_school.dart';
 import 'package:schools/shared/models/school_view_model.dart';
 

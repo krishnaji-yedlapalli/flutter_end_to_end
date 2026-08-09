@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/routing/routing.dart';
+import 'package:app_core/core/routing/route_constants.dart';
 import 'package:smart_control_iot/core/smart_control_wrapper_page.dart';
 
 import '../features/dashboard/presentation/smart_control_dashboard.dart';
@@ -17,8 +17,8 @@ class SmartControlRouterModule {
   static const _dashboard = '$_parentPath/dashboard';
   static const _onAndOff = 'on-off';
 
-  static const dashboardPath = '${Routing.home}/$_dashboard';
-  static const onAndOffPath = '${Routing.home}/$_dashboard/$_onAndOff';
+  static const dashboardPath = '${RouteConstants.home}/$_dashboard';
+  static const onAndOffPath = '${RouteConstants.home}/$_dashboard/$_onAndOff';
 
   static ShellRoute smartControlTrackerRoute() {
     return ShellRoute(

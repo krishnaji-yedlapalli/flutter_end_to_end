@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:sample_latest/core/data/network/network_client.dart';
-import 'package:sample_latest/core/data/network/network_injection_module.dart';
+import 'package:app_core/core/data/network/network_client.dart';
+import 'package:app_core/core/data/network/network_injection_module.dart';
 import 'package:schools/shared/models/school_executed_task_model.dart';
 
 import '../data/repository/repository.dart';

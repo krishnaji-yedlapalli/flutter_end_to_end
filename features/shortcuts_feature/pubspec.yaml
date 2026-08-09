@@ -7,7 +7,7 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  sample_latest:
-    path: ../..
+  app_core:
+    path: ../../packages/core
 flutter:
   uses-material-design: true

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/adaptive_button.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/device/enums/device_enums.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:app_core/shared/widgets/responsive_widgets/adaptive_button.dart';
 
 class CallBackShortCutsView extends StatefulWidget {
   const CallBackShortCutsView({Key? key}) : super(key: key);

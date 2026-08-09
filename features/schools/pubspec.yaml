@@ -39,8 +39,8 @@ dependencies:
   json_annotation:
 
   # Main app dependency (for core, shared, analytics_exception_handler)
-  sample_latest:
-    path: ../..
+  app_core:
+    path: ../../packages/core
   feature_discovery_module:
     path: ../feature_discovery_module
 

@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
-import 'package:sample_latest/analytics_exception_handler/exception_handler.dart';
-import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:app_core/analytics_exception_handler/exception_handler.dart';
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import '../repository/smart_device_control_repo.dart';
 
 class SmartDeviceControlUseCase {

@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:push_notifications/push_notification_service.dart';
-import 'package:sample_latest/core/data/base_service.dart';
-import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/shared/extensions/extensions.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:app_core/core/data/base_service.dart';
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
+import 'package:app_core/core/mixins/validators.dart';
+import 'package:app_core/shared/extensions/extensions.dart';
+import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class FirebasePushNotifications extends StatefulWidget {
   const FirebasePushNotifications({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/l10n/app_localizations.dart';
-import 'package:sample_latest/shared/extensions/extensions.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/presentation/provider/common_provider.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/l10n/app_localizations.dart';
+import 'package:app_core/shared/extensions/extensions.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:app_core/shared/presentation/provider/common_provider.dart';
+import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class LocalizationDatePicker extends StatefulWidget {
   const LocalizationDatePicker({Key? key}) : super(key: key);

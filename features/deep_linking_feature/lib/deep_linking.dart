@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/shared/extensions/extensions.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:app_core/core/mixins/validators.dart';
+import 'package:app_core/shared/extensions/extensions.dart';
+import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class DeepLinkingTesting extends StatelessWidget with Validators {
   DeepLinkingTesting({Key? key}) : super(key: key);

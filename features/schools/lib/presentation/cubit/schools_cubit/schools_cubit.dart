@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 
-import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import '../../../domain/entities/entities.dart';
 import '../../../domain/use_cases/use_cases.dart';
 import '../../../shared/params/school_params.dart';

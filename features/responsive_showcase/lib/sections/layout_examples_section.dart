@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
 
 import '../widgets/showcase_section_card.dart';
 

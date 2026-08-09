@@ -33,12 +33,12 @@ import 'package:routing_feature/shell_route/shell_child_one/shell_parent.dart';
 import 'package:routing_feature/shell_route/shell_routing.dart';
 import 'package:routing_feature/state_ful_shell_routing_with_indexed.dart';
 import 'package:routing_feature/stateful_shell_routing_without_indexed.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/environment/environment.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/environment/environment.dart';
+import 'package:app_core/core/routing/routing_exports.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
 import 'package:sample_latest/features/dashboard/home_screen.dart';
-import 'package:sample_latest/shared/exception/page_not_found.dart';
+import 'package:app_core/shared/exception/page_not_found.dart';
 import 'package:schools/core/schools_router_module.dart';
 import 'package:scrolling/scrolling.dart';
 import 'package:shortcuts_feature/shortcuts_main.dart';
@@ -47,7 +47,7 @@ import 'package:smart_control_mqtt/core/smart_control_mqtt_router_module.dart';
 
 import '../../features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;
-import '../firebase/analytics_route_observer.dart';
+import 'package:app_core/core/firebase/analytics_route_observer.dart';
 
 class Routing {
   static const String home = '/home';
