@@ -1,7 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/data/cache/cache_config.dart';
 import 'package:app_core/core/data/interceptors/auth_interceptor.dart';
 import 'package:app_core/core/data/interceptors/interceptor.dart';
@@ -15,6 +11,10 @@ import 'package:app_core/core/data/strategy/passthrough_url_strategy.dart';
 import 'package:app_core/core/data/token/token_storage.dart';
 import 'package:app_core/core/data/token/token_storage_impl.dart';
 import 'package:app_core/core/data/urls.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 
 /// GetIt instance names for named NetworkClient registrations.
 abstract class NetworkClientName {

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:flutter/material.dart';
 
 class NestedScrollViewDemo extends StatefulWidget {
   const NestedScrollViewDemo({Key? key}) : super(key: key);

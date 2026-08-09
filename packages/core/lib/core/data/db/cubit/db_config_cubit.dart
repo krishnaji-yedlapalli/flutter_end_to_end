@@ -1,6 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_core/core/data/db/cubit/db_config_state.dart';
 import 'package:app_core/core/data/db/db_config_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DbConfigCubit extends Cubit<DbConfigState> {
   final DbConfigRepository _repository;

@@ -1,8 +1,8 @@
+import 'package:app_core/shared/extensions/extensions.dart';
+import 'package:app_core/shared/presentation/provider/route_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:app_core/shared/extensions/extensions.dart';
-import 'package:app_core/shared/presentation/provider/route_provider.dart';
 
 class ShellChildOne extends StatelessWidget {
   const ShellChildOne({Key? key}) : super(key: key);

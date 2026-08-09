@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:flutter/material.dart';
 
 class DraggableScrollableSheetDemo extends StatefulWidget {
   const DraggableScrollableSheetDemo({Key? key}) : super(key: key);

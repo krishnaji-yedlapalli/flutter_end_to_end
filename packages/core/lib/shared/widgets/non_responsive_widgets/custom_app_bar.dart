@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:app_core/core/constants/responsive_constants.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/environment/environment.dart';
 import 'package:app_core/core/routing/navigation_utils.dart';
 import 'package:app_core/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../presentation/provider/common_provider.dart';
 

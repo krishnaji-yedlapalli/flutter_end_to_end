@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:app_core/core/firebase/services/firebase_messaging_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// Concrete implementation of [FirebaseMessagingService].
 class FirebaseMessagingServiceImpl extends FirebaseMessagingService {

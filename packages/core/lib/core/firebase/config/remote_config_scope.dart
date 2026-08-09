@@ -1,6 +1,6 @@
+import 'package:app_core/core/firebase/services/firebase_remote_config_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:app_core/core/firebase/services/firebase_remote_config_service.dart';
 
 /// Holds local in-memory overrides and delegates all reads to [FirebaseRemoteConfigService],
 /// checking overrides first. Call [notifyListeners] propagates to all widgets

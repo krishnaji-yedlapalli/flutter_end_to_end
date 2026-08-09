@@ -1,6 +1,6 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:app_core/core/data/token/storage_write_failure.dart';
 import 'package:app_core/core/data/token/token_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// Secure token storage implementation backed by flutter_secure_storage.
 class TokenStorageImpl implements TokenStorage {

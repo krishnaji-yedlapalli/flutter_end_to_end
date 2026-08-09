@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:app_core/core/routing/router_helper.dart';
 import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:schools/core/school_module_wrapper_page.dart';
 import 'package:schools/presentation/pages/schools/schools_page.dart';
 import 'package:schools/shared/models/school_view_model.dart';

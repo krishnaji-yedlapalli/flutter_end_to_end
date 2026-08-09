@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:flutter/material.dart';
 
 class ExceptionView extends StatelessWidget {
   final ErrorDetails stateType;

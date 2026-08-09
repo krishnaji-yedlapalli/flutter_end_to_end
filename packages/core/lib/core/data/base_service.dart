@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:app_core/core/data/interceptors/interceptor.dart';
 import 'package:app_core/core/data/utils/db_constants.dart';
+import 'package:dio/dio.dart';
 
 import 'urls.dart';
 import 'utils/service_enums_typedef.dart';

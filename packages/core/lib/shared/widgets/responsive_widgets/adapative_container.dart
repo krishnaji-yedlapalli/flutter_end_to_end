@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/utils/screen_break_points.dart';
+import 'package:flutter/material.dart';
 
 class AdaptiveContainer extends StatelessWidget {
   final Widget child;

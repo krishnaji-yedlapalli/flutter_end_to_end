@@ -1,10 +1,10 @@
+import 'package:app_core/core/data/db/offline_handler.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
+import 'package:app_core/shared/mixins/mixins.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
-import 'package:app_core/core/data/db/offline_handler.dart';
-import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
 
 class DumpingStatusView extends StatefulWidget {
   const DumpingStatusView({super.key});

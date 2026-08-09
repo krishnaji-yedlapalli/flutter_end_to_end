@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:app_core/core/data/network/network_failure.dart';
 import 'package:app_core/core/data/network/network_response.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
+import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
 
 /// Abstract network client interface registered in GetIt.
 ///

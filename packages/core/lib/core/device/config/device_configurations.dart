@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:app_core/core/constants/responsive_constants.dart';
 import 'package:app_core/core/device/enums/device_enums.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class DeviceConfiguration {
   // Cached values

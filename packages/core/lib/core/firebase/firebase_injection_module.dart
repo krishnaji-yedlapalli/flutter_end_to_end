@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/firebase/services/firebase_analytics_service.dart';
 import 'package:app_core/core/firebase/services/firebase_auth_service.dart';
 import 'package:app_core/core/firebase/services/firebase_crashlytics_service.dart';
@@ -9,6 +8,7 @@ import 'package:app_core/core/firebase/services_impl/firebase_auth_service_impl.
 import 'package:app_core/core/firebase/services_impl/firebase_crashlytics_service_impl.dart';
 import 'package:app_core/core/firebase/services_impl/firebase_messaging_service_impl.dart';
 import 'package:app_core/core/firebase/services_impl/firebase_remote_config_service_impl.dart';
+import 'package:get_it/get_it.dart';
 
 /// Registers all Firebase services in GetIt — always real implementations.
 ///

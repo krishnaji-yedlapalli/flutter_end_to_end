@@ -1,9 +1,9 @@
-import 'package:feature_discovery/feature_discovery.dart';
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/utils/constants.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
 import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:feature_discovery/feature_discovery.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SchoolScreenFeatureDiscovery with ButtonMixin {

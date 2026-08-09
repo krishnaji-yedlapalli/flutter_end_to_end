@@ -1,8 +1,8 @@
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:schools/domain/use_cases/use_cases.dart';
 import 'package:schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
 import 'package:schools/presentation/cubit/school_details_bloc/schools_details_state.dart';

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:app_core/shared/extensions/extensions.dart';
 import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StateFulShellRoutingWithIndexed extends StatefulWidget {
   final StatefulNavigationShell navigationShell;

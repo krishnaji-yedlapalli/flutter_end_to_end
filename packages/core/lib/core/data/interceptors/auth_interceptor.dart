@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:app_core/core/data/token/token_storage.dart';
+import 'package:dio/dio.dart';
 
 /// Attaches JWT Bearer token to every authenticated request.
 ///

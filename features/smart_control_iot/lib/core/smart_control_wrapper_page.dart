@@ -1,8 +1,8 @@
+import 'package:app_core/core/data/base_service.dart';
+import 'package:app_core/shared/widgets/local_server/server_initilize_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:app_core/core/data/base_service.dart';
-import 'package:app_core/shared/widgets/local_server/server_initilize_wrapper.dart';
 import 'package:smart_control_iot/core/smart_control_injection_module.dart';
 
 import '../features/domain/cubit/smart_control_dashboard_cubit.dart';

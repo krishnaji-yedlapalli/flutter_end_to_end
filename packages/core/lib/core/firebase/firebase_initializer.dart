@@ -1,8 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/firebase/config/firebase_options_config.dart';
 import 'package:app_core/core/firebase/firebase_injection_module.dart';
 import 'package:app_core/core/firebase/services/firebase_analytics_service.dart';
@@ -10,6 +7,9 @@ import 'package:app_core/core/firebase/services/firebase_auth_service.dart';
 import 'package:app_core/core/firebase/services/firebase_crashlytics_service.dart';
 import 'package:app_core/core/firebase/services/firebase_messaging_service.dart';
 import 'package:app_core/core/firebase/services/firebase_remote_config_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 
 /// Orchestrates Firebase initialization.
 ///

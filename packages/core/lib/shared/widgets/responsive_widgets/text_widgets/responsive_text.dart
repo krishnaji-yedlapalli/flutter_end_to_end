@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:flutter/material.dart';
 
 /// Responsive body text widget with standard font size that adapts to screen size
 class ResponsiveText extends StatelessWidget {

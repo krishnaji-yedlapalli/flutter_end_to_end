@@ -1,10 +1,10 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/data/db/db_config_repository.dart';
 import 'package:app_core/core/data/db/offline_handler.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/extensions/dio_request_extension.dart';
 import 'package:app_core/core/utils/connectivity_handler.dart';
+import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 
 class RequestBypassInterceptor extends Interceptor {
   bool get _isOfflineSupported =>

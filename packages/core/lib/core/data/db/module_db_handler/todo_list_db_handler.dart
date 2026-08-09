@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:app_core/analytics_exception_handler/custom_exception.dart';
 import 'package:app_core/core/data/urls.dart';
 import 'package:app_core/core/data/utils/abstract_db_handler.dart';
 import 'package:app_core/core/data/utils/db_constants.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
+import 'package:dio/dio.dart';
 
 class TodoListDbHandler extends DbHandler {
   TodoListDbHandler._internal();

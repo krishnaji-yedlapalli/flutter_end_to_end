@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/constants/responsive_constants.dart';
+import 'package:flutter/material.dart';
 
 class ScreenBreakPoints {
   static const mobileBreakPoint = ResponsiveConstants.mobileMaxWidth;

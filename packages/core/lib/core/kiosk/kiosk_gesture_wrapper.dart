@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/kiosk/kiosk_service.dart';
 import 'package:app_core/core/kiosk/kiosk_state.dart';
+import 'package:flutter/material.dart';
 
 /// A widget that wraps the app's root to intercept all touch events for the
 /// kiosk service.

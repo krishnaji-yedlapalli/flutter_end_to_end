@@ -1,6 +1,6 @@
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 
 import '../../../../shared/models/smart_control_model.dart';
 import '../../domain/use_cases/device_status_useCase.dart';

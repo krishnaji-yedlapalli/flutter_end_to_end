@@ -1,6 +1,6 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_core/core/device/config/device_configurations.dart';
 
 /// Adaptive responsive outline button with platform-specific styling and responsive text sizing
 class AdaptiveResponsiveOutlineButton extends StatelessWidget {

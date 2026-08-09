@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/shared/extensions/extensions.dart';
 import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:flutter/material.dart';
 
 class ExplicitAnimationsWidgets extends StatefulWidget {
   const ExplicitAnimationsWidgets({Key? key}) : super(key: key);

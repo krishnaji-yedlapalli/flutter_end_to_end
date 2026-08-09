@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:app_core/core/kiosk/kiosk_state.dart';
 import 'package:app_core/core/kiosk/platform/linux_process_runner.dart';
 import 'package:app_core/core/kiosk/platform/sysfs_writer.dart';
 import 'package:app_core/core/kiosk/services/schedule_persistence.dart';
+import 'package:flutter/material.dart';
 
 /// Path to the RTC wake alarm sysfs file.
 const String kRtcWakeAlarmPath = '/sys/class/rtc/rtc0/wakealarm';

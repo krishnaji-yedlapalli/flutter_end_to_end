@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:app_core/core/data/db/offline_handler.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ConnectivityHandler {
   static final _singleton = ConnectivityHandler._internal();

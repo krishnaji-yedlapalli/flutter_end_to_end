@@ -1,8 +1,8 @@
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/data/db/db_config_repository.dart';
 import 'package:app_core/core/data/db/db_handler_registry.dart';
 import 'package:app_core/core/data/db/module_db_handler/todo_list_db_handler.dart';
 import 'package:app_core/core/data/db/offline_handler.dart';
+import 'package:get_it/get_it.dart';
 import 'package:schools/data/local/schools_db_handler.dart';
 
 class OfflineInjectionModule {

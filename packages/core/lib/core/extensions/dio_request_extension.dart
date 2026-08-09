@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:app_core/core/data/utils/db_constants.dart';
+import 'package:dio/dio.dart';
 
 extension DioRequestExtension on RequestOptions {
   /// To check whether this Api supports Offline or not

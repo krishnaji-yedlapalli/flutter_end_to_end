@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:app_core/core/data/urls.dart';
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:app_core/core/data/urls.dart';
-import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:schools/data/local/schools_db_handler.dart';
 
 class DumpingOfflineData {

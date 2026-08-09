@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:app_core/core/kiosk/platform/linux_process_runner.dart';
 import 'package:app_core/core/kiosk/platform/sysfs_writer.dart';
+import 'package:flutter/foundation.dart';
 
 /// Abstraction over the Raspberry Pi Touch Display backlight control.
 ///

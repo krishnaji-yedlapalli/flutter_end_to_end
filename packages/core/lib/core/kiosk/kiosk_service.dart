@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/kiosk/kiosk_state.dart';
+import 'package:flutter/material.dart';
 
 /// Public interface for the Kiosk Service facade.
 ///

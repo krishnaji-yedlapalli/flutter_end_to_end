@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:flutter/material.dart';
 
 /// Responsive sub-header text widget with medium-large font size that adapts to screen size
 class ResponsiveSubHeader extends StatelessWidget {

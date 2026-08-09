@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:app_core/core/firebase/services/firebase_auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:app_core/core/firebase/services/firebase_auth_service.dart';
 
 /// Concrete implementation of [FirebaseAuthService].
 class FirebaseAuthServiceImpl extends FirebaseAuthService {

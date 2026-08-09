@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:app_core/core/data/models/queue_item/queue_item.dart';
 import 'package:app_core/core/data/utils/abstract_db_handler.dart';
 import 'package:app_core/core/data/utils/db_constants.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/extensions/dio_request_extension.dart';
+import 'package:dio/dio.dart';
 
 class CommonDbHandler extends DbHandler {
   CommonDbHandler._internal();

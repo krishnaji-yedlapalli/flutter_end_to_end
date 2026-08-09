@@ -1,6 +1,6 @@
+import 'package:app_core/core/firebase/services/firebase_analytics_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:app_core/core/firebase/services/firebase_analytics_service.dart';
 
 /// Concrete implementation of [FirebaseAnalyticsService].
 class FirebaseAnalyticsServiceImpl extends FirebaseAnalyticsService {

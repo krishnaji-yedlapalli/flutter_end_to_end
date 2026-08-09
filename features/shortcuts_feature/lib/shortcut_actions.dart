@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/device/enums/device_enums.dart';
 import 'package:app_core/shared/widgets/responsive_widgets/adaptive_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ShortcutActions extends StatefulWidget {
   const ShortcutActions({Key? key}) : super(key: key);

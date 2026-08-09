@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:app_core/core/kiosk/controllers/backlight_controller.dart';
 import 'package:app_core/core/kiosk/controllers/exit_gesture_detector.dart';
 import 'package:app_core/core/kiosk/controllers/window_manager.dart';
@@ -10,6 +8,8 @@ import 'package:app_core/core/kiosk/kiosk_service.dart';
 import 'package:app_core/core/kiosk/kiosk_state.dart';
 import 'package:app_core/core/kiosk/services/deep_sleep_scheduler.dart';
 import 'package:app_core/core/kiosk/services/inactivity_timer.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 /// Implementation of [IKioskService] that orchestrates all kiosk sub-components.
 ///

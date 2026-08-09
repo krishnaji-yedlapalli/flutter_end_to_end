@@ -1,7 +1,7 @@
+import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:schools/presentation/cubit/school_details_bloc/schools_details_state.dart';
 
 import '../../../domain/use_cases/use_cases.dart';

@@ -1,7 +1,7 @@
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/platform/embedded/controllers/buzzer_controller.dart';
 import 'package:app_core/core/platform/embedded/controllers/motion_sensor_handler.dart';
 import 'package:app_core/core/platform/embedded/services/gpio_service.dart';
+import 'package:get_it/get_it.dart';
 
 import '../controllers/camera_controller.dart';
 

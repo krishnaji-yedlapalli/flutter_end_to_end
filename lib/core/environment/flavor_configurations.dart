@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/environment/app_configuration.dart';
 import 'package:app_core/core/environment/environment_type.dart';
+import 'package:flutter/material.dart';
 import 'package:sample_latest/features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;
 

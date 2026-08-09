@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/shared/widgets/non_responsive_widgets/custom_app_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PageNotFound extends StatelessWidget {
   final GoRouterState state;

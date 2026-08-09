@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/data/db/cubit/db_config_cubit.dart';
 import 'package:app_core/core/data/db/cubit/db_config_state.dart';
 import 'package:app_core/core/data/db/db_config_repository.dart';
 import 'package:app_core/core/data/db/offline_handler.dart';
 import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class DbConfigurationDialog extends StatelessWidget with CustomDialogs {
   const DbConfigurationDialog({Key? key}) : super(key: key);

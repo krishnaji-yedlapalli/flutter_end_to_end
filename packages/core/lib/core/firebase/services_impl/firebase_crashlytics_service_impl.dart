@@ -1,6 +1,6 @@
+import 'package:app_core/core/firebase/services/firebase_crashlytics_service.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:app_core/core/firebase/services/firebase_crashlytics_service.dart';
 
 /// Concrete implementation of [FirebaseCrashlyticsService].
 class FirebaseCrashlyticsServiceImpl extends FirebaseCrashlyticsService {

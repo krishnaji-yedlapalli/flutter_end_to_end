@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:app_core/core/kiosk/controllers/backlight_controller.dart';
 import 'package:app_core/core/kiosk/controllers/exit_gesture_detector.dart';
 import 'package:app_core/core/kiosk/controllers/window_manager.dart';
@@ -9,6 +8,7 @@ import 'package:app_core/core/kiosk/platform/sysfs_writer.dart';
 import 'package:app_core/core/kiosk/services/deep_sleep_scheduler.dart';
 import 'package:app_core/core/kiosk/services/inactivity_timer.dart';
 import 'package:app_core/core/kiosk/services/schedule_persistence.dart';
+import 'package:get_it/get_it.dart';
 
 /// Dependency injection module for the Kiosk Service and its sub-components.
 ///

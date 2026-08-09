@@ -1,6 +1,6 @@
+import 'package:app_core/core/environment/environment.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:app_core/core/environment/environment.dart';
 
 import '../extensions/responsive_theme_extension.dart';
 import 'color_schemes.dart';

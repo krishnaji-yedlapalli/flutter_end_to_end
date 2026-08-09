@@ -1,11 +1,11 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:app_core/core/data/network/network_client.dart';
 import 'package:app_core/core/data/network/network_failure.dart';
 import 'package:app_core/core/data/network/network_response.dart';
 import 'package:app_core/core/data/urls.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:schools/data/model/school_model.dart';
 import 'package:schools/data/repository/school_details_repository_impl.dart';
 import 'package:schools/data/repository/schools_repository_impl.dart';

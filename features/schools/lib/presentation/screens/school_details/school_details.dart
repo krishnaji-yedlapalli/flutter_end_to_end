@@ -1,13 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/shared/exception/exception.dart';
 import 'package:app_core/shared/extensions/extensions.dart';
 import 'package:app_core/shared/mixins/mixins.dart';
 import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/presentation/screens/school_details/add_update_school_details.dart';

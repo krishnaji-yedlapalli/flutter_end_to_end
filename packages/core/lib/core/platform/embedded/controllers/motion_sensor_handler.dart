@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:dart_periphery/dart_periphery.dart';
+
 import 'package:app_core/core/platform/embedded/services/gpio_service.dart';
+import 'package:dart_periphery/dart_periphery.dart';
 
 class MotionSensorHandler {
   final GpioService _gpioService;

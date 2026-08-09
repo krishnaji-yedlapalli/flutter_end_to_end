@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:flutter/material.dart';
 
 class MaterialComponents extends StatefulWidget {
   const MaterialComponents({Key? key}) : super(key: key);

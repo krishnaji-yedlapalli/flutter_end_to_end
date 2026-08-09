@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:app_core/core/constants/responsive_constants.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 /// Adaptive navigation bar
 class AdaptiveNavigationBar extends StatelessWidget

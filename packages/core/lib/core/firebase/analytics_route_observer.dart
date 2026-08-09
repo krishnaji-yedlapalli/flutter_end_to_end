@@ -1,7 +1,7 @@
+import 'package:app_core/core/firebase/services/firebase_analytics_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:app_core/core/firebase/services/firebase_analytics_service.dart';
 
 /// A [NavigatorObserver] that logs screen views to Firebase Analytics
 /// whenever GoRouter navigates to a new route.

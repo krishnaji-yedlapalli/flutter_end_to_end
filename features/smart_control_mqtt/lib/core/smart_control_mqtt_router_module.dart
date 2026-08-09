@@ -1,6 +1,6 @@
+import 'package:app_core/core/routing/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:app_core/core/routing/route_constants.dart';
 import 'package:smart_control_mqtt/core/smart_control_mqtt_wrapper_page.dart';
 
 import '../features/dashboard/presentation/smart_control_mqtt_dashboard.dart';

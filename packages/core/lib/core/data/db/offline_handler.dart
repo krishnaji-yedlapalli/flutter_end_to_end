@@ -2,12 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
 
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:get_it/get_it.dart';
-import 'package:loader_overlay/loader_overlay.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:app_core/analytics_exception_handler/custom_exception.dart';
 import 'package:app_core/analytics_exception_handler/error_reporting.dart';
 import 'package:app_core/analytics_exception_handler/exception_handler.dart';
@@ -22,6 +16,12 @@ import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/mixins/helper_methods.dart';
 import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:rxdart/subjects.dart';
 
 class OfflineHandler {
   late DbHandlerRegistry _registry;

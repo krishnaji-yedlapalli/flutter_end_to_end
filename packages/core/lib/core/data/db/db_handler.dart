@@ -1,7 +1,7 @@
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
-import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SqfLiteDbHandler {

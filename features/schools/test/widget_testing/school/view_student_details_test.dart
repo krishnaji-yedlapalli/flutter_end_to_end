@@ -1,3 +1,6 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/environment/environment.dart';
+import 'package:app_core/shared/presentation/provider/common_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +10,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
-import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:app_core/core/environment/environment.dart';
-import 'package:app_core/shared/presentation/provider/common_provider.dart';
 import 'package:schools/domain/use_cases/use_cases.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/presentation/screens/student/student.dart';

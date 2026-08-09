@@ -1,6 +1,6 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_core/core/device/config/device_configurations.dart';
 
 /// Adaptive button that uses Material or Cupertino based on platform
 class AdaptiveButton extends StatelessWidget {

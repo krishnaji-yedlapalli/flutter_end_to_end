@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:flutter/material.dart';
 
 class SliverFillViewportDemo extends StatelessWidget {
   const SliverFillViewportDemo({Key? key}) : super(key: key);

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/device/enums/device_enums.dart';
 import 'package:app_core/core/routing/route_constants.dart';
 import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: must_be_immutable
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {

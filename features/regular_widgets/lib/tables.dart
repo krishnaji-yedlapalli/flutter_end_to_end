@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_core/shared/extensions/extensions.dart';
+import 'package:flutter/material.dart';
 
 class StudentModel {
   final String name;
