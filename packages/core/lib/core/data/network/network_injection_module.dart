@@ -81,6 +81,7 @@ class NetworkInjectionModule {
     // 4. Firebase Dio — no fixed baseUrl (full URLs passed per request),
     //    pinned to Firebase/Google certs
     final firebaseDio = Dio(BaseOptions(
+      baseUrl: Urls.baseUrl,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
     ));
