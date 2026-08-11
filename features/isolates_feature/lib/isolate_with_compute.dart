@@ -1,6 +1,5 @@
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/device/enums/device_enums.dart';
-import 'package:ui_kit/widgets/responsive_widgets/adaptive_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isolates_feature/domain/usecases/sort_data_usecase.dart';
@@ -8,6 +7,7 @@ import 'package:isolates_feature/presentation/cubit/isolate_cubit.dart';
 import 'package:isolates_feature/presentation/cubit/isolate_state.dart';
 import 'package:isolates_feature/presentation/widgets/performance_metrics_widget.dart';
 import 'package:isolates_feature/presentation/widgets/platform_support_badge.dart';
+import 'package:ui_kit/widgets/responsive_widgets/adaptive_button.dart';
 
 class EnhancedIsolateDemo extends StatefulWidget {
   const EnhancedIsolateDemo({Key? key}) : super(key: key);

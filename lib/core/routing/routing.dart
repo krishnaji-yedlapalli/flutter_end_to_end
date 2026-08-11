@@ -3,7 +3,6 @@ import 'package:app_core/core/environment/environment.dart';
 import 'package:app_core/core/firebase/analytics_route_observer.dart';
 import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:ui_kit/page_not_found.dart';
 import 'package:deep_linking_feature/deep_linking.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:feature_localization/localization.dart';
@@ -45,6 +44,7 @@ import 'package:scrolling/scrolling.dart';
 import 'package:shortcuts_feature/shortcuts_main.dart';
 import 'package:smart_control_iot/core/smart_control_router_module.dart';
 import 'package:smart_control_mqtt/core/smart_control_mqtt_router_module.dart';
+import 'package:ui_kit/page_not_found.dart';
 
 import '../../features/daily_tracker_stub/daily_tracker_entry_point.dart'
     as daily_tracker;

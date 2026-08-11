@@ -1,6 +1,6 @@
-import 'package:ui_kit/mixins/mixins.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ui_kit/mixins/mixins.dart';
 
 import '../../../shared/models/smart_control_model.dart';
 import 'cubit/smart_device_control_cubit.dart';

@@ -1,6 +1,6 @@
 import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 
 class CustomDropDown<T> extends StatelessWidget {
   const CustomDropDown(
