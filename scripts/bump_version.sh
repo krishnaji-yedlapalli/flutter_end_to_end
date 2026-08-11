@@ -170,7 +170,7 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-git commit -m "chore(release): bump version to $NEW_FULL [skip ci]"
+git commit -m "chore(release): bump version to $NEW_FULL"
 git push
 
 echo ""
