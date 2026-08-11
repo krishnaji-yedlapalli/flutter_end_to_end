@@ -1,5 +1,5 @@
 import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/showcase_section_card.dart';

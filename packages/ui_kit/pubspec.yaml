@@ -1,0 +1,46 @@
+name: ui_kit
+description: Shared UI components, widgets, mixins, and presentation utilities for all feature modules.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Core infrastructure (device config, constants, routing, l10n, etc.)
+  app_core:
+    path: ../core
+
+  # State management
+  flutter_bloc:
+  provider:
+  equatable:
+
+  # DI
+  get_it:
+
+  # Routing
+  go_router:
+
+  # UI
+  google_fonts:
+  loader_overlay:
+  fluttertoast:
+  liquid_progress_indicator_v2:
+  feature_discovery:
+    git:
+      url: https://github.com/maheshmnj/feature_discovery.git
+      ref: master
+
+  # IoT / MQTT (for MQTT server wrapper widget)
+  mqtt_client:
+
+  # Local server (for server wrapper widgets)
+  shelf:
+
+flutter:
+  uses-material-design: true

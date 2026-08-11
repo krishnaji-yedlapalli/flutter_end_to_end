@@ -1,6 +1,6 @@
 import 'package:app_core/core/data/db/offline_handler.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:ui_kit/mixins/mixins.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';

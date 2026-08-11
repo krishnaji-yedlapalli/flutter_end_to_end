@@ -1,6 +1,6 @@
 import 'package:app_core/core/device/enums/device_enums.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
-import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

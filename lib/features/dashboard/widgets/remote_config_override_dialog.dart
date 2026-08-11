@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:app_core/core/firebase/config/remote_config_keys.dart';
 import 'package:app_core/core/firebase/config/remote_config_scope.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:ui_kit/mixins/mixins.dart';
 import 'package:flutter/material.dart';
 
 void showRemoteConfigOverrideDialog(BuildContext context) {

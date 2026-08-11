@@ -1,9 +1,9 @@
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:app_core/shared/exception/exception.dart';
-import 'package:app_core/shared/extensions/extensions.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
-import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/exception.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

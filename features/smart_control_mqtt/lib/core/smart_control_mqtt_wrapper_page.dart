@@ -1,5 +1,5 @@
 import 'package:app_core/core/data/base_service.dart';
-import 'package:app_core/shared/widgets/local_server/mqtt_server_initilize_wrapper.dart';
+import 'package:ui_kit/widgets/local_server/mqtt_server_initilize_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';

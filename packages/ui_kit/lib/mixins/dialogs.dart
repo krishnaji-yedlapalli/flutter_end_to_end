@@ -1,6 +1,6 @@
 import 'package:app_core/core/constants/responsive_constants.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

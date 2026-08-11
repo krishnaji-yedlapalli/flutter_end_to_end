@@ -1,5 +1,5 @@
-import 'package:app_core/shared/extensions/extensions.dart';
-import 'package:app_core/shared/presentation/provider/route_provider.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/presentation/provider/route_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';

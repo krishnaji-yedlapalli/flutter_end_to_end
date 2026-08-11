@@ -1,7 +1,7 @@
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:app_core/shared/extensions/extensions.dart';
-import 'package:app_core/shared/mixins/helper_widgets_mixin.dart';
-import 'package:app_core/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/mixins/helper_widgets_mixin.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:schools/presentation/pages/schools/widgets/schools_offline_actions.dart';

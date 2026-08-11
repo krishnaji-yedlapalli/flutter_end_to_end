@@ -2,7 +2,7 @@ import 'package:app_core/core/data/db/offline_handler.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/environment/environment.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:app_core/shared/presentation/provider/common_provider.dart';
+import 'package:ui_kit/presentation/provider/common_provider.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:firebase_core/firebase_core.dart';

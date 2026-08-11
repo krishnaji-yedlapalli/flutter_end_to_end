@@ -1,9 +1,9 @@
 import 'package:app_core/core/data/db/offline_handler.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:app_core/shared/mixins/dialogs.dart';
-import 'package:app_core/shared/presentation/screens/db_configurations_for_devs.dart';
-import 'package:app_core/shared/presentation/screens/dumping_status.dart';
+import 'package:ui_kit/mixins/dialogs.dart';
+import 'package:ui_kit/presentation/screens/db_configurations_for_devs.dart';
+import 'package:ui_kit/presentation/screens/dumping_status.dart';
 import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';

@@ -1,6 +1,6 @@
 import 'package:app_core/core/mixins/validators.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
-import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schools/data/model/models.dart';

@@ -1,7 +1,7 @@
-import 'package:app_core/shared/exception/exception.dart';
-import 'package:app_core/shared/extensions/extensions.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
-import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/exception.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

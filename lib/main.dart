@@ -18,7 +18,7 @@ import 'package:app_core/core/splash/splash_screen.dart';
 import 'package:app_core/core/theme/theme.dart';
 import 'package:app_core/core/utils/connectivity_handler.dart';
 import 'package:app_core/l10n/app_localizations.dart';
-import 'package:app_core/shared/presentation/provider/common_provider.dart';
+import 'package:ui_kit/presentation/provider/common_provider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

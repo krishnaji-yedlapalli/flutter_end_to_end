@@ -1,4 +1,4 @@
-import 'package:app_core/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

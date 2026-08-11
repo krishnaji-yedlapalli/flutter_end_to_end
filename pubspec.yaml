@@ -24,6 +24,7 @@ environment:
 
 workspace:
   - packages/core
+  - packages/ui_kit
   - features/schools
   - features/feature_localization
   - features/routing_feature

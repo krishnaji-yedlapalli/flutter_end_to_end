@@ -1,5 +1,5 @@
 import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:app_core/shared/mixins/mixins.dart';
+import 'package:ui_kit/mixins/mixins.dart';
 import 'package:flutter/material.dart';
 
 class MaterialComponents extends StatefulWidget {
