@@ -133,7 +133,8 @@ class PushNotificationService {
   static handleLocalPushNotification(
       NotificationResponse notificationResponse) async {
     if (notificationResponse.payload != null) {
-      NotificationNavigationHandler.onLocalPushNotificationOpened(notificationResponse.payload);
+      NotificationNavigationHandler.onLocalPushNotificationOpened(
+          notificationResponse.payload);
     }
   }
 

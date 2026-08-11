@@ -1,10 +1,10 @@
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/device/enums/device_enums.dart';
 import 'package:app_core/core/routing/route_constants.dart';
-import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 
 // ignore: must_be_immutable
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {
@@ -26,7 +26,12 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
       RouteConstants.cupertinoComponents,
       'Cupertino Components'
     ),
-    (Icons.add_alert, 'Dialogs', RouteConstants.dialogs, 'Different types of Dialogs'),
+    (
+      Icons.add_alert,
+      'Dialogs',
+      RouteConstants.dialogs,
+      'Different types of Dialogs'
+    ),
     (
       Icons.animation,
       'Implicit Animations',
@@ -53,8 +58,18 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
       'User can select the Text'
     ),
     (Icons.layers_outlined, 'Cards Layout', RouteConstants.cardLayouts, null),
-    (Icons.send_time_extension, 'Stepper ', RouteConstants.stepper, 'Stepper View'),
-    (Icons.model_training, 'Physical Model', RouteConstants.cupertinoComponents, null),
+    (
+      Icons.send_time_extension,
+      'Stepper ',
+      RouteConstants.stepper,
+      'Stepper View'
+    ),
+    (
+      Icons.model_training,
+      'Physical Model',
+      RouteConstants.cupertinoComponents,
+      null
+    ),
     if (DeviceConfiguration.isWeb)
       (Icons.html, 'Html', RouteConstants.htmlRendering, null),
   ];

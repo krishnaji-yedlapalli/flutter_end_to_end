@@ -1,9 +1,5 @@
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
-import 'package:ui_kit/exception.dart';
-import 'package:ui_kit/extensions/extensions.dart';
-import 'package:ui_kit/mixins/mixins.dart';
-import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +9,10 @@ import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/presentation/screens/school_details/add_update_school_details.dart';
 import 'package:schools/presentation/screens/student/create_update_student.dart';
 import 'package:schools/shared/models/student_view_model.dart';
+import 'package:ui_kit/exception.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 
 import '../../../shared/models/school_details_view_model.dart';
 import '../../../shared/models/school_view_model.dart';

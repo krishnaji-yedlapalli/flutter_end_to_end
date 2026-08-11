@@ -1,12 +1,12 @@
-import 'package:ui_kit/exception.dart';
-import 'package:ui_kit/extensions/extensions.dart';
-import 'package:ui_kit/mixins/mixins.dart';
-import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/shared/models/student_view_model.dart';
+import 'package:ui_kit/exception.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 import '../../cubit/students_bloc/students_state.dart';
 

@@ -1,10 +1,10 @@
 import 'package:app_core/core/mixins/validators.dart';
-import 'package:ui_kit/mixins/mixins.dart';
-import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schools/data/model/models.dart';
 import 'package:schools/presentation/cubit/school_details_bloc/school_details_bloc.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 import '../../../shared/models/school_view_model.dart';
 import '../../../shared/params/school_details_param.dart';

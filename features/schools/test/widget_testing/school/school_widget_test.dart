@@ -2,7 +2,6 @@ import 'package:app_core/core/data/db/offline_handler.dart';
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/environment/environment.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:ui_kit/presentation/provider/common_provider.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +22,7 @@ import 'package:schools/presentation/cubit/schools_cubit/schools_cubit.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/presentation/pages/schools/schools_page.dart';
 import 'package:schools/presentation/ui_mappers/schools_ui_mapper.dart';
+import 'package:ui_kit/presentation/provider/common_provider.dart';
 
 import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';

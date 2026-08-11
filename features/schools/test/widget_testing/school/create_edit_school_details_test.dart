@@ -1,6 +1,5 @@
 import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:app_core/core/environment/environment.dart';
-import 'package:ui_kit/presentation/provider/common_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,7 @@ import 'package:schools/presentation/cubit/school_details_bloc/school_details_bl
 import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/presentation/screens/school_details/school_details.dart';
 import 'package:schools/shared/models/school_view_model.dart';
+import 'package:ui_kit/presentation/provider/common_provider.dart';
 
 import '../../mock_data/configuration_data.dart';
 import '../../mock_data/school/school_mock_data.dart';

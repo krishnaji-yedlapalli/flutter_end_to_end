@@ -1,8 +1,5 @@
 import 'package:app_core/core/mixins/feature_discovery_mixin.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:ui_kit/exception.dart';
-import 'package:ui_kit/mixins/mixins.dart';
-import 'package:ui_kit/widgets/non_responsive_widgets/custom_app_bar.dart';
 import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +8,9 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:schools/presentation/pages/schools/schools_view.dart';
 import 'package:schools/presentation/ui_models/schools_ui_model.dart';
 import 'package:schools/shared/models/school_view_model.dart';
+import 'package:ui_kit/exception.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/custom_app_bar.dart';
 
 import '../../cubit/schools_cubit/schools_cubit.dart';
 import 'widgets/create_update_school.dart';

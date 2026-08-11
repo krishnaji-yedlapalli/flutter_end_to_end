@@ -1,12 +1,12 @@
 import 'package:app_core/core/utils/enums_type_def.dart';
-import 'package:ui_kit/extensions/extensions.dart';
-import 'package:ui_kit/mixins/helper_widgets_mixin.dart';
-import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 import 'package:feature_discovery_module/school_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:schools/presentation/pages/schools/widgets/schools_offline_actions.dart';
 import 'package:schools/presentation/ui_models/schools_ui_model.dart';
 import 'package:schools/shared/models/school_view_model.dart';
+import 'package:ui_kit/extensions/extensions.dart';
+import 'package:ui_kit/mixins/helper_widgets_mixin.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 
 class SchoolsView extends StatelessWidget with HelperWidget {
   const SchoolsView({required this.schools, required this.onTap, super.key});
