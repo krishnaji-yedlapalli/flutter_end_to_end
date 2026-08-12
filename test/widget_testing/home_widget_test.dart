@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sample_latest/core/environment/flavor_configurations.dart';
 import 'package:sample_latest/main.dart';
 
 import '../mock_data/configuration_data.dart';
@@ -15,6 +16,7 @@ void main() {
 
   setUpAll(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    Environment().registerResolver(resolveFlavorConfig);
     Environment().configure();
     DeviceConfiguration.initiate();
     await Firebase.initializeApp();
