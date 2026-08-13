@@ -12,6 +12,7 @@ import 'package:push_notifications/push_notification_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'constants/home_screen_items.dart';
+import 'widgets/app_version_text.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/home_grid.dart';
 import 'widgets/remote_config_override_dialog.dart';
@@ -85,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .startFeatureDiscovery(context, forceTour: true),
       ),
       body: HomeGrid(onItemTap: _navigate),
+      bottomNavigationBar: const AppVersionText(),
     );
   }
 
