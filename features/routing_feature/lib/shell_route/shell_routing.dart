@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/shared/presentation/provider/route_provider.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/presentation/provider/route_provider.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class ShellRouting extends StatelessWidget {
   final Widget widget;

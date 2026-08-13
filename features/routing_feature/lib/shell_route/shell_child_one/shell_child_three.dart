@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/shared/presentation/provider/route_provider.dart';
+import 'package:ui_kit/presentation/provider/route_provider.dart';
 
 class ShellChildOneChildThree extends StatelessWidget {
   const ShellChildOneChildThree({Key? key}) : super(key: key);

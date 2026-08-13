@@ -1,9 +1,9 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class RoutingDashboard extends StatelessWidget with CardWidgetsMixin {
   RoutingDashboard({Key? key}) : super(key: key);

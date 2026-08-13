@@ -1,10 +1,10 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/device/enums/device_enums.dart';
+import 'package:app_core/core/routing/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/core/routing/routing.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 
 // ignore: must_be_immutable
 class RegularlyUsedWidgetsDashboard extends StatelessWidget {
@@ -17,46 +17,61 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
     (
       Icons.design_services,
       'Material Components',
-      Routing.materialComponents,
+      RouteConstants.materialComponents,
       'Material Components'
     ),
     (
       Icons.design_services,
       'Cupertino Components',
-      Routing.cupertinoComponents,
+      RouteConstants.cupertinoComponents,
       'Cupertino Components'
     ),
-    (Icons.add_alert, 'Dialogs', Routing.dialogs, 'Different types of Dialogs'),
+    (
+      Icons.add_alert,
+      'Dialogs',
+      RouteConstants.dialogs,
+      'Different types of Dialogs'
+    ),
     (
       Icons.animation,
       'Implicit Animations',
-      Routing.implicitAnimations,
+      RouteConstants.implicitAnimations,
       'Built in Animations'
     ),
     (
       Icons.animation,
       'Custom Implicit Animations',
-      Routing.customImplicitAnimations,
+      RouteConstants.customImplicitAnimations,
       'Customize the animations using tween builder'
     ),
     (
       Icons.animation,
       'Explicit Animations',
-      Routing.explicitAnimations,
+      RouteConstants.explicitAnimations,
       'Explicit Animations'
     ),
-    (Icons.select_all, 'Tables', Routing.tables, 'Tables'),
+    (Icons.select_all, 'Tables', RouteConstants.tables, 'Tables'),
     (
       Icons.select_all,
       'Text Selection',
-      Routing.selectableText,
+      RouteConstants.selectableText,
       'User can select the Text'
     ),
-    (Icons.layers_outlined, 'Cards Layout', Routing.cardLayouts, null),
-    (Icons.send_time_extension, 'Stepper ', Routing.stepper, 'Stepper View'),
-    (Icons.model_training, 'Physical Model', Routing.cupertinoComponents, null),
+    (Icons.layers_outlined, 'Cards Layout', RouteConstants.cardLayouts, null),
+    (
+      Icons.send_time_extension,
+      'Stepper ',
+      RouteConstants.stepper,
+      'Stepper View'
+    ),
+    (
+      Icons.model_training,
+      'Physical Model',
+      RouteConstants.cupertinoComponents,
+      null
+    ),
     if (DeviceConfiguration.isWeb)
-      (Icons.html, 'Html', Routing.htmlRendering, null),
+      (Icons.html, 'Html', RouteConstants.htmlRendering, null),
   ];
 
   @override
@@ -93,7 +108,7 @@ class RegularlyUsedWidgetsDashboard extends StatelessWidget {
               leading: Icon(navigationRails.elementAt(index).$1),
               title: Text(navigationRails.elementAt(index).$2),
               onTap: () => context.push(
-                  '/home/${Routing.dashboard}/${navigationRails.elementAt(index).$3}'),
+                  '/home/${RouteConstants.dashboard}/${navigationRails.elementAt(index).$3}'),
             ));
   }
 

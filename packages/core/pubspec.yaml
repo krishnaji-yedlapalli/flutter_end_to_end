@@ -1,0 +1,81 @@
+name: app_core
+description: Core infrastructure package shared by all feature modules.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+
+  # Networking
+  dio:
+  dio_cache_interceptor:
+  rxdart:
+  http_certificate_pinning:
+
+  # Database / Storage
+  sqflite:
+  path:
+  path_provider:
+  shared_preferences:
+  flutter_secure_storage:
+  archive:
+
+  # Firebase
+  firebase_core:
+  firebase_analytics:
+  firebase_auth:
+  firebase_crashlytics:
+  firebase_messaging:
+  firebase_remote_config:
+
+  # State management
+  flutter_bloc:
+  provider:
+  equatable:
+
+  # DI
+  get_it:
+
+  # Routing
+  go_router:
+
+  # UI
+  google_fonts:
+  loader_overlay:
+  fluttertoast:
+  liquid_progress_indicator_v2:
+  feature_discovery:
+    git:
+      url: https://github.com/maheshmnj/feature_discovery.git
+      ref: master
+
+  # Utilities
+  connectivity_plus:
+  uuid:
+  fpdart:
+  json_annotation:
+  google_sign_in:
+  mqtt_client:
+  shelf:
+
+  # Hardware (embedded/IoT)
+  dart_periphery:
+  flutter_lite_camera:
+
+  # Intl (for l10n)
+  intl: any
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - lib/core/data/db/queries/

@@ -1,3 +1,5 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -5,8 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:isolates_feature/core/isolates_injection_module.dart';
 import 'package:isolates_feature/isolate_with_compute.dart';
 import 'package:isolates_feature/presentation/cubit/isolate_cubit.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
 
 class IsolateHome extends StatefulWidget {
   const IsolateHome({Key? key}) : super(key: key);

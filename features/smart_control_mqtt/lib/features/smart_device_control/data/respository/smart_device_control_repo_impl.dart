@@ -1,4 +1,4 @@
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:app_core/core/data/base_service.dart';
 
 import '../../domain/repository/smart_device_control_repo.dart';
 

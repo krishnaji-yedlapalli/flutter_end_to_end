@@ -1,10 +1,10 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/utils/constants.dart';
+import 'package:app_core/core/utils/enums_type_def.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/utils/constants.dart';
-import 'package:sample_latest/core/utils/enums_type_def.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ui_kit/mixins/mixins.dart';
 
 class SchoolScreenFeatureDiscovery with ButtonMixin {
   factory SchoolScreenFeatureDiscovery() {

@@ -1,6 +1,6 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/widgets.dart';
+import 'package:ui_kit/widgets/responsive_widgets/widgets.dart';
 
 /// Reusable card widget for showcase sections with consistent styling
 class ShowcaseSectionCard extends StatelessWidget {

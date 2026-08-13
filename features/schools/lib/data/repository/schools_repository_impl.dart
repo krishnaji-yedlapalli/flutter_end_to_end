@@ -1,6 +1,6 @@
-import 'package:sample_latest/core/data/network/network_client.dart';
-import 'package:sample_latest/core/data/urls.dart';
-import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
+import 'package:app_core/core/data/network/network_client.dart';
+import 'package:app_core/core/data/urls.dart';
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:schools/domain/entities/entities.dart';
 import 'package:schools/domain/repository/repository.dart';
 

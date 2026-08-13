@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
+import 'package:ui_kit/mixins/mixins.dart';
 
 class CupertinoComponents extends StatefulWidget {
   const CupertinoComponents({Key? key}) : super(key: key);

@@ -1,13 +1,13 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/mixins/notifiers.dart';
+import 'package:app_core/core/routing/notification_navigation_handler.dart';
+import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart'
     show TargetPlatform, debugPrint, defaultTargetPlatform, kIsWeb;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/mixins/notifiers.dart';
-import 'package:sample_latest/core/routing/routing.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
 
 class PushNotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -95,12 +95,12 @@ class PushNotificationService {
     }).onError((e) => debugPrint('Failed to on omessage ${e.toString()}'));
 
     FirebaseMessaging.onMessageOpenedApp
-        .listen(Routing.onPushNotificationOpened);
+        .listen(NotificationNavigationHandler.onPushNotificationOpened);
 
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
-      Routing.onPushNotificationOpened(initialMessage);
+      NotificationNavigationHandler.onPushNotificationOpened(initialMessage);
     }
   }
 
@@ -133,7 +133,8 @@ class PushNotificationService {
   static handleLocalPushNotification(
       NotificationResponse notificationResponse) async {
     if (notificationResponse.payload != null) {
-      Routing.onLocalPushNotificationOpened(notificationResponse.payload);
+      NotificationNavigationHandler.onLocalPushNotificationOpened(
+          notificationResponse.payload);
     }
   }
 

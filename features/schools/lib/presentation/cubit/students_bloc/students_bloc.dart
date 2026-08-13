@@ -1,8 +1,8 @@
+import 'package:app_core/core/mixins/notifiers.dart';
+import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sample_latest/core/mixins/notifiers.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_state.dart';
 
 import '../../../domain/use_cases/use_cases.dart';

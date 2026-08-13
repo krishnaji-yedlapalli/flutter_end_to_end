@@ -1,11 +1,11 @@
+import 'package:app_core/core/mixins/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 import 'package:schools/presentation/cubit/students_bloc/students_bloc.dart';
 import 'package:schools/shared/models/student_view_model.dart';
 import 'package:schools/shared/params/student_params.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
 
 class CreateStudent extends StatefulWidget {
   const CreateStudent(this.parentContext, this.schoolId,

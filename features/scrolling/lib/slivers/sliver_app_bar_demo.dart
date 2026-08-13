@@ -1,5 +1,5 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
 
 class SliverAppBarDemo extends StatefulWidget {
   const SliverAppBarDemo({Key? key}) : super(key: key);

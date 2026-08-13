@@ -1,12 +1,12 @@
+import 'package:app_core/core/mixins/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_latest/core/mixins/validators.dart';
-import 'package:sample_latest/shared/mixins/mixins.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-
 import 'package:schools/shared/models/school_view_model.dart';
 import 'package:schools/shared/params/school_params.dart';
+import 'package:ui_kit/mixins/mixins.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+
 import '../../../cubit/schools_cubit/schools_cubit.dart';
 
 class CreateSchool extends StatefulWidget {

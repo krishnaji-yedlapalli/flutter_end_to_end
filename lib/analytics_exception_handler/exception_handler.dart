@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:app_core/core/data/utils/service_enums_typedef.dart';
+import 'package:app_core/core/mixins/notifiers.dart';
 import 'package:dio/dio.dart';
 import 'package:sample_latest/analytics_exception_handler/custom_exception.dart';
 import 'package:sample_latest/analytics_exception_handler/error_reporting.dart';
-import 'package:sample_latest/core/data/utils/service_enums_typedef.dart';
-import 'package:sample_latest/core/mixins/notifiers.dart';
 
 class ExceptionHandler {
   static final ExceptionHandler _singleton = ExceptionHandler._internal();

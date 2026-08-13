@@ -1,4 +1,4 @@
-import 'package:sample_latest/core/data/base_service.dart';
+import 'package:app_core/core/data/base_service.dart';
 import 'package:smart_control_iot/features/smart_device_control/domain/repository/smart_device_control_repo.dart';
 
 class SmartDeviceControlRepositoryImpl implements SmartDeviceControlRepository {

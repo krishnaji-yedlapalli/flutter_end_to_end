@@ -1,6 +1,23 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:app_core/core/data/db/offline_injection_module.dart';
+import 'package:app_core/core/data/network/network_injection_module.dart';
+import 'package:app_core/core/device/config/cached_device_manager.dart';
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/environment/environment.dart';
+import 'package:app_core/core/firebase/config/remote_config_scope.dart';
+import 'package:app_core/core/firebase/firebase_initializer.dart';
+import 'package:app_core/core/firebase/services/firebase_crashlytics_service.dart';
+import 'package:app_core/core/kiosk/kiosk_gesture_wrapper.dart';
+import 'package:app_core/core/kiosk/kiosk_injection_module.dart';
+import 'package:app_core/core/kiosk/kiosk_service.dart';
+import 'package:app_core/core/platform/platform.dart' as platform;
+import 'package:app_core/core/routing/routing_exports.dart';
+import 'package:app_core/core/splash/splash_screen.dart';
+import 'package:app_core/core/theme/theme.dart';
+import 'package:app_core/core/utils/connectivity_handler.dart';
+import 'package:app_core/l10n/app_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,26 +25,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_latest/core/data/db/offline_injection_module.dart';
-import 'package:sample_latest/core/data/network/network_injection_module.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/firebase/firebase_initializer.dart';
-import 'package:sample_latest/core/firebase/services/firebase_crashlytics_service.dart';
-import 'package:sample_latest/core/kiosk/kiosk_gesture_wrapper.dart';
-import 'package:sample_latest/core/kiosk/kiosk_injection_module.dart';
-import 'package:sample_latest/core/kiosk/kiosk_service.dart';
 import 'package:sample_latest/core/routing/routing.dart';
-import 'package:sample_latest/core/routing/routing_exports.dart';
-import 'package:sample_latest/core/theme/theme.dart';
-import 'package:sample_latest/core/utils/connectivity_handler.dart';
-import 'package:sample_latest/l10n/app_localizations.dart';
+import 'package:ui_kit/presentation/provider/common_provider.dart';
 
-import 'core/device/config/cached_device_manager.dart';
-import 'core/environment/environment.dart';
-import 'core/firebase/config/remote_config_scope.dart';
-import 'core/platform/platform.dart' as platform;
-import 'core/splash/splash_screen.dart';
-import 'shared/presentation/provider/common_provider.dart';
+import 'core/environment/flavor_configurations.dart';
 
 // @pragma('vm:entry-point')
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -78,6 +79,7 @@ Future<void> _initializeApp() async {
 
   DeviceConfiguration.initiate();
   ConnectivityHandler().initialize();
+  Environment().registerResolver(resolveFlavorConfig);
   Environment().configure();
 
   // Register network layer dependencies

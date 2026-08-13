@@ -1,10 +1,10 @@
+import 'package:app_core/core/data/base_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:sample_latest/core/data/base_service.dart';
-import 'package:sample_latest/shared/widgets/local_server/mqtt_server_initilize_wrapper.dart';
 import 'package:smart_control_mqtt/core/smart_control_mqtt_injection_module.dart';
+import 'package:ui_kit/widgets/local_server/mqtt_server_initilize_wrapper.dart';
 
 import '../features/domain/cubit/smart_control_dashboard_cubit.dart';
 import '../features/on_and_off/data/respository/on_off_repository.dart';

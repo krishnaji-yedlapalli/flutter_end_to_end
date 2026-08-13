@@ -12,7 +12,7 @@ dependencies:
   flutter_local_notifications:
   googleapis_auth:
   go_router:
-  sample_latest:
-    path: ../..
+  app_core:
+    path: ../../packages/core
 flutter:
   uses-material-design: true

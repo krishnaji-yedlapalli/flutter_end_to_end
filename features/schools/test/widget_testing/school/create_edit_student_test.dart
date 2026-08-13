@@ -1,6 +1,6 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
 import 'package:schools/presentation/screens/student/create_update_student.dart';
 import 'package:schools/shared/models/student_view_model.dart';
 

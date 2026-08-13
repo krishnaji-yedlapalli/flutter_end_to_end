@@ -1,11 +1,11 @@
+import 'package:app_core/core/device/config/device_configurations.dart';
+import 'package:app_core/core/device/enums/device_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample_latest/core/device/config/device_configurations.dart';
-import 'package:sample_latest/core/device/enums/device_enums.dart';
-import 'package:sample_latest/shared/widgets/non_responsive_widgets/non_responsive_widgets.dart';
-import 'package:sample_latest/shared/widgets/responsive_widgets/adaptive_button.dart';
 import 'package:shortcuts_feature/call_back_shortcuts.dart';
 import 'package:shortcuts_feature/shortcut_actions.dart';
+import 'package:ui_kit/widgets/non_responsive_widgets/non_responsive_widgets.dart';
+import 'package:ui_kit/widgets/responsive_widgets/adaptive_button.dart';
 
 class ShortcutsTabView extends StatefulWidget {
   const ShortcutsTabView({Key? key}) : super(key: key);
