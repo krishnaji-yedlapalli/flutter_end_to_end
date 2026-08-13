@@ -46,6 +46,7 @@ void main() async {
 
   setUpAll(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    Environment().registerResolver(resolveFlavorConfig);
     Environment().configure();
     DeviceConfiguration.initiate();
     await Firebase.initializeApp();
