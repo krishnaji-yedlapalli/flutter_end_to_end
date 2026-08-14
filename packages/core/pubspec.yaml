@@ -66,6 +66,7 @@ dependencies:
   google_sign_in:
   mqtt_client:
   shelf:
+  package_info_plus:
 
   # Hardware (embedded/IoT)
   dart_periphery:
