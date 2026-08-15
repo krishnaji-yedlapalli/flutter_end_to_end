@@ -1,6 +1,8 @@
 # Flutter End to End
 
-A Flutter project aimed at learning app development across multiple platforms using a unified codebase.
+A learning-focused Flutter monorepo for exploring app development across mobile, web, desktop, and embedded platforms from one unified codebase. It brings the main application, independently packaged feature modules, and reusable shared packages together in a single repository, making it a practical place to study Flutter architecture, platform integration, testing, and delivery workflows.
+
+The project supports Flutter **3.38v**
 
 ## Available Features:
 🎨 **Theming** – Material 3 theming with dynamic light & dark modes.  
@@ -30,6 +32,112 @@ A Flutter project aimed at learning app development across multiple platforms us
 
 > [!NOTE]
 > In this project, the **Schools** feature demonstrates responsiveness, clean architecture, SOLID principles, design patterns, and API integration. Please refer to its implementation at: [School Feature](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/main/lib/features/schools)
+
+## Project Structure
+
+```text
+flutter_end_to_end/
+├── android/                 # Android application and build configuration
+├── ios/                     # iOS application and build configuration
+├── linux/                   # Linux desktop runner
+├── macos/                   # macOS desktop runner
+├── web/                     # Web application and hosting files
+├── windows/                 # Windows desktop runner
+├── lib/                     # Application source code
+├── asset/                   # Images, icons, sounds, and flavor assets
+├── features/                # Independently packaged feature modules
+│   ├── daily_tracker_feature/
+│   ├── deep_linking_feature/
+│   ├── feature_discovery_module/
+│   ├── feature_localization/
+│   ├── isolates_feature/
+│   ├── push_notifications/
+│   ├── regular_widgets/
+│   ├── responsive_showcase/
+│   ├── routing_feature/
+│   ├── schools/
+│   ├── scrolling/
+│   ├── shortcuts_feature/
+│   ├── smart_control_iot/
+│   └── smart_control_mqtt/
+├── packages/                # Shared Dart/Flutter packages
+│   ├── core/
+│   └── ui_kit/
+├── test/                    # Unit and widget tests
+├── integration_test/        # End-to-end integration tests
+├── test_driver/             # Web integration-test driver
+├── scripts/                 # Development, release, and kiosk scripts
+└── hardware_firmware/       # Smart-device firmware and shared hardware code
+```
+
+## Feature Modules
+
+| Feature | Purpose | Documentation |
+| --- | --- | --- |
+| Daily Tracker | Private daily-activity tracking module for the Raspberry Pi setup. | — |
+| Deep Linking | Builds and tests URLs that open specific app screens. | [README](features/deep_linking_feature/README.md) |
+| Feature Discovery | Guided onboarding overlays for the home and Schools screens. | [README](features/feature_discovery_module/README.md) |
+| Localization | Runtime locale switching and LTR/RTL localization examples. | [README](features/feature_localization/README.md) |
+| Isolates | `compute()`, spawned isolates, and long-running worker-isolate examples. | [README](features/isolates_feature/README.md) |
+| Push Notifications | Firebase Cloud Messaging and local notification demonstrations. | [README](features/push_notifications/README.md) |
+| Regular Widgets | Examples of commonly used Flutter widgets and UI patterns. | [README](features/regular_widgets/README.md) |
+| Responsive Showcase | Adaptive layouts and responsive widget examples. | [README](features/responsive_showcase/README.md) |
+| Routing | Declarative navigation and nested-route examples with `GoRouter`. | [README](features/routing_feature/README.md) |
+| Schools | Clean Architecture, BLoC, Firebase CRUD, and offline-data example. | [README](features/schools/README.md) |
+| Scrolling | Flutter scrolling behavior and scrollable-widget examples. | — |
+| Shortcuts | Keyboard shortcuts and actions examples. | — |
+| Smart Control IoT | Raspberry Pi-based smart-device control with a local server. | [README](features/smart_control_iot/README.md) |
+| Smart Control MQTT | MQTT-based smart-device control and broker integration. | [README](features/smart_control_mqtt/README.md) |
+
+## Shared Packages
+
+| Package | Purpose | Documentation |
+| --- | --- | --- |
+| `app_core` | Shared infrastructure for routing, networking, theming, localization, Firebase, and platform services. | [README](packages/core/README.md) |
+| `ui_kit` | Reusable UI components, responsive widgets, presentation utilities, and mixins. | [README](packages/ui_kit/README.md) |
+
+## Directory Guide
+
+### `features/`
+
+Contains self-contained Flutter modules, each focused on a specific capability such as routing, localization, notifications, or smart-home control. These modules can be studied independently while still integrating with the main app.
+
+### `packages/`
+
+Holds shared Dart and Flutter packages used across the project. `app_core` provides common infrastructure, while `ui_kit` supplies reusable UI components and presentation utilities.
+
+### `lib/`
+
+Contains the main application source code. It connects feature modules, configures app-wide routing and services, and provides shared application behavior.
+
+### `asset/`
+
+Stores images, icons, sounds, splash screens, and flavor-specific assets used by the application.
+
+### `scripts/`
+
+Contains development and device-setup automation:
+
+- `bump_version.sh` updates the app version from Conventional Commit history.
+- Pre-commit and commit-message scripts format and analyze Dart code and enforce commit-message conventions.
+- Raspberry Pi kiosk scripts configure permissions, while `kiosk-app.service` starts and restarts the Flutter kiosk application at boot.
+- See the [scripts README](scripts/README.md) for commands, prerequisites, and installation details.
+
+### `test/`
+
+Contains unit and widget tests that verify application logic and UI behavior in isolation.
+
+### `integration_test/`
+
+Contains end-to-end tests that run the complete application on a device or browser and verify user flows across multiple components.
+
+### `test_driver/`
+
+Provides the driver configuration needed to run integration tests in a web browser.
+
+### `hardware_firmware/`
+
+Contains firmware and shared code for the smart-home hardware devices used by the IoT demonstrations.
 
 ---
 
@@ -238,11 +346,11 @@ https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/49739
 ---
 # Project Setup
 
-This project is built with Flutter version **3.29.2** and Dart version **3.7.2**. The current project version is **1.0.0+1**.
+This project supports Flutter **3.38** and is pinned to Flutter **3.38.7** through FVM. The current project version is **1.0.0+1**.
 
 ## Prerequisites
 
-- Flutter SDK (version 3.29.2 or higher is recommended)
+- Flutter SDK **3.38.x** (the repository pins **3.38.7** through FVM)
 - [pre-commit](https://pre-commit.com/) (for running pre-commit checks)
 
 ## Setup Steps
@@ -301,4 +409,3 @@ This project is built with Flutter version **3.29.2** and Dart version **3.7.2**
 
 - 🧩 **FFI (Foreign Function Interface)**  
   Add native C/C++/Rust bindings for performance-critical features.
-
