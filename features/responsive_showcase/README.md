@@ -38,7 +38,6 @@ responsive_showcase/
 
 | Package | Purpose |
 |---------|---------|
-| `flutter` | Core Flutter SDK |
 | `app_core` | `DeviceConfiguration` utilities for breakpoints, scaling, and platform detection |
 
 > **Note:** The module also uses `ui_kit` responsive widget primitives (`ResponsiveHeader`, `ResponsiveText`, `AdaptiveResponsiveButton`, etc.) imported in its source files.

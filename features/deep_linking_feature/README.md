@@ -6,13 +6,6 @@ A showcase module demonstrating deep linking configuration and URL construction 
 
 The Deep Linking feature demonstrates how to configure and test deep links in a multi-platform Flutter application. It provides a simple UI where users can construct deep link URLs, copy them to the clipboard, and verify that tapping the link on a device opens the app directly instead of the browser.
 
-Key concepts demonstrated:
-
-- **Deep Linking** — URL-based navigation into specific app screens
-- **Clipboard Integration** — programmatic copy via `Clipboard.setData`
-- **ValueNotifier** — lightweight reactive state for URL preview
-- **Platform URL Schemes** — configuring Android App Links and iOS Universal Links
-
 ## Architecture
 
 This feature uses a **flat architecture** with a single presentation-layer widget. It does not implement a full Clean Architecture pattern (no separate data or domain layers) since the feature's scope is limited to URL construction and clipboard interaction with no data persistence or business logic.
@@ -40,7 +33,6 @@ deep_linking_feature/
 
 | Package | Purpose |
 |---------|---------|
-| `flutter` | Flutter SDK |
 | `app_core` | Validators mixin for input validation |
 | `ui_kit` | Shared UI components (CustomAppBar, CustomTextField) and extensions |
 
@@ -62,7 +54,7 @@ deep_linking_feature/
 The feature is accessible from the app's home screen. The route path is:
 
 ```
-/home/deep-linking
+https://flutter-end-to-end.web.app/home/deep-linking
 ```
 
 ### How It Works
@@ -83,4 +75,4 @@ https://flutter-end-to-end.web.app/home/
 
 - [Root README](../../README.md)
 - [Core Package](../../packages/core/README.md)
-- [Web Demo](https://flutter-end-to-end.web.app/)
+- [Web Demo](https://flutter-end-to-end.web.app/home/deep-linking)

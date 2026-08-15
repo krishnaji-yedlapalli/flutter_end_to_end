@@ -56,6 +56,12 @@ routing_feature/
 
 ### Navigating to the Routing Dashboard
 
+The feature is accessible from the app's home screen. The full path is:
+
+```
+https://flutter-end-to-end.web.app/home/route
+```
+
 The routing feature is accessible from the app's home screen. It presents a grid of available routing demos:
 
 ```dart

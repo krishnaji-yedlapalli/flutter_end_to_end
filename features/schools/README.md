@@ -185,7 +185,7 @@ schools/
 The Schools feature is accessible from the app's home screen via the feature discovery navigation. The route path is:
 
 ```
-/home/schools
+https://flutter-end-to-end.web.app/home/schools
 ```
 
 ### Route Structure

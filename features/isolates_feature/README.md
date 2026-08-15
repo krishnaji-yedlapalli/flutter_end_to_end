@@ -105,6 +105,10 @@ isolates_feature/
 
 From the app's home screen, select the **Isolates** tile. The feature home presents two demo cards:
 
+```
+https://flutter-end-to-end.web.app/home/localization
+```
+
 1. **Enhanced Isolates Demo** — Clean Architecture demo with configurable record count, sort type, and side-by-side `compute()` vs `spawn()` comparison
 2. **Legacy Demo** — quick-fire examples of Fibonacci, string reversal, worker sums, and JSON parsing
 

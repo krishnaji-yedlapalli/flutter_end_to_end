@@ -1,7 +1,5 @@
 # Flutter End to End
 
-### About the Monorepo
-
 This repository is a monorepo that contains multiple packages, each responsible for a specific feature or functionality of the application.
 
 The project uses Dart Pub Workspaces to manage dependencies and keep all packages in sync. This structure allows developers to work independently on individual packages while maintaining a consistent development environment across the entire codebase.
@@ -37,7 +35,7 @@ This monorepo approach is particularly well suited for large-scale and enterpris
 - **Linux (Raspberry Pi)** – Runs on Raspberry Pi using Flutter Linux embedding
 
 > [!NOTE]
-> In this project, the **Schools** feature demonstrates responsiveness, clean architecture, SOLID principles, design patterns, and API integration. Please refer to its implementation at: [School Feature](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/main/lib/features/schools)
+> In this project, the **Schools** feature demonstrates responsiveness, clean architecture, SOLID principles, design patterns, and API integration. Please refer to its implementation at: [School Feature](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/main/features/schools)
 
 ## Project Structure
 
@@ -80,18 +78,18 @@ flutter_end_to_end/
 
 | Feature | Purpose | Documentation |
 | --- | --- | --- |
-| Daily Tracker | Private daily-activity tracking module for the Raspberry Pi setup. | — |
+| Schools | Clean Architecture, BLoC, Firebase CRUD, and offline-data example. | [README](features/schools/README.md) |
 | Deep Linking | Builds and tests URLs that open specific app screens. | [README](features/deep_linking_feature/README.md) |
-| Feature Discovery | Guided onboarding overlays for the home and Schools screens. | [README](features/feature_discovery_module/README.md) |
 | Localization | Runtime locale switching and LTR/RTL localization examples. | [README](features/feature_localization/README.md) |
-| Isolates | `compute()`, spawned isolates, and long-running worker-isolate examples. | [README](features/isolates_feature/README.md) |
 | Push Notifications | Firebase Cloud Messaging and local notification demonstrations. | [README](features/push_notifications/README.md) |
 | Regular Widgets | Examples of commonly used Flutter widgets and UI patterns. | [README](features/regular_widgets/README.md) |
 | Responsive Showcase | Adaptive layouts and responsive widget examples. | [README](features/responsive_showcase/README.md) |
 | Routing | Declarative navigation and nested-route examples with `GoRouter`. | [README](features/routing_feature/README.md) |
-| Schools | Clean Architecture, BLoC, Firebase CRUD, and offline-data example. | [README](features/schools/README.md) |
 | Scrolling | Flutter scrolling behavior and scrollable-widget examples. | — |
 | Shortcuts | Keyboard shortcuts and actions examples. | — |
+| Isolates | `compute()`, spawned isolates, and long-running worker-isolate examples. | [README](features/isolates_feature/README.md) |
+| Feature Discovery | Guided onboarding overlays for the home and Schools screens. | [README](features/feature_discovery_module/README.md) |
+| Daily Tracker | Private daily-activity tracking module for the Raspberry Pi setup. | — |
 | Smart Control IoT | Raspberry Pi-based smart-device control with a local server. | [README](features/smart_control_iot/README.md) |
 | Smart Control MQTT | MQTT-based smart-device control and broker integration. | [README](features/smart_control_mqtt/README.md) |
 

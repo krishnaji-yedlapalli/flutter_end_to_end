@@ -81,7 +81,7 @@ push_notifications/
 The feature is accessible from the app's home screen. The route path is:
 
 ```
-/home/push-notifications
+https://flutter-end-to-end.web.app/home/push-notifications/remote-notifications
 ```
 
 ### Sub-routes

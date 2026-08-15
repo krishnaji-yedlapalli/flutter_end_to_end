@@ -37,7 +37,6 @@ feature_localization/
 
 | Package | Purpose |
 |---------|---------|
-| `flutter` (SDK) | Framework with built-in localization support |
 | `provider` | Reads and updates the active locale via `CommonProvider` |
 | `app_core` | Provides `AppLocalizations`, device configuration, and generated locale delegates |
 
@@ -59,6 +58,10 @@ feature_localization/
 ### Navigating to the Localization Screen
 
 The localization showcase is accessible from the app's home/dashboard. It renders as the `LocalizationDatePicker` widget.
+
+```
+https://flutter-end-to-end.web.app/home/localization
+```
 
 ### Changing the App Locale
 

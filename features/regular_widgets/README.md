@@ -43,7 +43,6 @@ regular_widgets/
 
 | Package | Purpose |
 |---------|---------|
-| `flutter` | Core Flutter SDK |
 | `go_router` | Declarative routing and nested navigation (navigation rail branches) |
 | `app_core` | Device configuration, route constants, shared enums |
 
@@ -69,6 +68,13 @@ On desktop/landscape screens, a `NavigationRail` on the left lists all widget ca
 ```dart
 // Route to the widgets dashboard
 context.push('/home/${RouteConstants.dashboard}');
+```
+### Navigating to Push Notifications
+
+The feature is accessible from the app's home screen. The route path is:
+
+```
+https://flutter-end-to-end.web.app/home/dashboard/materialComponents
 ```
 
 ## References
