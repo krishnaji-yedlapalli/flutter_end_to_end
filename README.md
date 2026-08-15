@@ -1,8 +1,14 @@
 # Flutter End to End
 
-A learning-focused Flutter monorepo for exploring app development across mobile, web, desktop, and embedded platforms from one unified codebase. It brings the main application, independently packaged feature modules, and reusable shared packages together in a single repository, making it a practical place to study Flutter architecture, platform integration, testing, and delivery workflows.
+### About the Monorepo
 
-The project supports Flutter **3.38v**
+This repository is a monorepo that contains multiple packages, each responsible for a specific feature or functionality of the application.
+
+The project uses Dart Pub Workspaces to manage dependencies and keep all packages in sync. This structure allows developers to work independently on individual packages while maintaining a consistent development environment across the entire codebase.
+
+This monorepo approach is particularly well suited for large-scale and enterprise applications, where modularity, scalability, and independent development are important.
+
+> **Flutter version:** **3.38**.
 
 ## Available Features:
 🎨 **Theming** – Material 3 theming with dynamic light & dark modes.  
@@ -98,23 +104,23 @@ flutter_end_to_end/
 
 ## Directory Guide
 
-### `features/`
+#### `features/`
 
 Contains self-contained Flutter modules, each focused on a specific capability such as routing, localization, notifications, or smart-home control. These modules can be studied independently while still integrating with the main app.
 
-### `packages/`
+#### `packages/`
 
 Holds shared Dart and Flutter packages used across the project. `app_core` provides common infrastructure, while `ui_kit` supplies reusable UI components and presentation utilities.
 
-### `lib/`
+#### `lib/`
 
 Contains the main application source code. It connects feature modules, configures app-wide routing and services, and provides shared application behavior.
 
-### `asset/`
+#### `asset/`
 
 Stores images, icons, sounds, splash screens, and flavor-specific assets used by the application.
 
-### `scripts/`
+#### `scripts/`
 
 Contains development and device-setup automation:
 
@@ -123,19 +129,19 @@ Contains development and device-setup automation:
 - Raspberry Pi kiosk scripts configure permissions, while `kiosk-app.service` starts and restarts the Flutter kiosk application at boot.
 - See the [scripts README](scripts/README.md) for commands, prerequisites, and installation details.
 
-### `test/`
+#### `test/`
 
 Contains unit and widget tests that verify application logic and UI behavior in isolation.
 
-### `integration_test/`
+#### `integration_test/`
 
 Contains end-to-end tests that run the complete application on a device or browser and verify user flows across multiple components.
 
-### `test_driver/`
+#### `test_driver/`
 
 Provides the driver configuration needed to run integration tests in a web browser.
 
-### `hardware_firmware/`
+#### `hardware_firmware/`
 
 Contains firmware and shared code for the smart-home hardware devices used by the IoT demonstrations.
 
