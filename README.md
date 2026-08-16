@@ -1,6 +1,12 @@
 # Flutter End to End
 
-A Flutter project aimed at learning app development across multiple platforms using a unified codebase.
+This repository is a monorepo that contains multiple packages, each responsible for a specific feature or functionality of the application.
+
+The project uses Dart Pub Workspaces to manage dependencies and keep all packages in sync. This structure allows developers to work independently on individual packages while maintaining a consistent development environment across the entire codebase.
+
+This monorepo approach is particularly well suited for large-scale and enterprise applications, where modularity, scalability, and independent development are important.
+
+> **Flutter version:** **3.38**.
 
 ## Available Features:
 🎨 **Theming** – Material 3 theming with dynamic light & dark modes.  
@@ -18,6 +24,7 @@ A Flutter project aimed at learning app development across multiple platforms us
 🧪 **Test-Driven Development (TDD)** – Unit, Widget, Golden, Accessibility & Integration tests.  
 🪝 **Git Hooks** – Pre-commit checks for formatting & code quality.  
 📂 **Path Handling Scripts** – Safe path resolution & fallback handling for private or missing files.
+📂 **Firebase Analytics & Crashlytics Integration** – Track user behavior, events, and app engagement with Firebase Analytics and Crashlytics.
 
 ## Supported Platforms:
 ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20macOS%20%7C%20Linux%20%7C%20Web%20%7C%20Windows-brightgreen)
@@ -29,7 +36,105 @@ A Flutter project aimed at learning app development across multiple platforms us
 - **Linux (Raspberry Pi)** – Runs on Raspberry Pi using Flutter Linux embedding
 
 > [!NOTE]
-> In this project, the **Schools** feature demonstrates responsiveness, clean architecture, SOLID principles, design patterns, and API integration. Please refer to its implementation at: [School Feature](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/main/lib/features/schools)
+> In this project, the **Schools** feature demonstrates responsiveness, clean architecture, SOLID principles, design patterns, and API integration. Please refer to its implementation at: [School Feature](https://github.com/krishnaji-yedlapalli/flutter_end_to_end/tree/main/features/schools)
+
+## Project Structure
+
+```text
+flutter_end_to_end/
+├── android/                 # Android application and build configuration
+├── ios/                     # iOS application and build configuration
+├── linux/                   # Linux desktop runner
+├── macos/                   # macOS desktop runner
+├── web/                     # Web application and hosting files
+├── windows/                 # Windows desktop runner
+├── lib/                     # Application source code
+├── asset/                   # Images, icons, sounds, and flavor assets
+├── features/                # Independently packaged feature modules
+│   ├── daily_tracker_feature/
+│   ├── deep_linking_feature/
+│   ├── feature_discovery_module/
+│   ├── feature_localization/
+│   ├── isolates_feature/
+│   ├── push_notifications/
+│   ├── regular_widgets/
+│   ├── responsive_showcase/
+│   ├── routing_feature/
+│   ├── schools/
+│   ├── scrolling/
+│   ├── shortcuts_feature/
+│   ├── smart_control_iot/
+│   └── smart_control_mqtt/
+├── packages/                # Shared Dart/Flutter packages
+│   ├── core/
+│   └── ui_kit/
+├── test/                    # Unit and widget tests
+├── integration_test/        # End-to-end integration tests
+├── test_driver/             # Web integration-test driver
+├── scripts/                 # Development, release, and kiosk scripts
+└── hardware_firmware/       # Smart-device firmware and shared hardware code
+```
+
+## Directory Guide
+
+#### `Feature Modules/`
+
+| Feature | Purpose | Documentation |
+| --- | --- | --- |
+| Schools | Clean Architecture, BLoC, Firebase CRUD, and offline-data example. | [README](features/schools/README.md) |
+| 🌍 Deep Linking | Builds and tests URLs that open specific app screens. | [README](features/deep_linking_feature/README.md) |
+| 🌐 Localization | Runtime locale switching and LTR/RTL localization examples. | [README](features/feature_localization/README.md) |
+| 🔔 Push Notifications | Firebase Cloud Messaging and local notification demonstrations. | [README](features/push_notifications/README.md) |
+| Regular Widgets | Examples of commonly used Flutter widgets and UI patterns. | [README](features/regular_widgets/README.md) |
+| Responsive Showcase | Adaptive layouts and responsive widget examples. | [README](features/responsive_showcase/README.md) |
+| 🧭 Routing | Declarative navigation and nested-route examples with `GoRouter`. | [README](features/routing_feature/README.md) |
+| Scrolling | Flutter scrolling behavior and scrollable-widget examples. | — |
+| Shortcuts | Keyboard shortcuts and actions examples. | — |
+| Isolates | `compute()`, spawned isolates, and long-running worker-isolate examples. | [README](features/isolates_feature/README.md) |
+| Feature Discovery | Guided onboarding overlays for the home and Schools screens. | [README](features/feature_discovery_module/README.md) |
+| Daily Tracker | Private daily-activity tracking module for the Raspberry Pi setup. | — |
+| Smart Control IoT | Raspberry Pi-based smart-device control with a local server. | [README](features/smart_control_iot/README.md) |
+| Smart Control MQTT | MQTT-based smart-device control and broker integration. | [README](features/smart_control_mqtt/README.md) |
+
+#### `Shared Packages/`
+
+| Package | Purpose | Documentation |
+| --- | --- | --- |
+| app_core | Shared infrastructure for routing, networking, theming, localization, Firebase, and platform services. | [README](packages/core/README.md) |
+| ui_kit | Reusable UI components, responsive widgets, presentation utilities, and mixins. | [README](packages/ui_kit/README.md) |
+
+#### `lib/`
+
+Contains the main application source code. It connects feature modules, configures app-wide routing and services, and provides shared application behavior.
+
+#### `asset/`
+
+Stores images, icons, sounds, splash screens, and flavor-specific assets used by the application.
+
+#### `scripts/`
+
+Contains development and device-setup automation:
+
+- `bump_version.sh` updates the app version from Conventional Commit history.
+- Pre-commit and commit-message scripts format and analyze Dart code and enforce commit-message conventions.
+- Raspberry Pi kiosk scripts configure permissions, while `kiosk-app.service` starts and restarts the Flutter kiosk application at boot.
+- See the [scripts README](scripts/README.md) for commands, prerequisites, and installation details.
+
+#### `test/`
+
+Contains unit and widget tests that verify application logic and UI behavior in isolation.
+
+#### `integration_test/`
+
+Contains end-to-end tests that run the complete application on a device or browser and verify user flows across multiple components.
+
+#### `test_driver/`
+
+Provides the driver configuration needed to run integration tests in a web browser.
+
+#### `hardware_firmware/`
+
+Contains firmware and shared code for the smart-home hardware devices used by the IoT demonstrations.
 
 ---
 
@@ -76,42 +181,7 @@ https://github.com/user-attachments/assets/bf434daa-6be8-45d6-b5e0-6d539acd9420
    
    > **Medium post:** https://medium.com/@krishnajiyedlapalli60/creating-custom-theme-in-flutter-with-material-3-70e524a126d0  
    > **Web Reference:** https://flutter-end-to-end.web.app/#/home
-  --- 
-### 🧭 Localization:
-   * This application Localization with bir directional support.
-   * The application adapts to the system language if it is included in the localization list.
-   * For more information follow below links
-   
-   > **Medium post:** https://medium.com/stackademic/flutter-localization-and-internationalization-with-ltr-and-rtl-support-3c70cb926ba5
-   > **Web Reference:** https://flutter-end-to-end.web.app/#/home/localization
----
-### 📱 Responsiveness:
-   * The application UI is designed to adapt seamlessly across various screen sizes and orientations, including mobile, tablet, web, and desktop.
-   * This is achieved through a combination of Flutter's built-in responsive widgets and techniques:
-     - **`MediaQuery`**: Used to determine current screen size, orientation, and pixel density.
-     - **`LayoutBuilder`**: Dynamically rebuilds parts of the UI based on the available constraints from its parent widget.
-     - **`Expanded` and `Flexible`**: Utilized within `Row` and `Column` widgets to distribute space efficiently.
-     - **Adaptive Widgets**: Leveraging Flutter's Material Design adaptive components and custom-built adaptive widgets to ensure a consistent user experience on all platforms.
-     - **Breakpoints**: Custom breakpoints are defined to switch layouts and designs for different screen categories (e.g., compact, medium, expanded).
----
-### 🌐 Routing:
-   * This whole application navigations was implemented using **GoRouter** package.
-   * It supports all the platforms which are supported by Flutter.
-   * This application supports nested navigation.
-   * Implemented Parent with mutiple children navigation but having some issue when tapping on device backbutton will sort out it soon.
 
-   > **Web Reference:** https://flutter-end-to-end.web.app/#/home/route
----
-### 🧱 Clean Architecture using Flutter Bloc pattern:
-   * For brefiely explaining about bloc we created a module called **Schools**, using this module we can create a school,student and more about school, additionally added a delete option as well.
-   * The entire process of creating, editing, and deleting entities is implemented using Bloc exclusively.
-   * It will explain how to segregate the folders and how flow will be through them.
-   * We are utilizing Firebase Realtime Database for implementing CRUD operations
-
-![alt text](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*8KFA9NXx_YqjQUYNh6BfqA.png)
-
-   > **Medium post:** https://medium.com/@krishnajiyedlapalli60/clean-architecture-using-flutter-bloc-43463e9110db  
-   > **Web Reference:** [https://flutter-end-to-end.web.app/#/home/schools](https://flutter-end-to-end.web.app/#/home/schools)
  ---  
 ### 📡❌ Offline Support: 
    * School module which is developed by using flutter Bloc can stores the data in the local DB this was implemented by using SQLite data base.
@@ -125,32 +195,7 @@ https://github.com/user-attachments/assets/bf434daa-6be8-45d6-b5e0-6d539acd9420
   * Once internet is available it will automatically upload the data to server using Connectivity plus package.
   * Currently Offline supported platforms iOS, Android and macOS . 
 ---
-### 🌍 Deep Linking:
-  * This applications supports deep linking purely implemented by using flutter officials docs
-    https://docs.flutter.dev/ui/navigation/deep-linking
-  * Currently Deep linking supported platforms iOS, Android and macOS.
-  * Added asset link for Android and site association for iOS
-    
-    **Android:** https://flutter-end-to-end.web.app/.well-known/assetslinks.json
-    
-    **iOS:** https://flutter-end-to-end.web.app/.well-known/apple-app-site-association
-    
-> **Reference Link:** [https://docs.flutter.dev/ui/navigation/deep-linking](https://docs.flutter.dev/ui/navigation/deep-linking)  
-> **Web Reference:** https://flutter-end-to-end.web.app/#/home/deep-linking 
----
-### 🔔 Push Notifications
-- **📡 Remote Push Notifications**
-    - Integrated using **Firebase Cloud Messaging (FCM)**
-    - Supported on: **Android, iOS, macOS, Web**
-    > **Reference:** https://firebase.google.com/docs/cloud-messaging/flutter/client  
-    > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/remote-notifications
 
-- **📱 Local Push Notifications**
-    - Implemented using **flutter_local_notifications**
-    - Supported on: **Android, iOS, macOS, Linux**
-    > **Reference:** https://pub.dev/packages/flutter_local_notifications#-supported-platforms  
-    > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/local-notifications    
----
 ### 🏷️ Product Flavors
 
 #### Why Flavors Are Used
@@ -238,11 +283,11 @@ https://github.com/krishnaji-yedlapalli/flutter_end_to_end/assets/49545948/49739
 ---
 # Project Setup
 
-This project is built with Flutter version **3.29.2** and Dart version **3.7.2**. The current project version is **1.0.0+1**.
+This project supports Flutter **3.38** and is pinned to Flutter **3.38.7** through FVM. The current project version is **1.0.0+1**.
 
 ## Prerequisites
 
-- Flutter SDK (version 3.29.2 or higher is recommended)
+- Flutter SDK **3.38.x** (the repository pins **3.38.7** through FVM)
 - [pre-commit](https://pre-commit.com/) (for running pre-commit checks)
 
 ## Setup Steps
@@ -286,9 +331,6 @@ This project is built with Flutter version **3.29.2** and Dart version **3.7.2**
 - 🔍 **GraphQL Integration**  
   Add GraphQL support for efficient querying and flexible data access.
 
-- 📊 **Firebase Analytics Integration**  
-  Track user behavior, events, and app engagement with Firebase Analytics.
-
 - ⚠️ **Advanced Error Handling**  
   Implement global error tracking, exception logging, and UI-friendly error states.
 
@@ -301,4 +343,3 @@ This project is built with Flutter version **3.29.2** and Dart version **3.7.2**
 
 - 🧩 **FFI (Foreign Function Interface)**  
   Add native C/C++/Rust bindings for performance-critical features.
-
