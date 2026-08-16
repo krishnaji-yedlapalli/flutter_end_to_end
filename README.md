@@ -24,6 +24,7 @@ This monorepo approach is particularly well suited for large-scale and enterpris
 🧪 **Test-Driven Development (TDD)** – Unit, Widget, Golden, Accessibility & Integration tests.  
 🪝 **Git Hooks** – Pre-commit checks for formatting & code quality.  
 📂 **Path Handling Scripts** – Safe path resolution & fallback handling for private or missing files.
+📂 **Firebase Analytics & Crashlytics Integration** – Track user behavior, events, and app engagement with Firebase Analytics and Crashlytics.
 
 ## Supported Platforms:
 ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20macOS%20%7C%20Linux%20%7C%20Web%20%7C%20Windows-brightgreen)
@@ -74,17 +75,19 @@ flutter_end_to_end/
 └── hardware_firmware/       # Smart-device firmware and shared hardware code
 ```
 
-## Feature Modules
+## Directory Guide
+
+#### `Feature Modules/`
 
 | Feature | Purpose | Documentation |
 | --- | --- | --- |
 | Schools | Clean Architecture, BLoC, Firebase CRUD, and offline-data example. | [README](features/schools/README.md) |
-| Deep Linking | Builds and tests URLs that open specific app screens. | [README](features/deep_linking_feature/README.md) |
-| Localization | Runtime locale switching and LTR/RTL localization examples. | [README](features/feature_localization/README.md) |
-| Push Notifications | Firebase Cloud Messaging and local notification demonstrations. | [README](features/push_notifications/README.md) |
+| 🌍 Deep Linking | Builds and tests URLs that open specific app screens. | [README](features/deep_linking_feature/README.md) |
+| 🌐 Localization | Runtime locale switching and LTR/RTL localization examples. | [README](features/feature_localization/README.md) |
+| 🔔 Push Notifications | Firebase Cloud Messaging and local notification demonstrations. | [README](features/push_notifications/README.md) |
 | Regular Widgets | Examples of commonly used Flutter widgets and UI patterns. | [README](features/regular_widgets/README.md) |
 | Responsive Showcase | Adaptive layouts and responsive widget examples. | [README](features/responsive_showcase/README.md) |
-| Routing | Declarative navigation and nested-route examples with `GoRouter`. | [README](features/routing_feature/README.md) |
+| 🧭 Routing | Declarative navigation and nested-route examples with `GoRouter`. | [README](features/routing_feature/README.md) |
 | Scrolling | Flutter scrolling behavior and scrollable-widget examples. | — |
 | Shortcuts | Keyboard shortcuts and actions examples. | — |
 | Isolates | `compute()`, spawned isolates, and long-running worker-isolate examples. | [README](features/isolates_feature/README.md) |
@@ -93,22 +96,12 @@ flutter_end_to_end/
 | Smart Control IoT | Raspberry Pi-based smart-device control with a local server. | [README](features/smart_control_iot/README.md) |
 | Smart Control MQTT | MQTT-based smart-device control and broker integration. | [README](features/smart_control_mqtt/README.md) |
 
-## Shared Packages
+#### `Shared Packages/`
 
 | Package | Purpose | Documentation |
 | --- | --- | --- |
-| `app_core` | Shared infrastructure for routing, networking, theming, localization, Firebase, and platform services. | [README](packages/core/README.md) |
-| `ui_kit` | Reusable UI components, responsive widgets, presentation utilities, and mixins. | [README](packages/ui_kit/README.md) |
-
-## Directory Guide
-
-#### `features/`
-
-Contains self-contained Flutter modules, each focused on a specific capability such as routing, localization, notifications, or smart-home control. These modules can be studied independently while still integrating with the main app.
-
-#### `packages/`
-
-Holds shared Dart and Flutter packages used across the project. `app_core` provides common infrastructure, while `ui_kit` supplies reusable UI components and presentation utilities.
+| app_core | Shared infrastructure for routing, networking, theming, localization, Firebase, and platform services. | [README](packages/core/README.md) |
+| ui_kit | Reusable UI components, responsive widgets, presentation utilities, and mixins. | [README](packages/ui_kit/README.md) |
 
 #### `lib/`
 
@@ -188,42 +181,7 @@ https://github.com/user-attachments/assets/bf434daa-6be8-45d6-b5e0-6d539acd9420
    
    > **Medium post:** https://medium.com/@krishnajiyedlapalli60/creating-custom-theme-in-flutter-with-material-3-70e524a126d0  
    > **Web Reference:** https://flutter-end-to-end.web.app/#/home
-  --- 
-### 🧭 Localization:
-   * This application Localization with bir directional support.
-   * The application adapts to the system language if it is included in the localization list.
-   * For more information follow below links
-   
-   > **Medium post:** https://medium.com/stackademic/flutter-localization-and-internationalization-with-ltr-and-rtl-support-3c70cb926ba5
-   > **Web Reference:** https://flutter-end-to-end.web.app/#/home/localization
----
-### 📱 Responsiveness:
-   * The application UI is designed to adapt seamlessly across various screen sizes and orientations, including mobile, tablet, web, and desktop.
-   * This is achieved through a combination of Flutter's built-in responsive widgets and techniques:
-     - **`MediaQuery`**: Used to determine current screen size, orientation, and pixel density.
-     - **`LayoutBuilder`**: Dynamically rebuilds parts of the UI based on the available constraints from its parent widget.
-     - **`Expanded` and `Flexible`**: Utilized within `Row` and `Column` widgets to distribute space efficiently.
-     - **Adaptive Widgets**: Leveraging Flutter's Material Design adaptive components and custom-built adaptive widgets to ensure a consistent user experience on all platforms.
-     - **Breakpoints**: Custom breakpoints are defined to switch layouts and designs for different screen categories (e.g., compact, medium, expanded).
----
-### 🌐 Routing:
-   * This whole application navigations was implemented using **GoRouter** package.
-   * It supports all the platforms which are supported by Flutter.
-   * This application supports nested navigation.
-   * Implemented Parent with mutiple children navigation but having some issue when tapping on device backbutton will sort out it soon.
 
-   > **Web Reference:** https://flutter-end-to-end.web.app/#/home/route
----
-### 🧱 Clean Architecture using Flutter Bloc pattern:
-   * For brefiely explaining about bloc we created a module called **Schools**, using this module we can create a school,student and more about school, additionally added a delete option as well.
-   * The entire process of creating, editing, and deleting entities is implemented using Bloc exclusively.
-   * It will explain how to segregate the folders and how flow will be through them.
-   * We are utilizing Firebase Realtime Database for implementing CRUD operations
-
-![alt text](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*8KFA9NXx_YqjQUYNh6BfqA.png)
-
-   > **Medium post:** https://medium.com/@krishnajiyedlapalli60/clean-architecture-using-flutter-bloc-43463e9110db  
-   > **Web Reference:** [https://flutter-end-to-end.web.app/#/home/schools](https://flutter-end-to-end.web.app/#/home/schools)
  ---  
 ### 📡❌ Offline Support: 
    * School module which is developed by using flutter Bloc can stores the data in the local DB this was implemented by using SQLite data base.
@@ -237,32 +195,7 @@ https://github.com/user-attachments/assets/bf434daa-6be8-45d6-b5e0-6d539acd9420
   * Once internet is available it will automatically upload the data to server using Connectivity plus package.
   * Currently Offline supported platforms iOS, Android and macOS . 
 ---
-### 🌍 Deep Linking:
-  * This applications supports deep linking purely implemented by using flutter officials docs
-    https://docs.flutter.dev/ui/navigation/deep-linking
-  * Currently Deep linking supported platforms iOS, Android and macOS.
-  * Added asset link for Android and site association for iOS
-    
-    **Android:** https://flutter-end-to-end.web.app/.well-known/assetslinks.json
-    
-    **iOS:** https://flutter-end-to-end.web.app/.well-known/apple-app-site-association
-    
-> **Reference Link:** [https://docs.flutter.dev/ui/navigation/deep-linking](https://docs.flutter.dev/ui/navigation/deep-linking)  
-> **Web Reference:** https://flutter-end-to-end.web.app/#/home/deep-linking 
----
-### 🔔 Push Notifications
-- **📡 Remote Push Notifications**
-    - Integrated using **Firebase Cloud Messaging (FCM)**
-    - Supported on: **Android, iOS, macOS, Web**
-    > **Reference:** https://firebase.google.com/docs/cloud-messaging/flutter/client  
-    > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/remote-notifications
 
-- **📱 Local Push Notifications**
-    - Implemented using **flutter_local_notifications**
-    - Supported on: **Android, iOS, macOS, Linux**
-    > **Reference:** https://pub.dev/packages/flutter_local_notifications#-supported-platforms  
-    > **Web Demo:** https://flutter-end-to-end.web.app/#/home/push-notifications/local-notifications    
----
 ### 🏷️ Product Flavors
 
 #### Why Flavors Are Used
@@ -397,9 +330,6 @@ This project supports Flutter **3.38** and is pinned to Flutter **3.38.7** throu
 
 - 🔍 **GraphQL Integration**  
   Add GraphQL support for efficient querying and flexible data access.
-
-- 📊 **Firebase Analytics Integration**  
-  Track user behavior, events, and app engagement with Firebase Analytics.
 
 - ⚠️ **Advanced Error Handling**  
   Implement global error tracking, exception logging, and UI-friendly error states.
