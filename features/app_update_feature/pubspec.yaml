@@ -1,0 +1,24 @@
+name: app_update_feature
+description: App update checks feature module with OS compatibility and version comparison.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  app_core:
+    path: ../../packages/core
+  flutter_bloc:
+  equatable:
+  get_it:
+  package_info_plus:
+  go_router:
+  url_launcher:
+  device_info_plus:
+
+flutter:
+  uses-material-design: true

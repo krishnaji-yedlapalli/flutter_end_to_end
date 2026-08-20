@@ -3,6 +3,7 @@ import 'package:app_core/core/environment/environment.dart';
 import 'package:app_core/core/firebase/analytics_route_observer.dart';
 import 'package:app_core/core/routing/routing_exports.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
+import 'package:app_update_feature/app_update_feature.dart';
 import 'package:deep_linking_feature/deep_linking.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:feature_localization/localization.dart';
@@ -154,6 +155,17 @@ class Routing {
             name: 'deeplinking',
             builder: (BuildContext context, GoRouterState state) {
               return DeepLinkingTesting();
+            },
+          ),
+          GoRoute(
+            path: 'app-update',
+            name: 'App Update',
+            builder: (context, state) {
+              AppUpdateInjectionModule.registerDependencies();
+              return BlocProvider(
+                create: (_) => GetIt.instance<AppUpdateCubit>(),
+                child: const AppUpdateDemoPage(),
+              );
             },
           ),
           if (!daily_tracker.DailyTrackerRouterModule.isStub)

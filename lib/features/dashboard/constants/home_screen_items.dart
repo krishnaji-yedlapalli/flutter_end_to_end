@@ -97,6 +97,12 @@ final List<HomeScreenItem> homeScreenItems = [
     des:
         'This Journey helps the developer to learn to develop the application with Clean architecture by applying solid principles'
   ),
+  (
+    'App Update',
+    ScreenType.appUpdate,
+    Icons.system_update,
+    des: 'Smart app update checks with OS compatibility and version comparison'
+  ),
 ];
 
 String homeScreenRoutePath(ScreenType type) => switch (type) {
@@ -118,4 +124,5 @@ String homeScreenRoutePath(ScreenType type) => switch (type) {
       ScreenType.smartControl => '/home/smart-control/dashboard',
       ScreenType.smartControlMqtt => '/home/smart-control-mqtt/dashboard',
       ScreenType.adaptiveAndResponsiveWidgets => '/home/adaptive-responsive',
+      ScreenType.appUpdate => '/home/app-update',
     };

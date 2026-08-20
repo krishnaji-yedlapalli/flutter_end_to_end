@@ -5,6 +5,7 @@ import 'package:app_core/core/firebase/config/remote_config_keys.dart';
 import 'package:app_core/core/firebase/config/remote_config_scope.dart';
 import 'package:app_core/core/utils/connectivity_handler.dart';
 import 'package:app_core/core/utils/enums_type_def.dart';
+import 'package:app_update_feature/core/app_update_startup_check.dart';
 import 'package:feature_discovery_module/home_feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // offlineBannerKey.currentState;
         // if(!ConnectivityHandler().isConnected) _buildNetworkConnectivityStatus();
       });
-      HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
+      showFeatureDiscovery();
     });
 
     ConnectivityHandler()
@@ -65,6 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
     PushNotificationService.initiateTheFirebaseListeners();
     PushNotificationService.initializeLocalPushNotifications();
     super.initState();
+  }
+
+  Future<void> showFeatureDiscovery() async {
+    final allow = await AppUpdateStartupCheck.performCheck(context);
+    if (allow) HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
   }
 
   @override

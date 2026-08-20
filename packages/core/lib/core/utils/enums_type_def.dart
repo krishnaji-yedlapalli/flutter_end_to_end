@@ -12,7 +12,8 @@ enum ScreenType {
   scrollTypes,
   pushNotifications,
   deepLinking,
-  dailyTracker
+  dailyTracker,
+  appUpdate,
 }
 
 enum RouteType {
