@@ -16,12 +16,10 @@ class RemoteConfigKeys {
   // App Update
   static const String minSupportedOsVersionAndroid =
       'min_supported_sdk_version_android';
-  static const String minSupportedOsVersionIos =
-      'min_supported_os_version_ios';
+  static const String minSupportedOsVersionIos = 'min_supported_os_version_ios';
   static const String minSupportedOsVersionMacos =
       'min_supported_os_version_macos';
-  static const String minSupportedOsVersionWeb =
-      'min_supported_os_version_web';
+  static const String minSupportedOsVersionWeb = 'min_supported_os_version_web';
   static const String minSupportedAppVersion = 'min_supported_app_version';
   static const String latestAppVersion = 'latest_app_version';
   static const String appUpdateUrl = 'app_update_url';
