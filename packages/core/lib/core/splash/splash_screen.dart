@@ -135,34 +135,31 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // First (platform) splash image.
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // First (platform) splash image.
+            FadeTransition(
+              opacity: _firstOpacity,
+              child: Image.asset(
+                _primaryPath,
+                errorBuilder: (_, __, ___) => const FlutterLogo(size: 100),
+              ),
+            ),
+
+            // Second (flavor) splash image — only rendered if path is set.
+            if (_secondaryPath != null)
               FadeTransition(
-                opacity: _firstOpacity,
+                opacity: _secondOpacity,
                 child: Image.asset(
-                  _primaryPath,
-                  errorBuilder: (_, __, ___) => const FlutterLogo(size: 100),
+                  _secondaryPath!,
+                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                 ),
               ),
-
-              // Second (flavor) splash image — only rendered if path is set.
-              if (_secondaryPath != null)
-                FadeTransition(
-                  opacity: _secondOpacity,
-                  child: Image.asset(
-                    _secondaryPath!,
-                    errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                  ),
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );
