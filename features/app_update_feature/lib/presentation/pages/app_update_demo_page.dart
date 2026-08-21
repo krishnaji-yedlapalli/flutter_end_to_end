@@ -92,7 +92,8 @@ class _AppUpdateDemoPageState extends State<AppUpdateDemoPage> {
               context,
               'Platform',
               kIsWeb ? 'Web' : Platform.operatingSystem.toUpperCase(),
-            ),            _buildInfoRow(context, 'OS Version', _currentOsVersion),
+            ),
+            _buildInfoRow(context, 'OS Version', _currentOsVersion),
             _buildInfoRow(context, 'App Version', _currentAppVersion),
           ],
         ),
@@ -115,7 +116,7 @@ class _AppUpdateDemoPageState extends State<AppUpdateDemoPage> {
                   ),
             ),
             const Divider(),
-             _buildInfoRow(
+            _buildInfoRow(
               context,
               'Min OS (Web)',
               remoteConfig.getString(RemoteConfigKeys.minSupportedOsVersionWeb),
@@ -123,8 +124,8 @@ class _AppUpdateDemoPageState extends State<AppUpdateDemoPage> {
             _buildInfoRow(
               context,
               'Min OS (Android)',
-              remoteConfig.getString(
-                  RemoteConfigKeys.minSupportedOsVersionAndroid),
+              remoteConfig
+                  .getString(RemoteConfigKeys.minSupportedOsVersionAndroid),
             ),
             _buildInfoRow(
               context,
@@ -228,9 +229,8 @@ class _AppUpdateDemoPageState extends State<AppUpdateDemoPage> {
               textAlign: TextAlign.end,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: value.isEmpty
-                    ? Theme.of(context).colorScheme.error
-                    : null,
+                color:
+                    value.isEmpty ? Theme.of(context).colorScheme.error : null,
               ),
             ),
           ),

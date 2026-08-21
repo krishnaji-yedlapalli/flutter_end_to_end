@@ -25,7 +25,7 @@ class AppUpdateStartupCheck {
       final useCase = GetIt.instance<CheckAppUpdateUseCase>();
       final result = await useCase();
 
-      if (!context.mounted)  return true;
+      if (!context.mounted) return true;
 
       switch (result.status) {
         case AppUpdateStatus.osUnsupported:

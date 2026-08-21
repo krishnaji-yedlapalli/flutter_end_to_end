@@ -34,9 +34,6 @@ class VersionComparator {
       compare(version, other) >= 0;
 
   static List<int> _parseVersion(String version) {
-    return version
-        .split('.')
-        .map((part) => int.tryParse(part) ?? 0)
-        .toList();
+    return version.split('.').map((part) => int.tryParse(part) ?? 0).toList();
   }
 }

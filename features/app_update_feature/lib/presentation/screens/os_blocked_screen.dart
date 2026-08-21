@@ -35,13 +35,15 @@ class OsBlockedScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                   kIsWeb ? 'Your current browser version is no longer supported' : 'Your current OS version (${result.currentOsVersion}) is no longer supported.',
+                    kIsWeb
+                        ? 'Your current browser version is no longer supported'
+                        : 'Your current OS version (${result.currentOsVersion}) is no longer supported.',
                     style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                  '${ kIsWeb ? 'Minimum required browser version' : 'Minimum required OS version'}: ${result.minSupportedOsVersion}',
+                    '${kIsWeb ? 'Minimum required browser version' : 'Minimum required OS version'}: ${result.minSupportedOsVersion}',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -49,7 +51,9 @@ class OsBlockedScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   Text(
-                   kIsWeb ? 'Please update your browser to continue using this app.' : 'Please update your operating system to continue using this app.',
+                    kIsWeb
+                        ? 'Please update your browser to continue using this app.'
+                        : 'Please update your operating system to continue using this app.',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context)
                               .colorScheme

@@ -1,7 +1,8 @@
 class AppUpdateDemoConstants {
   AppUpdateDemoConstants._();
 
-  static List<String> osVersionOptions = List.generate(200, (index)=> (index+1).toString()).toList();
+  static List<String> osVersionOptions =
+      List.generate(200, (index) => (index + 1).toString()).toList();
 
   static const List<String> appVersionOptions = [
     '1.0.0',
