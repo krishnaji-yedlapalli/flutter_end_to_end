@@ -93,18 +93,54 @@ Future<void> _initializeApp() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(const AppRoot());
+}
 
-  /// Having two run apps is not a good idea, there will be no smooth transistion between
-  /// Spash screen and actual dashboard
-  runApp(const SplashScreen());
+/// Single entry point for the widget tree.
+///
+/// Renders [SplashScreen] while initialization is in progress, then
+/// cross-fades into [MyApp] once both the async setup and the minimum
+/// splash duration have completed. A single [runApp] call keeps the
+/// widget tree alive throughout, enabling smooth animated transitions.
+class AppRoot extends StatefulWidget {
+  const AppRoot({super.key});
 
-  await Future.wait([
-    _initializeApp(),
-    Future.delayed(SplashScreen.totalDuration),
-  ]);
+  @override
+  State<AppRoot> createState() => _AppRootState();
+}
 
-  // FlutterNativeSplash.remove();
-  runApp(const MyApp());
+class _AppRootState extends State<AppRoot> {
+  bool _initialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _bootstrap();
+  }
+
+  Future<void> _bootstrap() async {
+    await Future.wait([
+      _initializeApp(),
+      Future.delayed(SplashScreen.totalDuration),
+    ]);
+    if (mounted) setState(() => _initialized = true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // [SplashScreen] is shown before [MyApp]'s MaterialApp is built, so it
+    // needs the root-level ambient layout widgets normally supplied by an app.
+    return MediaQuery.fromView(
+      view: View.of(context),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          child: _initialized ? const MyApp() : const SplashScreen(),
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
