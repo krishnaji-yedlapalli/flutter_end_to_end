@@ -25,6 +25,7 @@ This monorepo approach is particularly well suited for large-scale and enterpris
 🪝 **Git Hooks** – Pre-commit checks for formatting & code quality.  
 📂 **Path Handling Scripts** – Safe path resolution & fallback handling for private or missing files.
 📂 **Firebase Analytics & Crashlytics Integration** – Track user behavior, events, and app engagement with Firebase Analytics and Crashlytics.
+📲 **App Update Checks** – Smart update flow with OS compatibility, force update, and flexible update using Firebase Remote Config.
 
 ## Supported Platforms:
 ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20macOS%20%7C%20Linux%20%7C%20Web%20%7C%20Windows-brightgreen)
@@ -95,6 +96,7 @@ flutter_end_to_end/
 | Daily Tracker | Private daily-activity tracking module for the Raspberry Pi setup. | — |
 | Smart Control IoT | Raspberry Pi-based smart-device control with a local server. | [README](features/smart_control_iot/README.md) |
 | Smart Control MQTT | MQTT-based smart-device control and broker integration. | [README](features/smart_control_mqtt/README.md) |
+| 📲 App Update | Smart app update checks with OS compatibility and version comparison. | [README](features/app_update_feature/README.md) |
 
 #### `Shared Packages/`
 
