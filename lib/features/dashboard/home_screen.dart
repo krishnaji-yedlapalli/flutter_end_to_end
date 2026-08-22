@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> showFeatureDiscovery() async {
+    /// This feature will be enabled once app updare issue solved for web.
     // final allow = await AppUpdateStartupCheck.performCheck(context);
     // if (allow)
     HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
