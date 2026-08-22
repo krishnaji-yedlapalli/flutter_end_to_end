@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> showFeatureDiscovery() async {
+    /// This will be uncommented, once issue solved.
     // final allow = await AppUpdateStartupCheck.performCheck(context);
     // if (allow)
     HomeScreenFeatureDiscovery().startFeatureDiscovery(context);
