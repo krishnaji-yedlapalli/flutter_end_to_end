@@ -24,11 +24,7 @@ mixin DateFormats {
   }
 
   (DateTime, TimeOfDay) getDateFromMillisecondsSinceEpoch(
-      int millisecondsSinceEpoch) {
-    // Convert millisecondsSinceEpoch to DateTime
-    DateTime dateTime =
-        DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
-
+      DateTime dateTime) {
     // Extract time from DateTime to create a TimeOfDay
     TimeOfDay timeOfDay =
         TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
@@ -50,11 +46,8 @@ mixin DateFormats {
     return difference.inDays.abs();
   }
 
-  String durationBetweenTwoDates(int? start, int? end) {
-    if (start == null || end == null) return '';
-
-    var dateTime1 = DateTime.fromMillisecondsSinceEpoch(start);
-    var dateTime2 = DateTime.fromMillisecondsSinceEpoch(end);
+  String durationBetweenTwoDates(DateTime? dateTime1, DateTime? dateTime2) {
+    if (dateTime1 == null || dateTime2 == null) return '';
 
     Duration difference = dateTime2.difference(dateTime1);
 

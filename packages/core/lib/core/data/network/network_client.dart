@@ -1,5 +1,6 @@
 import 'package:app_core/core/data/network/network_failure.dart';
 import 'package:app_core/core/data/network/network_response.dart';
+import 'package:app_core/core/data/strategy/base_url_strategy.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
@@ -34,13 +35,19 @@ abstract class NetworkClient {
     CancelToken? cancelToken,
   });
 
-  /// Creates a journey-scoped client with additional or overridden interceptors.
+  /// Creates a journey-scoped client with optional base URL / strategy overrides.
   ///
+  /// [baseUrl] overrides the parent Dio base URL when non-null.
+  /// [urlStrategy] overrides the parent path strategy when non-null.
   /// [additionalInterceptors] are appended after the global pipeline.
   /// [overrideInterceptors] replace interceptors in the global pipeline by type.
+  /// [excludeInterceptorTypes] omit parent interceptors matching those runtime types.
   NetworkClient createJourneyClient({
+    String? baseUrl,
+    BaseUrlStrategy? urlStrategy,
     List<Interceptor> additionalInterceptors = const [],
     Map<Type, Interceptor> overrideInterceptors = const {},
+    Set<Type> excludeInterceptorTypes = const {},
   });
 
   /// Cancels all in-flight requests and creates a fresh CancelToken.

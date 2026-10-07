@@ -6,7 +6,7 @@ mixin HelperMethods {
 
   static K? enumFromString<K>(Iterable<K> values, String value) {
     return values
-        .firstWhere((type) => type.toString().split(".").last == value);
+        .firstWhere((type) => type.toString().split(".").last.toLowerCase() == value.toLowerCase());
   }
 
   static String get uuid {
