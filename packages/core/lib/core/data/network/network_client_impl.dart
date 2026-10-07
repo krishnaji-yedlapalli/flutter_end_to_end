@@ -102,14 +102,22 @@ class NetworkClientImpl implements NetworkClient {
 
   @override
   NetworkClient createJourneyClient({
+    String? baseUrl,
+    BaseUrlStrategy? urlStrategy,
     List<Interceptor> additionalInterceptors = const [],
     Map<Type, Interceptor> overrideInterceptors = const {},
+    Set<Type> excludeInterceptorTypes = const {},
   }) {
-    final journeyDio = Dio(_dio.options.copyWith());
+    final journeyDio = Dio(_dio.options.copyWith(
+      baseUrl: baseUrl ?? _dio.options.baseUrl,
+    ));
 
-    // Build pipeline: apply overrides to global interceptors, then append additional
+    // Build pipeline: skip excluded, apply overrides, then append additional
     for (final interceptor in _interceptors) {
       final overrideType = interceptor.runtimeType;
+      if (excludeInterceptorTypes.contains(overrideType)) {
+        continue;
+      }
       if (overrideInterceptors.containsKey(overrideType)) {
         journeyDio.interceptors.add(overrideInterceptors[overrideType]!);
       } else {
@@ -120,7 +128,7 @@ class NetworkClientImpl implements NetworkClient {
 
     return NetworkClientImpl(
       dio: journeyDio,
-      urlStrategy: _urlStrategy,
+      urlStrategy: urlStrategy ?? _urlStrategy,
     );
   }
 

@@ -67,7 +67,7 @@ dependencies:
   go_router: ^15.1.0
 #  workmanager: ^0.5.2
 #  easy_upi_payment:
-  google_fonts: ^6.1.0
+  google_fonts: ^8.2.1
   connectivity_plus: 6.1.4
   sqflite:
   provider:

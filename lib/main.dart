@@ -119,10 +119,14 @@ class _AppRootState extends State<AppRoot> {
   }
 
   Future<void> _bootstrap() async {
-    await Future.wait([
-      _initializeApp(),
-      Future.delayed(SplashScreen.totalDuration),
-    ]);
+    if (!kDebugMode) {
+      await Future.wait([
+        _initializeApp(),
+        Future.delayed(SplashScreen.totalDuration),
+      ]);
+    } else {
+      await _initializeApp();
+    }
     if (mounted) setState(() => _initialized = true);
   }
 
