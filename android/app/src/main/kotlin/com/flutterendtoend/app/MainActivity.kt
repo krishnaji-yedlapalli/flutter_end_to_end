@@ -1,4 +1,4 @@
-package com.example.sample_latest
+package com.flutterendtoend.app
 
 import io.flutter.embedding.android.FlutterActivity
 
