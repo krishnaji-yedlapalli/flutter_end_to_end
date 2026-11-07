@@ -105,14 +105,27 @@ class _ListDataState extends State<ListData>
     }));
   }
 
+  static const List<IconData> _icons = [
+    Icons.home,
+    Icons.star,
+    Icons.favorite,
+    Icons.person,
+    Icons.settings,
+    Icons.search,
+    Icons.notifications,
+    Icons.camera,
+    Icons.music_note,
+    Icons.map,
+    Icons.phone,
+    Icons.email,
+    Icons.lock,
+    Icons.cloud,
+    Icons.bookmark,
+    Icons.thumb_up,
+  ];
+
   IconData getRandomIcon() {
     final Random random = Random();
-    const String chars = '0123456789ABCDEF';
-    int length = 3;
-    String hex = '0xe';
-    while (length-- > 0) {
-      hex += chars[(random.nextInt(16)) | 0];
-    }
-    return IconData(int.parse(hex), fontFamily: 'MaterialIcons');
+    return _icons[random.nextInt(_icons.length)];
   }
 }

@@ -19,7 +19,8 @@ class CommonDbHandler extends DbHandler {
   final DbInfo dbInfo = (
     dbName: 'common',
     dbVersion: 5,
-    queryFileName: 'lib/core/data/db/queries/create_common_tables_queries.sql'
+    queryFileName:
+        'packages/app_core/lib/core/data/db/queries/create_common_tables_queries.sql'
   );
 
   @override
@@ -38,13 +39,13 @@ class CommonDbHandler extends DbHandler {
     try {
       switch (requestType(options.method)) {
         case RequestType.get:
-          return performGetOperation(options);
+          return await performGetOperation(options);
         case RequestType.post:
         case RequestType.patch:
         case RequestType.put:
-          return performPatchOperation(options);
+          return await performPatchOperation(options);
         case RequestType.delete:
-          return performDeleteOperation(options);
+          return await performDeleteOperation(options);
         default:
           return Response(
               requestOptions: options,
