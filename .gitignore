@@ -51,3 +51,6 @@ app.*.map.json
 /android/app/release
 /android/app/.cxx/
 lib/features/daily_tracker/
+
+# FVM Version Cache
+.fvm/

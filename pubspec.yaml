@@ -67,7 +67,7 @@ dependencies:
   go_router: ^15.1.0
 #  workmanager: ^0.5.2
 #  easy_upi_payment:
-  google_fonts: ^6.1.0
+  google_fonts: ^6.3.3
   connectivity_plus: 6.1.4
   sqflite:
   provider:
@@ -139,7 +139,7 @@ dev_dependencies:
   mocktail: ^1.0.4
   bloc_test: ^9.1.7
   json_serializable:
-  build_runner: 2.4.13
+  build_runner: ^2.15.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -221,7 +221,7 @@ flutter:
         - windows
      - path: asset/splash_screens/mac/
        platforms:
-        - mac   
+        - macos
 
     # Loading Offline assets based on the platform      
      - path: asset/school_data.zip

@@ -11,3 +11,5 @@ analyzer:
     deprecated_member_use: ignore
     file_names: ignore
     use_build_context_synchronously: ignore
+  exclude:
+    - build/**
