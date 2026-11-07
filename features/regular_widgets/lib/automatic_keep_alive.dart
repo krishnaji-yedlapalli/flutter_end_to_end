@@ -113,6 +113,7 @@ class _ListDataState extends State<ListData>
     while (length-- > 0) {
       hex += chars[(random.nextInt(16)) | 0];
     }
-    return IconData(int.parse(hex), fontFamily: 'MaterialIcons');
+    final int codePoint = int.parse(hex);
+    return IconData(codePoint, fontFamily: 'MaterialIcons');
   }
 }
