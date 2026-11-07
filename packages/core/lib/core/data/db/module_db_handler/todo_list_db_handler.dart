@@ -17,7 +17,8 @@ class TodoListDbHandler extends DbHandler {
   final DbInfo dbInfo = (
     dbName: 'todolist',
     dbVersion: 5,
-    queryFileName: 'packages/app_core/lib/core/data/db/queries/create_todolist_table_queries.sql'
+    queryFileName:
+        'packages/app_core/lib/core/data/db/queries/create_todolist_table_queries.sql'
   );
 
   @override

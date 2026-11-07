@@ -19,7 +19,8 @@ class CommonDbHandler extends DbHandler {
   final DbInfo dbInfo = (
     dbName: 'common',
     dbVersion: 5,
-    queryFileName: 'packages/app_core/lib/core/data/db/queries/create_common_tables_queries.sql'
+    queryFileName:
+        'packages/app_core/lib/core/data/db/queries/create_common_tables_queries.sql'
   );
 
   @override
