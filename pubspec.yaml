@@ -58,6 +58,11 @@ dependencies:
   app_core:
     path: packages/core
 
+  # Feature packages — listed as dependencies so Flutter bundles their assets.
+  # Assets are declared and maintained within each feature package's own pubspec.yaml.
+  schools:
+    path: features/schools
+
   # Flutter launcher icons
   flutter_launcher_icons: ^0.13.1
 

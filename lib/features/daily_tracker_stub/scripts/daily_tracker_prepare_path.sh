@@ -28,22 +28,41 @@ action = sys.argv[2]
 lines = pubspec_path.read_text().splitlines(keepends=True)
 
 WORKSPACE_ENTRY = "  - features/daily_tracker_feature\n"
-ANCHOR = "  - features/smart_control_mqtt\n"
+WORKSPACE_ANCHOR = "  - features/smart_control_mqtt\n"
+
+DEP_ENTRY_1 = "  daily_tracker_feature:\n"
+DEP_ENTRY_2 = "    path: features/daily_tracker_feature\n"
+DEP_ANCHOR = "    path: features/schools\n"
 
 def has_entry(text_lines, entry):
     return any(line == entry for line in text_lines)
 
-def insert_after(lines, needle, entry):
+def insert_after(lines, needle, entries):
     for index, line in enumerate(lines):
         if line == needle:
-            return lines[: index + 1] + [entry] + lines[index + 1 :]
+            return lines[: index + 1] + entries + lines[index + 1 :]
     raise RuntimeError(f"Could not find insertion point: {needle!r}")
 
 if action == "enable":
     if not has_entry(lines, WORKSPACE_ENTRY):
-        lines = insert_after(lines, ANCHOR, WORKSPACE_ENTRY)
+        lines = insert_after(lines, WORKSPACE_ANCHOR, [WORKSPACE_ENTRY])
+    if not has_entry(lines, DEP_ENTRY_1):
+        lines = insert_after(lines, DEP_ANCHOR, [DEP_ENTRY_1, DEP_ENTRY_2])
 elif action == "disable":
+    # Remove workspace entry
     lines = [line for line in lines if line != WORKSPACE_ENTRY]
+    # Remove dependency entries (two consecutive lines)
+    result = []
+    skip_next = False
+    for line in lines:
+        if skip_next:
+            skip_next = False
+            continue
+        if line == DEP_ENTRY_1:
+            skip_next = True
+            continue
+        result.append(line)
+    lines = result
 else:
     raise RuntimeError(f"Unknown action: {action}")
 

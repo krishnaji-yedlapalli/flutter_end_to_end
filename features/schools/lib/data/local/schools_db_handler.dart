@@ -20,7 +20,7 @@ class SchoolsDbHandler extends DbHandler {
     dbName: 'school',
     dbVersion: 5,
     queryFileName:
-        'packages/schools/lib/data/local/queries/create_school_table_queries.sql'
+        'packages/schools/asset/queries/create_school_table_queries.sql'
   );
 
   @override
