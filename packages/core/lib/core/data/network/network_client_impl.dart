@@ -186,6 +186,8 @@ class NetworkClientImpl implements NetworkClient {
   NetworkFailure _mapBadResponse(DioException e) {
     final statusCode = e.response?.statusCode;
     switch (statusCode) {
+      case 400: 
+       throw e;
       case 401:
       case 403:
         return NetworkFailure(

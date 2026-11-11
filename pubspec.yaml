@@ -83,8 +83,8 @@ dependencies:
   loader_overlay: ^4.0.0
 
   # Plugins
-  just_audio:
-  fluttertoast: ^8.2.12
+  flutter_soloud: ^5.2.3
+  fluttertoast: ^10.0.2
   dio:
   dio_cache_interceptor: ^3.5.0
   uuid:

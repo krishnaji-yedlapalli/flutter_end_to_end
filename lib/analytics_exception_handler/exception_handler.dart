@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_core/core/data/network/network_failure.dart';
 import 'package:app_core/core/data/utils/service_enums_typedef.dart';
 import 'package:app_core/core/mixins/notifiers.dart';
 import 'package:dio/dio.dart';
@@ -48,7 +49,9 @@ class ExceptionHandler {
 
     if (exception is DioException) {
       errorStateType = handleServerException(exception, stackTrace);
-    } else {}
+    } else if (exception is NetworkFailure) {
+      errorStateType = (DataErrorStateType.none, message: exception.message);
+    }
 
     return errorStateType;
   }

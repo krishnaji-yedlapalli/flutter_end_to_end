@@ -67,6 +67,7 @@ dependencies:
   mqtt_client:
   shelf:
   package_info_plus:
+  flutter_soloud:
 
   # Hardware (embedded/IoT)
   dart_periphery:
